@@ -946,7 +946,7 @@ class Tutor extends CI_Controller
 
         if ($item != 8) {
             $data['question_box']=$this->load->view($question_box, $datas, true);
-            $data['maincontent'] = $this->load->view('tutors/question/create_question', $data, true);
+            $data['maincontent'] = $this->load->view('tutors/question/create_question1', $data, true);
             $this->load->view('master_dashboard', $data);
         }
     }
@@ -1393,6 +1393,7 @@ class Tutor extends CI_Controller
 
         $data['studentgrade']        = $this->input->post('studentgrade');
         $data['user_id']             = $this->session->userdata('user_id');
+        $data['studentsection']      = $this->input->post('studentsection');
         $data['subject']             = $this->input->post('subject');
         $data['chapter']             = $this->input->post('chapter');
         $data['country']             = $this->input->post('country');
@@ -2159,7 +2160,11 @@ class Tutor extends CI_Controller
                 if ($data['studentgrade'] == '') {
                     $return_data['msg'] = 'Student Grade Need To Be Selected';
                     $return_data['flag'] = 0;
-                } elseif ($data['subject'] == '') {
+                }elseif($data['studentsection'] == ''){
+                    $return_data['msg'] = 'Section Need To Be Selected';
+                    $return_data['flag'] = 0;
+                }
+                 elseif ($data['subject'] == '') {
                     $return_data['msg'] = 'Subject Need To Be Selected';
                     $return_data['flag'] = 0;
                 } elseif ($data['chapter'] == '') {
@@ -2349,7 +2354,7 @@ class Tutor extends CI_Controller
         }
     }
     
-    //    Question Edit Option
+    //******* Question Edit Option *********//
     public function question_edit($type, $question_id, $module_edit_status=null, $module_status_edit_id=null)
     { 
         // echo 11; die();
@@ -2371,28 +2376,33 @@ class Tutor extends CI_Controller
         }
         
         $data['question_info'] = $this->tutor_model->getQuestionInfo($type, $question_id);
-        // echo '<pre>';print_r($data['question_info']);die;
-        $data['question_item'] = $type;
-        $data['question_id'] = $question_id;
+        // echo '<pre>';print_r($data['question_info']);die();
+
+        $data['question_item']     = $type;
+        $data['question_id']       = $question_id;
         $data['question_tutorial'] = $this->tutor_model->getInfo('tbl_question_tutorial', 'question_id', $question_id);
-        $user_id = $this->session->userdata('user_id');
-        $data['all_grade'] = $this->tutor_model->getAllInfo('tbl_studentgrade');
-        $data['all_subject'] = $this->tutor_model->getInfo('tbl_subject', 'created_by', $user_id);
-        $subject_id = $data['question_info'][0]['subject'];
+        $user_id                   = $this->session->userdata('user_id');
+        $data['all_grade']         = $this->tutor_model->getAllInfo('tbl_studentgrade');
+        $data['all_subject']       = $this->tutor_model->getInfo('tbl_subject', 'created_by', $user_id);
+        $subject_id                = $data['question_info'][0]['subject'];
 
         $data['subject_base_chapter'] = $this->tutor_model->getInfo('tbl_chapter', 'subjectId', $subject_id);
+
         if (count($data['question_info'])) {
+
             $data['allCountry'] = $this->Admin_model->search('tbl_country', [1=>1]);
             $data['selCountry'] = $data['question_info'][0]['country'];
-            $quesSub = $data['question_info'][0]['subject'];
-            $quesChap = $data['question_info'][0]['chapter'];
-            $chaps = $this->get_chapter_name($quesSub, $quesChap); //selected $quesChap
+            $quesSub            = $data['question_info'][0]['subject'];
+            $quesChap           = $data['question_info'][0]['chapter'];
+            $chaps              = $this->get_chapter_name($quesSub, $quesChap); //selected $quesChap
+
             $temp = [
-                'subject' =>$data['question_info'][0]['subject'],
-                'chapter' =>$chaps,
-                'selChapter' =>$quesChap,
-                'studentGrade' =>$data['question_info'][0]['studentgrade'],
+                'subject'      => $data['question_info'][0]['subject'],
+                'chapter'      => $chaps,
+                'selChapter'   => $quesChap,
+                'studentGrade' => $data['question_info'][0]['studentgrade'],
             ];
+
             $this->session->set_flashdata('refPage', 'questionEdit');
             $this->session->set_flashdata('modInfo', $temp);
         }

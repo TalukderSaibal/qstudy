@@ -101,8 +101,9 @@
       <a href="create-module" style="font-size:22px;color:#8e9295;text-decoration:underline;display: inline-block;">Module Inbox</a>
       <a href="details-module" style="font-size:22px;color:#8e9295;text-decoration:underline;display: inline-block;margin-left:10px;">Question Inbox</a>
     </div>
-<div id="add_ch_success" style="text-align:center;"></div>
-<!-- <form class="form-inline" id="question_form"> -->
+
+  <div id="add_ch_success" style="text-align:center;"></div>
+  <!-- <form class="form-inline" id="question_form"> -->
   <form class="form-inline" id="question_form" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="questionType" value="<?php echo $question_item?>">
 
@@ -288,7 +289,7 @@
                                 </a>
                                 
                                 <a data-toggle="modal" data-target="#ss_video_model" class="text-center" style="display: inline-block;">
-                                 <img src="/assets/ckeditor/plugins/svideo/icons/svideo.png">
+                                <img src="/assets/ckeditor/plugins/svideo/icons/svideo.png">
                                 </a>
                               </td>
                             </tr>
@@ -388,6 +389,7 @@
                             <?php } ?>
                           </select>
                         </div>
+
                         <div class="form-group" style="display: inline-block !important;">
                           <select class="form-control" name="minute">
                             <option>MM</option>
@@ -402,6 +404,7 @@
 
                           </select>
                         </div>
+
                         <div class="form-group" style="display: inline-block !important;">
                           <select class="form-control" name="second">
                             <option>SS</option>
@@ -418,6 +421,7 @@
 
                           </select>
                         </div>
+                        
                         <br/>
 
                       </div>
