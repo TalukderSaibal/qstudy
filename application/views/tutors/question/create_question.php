@@ -42,9 +42,10 @@
       <a href="details-module" style="font-size:22px;color:#8e9295;text-decoration:underline;display: inline-block;margin-left:10px;">Question Inbox</a>
     </div>
 
-<div id="add_ch_success" style="text-align:center;"></div>
+  <div id="add_ch_success" style="text-align:center;"></div>
 
 <form class="form-inline" id="question_form" method="POST" enctype="multipart/form-data">
+
   <input type="hidden" id="question_item" name="questionType" value="<?php echo $question_item; ?>">
   <input type="hidden" name="attached_subject" id="get_subject_value">
   <input type="hidden" name="chapter" id="get_chapter_value">
@@ -52,47 +53,50 @@
 
   <div class="row" >
     <div class="col-sm-1"></div>
-    <div class="col-sm-11 ">
-      <div class="ss_question_add_top">
+      <div class="col-sm-11 ">
+        <div class="ss_question_add_top">
+          <div class="form-group" style="float: left;margin-right: 10px;">
+            <label for="exampleInputName2">Grade/Year/Level</label>
 
-        
-
-        <div class="form-group" style="float: left;margin-right: 10px;">
-          <label for="exampleInputName2">Grade/Year/Level</label>
-          <select class="form-control createQuesLabel" name="studentgrade">
-            <option value="">Select Grade/Year/Level</option>
-            <?php $grades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; ?>
-            <?php foreach ($grades as $grade) { ?>
+            <select class="form-control createQuesLabel" name="studentgrade">
+              <option value="">Select Grade/Year/Level</option>
+              <?php $grades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; ?>
+              <?php foreach ($grades as $grade) { ?>
               <option value="<?php echo $grade ?>">
                 <?php echo $grade; ?>
               </option>
-            <?php } ?>
-          </select>
-        </div>
+              <?php } ?>
+            </select>
 
-        <div class="form-group" style="float: left;margin-right: 10px;">
-          <label>Subject 
-            <span data-toggle="modal" data-target="#add_subject"><img src="assets/images/icon_new.png"> New</span> 
-          </label>
+          </div>
+
+          <div class="form-group" style="float: left;margin-right: 10px;">
+            <label>Subject 
+              <span data-toggle="modal" data-target="#add_subject"><img src="assets/images/icon_new.png"> New</span> 
+            </label>
           
-          <select class="form-control createQuesLabel subject select2" name="subject" id="subject" onchange="getChapter(this)">
-            <option value="">Select Subject</option>
-            <?php foreach ($all_subject as $subject) { ?>
-              <option class="option" value="<?php echo $subject['subject_id'] ?>">
-                <?php echo $subject['subject_name']; ?>
-              </option>
-            <?php } ?>
-          </select>
-          
-        </div>
+            <select class="form-control createQuesLabel subject select2" name="subject" id="subject" onchange="getChapter(this)">
+              <option value="" disabled selected>Select Subject</option>
+
+              <?php foreach ($all_subject as $subject) { ?>
+                <option class="option" value="<?php echo $subject['subject_id'] ?>">
+                  <?php echo $subject['subject_name']; ?>
+                </option>
+              <?php } ?>
+
+            </select>
+
+          </div>
 
         <div class="form-group" style="float: left;margin-right: 10px;">
           <label>Chapter <span id="get_subject"><img src="assets/images/icon_new.png"> New</span></label>
           <i class="fa fa-clone module_chapter_copy" aria-hidden="true" style="color:#ffa500;"></i>
           <i class="fa fa-clipboard module_chapter_paste" aria-hidden="true" style="color:#ffa500;"></i>
+
           <select class="form-control createQuesLabel select2" name="chapter" id="subject_chapter">
             <option value="">Select Chapter</option>
           </select>
+
         </div>
         
                 
@@ -113,13 +117,11 @@
           Question setting
           </a>
         <?php }else{ ?>
-          
-          
-            <a  class="ss_q_btn btn btn_red pull-left " onclick="open_question_setting()">
-               Question setting
-               </a>
-               
-          
+
+          <a  class="ss_q_btn btn btn_red pull-left " onclick="open_question_setting()">
+              Question setting
+          </a>
+                
         <?php } ?>
         
         <input type="submit" name="submit" class="btn btn-danger ss_q_btn " value="Save"/> 
@@ -129,7 +131,7 @@
         <a class="ss_q_btn btn pull-left " href="" id="preview_btn" style="display: none;">
           <i class="fa fa-file-o" aria-hidden="true"></i> Preview
         </a>
-               <!-- <?php if ($question_item == 4) {?>
+              <!-- <?php if ($question_item == 4) {?>
               <a class="btn btn-danger ss_q_btn question_tutorial" title="You can click when edit a question." href="#" disabled="disabled" style="text-decoration: underline;font-size: medium; font-weight: 600;">
 
                   <img src="<?php echo base_url('/')?>assets/images/question_tutorial_icon.png" width="46">
@@ -143,24 +145,27 @@
             
         <?php }?>
       </div>
+
       <p id="error_msg" style="color:red;text-align: center;"></p>
 
     </div>
 
   </div>
+
+
   <div class="row">
     <div class="ss_question_add">
-     <div class="ss_s_b_main" style="min-height: 100vh">
+      <div class="ss_s_b_main" style="min-height: 100vh">
 
         <?php echo $question_box; ?>
         
         
       <div class="col-sm-4">
-       <div class="panel-group ss_edit_q" id="raccordion" role="tablist" aria-multiselectable="true" style="display: none;">
+        <div class="panel-group ss_edit_q" id="raccordion" role="tablist" aria-multiselectable="true" style="display: none;">
         <div class="panel panel-default">
-         <div class="panel-heading" role="tab" id="headingOne" style="padding: 0;">
+          <div class="panel-heading" role="tab" id="headingOne" style="padding: 0;">
           <h4 class="panel-title">
-           <a> 
+            <a> 
             <label class="form-check-label" for="question_time">Question Time</label> 
             <input type="checkbox" id="question_time" name="question_time">  
             Calculator Required <input type="checkbox" name="isCalculator" value="1"> 
@@ -176,12 +181,12 @@
       <div id="collapsethree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 
         <div class="panel-body">
-         <div class=" ss_module_result">
+          <div class=" ss_module_result">
           <p>Module Name:</p>
           <div class="table-responsive">
-           <table class="table table-bordered">
+            <table class="table table-bordered">
             <thead>    
-             <tr>
+              <tr>
               <th></th>
               <th>SL</th>
               <th>Mark</th>
@@ -215,9 +220,9 @@
       </div>
       <!-- Modal -->
       <div class="modal fade ss_modal ew_ss_modal" id="ss_description_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-       <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document">
         <div class="modal-content">
-         <div class="modal-header">
+          <div class="modal-header">
           <h4 class="modal-title" id="myModalLabel"> Question Description </h4>
         </div>
         <div class="modal-body">
@@ -228,178 +233,176 @@
           <button type="button" class="btn btn_blue" data-dismiss="modal">Save</button>
         </div>
       </div>
-    </div>
-  </div>
+      </div>
+      </div>
 
-  <!-- Start Instruction Modal -->
-  <div class="modal fade ss_modal ew_ss_modal" id="ss_instruction_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel"> Question Instruction </h4>
-        </div>
-        <div class="modal-body">
-          <textarea class="form-control instruction" name="question_instruction"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn_blue" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn_blue" data-dismiss="modal">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Instruction Modal -->
-<!-- Start video Modal -->
-  <div class="modal fade ss_modal ew_ss_modal" id="ss_video_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <input type="text" name="video_name" class="form-control" value="Video Name">
-        </div>
-        <div class="modal-body">
-          <textarea class="form-control question_video" name="question_video"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn_blue" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn_blue" data-dismiss="modal">Save</button>
+      <!-- Start Instruction Modal -->
+      <div class="modal fade ss_modal ew_ss_modal" id="ss_instruction_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel"> Question Instruction </h4>
+            </div>
+            <div class="modal-body">
+              <textarea class="form-control instruction" name="question_instruction"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn_blue" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn_blue" data-dismiss="modal">Save</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- End Instruction Modal -->
-  <p><strong> Time To Answer:</strong></p>
-  <!--<form class="form-inline ss_common_form" id="set_time" style="display: none">-->
-    <div class="form-inline" id="set_time" style="display: none">
-     <div class="form-group" style="display: inline-block !important;">
-      <select class="form-control" name="hour">
-       <option>HH</option>
-        <?php for ($i = 0; $i < 24; $i++) { ?>
+      <!-- End Instruction Modal -->
+      <!-- Start video Modal -->
+      <div class="modal fade ss_modal ew_ss_modal" id="ss_video_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <input type="text" name="video_name" class="form-control" value="Video Name">
+          </div>
+          <div class="modal-body">
+            <textarea class="form-control question_video" name="question_video"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn_blue" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn_blue" data-dismiss="modal">Save</button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <!-- End Instruction Modal -->
+      <p><strong> Time To Answer:</strong></p>
+      <!--<form class="form-inline ss_common_form" id="set_time" style="display: none">-->
+      <div class="form-inline" id="set_time" style="display: none">
+      <div class="form-group" style="display: inline-block !important;">
+        <select class="form-control" name="hour">
+        <option>HH</option>
+          <?php for ($i = 0; $i < 24; $i++) { ?>
+          <option>
+              <?php
+              $value = $i;
+              if ($i < 24) {
+                  echo str_pad($i, 2, "0", STR_PAD_LEFT);
+              }
+              ?>
+          </option>
+          <?php } ?>
+      </select>
+      </div>
+      <div class="form-group" style="display: inline-block !important;">
+      <select class="form-control" name="minute">
+      <option>MM</option>
+          <?php for ($i = 0; $i < 60; $i++) { ?>
         <option>
-            <?php
-            $value = $i;
-            if ($i < 24) {
-                echo str_pad($i, 2, "0", STR_PAD_LEFT);
-            }
-            ?>
+              <?php
+              if ($i < 60) {
+                  echo str_pad($i, 2, "0", STR_PAD_LEFT);
+              }
+              ?>
         </option>
-        <?php } ?>
-    </select>
-  </div>
-  <div class="form-group" style="display: inline-block !important;">
-    <select class="form-control" name="minute">
-     <option>MM</option>
-        <?php for ($i = 0; $i < 60; $i++) { ?>
+          <?php } ?>
+      </select>
+      </div>
+      <div class="form-group" style="display: inline-block !important;">
+      <select class="form-control" name="second">
+        <option>SS</option>
+      <?php for ($i = 0; $i < 60; $i++) { ?>
       <option>
-            <?php
-            if ($i < 60) {
-                echo str_pad($i, 2, "0", STR_PAD_LEFT);
-            }
-            ?>
+          <?php
+          if ($i < 60) {
+              echo str_pad($i, 2, "0", STR_PAD_LEFT);
+          }
+          ?>
       </option>
-        <?php } ?>
-  </select>
-</div>
-<div class="form-group" style="display: inline-block !important;">
-  <select class="form-control" name="second">
-    <option>SS</option>
-    <?php for ($i = 0; $i < 60; $i++) { ?>
-     <option>
-        <?php
-        if ($i < 60) {
-            echo str_pad($i, 2, "0", STR_PAD_LEFT);
-        }
-        ?>
-    </option>
-    <?php } ?>
+      <?php } ?>
 
-</select>
-</div>
-</div>
+      </select>
+      </div>
+      </div>
 
-<br/>
+      <br/>
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
 
-<?php if ($question_item == 11) {?>
-  <div class="col-sm-12">
-    <div class="row htm_r" style="margin: 10px 0px;">
+      <?php if ($question_item == 11) {?>
+      <div class="col-sm-12">
+        <div class="row htm_r" style="margin: 10px 0px;">
 
 
-    </div>
+        </div>
 
-    <div class="col-sm-2"></div>
-    <div class="skip_box col-sm-4">
-      <div class="table-responsive">
-        <table class="dynamic_table_skpi table table-bordered">
-          <tbody class="dynamic_table_skpi_tbody">
+        <div class="col-sm-2"></div>
+        <div class="skip_box col-sm-4">
+          <div class="table-responsive">
+            <table class="dynamic_table_skpi table table-bordered">
+            <tbody class="dynamic_table_skpi_tbody">
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
 
-        <!-- may be its a draggable modal -->
-        <div id="skiping_question_answer" style="display:none">
-          <input type="text" name="set_skip_value" class="input-box form-control rs_set_skipValue">
+          <!-- may be its a draggable modal -->
+          <div id="skiping_question_answer" style="display:none">
+            <input type="text" name="set_skip_value" class="input-box form-control rs_set_skipValue">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-4">
+        <div class="table-responsive">
+          <table class="dynamic_table_dividend table table-bordered">
+            <tbody class="dynamic_table_dividend_tbody">
+
+            </tbody>
+          </table>
         </div>
       </div>
+      <div class="col-sm-2 quotient_block">
 
-    </div>
-    <div class="col-sm-4">
-      <div class="table-responsive">
-        <table class="dynamic_table_dividend table table-bordered">
-          <tbody class="dynamic_table_dividend_tbody">
-
-          </tbody>
-        </table>
       </div>
-    </div>
-    <div class="col-sm-2 quotient_block">
-
-    </div>
-  </div>
-<?php }?>
-
-</div>
-</div>
-</div>
-
-
-<!--Set Question Solution on jquery ui-->
-<div id="dialog">
-  <textarea  id="setSolution" style="display:none;"></textarea>
-</div>
-<!-- <div id="dialog2">
-  <textarea  id="setSolution2" style="display:none;"></textarea>
-  <input type="text" id="setSolution2" style="display:none;">
-</div> -->
-<input type="hidden" name="question_solution" id="setSolutionHidden" value="">
-
-
-<!--Set Question Solution modal-->
-<!--   <div class="modal fade ss_modal" id="set_solution" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document" style="max-width: 400px;">
-    <div class="modal-content">
-      <div class="modal-header">
-
-        <h4 class="modal-title" id="myModalLabel">Solution</h4>
       </div>
-      <div class="modal-body row">
-        <textarea class="mytextarea" name="question_solution"></textarea>
-        
+      <?php }?>
+
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn_blue" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn_blue" data-dismiss="modal">Save</button>
       </div>
+      </div>
+
+
+        <!--Set Question Solution on jquery ui-->
+        <div id="dialog">
+          <textarea  id="setSolution" style="display:none;"></textarea>
+        </div>
+        <!-- <div id="dialog2">
+          <textarea  id="setSolution2" style="display:none;"></textarea>
+          <input type="text" id="setSolution2" style="display:none;">
+        </div> -->
+        <input type="hidden" name="question_solution" id="setSolutionHidden" value="">
+
+
+        <!--Set Question Solution modal-->
+        <!--   <div class="modal fade ss_modal" id="set_solution" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document" style="max-width: 400px;">
+            <div class="modal-content">
+              <div class="modal-header">
+
+                <h4 class="modal-title" id="myModalLabel">Solution</h4>
+              </div>
+              <div class="modal-body row">
+                <textarea class="mytextarea" name="question_solution"></textarea>
+                
+              </div>
+              <div class="modal-footer">
+              <button type="button" class="btn btn_blue" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn_blue" data-dismiss="modal">Save</button>
+          </div>
+        </div>-->
     </div>
-  </div>
-</div> -->
-
-
+  </div> 
 </form>
 
 
@@ -586,7 +589,7 @@
   $(document).ready(function(e){
     $(".module_chapter_copy").click(function() {
         var copy_chapter_id = $("#subject_chapter").val();
-   
+
         if(copy_chapter_id != ''){
           CopyToClipboard(copy_chapter_id);
           $("#copy_chapter_success_modal").modal("show");
@@ -594,8 +597,6 @@
           alert('Please Select chapter First !!');
         }
         // alert(chapter);
-        
-
     });
 
     $('.module_chapter_paste').click(function(){
@@ -604,7 +605,7 @@
         .readText()
         .then((cliptext) =>
                 {
-                  console.log(cliptext);
+                  // console.log(cliptext);
                   $('#get_chapter_value').val(cliptext);
                   var get_subject_value = $('#subject').val();
                   var get_chapter_id = $('#get_chapter_value').val();
@@ -656,7 +657,7 @@
 
       ],
     });
-   
+
 
         // Variable to store your files
         var files;
@@ -670,39 +671,42 @@
         }
 
         $("#question_form").on('submit', function(e){
-      e.preventDefault();
-     <?php if($question_item == 14){?>
+          e.preventDefault();
+          <?php if($question_item == 14){?>
                 $(".progress").show();
             <?php }?>
-      var is_submit = 1;
+            var is_submit = 1;
 //          var list = [];
             //Check for Creative Quiz
             var paragraph_order = $("input[name='paragraph_order[]']").map(function(){return $(this).val();}).get();
+
             var list = $(".sentence input:checked").map(function(){
-                                                                return $(this).attr("checkboxid");
-                                                            }).get().join();
+                return $(this).attr("checkboxid");
+            }).get().join();
             
             var arr = list.split(',');
             paragraph_order = paragraph_order.filter(function (el) {
-                                                        return el != '';
-                                                    });
+                return el != '';
+            });
+
             console.log(arr);
             console.log(paragraph_order);
+
             if(paragraph_order.length > 0){
-                for(var i = 0;i < arr.length; i++){
-//                    
-                    if(paragraph_order[i] == ''){
-                        is_submit = 0;
-                    }
-                }
-                
-                if(arr.length != paragraph_order.length){
-                    is_submit = 0;
-                }
+
+              for(var i = 0;i < arr.length; i++){                 
+                  if(paragraph_order[i] == ''){
+                      is_submit = 0;
+                  }
+              }
+              
+              if(arr.length != paragraph_order.length){
+                  is_submit = 0;
+              }
             }
       
-      var pathname = '<?php echo base_url(); ?>';
-      var question_item = document.getElementById('question_item').value;
+          var pathname = '<?php echo base_url(); ?>';
+          var question_item = document.getElementById('question_item').value;
 
       if (question_item == 4) {
           
@@ -762,7 +766,7 @@
 
             if (module_status == 1) {
               var get_url = "<?=base_url()?>/create-module/1";
-               
+
               $("#save_success_button").hide();
               $("#save_success_button_with_url").css('display','inline-block');
               $("#save_success_button_with_url").attr('href',get_url);
@@ -807,38 +811,42 @@
       CKEDITOR.instances[instance].updateElement();
   }
 
+  // Onchange event for subject and chapter js method
   function add_subject() {
-    $.ajax({
-     url: "add_subject_name",
-     method: "POST",
-     data: $("#add_subject_name").serialize(),
-     success: function (response) {
-      $('#add_subject').modal('hide');
+      $.ajax({
+        url: "add_subject_name",
+        method: "POST",
+        data: $("#add_subject_name").serialize(),
+        success: function (response) {
+        $('#add_subject').modal('hide');
 
-      $('#subject').html(response);
-    }
-  });
+        $('#subject').html(response);
+      }
+    });
   }
-
+  
+ // Onchange event for subject and chapter js method
   function getChapter(e) {
     var subject_id = e.value;
     $('#get_subject_value').val(subject_id);
     $.ajax({
-     url: "get_chapter_name",
-     method: "POST",
-     data: {
-      subject_id: subject_id
-    },
-    success: function (response) {
-      
-      $('#subject_chapter').html(response);
-      var get_dup_ques_chapter = $('#dup_ques_chapter').val();
-      if(get_dup_ques_chapter!=''){
-        $('#subject_chapter').val(get_dup_ques_chapter).trigger('change');
-      }
-    }
-  });
+        url: "get_chapter_name",
+        method: "POST",
+        data: {
+        subject_id: subject_id
+        },
+        success: function (response) {
+          
+          $('#subject_chapter').html(response);
+          var get_dup_ques_chapter = $('#dup_ques_chapter').val();
+          if(get_dup_ques_chapter!=''){
+            $('#subject_chapter').val(get_dup_ques_chapter).trigger('change');
+          }
+        }
+    });
   }
+  // Onchange event for subject and chapter js method end here
+
 
   function open_question_setting() {
     

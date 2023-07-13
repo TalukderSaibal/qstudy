@@ -82,7 +82,7 @@ $db['default'] = array(
 	// 'database' => 'qstudy',
 	
 	'username' => 'root',
-	'password' => 'triadpass',
+	'password' => '',
 	'database' => 'qstudy',
 	
 // 	'username' => 'matchtherssoftwa_qstudyNew',

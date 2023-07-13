@@ -858,16 +858,20 @@ class Tutor extends CI_Controller
         if ($item==17) {
             $this->db->truncate('idea_save_temp');
         }
+
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', '', true);
-        $data['header'] = $this->load->view('dashboard_template/header', '', true);
+        $data['header']     = $this->load->view('dashboard_template/header', '', true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', '', true);
+
         $user_id = $this->session->userdata('user_id');
-        $data['all_grade'] = $this->tutor_model->getAllInfo('tbl_studentgrade');
+
+        $data['all_grade']   = $this->tutor_model->getAllInfo('tbl_studentgrade');
         $data['all_subject'] = $this->tutor_model->getInfo('tbl_subject', 'created_by', $user_id);
-        $data['allCountry'] = $this->Admin_model->search('tbl_country', [1=>1]);
-        $datas['all_idea'] = $this->QuestionModel->getIdea();
+        $data['allCountry']  = $this->Admin_model->search('tbl_country', [1=>1]);
+        $datas['all_idea']   = $this->QuestionModel->getIdea();
+
         $data['question_item'] = $item;
-        $question_box = 'tutors/question/question-box';
+        $question_box          = 'tutors/question/question-box';
 
         // echo "<pre>"; print_r($datas); die();
 
@@ -898,30 +902,28 @@ class Tutor extends CI_Controller
             $question_box .= '/workout_quiz';
         } elseif ($item == 13) {
             $question_box .= '/matching_workout';
-        }
-        elseif ($item == 14) {
+        }elseif ($item == 14) {
             $data["for_disable_button"]="1";
             $question_box .= '/tutorial';
         }elseif ($item == 15) {
             $question_box .= '/workout_quiz_two';
         }elseif ($item == 16) {
-
             $question_box .= '/memorization';
         }elseif ($item == 17) {
-
             $question_box .= '/creative_quiz';
             
-
             $this->db->select('*');
             $this->db->from('idea_info');
             $this->db->like('image_title','Image','after');
+
             $query = $this->db->get();
             $results= $query->result_array();
             $image_count = count($results);
+
             if(empty($image_count)){
-              $data['image_no']= 1;
+                $data['image_no']= 1;
             }else{
-              $datas['image_no']= $image_count+1;
+                $datas['image_no']= $image_count+1;
             }
             
         }elseif($item == 18){
@@ -1000,11 +1002,11 @@ class Tutor extends CI_Controller
         $post = $this->input->post();
         // echo "<pre>"; print_r($_POST); die();
 
-        $clean = $this->security->xss_clean($post);
+        $clean          = $this->security->xss_clean($post);
         $clean['media'] = isset($_FILES) ? $_FILES : [];
 
-        $instruction_link = isset($post['question_instruction']) ? $post['question_instruction'] : '';
-        $instruction_link = str_replace('</p>', '', $instruction_link);
+        $instruction_link  = isset($post['question_instruction']) ? $post['question_instruction'] : '';
+        $instruction_link  = str_replace('</>', '', $instruction_link);
         $instruction_array = array_filter(explode('<p>', $instruction_link));
 
         $instruction_new_array = array();
@@ -1012,8 +1014,8 @@ class Tutor extends CI_Controller
             $instruction_new_array[] = strip_tags($row);
         }
 
-        $video_link = isset($post['question_video']) ? $post['question_video'] : '';
-        $video_link = str_replace('</p>', '', $video_link);
+        $video_link  = isset($post['question_video']) ? $post['question_video'] : '';
+        $video_link  = str_replace('</p>', '', $video_link);
         $video_array = array_filter(explode('<p>', $video_link));
 
         $video_new_array = array();
@@ -1022,15 +1024,16 @@ class Tutor extends CI_Controller
         }
 
         $data['questionType'] = $this->input->post('questionType');
-        $questionName = $this->input->post('questionName');
-        $answer = $this->input->post('answer');
-        $questionMarks = $this->input->post('questionMarks');
-        $description = $this->input->post('questionDescription');
-        $solution = $this->input->post('question_solution');
-      
+        $questionName         = $this->input->post('questionName');
+        $answer               = $this->input->post('answer');
+        $questionMarks        = $this->input->post('questionMarks');
+        $description          = $this->input->post('questionDescription');
+        $solution             = $this->input->post('question_solution');
+
         if ($data['questionType'] == 3) {
             $questionName =  $this->processVocabulary($post);
         }
+
         if ($_POST['questionType'] == 4) {
 
             if (isset($_POST['question_tutorial_input']) && !empty($_POST['question_tutorial_input'])) {
@@ -1063,9 +1066,8 @@ class Tutor extends CI_Controller
             }
             $answer = json_encode($_POST['response_answer']);
             // $answer = $_POST['response_answer'];
-
-
         }
+
         if ($_POST['questionType'] == 5) {
             //Same as Multiple Choice
             $questionName = $this->save_multiple_response($_POST);
@@ -1073,6 +1075,7 @@ class Tutor extends CI_Controller
                 $answer = json_encode($_POST['response_answer']);
             }
         }
+
         if ($data['questionType'] == 6) { //skip quiz
             $temp['question_body'] = isset($clean['question_body']) ? $clean['question_body'] : '';
             $temp['skp_quiz_box'] = $clean['ques_ans'];
@@ -1081,16 +1084,19 @@ class Tutor extends CI_Controller
             $questionName =  json_encode($temp);
             $answer = json_encode(array_values(array_filter($clean['ans'])));
         }
+
         if ($_POST['questionType'] == 7) {
             $questionName = $this->ques_matching_data($_POST);
             $answer = $this->ans_matching_data($_POST);
         }
+
         if ($data['questionType'] == 8) {
             // assignment
             $temp          = $this->processAssignmentTasks($clean);
             $questionName  = json_encode($temp);
             $questionMarks = isset($temp['totMarks']) ? $temp['totMarks'] : 0;
         }
+
         if ($_POST['questionType'] == 9) {
 
             if (!empty($post['rightTitle']) && !empty($post['rightIntro']) && !empty($post['lastpictureSelected']) && !empty($post['Paragraph']) && !empty($post['rightConclution']) && !empty($post['wrongTitles']) && !empty($post['wrongTitlesIncrement']) && !empty($post['pictureList'])  && !empty($post['wrongIntro']) && !empty($post['wrongIntroIncrement']) &&  !empty($post['wrongConclution']) && !empty($post['wrongConclutionIncrement']) && !empty($post['wrongPictureIncrement'])) {
@@ -1129,14 +1135,16 @@ class Tutor extends CI_Controller
                 $data['errorStoryWrite'] = "Check All the Question Properly";
             }
         }
+
         if ($data['questionType'] == 10) {
             $question_data['questionName'] = $post['questionName'];
-            $question_data['factor1'] = $post['factor1'];
-            $question_data['factor2'] = $post['factor2'];
-            $questionName = json_encode($question_data);
+            $question_data['factor1']      = $post['factor1'];
+            $question_data['factor2']      = $post['factor2'];
+            $questionName                  = json_encode($question_data);
 
             $answer = json_encode($post['result']);
         }
+
         if ($data['questionType'] == 11) {
             $question_data['questionName'] = $post['question_body'];
             $question_data['operator'] = $post['operator'];
@@ -1159,12 +1167,14 @@ class Tutor extends CI_Controller
 
             $questionName = json_encode($question_data);
         }
+
         if ($_POST['questionType'] == 13) {
             $questionName = $this->save_multiple_choice($_POST);
             if (isset($_POST['response_answer'])) {
                 $answer = $_POST['response_answer'];
             }
         }
+
         if ($_POST['questionType'] == 15) {
             $solution = $this->input->post('solution');
             $questionName = $this->save_workout_two($_POST);
@@ -1172,6 +1182,7 @@ class Tutor extends CI_Controller
                 $answer = $_POST['answer'];
             }
         }
+
         if ($_POST['questionType'] == 16) {
             $questionName = $this->save_memorization($_POST);
             if (isset($_POST['answer'])) {
@@ -1180,6 +1191,7 @@ class Tutor extends CI_Controller
                 $answer = '';
             }
         }
+
         if ($_POST['questionType'] == 17) {
 
             $questionName = 'Idea';
@@ -1190,6 +1202,7 @@ class Tutor extends CI_Controller
             $video_new_array = '';
             $solution = 'Nothing';
         }
+
         if ($_POST['questionType'] == 18) {
 
             $answers = $_POST['answer'];
@@ -1205,56 +1218,58 @@ class Tutor extends CI_Controller
                 }
             }
 
-            $questionName = json_encode($questions);
-            $answer = json_encode($ans);
-            $questionMarks = 15;
-            $description = '';
+            $questionName          = json_encode($questions);
+            $answer                = json_encode($ans);
+            $questionMarks         = 15;
+            $description           = '';
             $instruction_new_array = '';
-            $video_new_array = '';
-            $solution = 'Nothing';
+            $video_new_array       = '';
+            $solution              = 'Nothing';
         }
+
         if ($_POST['questionType'] == 19) {
             $answers = $_POST['answer'];
 
             if (!empty($answers)) {
                 $questions = array();
-                $ans = array();
+                $ans       = array();
 
 
                 foreach ($answers as $answer) {
                     $ans_with_ques = explode(",,", $answer);
-                    $questions[] = $ans_with_ques[0];
-                    $ans[] = $ans_with_ques[1];
+                    $questions[]   = $ans_with_ques[0];
+                    $ans[]         = $ans_with_ques[1];
                 }
             }
-            $mydata['questions'] = $questions;
+
+            $mydata['questions']       = $questions;
             $mydata['wrong_questions'] = $post['wrong_question'];
-            // print_r($mydata);die();
-            $questionName = json_encode($mydata);
-            $answer = json_encode($ans);
-            $questionMarks = 15;
-            $description = '';
+              // print_r($mydata);die();
+            $questionName          = json_encode($mydata);
+            $answer                = json_encode($ans);
+            $questionMarks         = 15;
+            $description           = '';
             $instruction_new_array = '';
-            $video_new_array = '';
-            $solution = 'Nothing';
+            $video_new_array       = '';
+            $solution              = 'Nothing';
         }
 
         if ($_POST['questionType'] == 20) {
             
             $check_write =1;
             foreach($_POST['options'] as $option){
-               if(!empty($option)){
+                if(!empty($option)){
                 $check_write =2;
-               }
+                }
             }
 
             if($check_write==2){
-               $answer = $post['option_check'][0];
+                $answer = $post['option_check'][0];
             }else{
-               $answer = "write";
-               $questionMarks = 0;
-
+                $answer = "write";
+                $questionMarks = 0;
             }
+
             if(!empty($post['com_question'])){
                 $questionName = $post['com_question'];
             }else{
@@ -1262,22 +1277,22 @@ class Tutor extends CI_Controller
             }
             
             $com_data = array();
-            $com_data['options'] = $post['options'];
-            $com_data['first_hint'] = $post['first_hint'];
-            $com_data['total_rows'] = $post['total_rows'];
-            $com_data['title_colors'] = $post['title_colors'];
-            $com_data['second_hint'] = $post['second_hint'];
-            $com_data['writing_input'] = $post['writing_input'];
-            $com_data['text_one_hint'] = $post['text_one_hint'];
-            $com_data['text_two_hint'] = $post['text_two_hint'];
-            $com_data['com_hint_type'] = $post['com_hint_type'];
-            $com_data['image_ques_body'] = $post['image_ques_body'];
-            $com_data['option_hint_set'] = $post['option_hint_set'];
-            $com_data['text_one_hint_no'] = $post['text_one_hint_no'];
-            $com_data['text_two_hint_no'] = $post['text_two_hint_no'];
-            $com_data['note_description'] = $post['note_description'];
-            $com_data['text_one_hint_color'] = $post['text_one_hint_color'];
-            $com_data['text_two_hint_color'] = $post['text_two_hint_color'];
+            $com_data['options']                    = $post['options'];
+            $com_data['first_hint']                 = $post['first_hint'];
+            $com_data['total_rows']                 = $post['total_rows'];
+            $com_data['title_colors']               = $post['title_colors'];
+            $com_data['second_hint']                = $post['second_hint'];
+            $com_data['writing_input']              = $post['writing_input'];
+            $com_data['text_one_hint']              = $post['text_one_hint'];
+            $com_data['text_two_hint']              = $post['text_two_hint'];
+            $com_data['com_hint_type']              = $post['com_hint_type'];
+            $com_data['image_ques_body']            = $post['image_ques_body'];
+            $com_data['option_hint_set']            = $post['option_hint_set'];
+            $com_data['text_one_hint_no']           = $post['text_one_hint_no'];
+            $com_data['text_two_hint_no']           = $post['text_two_hint_no'];
+            $com_data['note_description']           = $post['note_description'];
+            $com_data['text_one_hint_color']        = $post['text_one_hint_color'];
+            $com_data['text_two_hint_color']        = $post['text_two_hint_color'];
             $com_data['question_title_description'] = $post['question_title_description'];
 
             $description = json_encode($com_data); 
@@ -1293,107 +1308,109 @@ class Tutor extends CI_Controller
                 $questionName = "";
             }
 
-            $grammer_data = array();
-            $grammer_data['options'] = $post['options'];
-            $grammer_data['hint_text'] = $post['hint_text'];
-            $grammer_data['total_rows'] = $post['total_rows'];
-            $grammer_data['second_hint'] = $post['second_hint'];
-            $grammer_data['writing_input'] = $post['writing_input'];
-            $grammer_data['first_hint'] = $post['first_hint'];
-            $grammer_data['second_hint'] = $post['second_hint'];
-            $grammer_data['third_hint'] = $post['third_hint'];
-            $grammer_data['four_hint'] = $post['four_hint'];
-            $grammer_data['color_serial'] = $post['color_serial'];
-            $grammer_data['note_description'] = $post['note_description'];
-            $grammer_data['text_one_hint_color'] = $post['text_one_hint_color'];
-            $grammer_data['text_two_hint_color'] = $post['text_two_hint_color'];
-            $grammer_data['text_four_hint_color'] = $post['text_four_hint_color'];
-            $grammer_data['text_three_hint_color'] = $post['text_three_hint_color'];
+            $grammer_data                               = array();
+            $grammer_data['options']                    = $post['options'];
+            $grammer_data['hint_text']                  = $post['hint_text'];
+            $grammer_data['total_rows']                 = $post['total_rows'];
+            $grammer_data['second_hint']                = $post['second_hint'];
+            $grammer_data['writing_input']              = $post['writing_input'];
+            $grammer_data['first_hint']                 = $post['first_hint'];
+            $grammer_data['second_hint']                = $post['second_hint'];
+            $grammer_data['third_hint']                 = $post['third_hint'];
+            $grammer_data['four_hint']                  = $post['four_hint'];
+            $grammer_data['color_serial']               = $post['color_serial'];
+            $grammer_data['note_description']           = $post['note_description'];
+            $grammer_data['text_one_hint_color']        = $post['text_one_hint_color'];
+            $grammer_data['text_two_hint_color']        = $post['text_two_hint_color'];
+            $grammer_data['text_four_hint_color']       = $post['text_four_hint_color'];
+            $grammer_data['text_three_hint_color']      = $post['text_three_hint_color'];
             $grammer_data['question_title_description'] = $post['question_title_description'];
 
             $description = json_encode($grammer_data);
-
         }
-        if ($_POST['questionType'] == 22) {
-            $glossary_data['title_color'] = $post['title_color'];
-            $glossary_data['question_title_description'] = $post['question_title_description'];
-            $glossary_data['image_ques_body'] = $post['image_ques_body'];
 
-            $questionName = 'no';
-            $answer= 'no';
+        if ($_POST['questionType'] == 22) {
+            $glossary_data['title_color']                = $post['title_color'];
+            $glossary_data['question_title_description'] = $post['question_title_description'];
+            $glossary_data['image_ques_body']            = $post['image_ques_body'];
+
+            $questionName  = 'no';
+            $answer        = 'no';
             $questionMarks = 0;
-            $description = json_encode($glossary_data);
+            $description   = json_encode($glossary_data);
         }
 
         if ($_POST['questionType'] == 23) {
             
             $check_write =1;
             foreach($_POST['options'] as $option){
-               if(!empty($option)){
+                if(!empty($option)){
                 $check_write =2;
-               }
+                }
             }
 
             if($check_write==2){
-               $answer = $post['answer'];
+                $answer = $post['answer'];
             }else{
-               $answer = "write";
-               $questionMarks = 0;
-
+                $answer = "write";
+                $questionMarks = 0;
             }
+
             // if(!empty($post['com_question'])){
             //     $questionName = $post['com_question'];
             // }else{
             //     $questionName = "";
             // }
 
-            $image_data['help_check_one'] = $post['help_check_one'];
-            $image_data['help_check_two'] = $post['help_check_two'];
+            $image_data['help_check_one']   = $post['help_check_one'];
+            $image_data['help_check_two']   = $post['help_check_two'];
             $image_data['help_check_three'] = $post['help_check_three'];
-            $image_data['image_type_one'] = $post['image_type_one'];
-            $image_data['image_type_two'] = $post['image_type_two'];
+            $image_data['image_type_one']   = $post['image_type_one'];
+            $image_data['image_type_two']   = $post['image_type_two'];
             $image_data['image_type_three'] = $post['image_type_three'];
 
-            $image_data['box_one_image'] = $post['box_one_image'];
-            $image_data['box_two_image'] = $post['box_two_image'];
+            $image_data['box_one_image']   = $post['box_one_image'];
+            $image_data['box_two_image']   = $post['box_two_image'];
             $image_data['box_three_image'] = $post['box_three_image'];
 
-            $image_data['hint_one_image'] = $post['hint_one_image'];
-            $image_data['hint_two_image'] = $post['hint_two_image'];
+            $image_data['hint_one_image']   = $post['hint_one_image'];
+            $image_data['hint_two_image']   = $post['hint_two_image'];
             $image_data['hint_three_image'] = $post['hint_three_image'];
 
-            $image_data['help_check_one'] = $post['help_check_one'];
-            $image_data['help_check_two'] = $post['help_check_two'];
+            $image_data['help_check_one']   = $post['help_check_one'];
+            $image_data['help_check_two']   = $post['help_check_two'];
             $image_data['help_check_three'] = $post['help_check_three'];
-            $image_data['question'] = $post['question'];
+            $image_data['question']         = $post['question'];
 
-            $image_data['total_rows'] = $post['total_rows'];
-            $image_data['options'] = $post['options'];
+            $image_data['total_rows']        = $post['total_rows'];
+            $image_data['options']           = $post['options'];
             $image_data['quiz_explaination'] = $post['quiz_explaination'];
             
             $questionName = $post['quiz_question'];
-            $description = json_encode($image_data);
+            $description  = json_encode($image_data);
         }
 
 
-        $data['studentgrade'] = $this->input->post('studentgrade');
-        $data['user_id'] = $this->session->userdata('user_id');
-        $data['subject'] = $this->input->post('subject');
-        $data['chapter'] = $this->input->post('chapter');
-        $data['country'] = $this->input->post('country');
-        $data['questionName'] = $questionName;
-        $data['answer'] = $answer;
-        $data['questionMarks'] = $questionMarks;
-        $data['questionDescription'] =  $description;
+        $data['studentgrade']        = $this->input->post('studentgrade');
+        $data['user_id']             = $this->session->userdata('user_id');
+        $data['subject']             = $this->input->post('subject');
+        $data['chapter']             = $this->input->post('chapter');
+        $data['country']             = $this->input->post('country');
+        $data['questionName']        = $questionName;
+        $data['answer']              = $answer;
+        $data['questionMarks']       = $questionMarks;
+        $data['questionDescription'] = $description;
+
         if ($_POST['questionType'] == 18) {
             $data['question_instruction'] = $post['question_instruct'];
         } else {
             $data['question_instruction'] = json_encode($instruction_new_array);
         }
-        $data['question_video'] = json_encode($video_new_array);
-        $data['isCalculator'] = $this->input->post('isCalculator');
+
+        $data['question_video']    = json_encode($video_new_array);
+        $data['isCalculator']      = $this->input->post('isCalculator');
         $data['question_solution'] = strlen($solution) < 1 ? 'NO solution given' : $solution;
-        $data['video_name'] = $this->input->post('video_name');
+        $data['video_name']        = $this->input->post('video_name');
 
         $hour   = isset($_POST['question_time']) ? $this->input->post('hour') : "HH";
         $minute = isset($_POST['question_time']) ? $this->input->post('minute') : "MM";
@@ -1402,9 +1419,9 @@ class Tutor extends CI_Controller
         
         if ($data['questionType'] == 14) {
             $data["question_solution"] = "NO solution given";
-            $data['answer'] = "c";
-            $data['questionName'] = $this->processTutorial($post);
-            $data["last_id"] = "102";
+            $data['answer']            = "c";
+            $data['questionName']      = $this->processTutorial($post);
+            $data["last_id"]           = "102";
         }
 
         $data['questionTime'] = $hour . ":" . $minute . ":" . $second;
@@ -1425,12 +1442,10 @@ class Tutor extends CI_Controller
         } else {
             // echo 33; die();
 
-            $array_one = array();
-            $array_two = array();
+            $array_one   = array();
+            $array_two   = array();
             $array_three = array();
         
-            
-
             if (!empty($data["last_id"])) {
                 $data['questionMarks'] = "0";
                 // 
@@ -1438,15 +1453,11 @@ class Tutor extends CI_Controller
 
                 $last_id = $this->tutor_model->last_id($data['user_id']);
 
-
                 foreach (json_decode($data['questionName']) as $key => $value) {
                     if (!empty($value->speech_to_text)) {
                         $var = [
-
                             "speech_to_text" => $value->speech_to_text
-
                         ];
-
                         array_push($array_one, $var);
                     }
                 }
@@ -1454,9 +1465,7 @@ class Tutor extends CI_Controller
                 foreach (json_decode($data['questionName']) as $key => $value) {
                     if (!empty($value->image)) {
                         $var = [
-
                             "image" => $value->image
-
                         ];
                         array_push($array_two, $var);
                     }
@@ -1465,9 +1474,7 @@ class Tutor extends CI_Controller
                 foreach (json_decode($data['questionName']) as $key => $value) {
                     if (!empty($value->Audio)) {
                         $var = [
-
                             "Audio" => $value->Audio
-
                         ];
                         array_push($array_three, $var);
                     }
@@ -1475,11 +1482,10 @@ class Tutor extends CI_Controller
 
                 $a = count($array_one);
 
-
                 for ($i = 0; $i < $a; $i++) {
-
                     $this->db->query('INSERT INTO `for_tutorial_tbl_question`(`speech`, `img`, `audio`, `tbl_ques_id` ,`orders` ) VALUES ("' . $array_one[$i]["speech_to_text"] . '", "' . $array_two[$i]["image"] . '" ,  "' . $array_three[$i]["Audio"] . '", ' . $last_id[0]["id"] . ', ' . $i . ' )');
                 }
+
             } else {
                 // echo "<pre>";print_r($post);die();
                 $questionId = $this->tutor_model->insertId('tbl_question', $data);
@@ -1609,21 +1615,21 @@ class Tutor extends CI_Controller
                         // }
 
                         $data_idea['short_question_allow'] = $short_question_allow;
-                        $data_idea['shot_question_title'] = $shot_question_title;
-                        $data_idea['short_ques_body'] = $short_ques_body;
-                        $data_idea['image_ques_body'] = $image_ques_body;
+                        $data_idea['shot_question_title']  = $shot_question_title;
+                        $data_idea['short_ques_body']      = $short_ques_body;
+                        $data_idea['image_ques_body']      = $image_ques_body;
                         $data_idea['large_question_allow'] = $large_question_allow;
                         $data_idea['large_question_title'] = $large_question_title;
-                        $data_idea['large_ques_body'] = $large_ques_body;
-                        $data_idea['student_title'] = $student_title;
-                        $data_idea['word_limit'] = $word_limit;
-                        $data_idea['time_hour'] = $time_hour;
-                        $data_idea['time_min'] = $time_min;
-                        $data_idea['time_sec'] = $time_sec;
-                        $data_idea['allow_idea'] = $allow_idea;
-                        $data_idea['add_start_button'] = $add_start_button;
-                        $data_idea['question_id'] = $questionId;
-                        $data_idea['duplicate_question'] = 1;
+                        $data_idea['large_ques_body']      = $large_ques_body;
+                        $data_idea['student_title']        = $student_title;
+                        $data_idea['word_limit']           = $word_limit;
+                        $data_idea['time_hour']            = $time_hour;
+                        $data_idea['time_min']             = $time_min;
+                        $data_idea['time_sec']             = $time_sec;
+                        $data_idea['allow_idea']           = $allow_idea;
+                        $data_idea['add_start_button']     = $add_start_button;
+                        $data_idea['question_id']          = $questionId;
+                        $data_idea['duplicate_question']   = 1;
 
                         if (!empty($image_ques_body)) {
                             $this->db->select('*');
@@ -1648,17 +1654,17 @@ class Tutor extends CI_Controller
                         
                         foreach ($idea_description as $key => $value) {
 
-                            $tutor_idea['question_id'] = $questionId;
-                            $tutor_idea['tutor_question_id'] = $questionId;
-                            $tutor_idea['user_id'] = $this->session->userdata('user_id');
-                            $tutor_idea['type'] = 1;
-                            $tutor_idea['idea_ans'] = $value['question_description'];
-                            $tutor_idea['idea_title'] = $value['idea_title'];
+                            $tutor_idea['question_id']         = $questionId;
+                            $tutor_idea['tutor_question_id']   = $questionId;
+                            $tutor_idea['user_id']             = $this->session->userdata('user_id');
+                            $tutor_idea['type']                = 1;
+                            $tutor_idea['idea_ans']            = $value['question_description'];
+                            $tutor_idea['idea_title']          = $value['idea_title'];
                             $tutor_idea['idea_question_title'] = $shot_question_title;
-                            $tutor_idea['total_word'] = $value['total_word'];
-                            $tutor_idea['idea_publish'] = 0;
-                            $tutor_idea['approval'] = 0;
-                            $tutor_idea['submit_date'] = date("Y/m/d");
+                            $tutor_idea['total_word']          = $value['total_word'];
+                            $tutor_idea['idea_publish']        = 0;
+                            $tutor_idea['approval']            = 0;
+                            $tutor_idea['submit_date']         = date("Y/m/d");
 
                             $this->tutor_model->insertId('question_ideas', $tutor_idea);
 
@@ -1692,8 +1698,8 @@ class Tutor extends CI_Controller
                 }
             }
 
-            $module_status = $this->session->userdata('module_status');
-            $module_edit_id = $this->session->userdata('module_edit_id');
+            $module_status   = $this->session->userdata('module_status');
+            $module_edit_id  = $this->session->userdata('module_edit_id');
             $param_module_id = $this->session->userdata('param_module_id');
 
             // echo $module_status; die();
@@ -1775,6 +1781,7 @@ class Tutor extends CI_Controller
             echo json_encode($chkValidation);
         }
     }
+
     public function save_workout_two($post_data)
         {
             $percentage_array = array();
@@ -2609,7 +2616,7 @@ class Tutor extends CI_Controller
             // echo "<pre>";print_r($data['idea_info']);die();
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             $data['q_creator_name'] = $this->tutor_model->getIQuestionCreator($question_id);
-         
+        
             $question_box .= '/edit_creative_quiz.php';
 
             $this->db->truncate('idea_save_temp');
@@ -2651,7 +2658,6 @@ class Tutor extends CI_Controller
         
         
         if ($type != 8) {
-           
             $data['question_box'] = $this->load->view($question_box, $data, true);
 
             $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);

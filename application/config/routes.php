@@ -60,7 +60,7 @@ $route['signup/upper_level_student'] ='RegisterController/showSignUpPlan';
 $route['signup/tutor'] ='RegisterController/showSignUpPlan';
 $route['signup/school'] ='RegisterController/showSignUpPlan';
 $route['signup/corporate'] ='RegisterController/showSignUpPlan';
- 
+
 
 
 // $route['select_country']='RegisterController/selectCountry';
@@ -81,7 +81,7 @@ $route['trial/corporate'] ='RegisterController/showSignUpPlan';
 
 $route['redirect_url'] = 'RegisterController/redirect_url';
 
- 
+
 /* for paypal payment*/
 $route['paypal_new']='RegisterController/show_paypal_form';
 $route['signup-paypal']='RegisterController/show_signup_paypal_form';
@@ -357,7 +357,15 @@ $route['update-store-subject-name']='tutor/update_store_subject_name';
 $route['question_duplicate']='Question/duplicateQuestion';
 $route['send_to_qStudy']='Question/send_to_q_Study';
 $route['question_delete/(:any)']='Question/deleteQuestion/$1';
+
+
+
+
 $route['create-question/(:any)']='tutor/create_question/$1';
+
+
+
+
 $route['add_subject_name']='tutor/add_subject_name';
 $route['get_chapter_name']='tutor/get_chapter_name';
 $route['get_subject']='tutor/get_subject';

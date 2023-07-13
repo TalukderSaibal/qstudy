@@ -332,7 +332,7 @@
           <?php if($key['id'] != 12){?>
         <div class="row">
           <div class="col-sm-3">
-            <ul class="ss_q_left">  
+          <ul class="ss_q_left">  
               <li>
                 
                 <a href="<?php echo base_url();?>create-question/<?=$key['id']?>"><?php echo $key['questionType'];?></a>
