@@ -16,10 +16,10 @@
         display: inline-block;
         padding: 0px !important;
     }
-    
-    
-    
-    
+
+
+
+
     .dropbtn {
   background-color: #3498DB;
   color: white;
@@ -67,7 +67,7 @@ if ($this->session->userdata('user_id')) {
     $duration = $tbl_setting->setting_value;
     // echo "<pre>";
     // print_r($user);die();
-    
+
     $email = '';
 
     if ($this->session->userdata('user_email'))
@@ -79,7 +79,7 @@ if ($this->session->userdata('user_id')) {
 }
 
 ?>
-<?php 
+<?php
 
 if (isset($video_help[0]['userfile'])) {
     $files = json_decode($video_help[0]['userfile'] , true);
@@ -98,14 +98,14 @@ if (isset($video_help[0]['userfile'])) {
     <div class="col-sm-4">
         <?php if(isset($pageType) and $pageType=='q-dictionary'): ?>
             <div class="col-md-12" style="margin-top: 5px; margin-bottom:10px;">
-                <img src="assets/images/q-dictionary.png" alt="User Image" style="width: 265px; height:125px"/>   
-            </div>  
+                <img src="assets/images/q-dictionary.png" alt="User Image" style="width: 265px; height:125px"/>
+            </div>
         <?php elseif ($this->session->userdata('user_id')) : ?>
             <div class="col-md-12">
                 <span style="float: left;">Welcome <?php echo $email; ?></span>
                 <a href="<?php echo base_url();?>logout" class="col-xs-4">
                     <button class="btn btn-default btnChngByHover" style="padding: 3px 12px;border-color: #ccc;font-weight: bold;border-color: #ccc;font-weight: bold;">Logout</button>
-                </a>  
+                </a>
             </div>
             <?php
             if ($this->session->userdata('user_id')) {
@@ -117,7 +117,7 @@ if (isset($video_help[0]['userfile'])) {
                 $queries = $this->db->get();
                 $profile = $queries->result_array();
                 // if($profile[0]['profile_image'] != ''){echo $profile[0]['profile_image'];}
-                
+
             }
             ?>
             <div class="col-md-12" style="margin-top: 5px; margin-bottom:10px;">
@@ -125,7 +125,7 @@ if (isset($video_help[0]['userfile'])) {
                     <?php if (isset($profile[0]['profile_image']) && file_exists('assets/uploads/profile/thumbnail/'.$profile[0]['profile_image'])) : ?>
                         <img src="<?php echo base_url();?>assets/uploads/profile/thumbnail/<?php echo $profile[0]['profile_image'];?>"  alt="User Image" style="width: 125px; height:115px" class="ss_user"/>
                     <?php else : ?>
-                        <img src="assets/images/default_user.jpg" alt="User Image" style="width: 125px; height:115px" class="ss_user" />   
+                        <img src="assets/images/default_user.jpg" alt="User Image" style="width: 125px; height:115px" class="ss_user" />
                     <?php endif; ?>
                     <!-- <a href="#" class="mobile"><img src="assets/images/logo_signup.png" ></a> -->
                 </div>
@@ -147,25 +147,25 @@ if (isset($video_help[0]['userfile'])) {
                 <?php endif ?>
 
                 <!-- after payment -->
-                <?php 
+                <?php
                     $end_subs       = $user['end_subscription'];
                     $payment_status = $user['payment_status'];
                     $subscription_type = $user['subscription_type'];
                     if (isset($end_subs)) {
-                         $d1 = date('Y-m-d',strtotime($end_subs));
-                         $d2 = date('Y-m-d');
-                         $diff = strtotime($d1) - strtotime($d2);
-                         $r_days = floor($diff/(60*60*24));
+                        $d1 = date('Y-m-d',strtotime($end_subs));
+                        $d2 = date('Y-m-d');
+                        $diff = strtotime($d1) - strtotime($d2);
+                        $r_days = floor($diff/(60*60*24));
                     }
                     // echo $end_subs;
-                    //if (isset($end_subs) && $subscription_type != "trial" && $user['user_type'] != 4) : 
-                    if (isset($end_subs) && $subscription_type != "trial" && $user['user_id'] != 2) : 
-                    
+                    //if (isset($end_subs) && $subscription_type != "trial" && $user['user_type'] != 4) :
+                    if (isset($end_subs) && $subscription_type != "trial" && $user['user_id'] != 2) :
+
                     ?>
                         <div class="col-md-7" style="padding: 0 ;">
                             <p style="letter-spacing:0px !important;font-size: 16px;">
                                 <?= (isset($subscription_type) && $subscription_type =="guest")?"Guest":"Registration";?> <span style="padding: 4px 16px;border-radius:10%;border: 1px solid #ae9ebd;"><?=($r_days >=0)?$r_days:0;?></span> Days</p>
-                            
+
                         </div>
                         <?php if ($payment_status == "Cancel"): ?>
                             <p style="position: relative;"><u >Subscription will cancel after this date</u></p>
@@ -181,7 +181,7 @@ if (isset($video_help[0]['userfile'])) {
             <a href="#"><img src="assets/images/logo_signup.png" ></a>
         <?php endif; ?> -->
             <a href="#" class="desktop"><img src="assets/images/logo_signup.png" ></a>
-            <?php 
+            <?php
             if($this->session->userdata('selCountry')){
             ?>
             <h5 style="font-weight: bold;text-decoration:underline;color: #d20404;"><?=$this->session->userdata('setCountryName')?></h5>
@@ -197,9 +197,9 @@ if (isset($video_help[0]['userfile'])) {
                 <!--<li><a style="color: #333;" href="<?php echo isset($_SESSION['prevUrl'])?$_SESSION['prevUrl']:'#'; ?>">Back</a></li>-->
                 <li><a style="color: #333; cursor: pointer;" id="back_url">Back</a></li>
               <?php } ?>
-                
+
                 <li><a style="color: #333;" class="pointer" onclick="open_videoHelp()" ><img src="<?php echo base_url();?>assets/images/icon_video.png"/> Video Help </a><span style="color: white;">  <?php if (isset($video_help_serial) && !empty($video_help_serial)  ) { echo  $video_help_serial;  } ?></span></li>
-                
+
                 <?php if ($this->session->userdata('user_id')) : ?>
                 <li><a href="contact_us" style="color: #333; cursor: pointer;background: transparent;">Contact</a></li>
                 <li class="dropdown">
@@ -208,7 +208,7 @@ if (isset($video_help[0]['userfile'])) {
                     <a href="see-compose-message" style="background: transparent;"><img src="<?php echo base_url();?>assets/images/images/noti.png"/></a>
                   </div>
                 </li>
-                <?php endif; ?> 
+                <?php endif; ?>
             </ul>
             <div id="show_videoCount_"></div>
         </div>
@@ -216,7 +216,7 @@ if (isset($video_help[0]['userfile'])) {
 </div>
 
 <?php if (isset($title)) { ?>
-    
+
     <div class="modal fade" id="open_videoHelp" role="dialog">
         <div class="modal-dialog" style="margin-right: 1%;margin-top: 5%;">
             <div class="modal-content" style="margin: 45px 100px;">
@@ -231,7 +231,7 @@ if (isset($video_help[0]['userfile'])) {
                         <?php } ?>
                     </ul>
                 </div>
-                <div class="modal-footer"> 
+                <div class="modal-footer">
                 </div>
             </div>
 
@@ -249,14 +249,14 @@ if (isset($video_help[0]['userfile'])) {
                     <span id="show_video"></span>
 
                 </div>
-                <div class="modal-footer"> 
+                <div class="modal-footer">
                 </div>
             </div>
 
         </div>
     </div>
     <script type="text/javascript">
-        
+
         // function open_videoHelp(){
         //       $('#open_videoHelp').modal('show');
         //   }
@@ -268,12 +268,12 @@ if (isset($video_help[0]['userfile'])) {
     </script>
 
     <script type="text/javascript">
-        var vid = document.getElementById("myVideo"); 
-        function pauseVid() { 
-           vid.pause(); 
+        var vid = document.getElementById("myVideo");
+        function pauseVid() {
+           vid.pause();
          }
     </script>
-    
+
 <?php } ?>
 
 <script type="text/javascript">
@@ -295,7 +295,7 @@ if (isset($video_help[0]['userfile'])) {
 
         })
     })
-    
+
 </script>
 <script>
 // $("#compose_message").click(function(){

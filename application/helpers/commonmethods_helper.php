@@ -16,7 +16,7 @@ function indexQuesAns(array $items)
 {
 
     $arr = [];
-    
+
     foreach ($items as $item) {
         $temp            = json_decode($item);
         $cr              = explode('_', $temp->cr);
@@ -44,7 +44,7 @@ function indexQuesAns(array $items)
 function renderSkpQuizPrevTable($items, $rows, $cols, $showAns = 0, $pageType = '')
 {
     // print_r($items);die;
-   $row = '';
+    $row = '';
     for ($i = 1; $i <= $rows; $i++) {
         $row .= '<div class="sk_out_box">';
         for ($j = 1; $j <= $cols; $j++) {
@@ -135,7 +135,7 @@ function sendMail($mail_data)
 
     $ci->load->library('email');
     $ci->email->set_mailtype('html');
-        
+
     /*$config['protocol'] ='sendmail';
     $config['mailpath'] ='/usr/sbin/sendmail';
     $config['charset'] = 'iso-8859-1';
@@ -157,8 +157,8 @@ function sendMail($mail_data)
     $ci->email->to($mailTo);
     $ci->email->subject($mailSubject);
     $ci->email->message($message);
-    
-    
+
+
     $ci->email->send();
     //echo $ci->email->print_debugger();die;
     return true;
@@ -176,7 +176,7 @@ function sendMailAttachment($mail_data,$attachmants,$id)
 
     $ci->load->library('email');
     $ci->email->set_mailtype('html');
-        
+
     /*$config['protocol'] ='sendmail';
     $config['mailpath'] ='/usr/sbin/sendmail';
     $config['charset'] = 'iso-8859-1';
@@ -204,8 +204,8 @@ function sendMailAttachment($mail_data,$attachmants,$id)
         $file = $value['filename'];
         $ci->email->attach($path.$file);
     }
-    
-    
+
+
     $ci->email->send();
     //echo $path;echo "<br>";
     //echo $ci->email->print_debugger();die;
@@ -223,7 +223,7 @@ function userRegMail($userName, $userType, $email, $password, $additionalData = 
     $Password=$password;
     //$template = $ci->RegisterModel->getInfo('table_email_template', 'email_template_type', 9999);
     $data['userType'] = $userType;
-    
+
     //if user is a parent mail him/her child acc info too
     if (($userType==1 || $userType==4) && count($additionalData)) {//parent, school
         $data['childInfo'] = $additionalData;
@@ -233,11 +233,11 @@ function userRegMail($userName, $userType, $email, $password, $additionalData = 
     if ($template) {
         $subject = 'Q-study registration';//$template[0]['email_template_subject'];
         $template_message = $template;//$template[0]['email_template'];
-        
+
         $find = array("{{userName}}","{{userEmail}}","{{userPassword}}");
         $replace = array($Name,$email,$Password);
         $message = str_replace($find, $replace, $template_message);
-        
+
         $mail_data['to'] = $email;
         $mail_data['subject'] = $subject;
         $mail_data['message'] = $message;
@@ -260,21 +260,24 @@ function trailPeriod(){
     $user_info = $ci->Parent_model->getInfo('tbl_setting', 'setting_id', 15 );
     return $user_info;
 }
+
+
 function getTrailDate($date,$this_db){
 
     $tbl_setting = $this_db->where('setting_key','days')->get('tbl_setting')->row();
-    $duration = $tbl_setting->setting_value;
+    $duration    = $tbl_setting->setting_value;
+
     $trail_start_date = date('Y-m-d',$date);
     $trail_end_date  = date('Y-m-d', strtotime('+'.$duration.' days', strtotime($trail_start_date)));
     $today = date('Y-m-d');
     $trail_days = $trail_end_date - $trail_start_date;
     $diff = strtotime($trail_end_date) - strtotime($today);
     $days = $diff/(60*60*24);
+
     // $diff = abs(strtotime($trail_end_date) - strtotime($today));
     // $years = floor($diff / (365*60*60*24));
     // $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
     // $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
     return $days;
-
 }
 
