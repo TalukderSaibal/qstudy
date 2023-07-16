@@ -1137,17 +1137,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <?php  foreach ($allSchoolTutors as $key => $value) { ?>
 
     <script type="text/javascript">

@@ -1231,7 +1231,6 @@
         }else{
           alert('Please select Chapter first !!');
         }
-
     });
 
     $('.bar_module_chapter_paste').click(function(){
@@ -1254,9 +1253,7 @@
                 $('#add_ch_success').html(response);
 
               }else {
-
                 $('#bar_chapter').val(get_chapter_id).change();
-
               }
             }
             ,err => console.log(err)
