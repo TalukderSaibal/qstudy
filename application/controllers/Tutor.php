@@ -21,11 +21,11 @@ class Tutor extends CI_Controller
         if ($user_id == null && $user_type == null) {
             redirect('welcome');
         }
-        
+
         if ($user_type != 3 && $user_type != 4 && $user_type != 5 && $user_type != 7) {
             redirect('welcome');
         }
-        
+
         $this->load->model('Parent_model');
         $this->load->model('Admin_model');
         $this->load->model('tutor_model');
@@ -45,18 +45,18 @@ class Tutor extends CI_Controller
             $data['video_help_serial'] = 18;
         }
         $data['user_info'] = $this->tutor_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
-        
+
         $data['checkDirectDepositPendingCourse'] = $this->Admin_model->getDirectDepositPendingCourse($this->session->userdata('user_id'));
         $data['checkRegisterCourses'] = $this->Admin_model->getActiveCourse($this->session->userdata('user_id'));
-        
+
         $tbl_setting = $this->db->where('setting_key','days')->get('tbl_setting')->row();
         $duration = $tbl_setting->setting_value;
         $date = date('Y-m-d');
         $d1  = date('Y-m-d', strtotime('-'.$duration.' days', strtotime($date)));
         $trialEndDate = strtotime($d1);
-        
+
         $inactive_user_info = $this->Admin_model->getInfoInactiveUserCheck('tbl_useraccount', 'subscription_type', 'trial',$trialEndDate,$this->session->userdata('user_id'));
-        
+
         $data['inactive_user_check'] = count($inactive_user_info);
         //echo $data['inactive_user_check'];die();
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -117,11 +117,11 @@ class Tutor extends CI_Controller
         $data['maincontent'] = $this->load->view('tutors/tutor_details', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
-    
+
+
     public function tutor_bank_details(){
         $data['account_detail'] = $this->db->where('tutor_id',$this->session->userdata('user_id'))->get('tbl_tutor_account_details')->row();
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
@@ -129,7 +129,7 @@ class Tutor extends CI_Controller
         $data['maincontent'] = $this->load->view('tutors/tutor_bank_details', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function bank_details_submit_form(){
         $post = $this->input->post();
         $clean = $this->security->xss_clean($post);
@@ -138,7 +138,7 @@ class Tutor extends CI_Controller
         $bank_paypal_details    = $this->input->post('bank_paypal_details');
         $data['default_option'] = isset($bank_paypal_details)?$bank_paypal_details: null;
         $data['tutor_id']       = $this->session->userdata('user_id');
-        
+
         $checkDetails = $this->db->where('tutor_id',$this->session->userdata('user_id'))->get('tbl_tutor_account_details')->row();
         if(isset($checkDetails)){
             $this->db->where('tutor_id',$this->session->userdata('user_id'))->update('tbl_tutor_account_details',$data);
@@ -209,7 +209,7 @@ class Tutor extends CI_Controller
             $this->load->view('master_dashboard', $data);
         } else {
             $dataToUpdate = ['payment_accounts' => json_encode($clean)];
-            
+
         //if additional user info exist then update else insert
             $additionalInfo = $this->tutor_model->getRow('additional_tutor_info', 'tutor_id', $this->loggedUserId);
             if (count($additionalInfo)) {
@@ -283,7 +283,7 @@ class Tutor extends CI_Controller
         $data['video_help_serial'] = 21;
 
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', '', true);
-        $data['header'] = $this->load->view('dashboard_template/header', $data, true); 
+        $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', '', true);
 
         $data['maincontent'] = $this->load->view('tutors/view_course', $data, true);
@@ -339,7 +339,7 @@ class Tutor extends CI_Controller
         foreach ($data['all_question_type'] as $row) {
             $question_list[$row['id']] = $this->tutor_model->getUserQuestion('tbl_question', $row['id'], $user_id);
         }
-        
+
         $data['all_question'] = $question_list;
 
         $data['maincontent'] = $this->load->view('tutors/module/add_module', $data, true);
@@ -383,9 +383,9 @@ class Tutor extends CI_Controller
             }
             $countrySelected = 1;
         } elseif (isset($get['country']) || isset($_SESSION['modInfo']['country']) || isset($_SESSION['selCountry'])) {
-            
+
             //q-study will select country before going question-list/module, in that case need to filter by country
-            
+
             $country = isset($get['country']) ? $get['country'] : ((isset($_SESSION['modInfo']['country']) ? $_SESSION['modInfo']['country'] : ((isset($_SESSION['selCountry']))?$_SESSION['selCountry']:'')));
             $countrySelected = 1;
         }
@@ -412,13 +412,13 @@ class Tutor extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         // added shvou
         $data['tutor_permission_check'] = $this->db->where('id',$user_id)->get('tbl_useraccount')->row();
-        
+
         $data['user_info'] = $this->tutor_model->userInfo($user_id);
         $data['all_module'] = $this->tutor_model->getInfo('tbl_module', 'user_id', $user_id);
         $data['all_grade'] = $this->tutor_model->getAllInfo('tbl_studentgrade');
         $data['all_module_type'] = $this->tutor_model->getAllInfo('tbl_moduletype');
         $data['all_question_type'] = $this->tutor_model->getAllInfo('tbl_questiontype');
-    
+
         foreach ($data['all_question_type'] as $questionType) {
             $question_list[$questionType['id']] = [];
         }
@@ -432,7 +432,7 @@ class Tutor extends CI_Controller
             //$country = count($module) ? $module[0]['country'] : (isset($post['country']) ? $post['country'] : (isset($get['country']) ? $get['country'] : ''));
             $country = count($module) ? $module[0]['country'] : (isset($country)?$country:'');
             $grade = isset($post['grade']) ? $post['grade'] : (isset($module[0]['studentGrade'])?$module[0]['studentGrade'] : '');
-        
+
             $moduleType =  count($module) ? $module[0]['moduleType'] : (isset($post['moduleType']) ? $post['moduleType'] : '');
             $subject = isset($post['subject']) ? $post['subject'] :  (isset($module[0]['subject'])?$module[0]['subject'] : '');
             $chapter = isset($post['chapter']) ? $post['chapter'] :  (isset($module[0]['chapter'])?$module[0]['chapter'] : '');
@@ -471,7 +471,7 @@ class Tutor extends CI_Controller
                 $questionIds = count($moduleQuestions) ? array_column($moduleQuestions, 'question_id') : -1;
                 $conditions = !empty($grade) ? ['studentgrade'=>$grade] : [];
                 $questions = $this->Admin_model->whereIn('tbl_question', 'id', $questionIds, $conditions);
-            
+
                 foreach ($questions as $question) {
                     $question_list[$question['questionType']][] = $question;
                 }
@@ -509,7 +509,7 @@ class Tutor extends CI_Controller
                 'studentgrade' => $studentgrade,
                 'country'      => $country,
                 ];
-            
+
                 $conditions = array_filter($conditions);
                 $conditions['user_id'] = $user_id;
                 foreach ($data['all_question_type'] as $questionType) {
@@ -527,7 +527,7 @@ class Tutor extends CI_Controller
             }
         }
 
- 
+
         $data['all_question'] = $question_list;
         $data['user_id'] = $user_id;
 
@@ -539,7 +539,7 @@ class Tutor extends CI_Controller
                 foreach ($value as $key2 => $value2) {
 
                     $ck= $this->tutor_model->chk_value($key ,$user_id);
-                    
+
                     foreach ($ck as $key3 => $value3) {
                         if ($value3["id"] == $value2["id"] ) {
                             $var4 = [
@@ -550,8 +550,8 @@ class Tutor extends CI_Controller
                             ];
 
                             array_push($data_2, $var4);
-                            
-                            
+
+
                         }
 
                     }
@@ -559,10 +559,10 @@ class Tutor extends CI_Controller
                 }
 
                 array_push($data_3, $data_2);
-                $data_2 = []; 
+                $data_2 = [];
 
             }
-            
+
         }
 
 
@@ -570,13 +570,13 @@ class Tutor extends CI_Controller
             $data["old_ques_order"] = $data_3;
             $data["last_data"] =  $this->tutor_model->last_data($user_id);
         }
-        
+
         $data['subscription_type'] = $_SESSION['subscription_type'];
 
         $data['allCountry']        = $this->Admin_model->search('tbl_country', [1=>1]);
         $data['all_subject']        = $this->tutor_model->getInfo('tbl_subject', 'created_by', $user_id);
         $data['all_course']        = $this->Admin_model->search('tbl_course', [1=>1]);
-        
+
          // check password added shvou
         $data['checkNullPw'] = $this->db->where("setting_key", "qstudyPassword")->where("setting_type !=", '')->get('tbl_setting')->result_array();
 
@@ -614,14 +614,14 @@ class Tutor extends CI_Controller
             }else{
                 $this->session->set_userdata('module_edit_id', $module_edit_id);
             }
-            
+
             if($param_module_id == ""){
                 $this->session->unset_userdata('param_module_id');
             }else{
                 $this->session->set_userdata('param_module_id', $param_module_id);
             }
         }
-            
+
 
         $data['video_help'] = $this->FaqModel->videoSerialize(22, 'video_helps');
         $data['video_help_serial'] = 22;
@@ -690,7 +690,7 @@ class Tutor extends CI_Controller
         $data['all_module_type'] = $this->tutor_model->getAllInfo('tbl_moduletype');
         $data['all_question_type'] = $this->tutor_model->getAllInfo('tbl_questiontype');
 
-        foreach ($data['all_question_type'] as $questionType) { 
+        foreach ($data['all_question_type'] as $questionType) {
             $question_list[$questionType['id']] = [];
         }
 
@@ -709,7 +709,7 @@ class Tutor extends CI_Controller
             $chapter = isset($post['chapter']) ? $post['chapter'] : (isset($module[0]['chapter']) ? $module[0]['chapter'] : '');
             $course  = isset($post['course']) ? $post['course'] : (isset($module[0]['course_id']) ? $module[0]['course_id'] : '');
             $user_id = $this->loggedUserId;
-            
+
             if ($post) {
                 //save on session for filtering(ques search button click)
                 $_SESSION['modInfo'] =  [
@@ -849,7 +849,7 @@ class Tutor extends CI_Controller
         $data['maincontent'] = $this->load->view('tutors/question/question_list', $data, true);
 
         $this->load->view('master_dashboard', $data);
-    } 
+    }
 
     public function create_question($item)
     {
@@ -911,7 +911,7 @@ class Tutor extends CI_Controller
             $question_box .= '/memorization';
         }elseif ($item == 17) {
             $question_box .= '/creative_quiz';
-            
+
             $this->db->select('*');
             $this->db->from('idea_info');
             $this->db->like('image_title','Image','after');
@@ -925,7 +925,7 @@ class Tutor extends CI_Controller
             }else{
                 $datas['image_no']= $image_count+1;
             }
-            
+
         }elseif($item == 18){
             $question_box .= '/sentence_match';
         }elseif($item == 19){
@@ -1255,7 +1255,7 @@ class Tutor extends CI_Controller
         }
 
         if ($_POST['questionType'] == 20) {
-            
+
             $check_write =1;
             foreach($_POST['options'] as $option){
                 if(!empty($option)){
@@ -1275,7 +1275,7 @@ class Tutor extends CI_Controller
             }else{
                 $questionName = "";
             }
-            
+
             $com_data = array();
             $com_data['options']                    = $post['options'];
             $com_data['first_hint']                 = $post['first_hint'];
@@ -1295,7 +1295,7 @@ class Tutor extends CI_Controller
             $com_data['text_two_hint_color']        = $post['text_two_hint_color'];
             $com_data['question_title_description'] = $post['question_title_description'];
 
-            $description = json_encode($com_data); 
+            $description = json_encode($com_data);
         }
 
         if ($_POST['questionType'] == 21) {
@@ -1341,7 +1341,7 @@ class Tutor extends CI_Controller
         }
 
         if ($_POST['questionType'] == 23) {
-            
+
             $check_write =1;
             foreach($_POST['options'] as $option){
                 if(!empty($option)){
@@ -1385,7 +1385,7 @@ class Tutor extends CI_Controller
             $image_data['total_rows']        = $post['total_rows'];
             $image_data['options']           = $post['options'];
             $image_data['quiz_explaination'] = $post['quiz_explaination'];
-            
+
             $questionName = $post['quiz_question'];
             $description  = json_encode($image_data);
         }
@@ -1417,7 +1417,7 @@ class Tutor extends CI_Controller
         $minute = isset($_POST['question_time']) ? $this->input->post('minute') : "MM";
         $second = isset($_POST['question_time']) ? $this->input->post('second') : "SS";
 
-        
+
         if ($data['questionType'] == 14) {
             $data["question_solution"] = "NO solution given";
             $data['answer']            = "c";
@@ -1446,10 +1446,10 @@ class Tutor extends CI_Controller
             $array_one   = array();
             $array_two   = array();
             $array_three = array();
-        
+
             if (!empty($data["last_id"])) {
                 $data['questionMarks'] = "0";
-                // 
+                //
                 $questionId = $this->tutor_model->insertId('tbl_question', $data);
 
                 $last_id = $this->tutor_model->last_id($data['user_id']);
@@ -1492,7 +1492,7 @@ class Tutor extends CI_Controller
                 $questionId = $this->tutor_model->insertId('tbl_question', $data);
 
                 if ($data['questionType'] == 17) {
-                    
+
                     if(!empty($post['duplicate_question_id'])){
                         $duplicate_question_id = $post['duplicate_question_id'];
 
@@ -1517,7 +1517,7 @@ class Tutor extends CI_Controller
 
                             $this->tutor_model->insertId('idea_info', $data_idea);
                             // echo "<pre>";print_r($data_idea);die();
- 
+
                             $data_i['question_id'] = $duplicate_question_id;
                             $data_i['tutor_question_id'] = $questionId;
                             $data_i['user_id'] = $this->session->userdata('user_id');
@@ -1652,7 +1652,7 @@ class Tutor extends CI_Controller
                         $idea_description = $post['idea_details'];
                         $idea_description = $this->tutor_model->get_question_new_ideas($this->session->userdata('user_id'));
                         //echo "<pre>";print_r($idea_description);die();
-                        
+
                         foreach ($idea_description as $key => $value) {
 
                             $tutor_idea['question_id']         = $questionId;
@@ -1708,7 +1708,7 @@ class Tutor extends CI_Controller
                 if(!empty($module_edit_id)){
                     $module_update['question_id'] = $questionId;
                     $module_update['question_type'] = $_POST['questionType'];
-                    
+
                     $this->db->where('id', $module_edit_id);
                     $this->db->update('tbl_pre_module_temp', $module_update);
 
@@ -1731,7 +1731,7 @@ class Tutor extends CI_Controller
                 if(!empty($module_edit_id)){
                     $module_update['question_id'] = $questionId;
                     $module_update['question_type'] = $_POST['questionType'];
-                    
+
                     $this->db->where('id', $module_edit_id);
                     $this->db->update('tbl_edit_module_temp', $module_update);
 
@@ -1831,7 +1831,7 @@ class Tutor extends CI_Controller
                 }
             }
         }
-        
+
 
         if (isset($items['Image'])) {
 
@@ -1855,9 +1855,9 @@ class Tutor extends CI_Controller
                 }
             }
         }
-        
+
         $uType = $this->session->userdata('userType');
-        
+
         $files = $_FILES;
 
 
@@ -1901,7 +1901,7 @@ class Tutor extends CI_Controller
 
                       array_push($array_one, $var1);
                    }
-                   
+
             }
          }
 
@@ -1942,20 +1942,20 @@ class Tutor extends CI_Controller
                               ];
 
                               array_push($array_one, $var2);
-                             
+
                            }
                     }
-        
+
                }
 
 
         return json_encode($array_one);
-        
+
     }
 
     public function processTutorial_old($items)
     {
-        
+
         $arr = array();
         $array_one = array();
         $arr['speech_to_text'] = $items['speech_to_text'];
@@ -1975,9 +1975,9 @@ class Tutor extends CI_Controller
                 array_push($array_one, $v);
             }
         }
-        
+
         $uType = $this->session->userdata('userType');
-        
+
         $files = $_FILES;
 
 
@@ -2020,7 +2020,7 @@ class Tutor extends CI_Controller
 
                   array_push($array_one, $var1);
                }
-               
+
         }
 
                $config['upload_path'] = 'assets/uploads/question_media/';
@@ -2060,17 +2060,17 @@ class Tutor extends CI_Controller
                   ];
 
                   array_push($array_one, $var2);
-                 
+
                }
         }
         return json_encode($array_one);
-        
+
     }
 
     public function checkValidation($data)
     {
         // echo "<pre>";print_r($data);die();
-        
+
         $return_data['flag'] = 1;
         if (isset($data['errorStoryWrite'])) {
             $return_data['msg'] = 'Need to include each part right or wrong answer both.';
@@ -2206,7 +2206,7 @@ class Tutor extends CI_Controller
         $_FILES['file']['tmp_name'] = $files['file']['tmp_name'];
         $_FILES['file']['error'] = $files['file']['error'];
         $_FILES['file']['size'] = $files['file']['size'];
-        
+
         $config['upload_path'] = 'assets/uploads/';
         $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
         $config['max_size'] = 0;
@@ -2227,7 +2227,7 @@ class Tutor extends CI_Controller
             echo '{"fileName":"' . $imageName['file_name'] . '","uploaded":1,"url":"' . $base . '"}';
         }
     }
-    
+
     /**
      * Grab item from post method for question field
      *
@@ -2257,11 +2257,11 @@ class Tutor extends CI_Controller
         if ($desired_image) {
             $arr['vocubulary_image'] = $desired_image;
         }
-        
+
         if (isset($items['existed_audio_File']) && $items['existed_audio_File'] != '') {
             $arr['audioFile'] = $items['existed_audio_File'];
         }
-        
+
         $files = $_FILES;
         //only q-study user can upload video
         if (isset($_FILES['videoFile']) && $_FILES['videoFile']['error'][0] != 4 && $uType==7 ) {
@@ -2276,7 +2276,7 @@ class Tutor extends CI_Controller
             $config['max_size'] = 0;
             $config['max_width'] = 0;
             $config['max_height'] = 0;
-            
+
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             $this->upload->do_upload();
@@ -2289,7 +2289,7 @@ class Tutor extends CI_Controller
                 $arr['videoFile'] = $config['upload_path'] . $fdata['file_name'];
             }
         }
-        
+
         if (isset($_FILES['audioFile']) && $_FILES['audioFile']['error'][0] != 4) {
             $_FILES['audioFile']['name'] = $files['audioFile']['name'];
             $_FILES['audioFile']['type'] = $files['audioFile']['type'];
@@ -2302,11 +2302,11 @@ class Tutor extends CI_Controller
             $config['max_size'] = 0;
             $config['max_width'] = 0;
             $config['max_height'] = 0;
-            
+
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             $this->upload->do_upload();
-            
+
             if (!$this->upload->do_upload('audioFile')) {
                 $error = $this->upload->display_errors();
             } else {
@@ -2314,11 +2314,11 @@ class Tutor extends CI_Controller
                 $arr['audioFile'] = $config['upload_path'] . $fdata1['file_name'];
             }
         }
-        
+
         return json_encode($arr);
     }
 
-    
+
     /**
      * question media file upload and record
      *
@@ -2330,22 +2330,22 @@ class Tutor extends CI_Controller
         $files = $_FILES;
         $dataToInsert = [];
         $config['upload_path'] = "assets/uploads/question_media";
-        
+
         $config['allowed_types']        = 'mp3|mp4|3gp|ogg|wmv';
         $config['max_size']             = 18403791;
         $config['max_width']            = 1024;
         $config['max_height']           = 768;
-        
+
         foreach ($files as $index => $item) {
             $config['file_name'] = uniqid();
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             $this->upload->do_upload($index);
-            
+
             $fileName = $this->upload->data('file_name');
             $filePath = $this->upload->data('file_path');
             $fileType = $this->upload->data('file_type');
-            
+
             $dataToInsert['media_url'] = $filePath.$fileName;
             $dataToInsert['media_type'] = $fileType;
             $dataToInsert['upload_date'] = date("Y-m-d H:i:s");
@@ -2353,10 +2353,10 @@ class Tutor extends CI_Controller
             $this->tutor_model->insertInfo('tbl_question_media', $dataToInsert);
         }
     }
-    
+
     //******* Question Edit Option *********//
     public function question_edit($type, $question_id, $module_edit_status=null, $module_status_edit_id=null)
-    { 
+    {
         // echo 11; die();
         if(!empty($module_edit_status)){
             if($module_edit_status==2){
@@ -2369,12 +2369,11 @@ class Tutor extends CI_Controller
         }
 
         if (!empty($_SESSION["has_edit"])) {
-            $data["has_back_button"] =$_SESSION["has_edit"];
-        }
-        else{
+            $data["has_back_button"] = $_SESSION["has_edit"];
+        }else{
             unset($_SESSION["has_edit"]);
         }
-        
+
         $data['question_info'] = $this->tutor_model->getQuestionInfo($type, $question_id);
         // echo '<pre>';print_r($data['question_info']);die();
 
@@ -2406,13 +2405,13 @@ class Tutor extends CI_Controller
             $this->session->set_flashdata('refPage', 'questionEdit');
             $this->session->set_flashdata('modInfo', $temp);
         }
-        
+
         $qSearchParams = [
             'questionType' =>$type,
             'user_id' =>$this->loggedUserId,
             'country' =>$this->session->userdata('selCountry'),
         ];
-        
+
         //print_r($qSearchParams);die();
         //echo $question_id.'//';
         $allQuestionIds = $this->QuestionModel->search('tbl_question', $qSearchParams);
@@ -2429,7 +2428,7 @@ class Tutor extends CI_Controller
             $data['qIndex'] += 1;
         }
 
-        
+
         $question_box = 'question_edit/question-box';
         if ($type == 1) {
             $question_box .= '/general';
@@ -2443,12 +2442,12 @@ class Tutor extends CI_Controller
                 $data['question_module_check'] = $que_module_check;
                 //echo "<pre>";print_r($que_module_check);die();
             }
-            
+
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             $question_box .= '/edit_vocubulary';
         }
         if ($type == 4) {
-            
+
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             $question_box .= '/edit_multiple_choice';
         }
@@ -2472,10 +2471,10 @@ class Tutor extends CI_Controller
             $data['questionBody'] = $quesInfo1->question_body;
             $question_box .= '/skip_quiz';
         } if ($type == 8) {
-            $this->edit_assignment_question($data); 
+            $this->edit_assignment_question($data);
         } if ($type == 9) {
-            
-            
+
+
             $info = array();
             $titles = array();
             $title = array();
@@ -2495,7 +2494,7 @@ class Tutor extends CI_Controller
             if (count($titles) > 1 ) {
                 $data['titles_on'] = 1;
             }
-            
+
 
             $title[0] = json_decode($data['question_info'][0]['questionName'])->rightTitle;
             $title[1] = "right_ones_xxx";
@@ -2519,7 +2518,7 @@ class Tutor extends CI_Controller
             if (count($titles) > 1 ) {
                 $data['intro_on'] = 1;
             }
-            
+
             $title[0] = json_decode($data['question_info'][0]['questionName'])->rightIntro;
             $title[1] = "right_ones_xxx";
             $title[2] = "noWrongTitle";
@@ -2583,16 +2582,16 @@ class Tutor extends CI_Controller
             $data['question_answer'] = json_decode($data['question_info'][0]['answer']);
 
             $question_box .= '/edit_storyWrite';
-            
+
         } if ($type == 10) {
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName'], true);
             $data['question_answer'] = json_decode($data['question_info'][0]['answer'], true);
-            
+
             $question_box .= '/edit_times_table';
         } if ($type == 11) {
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName'], true);
             $data['question_answer'] = json_decode($data['question_info'][0]['answer'], true);
-            
+
             $question_box .= '/edit_algorithm';
         } if ($type == 12) {
             $question_box .= '/workout_quiz';
@@ -2603,7 +2602,7 @@ class Tutor extends CI_Controller
             // $last_id = $this->tutor_model->tutor_update(5620);
             // print_r(); die();
             $data['tutor_edit'] = $this->tutor_model->tutor_edit($type, $question_id);
-            
+
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             $question_box .= '/edit_tutor_view';
         }if ($type == 15)
@@ -2613,8 +2612,8 @@ class Tutor extends CI_Controller
             }
             if ($type == 16)
         {
-            
-            
+
+
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             // echo "<pre>";print_r($data['question_info_ind'] ); die();
             $question_box .= '/memorization.php';
@@ -2622,11 +2621,11 @@ class Tutor extends CI_Controller
         }
         if ($type == 17)
         {
-            $data['idea_info'] = $this->tutor_model->getIdeaInfoByQuestion($question_id); 
+            $data['idea_info'] = $this->tutor_model->getIdeaInfoByQuestion($question_id);
             // echo "<pre>";print_r($data['idea_info']);die();
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             $data['q_creator_name'] = $this->tutor_model->getIQuestionCreator($question_id);
-        
+
             $question_box .= '/edit_creative_quiz.php';
 
             $this->db->truncate('idea_save_temp');
@@ -2665,8 +2664,8 @@ class Tutor extends CI_Controller
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             $question_box .= '/edit_image_quiz.php';
         }
-        
-        
+
+
         if ($type != 8) {
             $data['question_box'] = $this->load->view($question_box, $data, true);
 
@@ -2679,7 +2678,7 @@ class Tutor extends CI_Controller
         }
     }
 
-    public function view_edit_idea(){ 
+    public function view_edit_idea(){
         // $question_id = $this->input->post('question_id');
         // $idea_id = $this->input->post('idea_id');
 
@@ -2699,8 +2698,8 @@ class Tutor extends CI_Controller
         echo json_encode($result);
 
     }
-    
-    
+
+
     public function edit_assignment_question($data)
     {
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
@@ -2712,8 +2711,8 @@ class Tutor extends CI_Controller
         $data['maincontent'] = $this->load->view('question_edit/edit_assignment_question', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
-    
+
+
     /**
      * Before passing items to renderSkpQuizPrevTable() index it first with this func
      * basically for preview skip quiz table
@@ -2740,7 +2739,7 @@ class Tutor extends CI_Controller
 
         return $arr;
     }//end indexQuesAns()
-    
+
 
     /**
      * Render the indexed item to table data for preview
@@ -2800,7 +2799,7 @@ class Tutor extends CI_Controller
 
         return $row;
     }//end renderSkpQuizPrevTable()
-    
+
 
     /**
      * view student progress by his/her tutor
@@ -2860,7 +2859,7 @@ class Tutor extends CI_Controller
                 $student = $student[0];
                 $options .= '<option value="' . $studentId . '">' . $student['name'] . '</option>';
             }
-            
+
         }
         return $options;
     }
@@ -2939,7 +2938,7 @@ class Tutor extends CI_Controller
             $data['created_by'] = $this->session->userdata('user_id');
             $chapter = $this->tutor_model->insertInfo('tbl_chapter', $data);
             $all_subject_chapter = $this->tutor_model->getInfo('tbl_chapter', 'subjectId', $data['subjectId']);
-            
+
             echo '<option value="">Select Chapter</option>';
             foreach ($all_subject_chapter as $chapter) {
                 echo '<option value="' . $chapter['id'] . '">' . $chapter['chapterName'] . '</option>';
@@ -2967,7 +2966,7 @@ class Tutor extends CI_Controller
         $numOfCols = $temp2->numOfCols;
         //echo $numOfRows .' ' . $numOfCols;
         $wrongAnsIndices = [];
-        
+
         for ($row=1; $row<=$numOfRows; $row++) {
             for ($col=1; $col<=$numOfCols; $col++) {
                 if (isset($savedAns[$row][$col]) && isset($givenAns[$row][$col])) {
@@ -2975,7 +2974,7 @@ class Tutor extends CI_Controller
                 }
             }
         }
-        
+
         $wrongAnsIndices = array_filter($wrongAnsIndices);
         //echo count($savedAns);
         if (count($wrongAnsIndices) || count($givenAns) != count($savedAns)) {
@@ -2991,7 +2990,7 @@ class Tutor extends CI_Controller
      * @return string table item
      */
     public function getRightAns()
-    { 
+    {
         $post = $this->input->post();
         $questionId = $post['qId'];
         $temp = $this->Preview_model->getInfo('tbl_question', 'id', $questionId);
@@ -3003,7 +3002,7 @@ class Tutor extends CI_Controller
         $tblData = $this->renderSkpQuizPrevTable($items, $rows, $cols, $showAns = 1);
         echo $tblData;
     }
-    
+
     public function update_question_data()
     {
         $post = $this->input->post();
@@ -3045,13 +3044,13 @@ class Tutor extends CI_Controller
         //echo 'sssssssssss/'.$module_edit_id;die();
         if ($module_status==1) {
             if(!empty($module_edit_id)){
-               
+
                 $module_update['question_id'] = $question_id;
                 $module_update['question_type'] = $_POST['questionType'];
-                
+
                 $this->db->where('id', $module_edit_id);
                 $this->db->update('tbl_pre_module_temp', $module_update);
-                
+
             }else{
                 $this->db->select('*');
                 $this->db->from('tbl_pre_module_temp');
@@ -3066,18 +3065,18 @@ class Tutor extends CI_Controller
                 $module_insert['question_no'] = $this->input->post('country');
                 $this->db->insert('tbl_pre_module_temp', $module_insert);
             }
-            
+
             // echo $this->db->last_query(); die();
         }elseif($module_status==2){
-          
+
             if(!empty($module_edit_id)){
-               
+
                 $module_update['question_id'] = $question_id;
                 $module_update['question_type'] = $_POST['questionType'];
-                
+
                 $this->db->where('id', $module_edit_id);
                 $this->db->update('tbl_edit_module_temp', $module_update);
-                
+
             }else{
                 $this->db->select('*');
                 $this->db->from('tbl_edit_module_temp');
@@ -3095,7 +3094,7 @@ class Tutor extends CI_Controller
                 $this->db->insert('tbl_edit_module_temp', $module_insert);
             }
         }
-       
+
 
         if ($data['questionType'] == 14) {
             $questionName =  $this->processTutorial($post);
@@ -3435,7 +3434,7 @@ class Tutor extends CI_Controller
                 $check_write =2;
                }
             }
-            
+
             if($check_write==2){
                $answer = $post['option_check'][0];
             }else{
@@ -3446,7 +3445,7 @@ class Tutor extends CI_Controller
             }else{
                 $questionName = "";
             }
-            
+
             $com_data = array();
             $com_data['options'] = $post['options'];
             $com_data['first_hint'] = $post['first_hint'];
@@ -3499,7 +3498,7 @@ class Tutor extends CI_Controller
         }
 
         if ($_POST['questionType'] == 22) {
-            
+
             $glossary_data['title_color'] = $post['title_color'];
             $glossary_data['question_title_description'] = $post['question_title_description'];
             $glossary_data['image_ques_body'] = $post['image_ques_body'];
@@ -3524,7 +3523,7 @@ class Tutor extends CI_Controller
             }else if($image_data['image_type_three']==1){
                 $answer = $post['answer_three'];
             }
-            
+
             $check_write =1;
             foreach($_POST['options'] as $option){
                if(!empty($option)){
@@ -3539,7 +3538,7 @@ class Tutor extends CI_Controller
                $questionMarks = 0;
 
             }
-           
+
             $image_data['box_one_image'] = $post['box_one_image'];
             $image_data['box_two_image'] = $post['box_two_image'];
             $image_data['box_three_image'] = $post['box_three_image'];
@@ -3556,7 +3555,7 @@ class Tutor extends CI_Controller
             $image_data['total_rows'] = $post['total_rows'];
             $image_data['options'] = $post['options'];
             $image_data['quiz_explaination'] = $post['quiz_explaination'];
-            
+
             $questionName = $post['quiz_question'];
 
             // echo "<pre>"; print_r($image_data);die();
@@ -3599,7 +3598,7 @@ class Tutor extends CI_Controller
 
 
                 $data['questionMarks'] = "0";
-                // 
+                //
                 // $questionId = $this->tutor_model->insertId('tbl_question', $data);
 
                 $hour   =  $this->input->post('hour');
@@ -3607,8 +3606,8 @@ class Tutor extends CI_Controller
                 $second =  $this->input->post('second');
 
                 $data['questionTime'] = $hour . ":" . $minute . ":" . $second;
-                
-                
+
+
                 $this->tutor_model->updateInfo('tbl_question', 'id', $question_id, $data);
 
 
@@ -3824,7 +3823,7 @@ class Tutor extends CI_Controller
                     echo "Each part needs a right and wrong Question";
                 }
             } else {
-                
+
                 $this->tutor_model->updateInfo('tbl_question', 'id', $question_id, $data);
                 echo "update";
             }
@@ -3859,8 +3858,8 @@ class Tutor extends CI_Controller
         $this->tutor_model->updateInfo('tbl_question', 'id', $question_id, $data);
         echo $question_id;
     }
-    
-    
+
+
     public function ques_matching_data($post_data)
     {
         $array_1 = array();
@@ -3880,7 +3879,7 @@ class Tutor extends CI_Controller
         $combined_data = json_encode($arr);
         return $combined_data;
     }
-    
+
     public function ans_matching_data($post_data)
     {
         $data_answer = array();
@@ -3890,7 +3889,7 @@ class Tutor extends CI_Controller
         }
         return json_encode($data_answer);
     }
-    
+
     /**
      * process assignment type question form input
      *
@@ -3903,7 +3902,7 @@ class Tutor extends CI_Controller
         $arr     = [];
         $temp    = [];
         $temp['totMarks'] = 0;
-        
+
         for ($a = 0; $a < $itemNum; $a++) {
             $arr[] = json_encode(
                 [
@@ -3920,8 +3919,8 @@ class Tutor extends CI_Controller
         $temp['assignment_tasks'] = $arr;
         return $temp;
     }//end processAssignmentTasks()
-    
-    
+
+
     private function save_multiple_choice($post_data)
     {
         for ($i = 1; $i <= $post_data['image_quantity']; $i++) {
@@ -3940,7 +3939,7 @@ class Tutor extends CI_Controller
         $combined_data = json_encode($arr);
         return $combined_data;
     }
-    
+
     private function save_multiple_response($post_data)
     {
         for ($i = 1; $i <= $post_data['image_quantity']; $i++) {
@@ -3966,7 +3965,7 @@ class Tutor extends CI_Controller
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         if ($data['question_info_s'][0]['question_type']==1) {
             $data['maincontent'] = $this->load->view('module_preview/preview_general', $data, true);
         } elseif ($data['question_info_s'][0]['question_type']==2) {
@@ -3984,7 +3983,7 @@ class Tutor extends CI_Controller
             $data['question_info_left_right'] = json_decode($data['question_info_s'][0]['questionName']);
             $data['maincontent'] = $this->load->view('module_preview/preview_matching', $data, true);
         }
-        
+
         $this->load->view('master_dashboard', $data);
     }
 
@@ -4026,7 +4025,7 @@ class Tutor extends CI_Controller
 
             $this->tutor_model->updateInfo('additional_tutor_info', 'tutor_id', $this->loggedUserId, $additionalTableData);
             $this->tutor_model->updateInfo('tbl_useraccount', 'id', $this->loggedUserId, $userAccountTableData);
-            
+
             $this->session->set_flashdata('success_msg', 'Account Updated Successfully');
         } // update tutor account if post has data
 
@@ -4049,7 +4048,7 @@ class Tutor extends CI_Controller
         $data['maincontent'] = $this->load->view('tutors/update_profile', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function check_student_copy($module_id, $student_id, $question_order_id)
     {
         $data['module_info'] = $this->Student_model->getInfo('tbl_module', 'id', $module_id);
@@ -4156,7 +4155,7 @@ class Tutor extends CI_Controller
     //                 </thead>
     //                 <tbody>';
 
-    //     for ($i=0; $i <$qty ; $i++) { 
+    //     for ($i=0; $i <$qty ; $i++) {
     //     $output .='<tr>
     //                 <td>';
     //     $output .='<div class="form-group">
@@ -4164,22 +4163,22 @@ class Tutor extends CI_Controller
     //                   <div class="col-sm-8">
     //                     <input type="file" id="exampleInputFile" name="Image['.$i.'][Image]" required>
     //                   </div>
-    //                 </div><br><br>';              
+    //                 </div><br><br>';
     //     $output .='<div class="form-group">
     //                   <div class="col-sm-4"><label for="inputEmail3" class="col control-label">Audio File</label></div>
     //                   <div class="col-sm-8">
     //                     <input type="file" id="exampleInputFile" name="audioFile['.$i.'][audioFile]"  required>
     //                   </div>
-    //                 </div><br><br>';            
+    //                 </div><br><br>';
     //     $output .='<div class="form-group">
     //                    <div class="col-sm-4"><label for="spchToTxt" class="col control-label">Speech to text</label></div>
     //                   <div class="col-sm-8">
     //                     <input type="text"  id="spchToTxt" class="form-control" name="speech_to_text['.$i.'][speech_to_text]"  required>
     //                   </div>
-    //                 </div><br><br>'; 
-         
+    //                 </div><br><br>';
+
     //     $output .='</td>
-    //               </tr>';                                           
+    //               </tr>';
     //     }
 
     //     $output .='</tbody>
@@ -4191,8 +4190,8 @@ class Tutor extends CI_Controller
     //                         pageLength: 1,
     //                         });
     //                 } );
-    //                 </script>';                  
-                                
+    //                 </script>';
+
     //     print_r($output);
     // }
 
@@ -4207,7 +4206,7 @@ class Tutor extends CI_Controller
 		}
         $output ='';
 		$output_ ='';
-        for ($i=0; $i <$qty ; $i++) { 
+        for ($i=0; $i <$qty ; $i++) {
 
         $output .='<div class="tab row tabdata'.$i.'">';
         $output .= '<div class="col-md-7">';
@@ -4217,14 +4216,14 @@ class Tutor extends CI_Controller
                         <input type="file" class="img-validate" count_here="Image Field at tab [ '.($i+1).' ] " id="image_'.$i.'" name="Image['.$i.'][Image]" accept=".png"  required>
                         <p style="color:red;" id="img_id_'.$i.'"></p>
                       </div>
-                    </div><br><br>';              
+                    </div><br><br>';
         $output .='<div class="form-group" style="display:'.$style.' !important">
                       <div class="col-sm-4"><label for="inputEmail3" class="col control-label">Audio File</label></div>
                       <div class="col-sm-8">
                         <input type="file"  id="audio_'.$i.'" name="audioFile['.$i.'][audioFile]"  accept=".mp3, .mp4">
                         <p style="color:red;" id="aud_id_'.$i.'"></p>
                       </div>
-                    </div><br><br>';            
+                    </div><br><br>';
         $output .='<div class="form-group" style="display:'.$style.' !important">
                        <div class="col-sm-4"><label for="spchToTxt" class="col control-label">Speech to text</label></div>
                       <div class="col-sm-8">
@@ -4237,22 +4236,22 @@ class Tutor extends CI_Controller
         $output .= '<span style="margin-right: 10px;">Accepted Format:<b>.png</b></span>';
         $output .= '<span>Maximum File Size:<b>3MB</b></span>';
         $output .='</div>';
-        $output .='</div>';                        
+        $output .='</div>';
         }
 
- 
+
 
         $output .='<div class="row" style="background-color: #3595d6; margin-bottom:0" >
-                   
+
                          <div class="col-sm-12">
                          <div style="float:right; ">
                              <div class="ss_pagination" style="margin-bottom:0">
                               <div>
                                 <button class="steprs" style="color: #4c4a4a; border: none; padding: 10px;font-weight: 500;" type="button" id="prevBtn" onclick="nextPrev(-999)" >Previous</button>';
 
-                         for ($i=0; $i <$qty ; $i++) { 
+                         for ($i=0; $i <$qty ; $i++) {
                               $output .='<button style="background: none;border: none; padding: 10px;font-weight: 500;" class="steprs number_'.$i.'" style="width:45px;" id="qty" value="'.$qty.'" type="button" onclick="showFixSlide('.$i.')">'.($i+1).'</button> ';
-                         }   
+                         }
 
                             $output .='<button type="button" style="color: #4c4a4a; border: none; padding: 10px;font-weight: 500;" class="btn_work" id="nextBtn" onclick="nextPrev(99999)">Next</button>
                           </div>
@@ -4260,11 +4259,11 @@ class Tutor extends CI_Controller
 
                         </div>
                      </div>
-                 </div>'; 
+                 </div>';
 
 
         // $output .='<div style="text-align:center;margin-top:40px;">';
-        // for ($i=0; $i <$qty ; $i++) { 
+        // for ($i=0; $i <$qty ; $i++) {
         //     $output .='<span class="step"></span>';
         // }
 
@@ -4292,12 +4291,12 @@ class Tutor extends CI_Controller
                       $(".steprs").each(function( index ) {
                         $(this).removeClass("activtab");
                     })
-                   
+
                         $(\'.number_\'+n).addClass("activtab");
 
-                    
+
                     console.log(n);
-                    
+
                     currentTab = n;
                     showTab(n);
                     fixStepIndicator(n);
@@ -4313,7 +4312,7 @@ class Tutor extends CI_Controller
                             if(currentTab<0) currentTab = 0;
                             console.log(currentTab);
                             fixStepIndicator(currentTab);
-                            
+
 
                         }
                         //next clicked
@@ -4323,7 +4322,7 @@ class Tutor extends CI_Controller
                            if(currentTab >= qty) currentTab = qty - 1;
                            fixStepIndicator(currentTab);
                             }
-                      
+
 
                         fixStepIndicator();
                         showTab(currentTab);
@@ -4381,7 +4380,7 @@ class Tutor extends CI_Controller
                 }
                 </script>';
 
-                                
+
         print_r($output);
     }
 
@@ -4407,7 +4406,7 @@ class Tutor extends CI_Controller
         curl_close($ch);
         echo json_encode($data);
     }
-    
+
     // memorization function create by aftab
     public function save_memorization($post_data)
     {
@@ -4586,11 +4585,11 @@ class Tutor extends CI_Controller
             $arr_data = $arr;
         }elseif ($post_data['pattern_type'] == 3)
         {
-            
-            
+
+
 
             $arr['box_quantity_whiteboard'] = $post_data['box_quantity_whiteboard'];
-        
+
             $whiteboard_memorize_p_three = array();
             $question_step_memorize_p_three = array();
             $clueQuestionStep = array();
@@ -4771,7 +4770,7 @@ class Tutor extends CI_Controller
         $combined_data = json_encode($arr_data);
         return $combined_data;
     }
-    
+
     public function pattern_image_upload($arr){
         $left_memorize_p_three = array();
         $right_memorize_p_three = array();
@@ -4843,7 +4842,7 @@ class Tutor extends CI_Controller
         return $arr ;
 
     }
-    
+
     public function add_question_tutorial()
     {
         $question_id  = $this->input->post('question_id', true);
@@ -4923,11 +4922,11 @@ class Tutor extends CI_Controller
                     $html .= '<audio controls>';
                     $html .= '<source src ="'.base_url().'assets/uploads/question_media/'.$value["audio"].'" type="audio/mpeg" >';
                     $html .= '</audio>';
-                
+
             $html .= '<div style="margin:10px 0px 30px 0px;"><p style="color:red;"></p></div>';
             $html .= '</div></div><br><br>';
 				}
-			
+
             if ($value["speech"] !="none")
             {
             $html .= '<div class="form-group" style="'.$audioDisplay.'">';
@@ -4936,7 +4935,7 @@ class Tutor extends CI_Controller
                 $html .= 'Speech <div class="col-xs-4" style="font-size: 18px; padding-right:0px">';
                 $html .= '<i class="fa fa-volume-up edit_tutorial_speech" value="'.$value["speech"].'"></i>';
                 $html .= '<input type="hidden" id="wordToSpeak" value="'.$value["speech"].'"></div>';
-            
+
             $html .= '<div style="margin:20px 0px;">';
             $html .= '<p style="color:red;" id="spch_id_'.$key.'"></p>';
             $html .= '</div></div></div><br><br>';
@@ -5038,7 +5037,7 @@ class Tutor extends CI_Controller
 				$html .= '<div style="margin:10px 0px 30px 0px;"><p style="color:red;"></p></div>';
 				$html .= '</div></div><br><br>';
 			}
-			
+
             if ($value["speech"] !="none")
             {
 				$html .= '<div class="form-group">';
@@ -5098,7 +5097,7 @@ class Tutor extends CI_Controller
         }
         echo true;
     }
-    
+
     public function question_store()
     {
         $_SESSION['prevUrl'] = base_url('/').'question-list/';
@@ -5114,9 +5113,9 @@ class Tutor extends CI_Controller
 
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function get_store_subject_amount(){
-        
+
         $subject       = $this->input->post('subject_id');
         $checksubject  = $this->db->where('subject_id',$subject)->get('resource_subject_amount')->row();
         $amount        = (isset($checksubject))?$checksubject->amount:0;
@@ -5152,7 +5151,7 @@ class Tutor extends CI_Controller
                 die;
             }
         }
-        
+
         die;
     }
 
@@ -5185,17 +5184,17 @@ class Tutor extends CI_Controller
             $data['questionStoreStatus'] = $clean['questionStoreStatus'];
             $data['tutor_file']     = '';
             $data['student_file']   = '';
-            
+
             $amount  = $clean['amount'];
             $subject = $clean['subject'];
-            
+
             $checksubject  = $this->db->where('subject_id',$subject)->get('resource_subject_amount')->row();
             if(isset($checksubject)){
                 $this->db->where('subject_id',$subject)->update('resource_subject_amount',['amount'=>$amount]);
             }else{
                 $this->db->insert('resource_subject_amount',['amount'=>$amount,'subject_id'=>$subject]);
             }
-            
+
             foreach($clean['media'] as $key=>$file)
             {
                 $config['upload_path'] = 'assets/question-store';
@@ -5203,10 +5202,10 @@ class Tutor extends CI_Controller
                 $config['overwrite'] = false;
                 $this->load->library('upload');
                 $config['file_name']=rand(100,9999).'-'.time().'-'.$file['name'];
-                 
+
                 $this->upload->initialize($config);
                 if (!$this->upload->do_upload($key)) {
-                  
+
                    }else{
 
                       $imageName = $this->upload->data();
@@ -5218,10 +5217,10 @@ class Tutor extends CI_Controller
                       {
                         $data['student_file'] = 'assets/question-store/'.$imageName["file_name"];
                       }
-                      
+
                    }
             }
-            
+
             if($data['tutor_file'] == '')
                {
                      $array = array(
@@ -5284,9 +5283,9 @@ class Tutor extends CI_Controller
 
         }
         $data['whiteboard'] = $whiteboard;
-        
+
         //echo $data['whiteboard'];die()
-        
+
         $userInfo = $this->db->where('id',$user_id)->get('tbl_useraccount')->row();
         $parentId = $userInfo->parent_id;
         if($parentId != null){
@@ -5296,13 +5295,13 @@ class Tutor extends CI_Controller
              }else{
                  $data['school_tutor'] = 0;
              }
-            
+
         }
 
         $data['video_help'] = $this->FaqModel->videoSerialize(27, 'video_helps'); //rakesh
         $data['video_help_serial'] = 27;
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', '', true);
-        $data['header'] = $this->load->view('dashboard_template/header', $data, true); 
+        $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', '', true);
 
         $data['maincontent'] = $this->load->view('tutors/whiteboard_items', $data, true);
@@ -5313,8 +5312,8 @@ class Tutor extends CI_Controller
 
         $data['video_help'] = $this->FaqModel->videoSerialize(29, 'video_helps'); //rakesh
         $data['video_help_serial'] = 29;
-        
-        
+
+
         $user_id = $this->session->userdata('user_id');
         //check direct deposit resource
         $tbl_qs_payments = $this->db->where('user_id',$user_id)->where('PaymentEndDate >',time())->order_by('id','desc')->limit(1)->get('tbl_qs_payment')->row();
@@ -5325,7 +5324,7 @@ class Tutor extends CI_Controller
         }else if($payment_status == 'Pending'){
             //$data['deposit_resources_status'] = 0;//Inactive
         }
-        
+
         $userInfo = $this->db->where('id',$user_id)->get('tbl_useraccount')->row();
         $parentId = $userInfo->parent_id;
         if($parentId != null){
@@ -5335,9 +5334,9 @@ class Tutor extends CI_Controller
              }else{
                  $data['school_tutor'] = 0;
              }
-            
+
         }
-        
+
         //echo "<pre>";print_r($data);die;
 
         $user_id = $this->session->userdata('user_id');
@@ -5351,7 +5350,7 @@ class Tutor extends CI_Controller
 
         $data['maincontent'] = $this->load->view('tutors/question_store', $data, true);
         $this->load->view('master_dashboard', $data);
-      
+
     }
     public function search_store_view()
     {
@@ -5381,16 +5380,16 @@ class Tutor extends CI_Controller
             $conditions['country']   = $clean['country'];
             $conditions['grade']     = $clean['grade'];
             $conditions['subject']   = $clean['subject'];
-            
+
             $store_data = $this->Student_model->getQuestionStore($conditions);
             $html = '';
             if(!empty($store_data))
             {
-                   
+
                 foreach ($store_data as $key => $item) {
                    $chapter_id = $item['chapter'];
                    $chapter =  $this->Student_model->getInfo('tbl_question_store_chapter', 'id',$chapter_id);
-                  
+
                    $html .= '<tr>';
                    $html .= '<td>'.$item['pdf_order'].'</td>';
                    $html .= '<input type="hidden" class="order_number" id="order_number" name="order[]" value="'.$item['id'].'">';
@@ -5404,7 +5403,7 @@ class Tutor extends CI_Controller
             {
                 $html .= 'No data Found!';
             }
-                $success['success'] = $html; 
+                $success['success'] = $html;
                 echo json_encode($success);
                die;
         }else{
@@ -5428,7 +5427,7 @@ class Tutor extends CI_Controller
         if(count($order) > 0)
         {
             $html = '';
-            
+
             $i = 1;
             foreach($order as $id)
             {
@@ -5450,7 +5449,7 @@ class Tutor extends CI_Controller
              $i++;
             }
 
-            $success['success'] = $html; 
+            $success['success'] = $html;
             echo json_encode($success);
             die;
         }
@@ -5463,7 +5462,7 @@ class Tutor extends CI_Controller
         $post = $this->input->post();
         $clean = $this->security->xss_clean($post);
         $user_id = $this->session->userdata('user_id');
-        
+
         $userInfo = $this->db->where('id',$user_id)->get('tbl_useraccount')->row();
         $parentId = $userInfo->parent_id;
         if($parentId != null){
@@ -5473,11 +5472,11 @@ class Tutor extends CI_Controller
          }else{
              $school_tutor = 0;
          }
-            
+
         }
         // echo $school_tutor;die();
-        
-        
+
+
         if($clean['grade'] != '')
         {
             $grade      = $clean['grade'];
@@ -5490,13 +5489,13 @@ class Tutor extends CI_Controller
         {
             $country      = $clean['country'];
         }
-        
-        
+
+
         //check direct deposit resource
         $tbl_qs_payments = $this->db->where('user_id',$user_id)->where('PaymentEndDate >',time())->where('subject',$subject_id)->order_by('id','desc')->limit(1)->get('tbl_qs_payment')->row();
         $end_date = $tbl_qs_payments->PaymentEndDate;
         $payment_status = $tbl_qs_payments->payment_status;
-        
+
         if($payment_status == 'Completed'){
             $deposit_resources_status = 1;//active
         }else if($payment_status == 'Pending'){
@@ -5504,8 +5503,8 @@ class Tutor extends CI_Controller
         }else{
             $deposit_resources_status = 0;//Inactive
         }
-        
-        
+
+
         $result['error'] = 0;
         $result['msg'] = '';
         if($subject_id != 0 && $grade != 0)
@@ -5513,7 +5512,7 @@ class Tutor extends CI_Controller
             $conditions['country']   = $country;
             $conditions['grade']     = $grade;
             $conditions['subject']   = $subject_id;
-            
+
             $resource = $this->db->where('subject_id',$subject_id)->get('resource_subject_amount')->row();
             $amount   = (isset($resource))?$resource->amount:0;
 
@@ -5527,31 +5526,31 @@ class Tutor extends CI_Controller
                     if($school_tutor == 1 ){
                         $html .= '<td><a href="download_tutor_question_store/'.$item['id'].'" store-id'.$item['id'].'>'.$chapter[0]['chapter_name'].'</a></td>';
                     }else{
-                        
+
                         if ($item['questionStoreStatus'] == 'paid') {
                             if($deposit_resources_status == 1){
                                 $html .= '<td><a href="download_tutor_question_store/'.$item['id'].'" store-id'.$item['id'].'>'.$chapter[0]['chapter_name'].'</a></td>';
                             }else{
                                 $html .= '<td><a store-id'.$item['id'].'>'.$chapter[0]['chapter_name'].'</a></td>';
-                            }                      
+                            }
                         }else{
                             $html .= '<td><a href="download_tutor_question_store/'.$item['id'].'" store-id'.$item['id'].'>'.$chapter[0]['chapter_name'].'</a></td>';
                         }
                     }
-                    
+
                     if($school_tutor == 1 ){
                         $html .= '<td><img style="width:25px;" src="'.base_url('/').'assets/images/pdf-icon2.png">  <p style="font-size: 13px;color: #4a4193;display:inline-block;position: relative;bottom: 7px;left: 10px;">Free</p></td>';
-                        
+
                     }else{
-                        
+
                         if ($item['questionStoreStatus'] == 'paid') {
-                            $html .= '<td><img style="width:25px;"src="'.base_url('/').'assets/images/pdf-icon2.png">  <i style="font-size: 20px;color: #dbd526;position: relative;bottom: 7px;left: 10px;" class="fa fa-lock"></i></td>';                        
+                            $html .= '<td><img style="width:25px;"src="'.base_url('/').'assets/images/pdf-icon2.png">  <i style="font-size: 20px;color: #dbd526;position: relative;bottom: 7px;left: 10px;" class="fa fa-lock"></i></td>';
                         }else{
                             $html .= '<td><img style="width:25px;" src="'.base_url('/').'assets/images/pdf-icon2.png">  <p style="font-size: 13px;color: #4a4193;display:inline-block;position: relative;bottom: 7px;left: 10px;">Free</p></td>';
                         }
                     }
                     $html .= '</tr>';
-                } 
+                }
             }else{
                 $html .= '<tr>';
                 $html .= '<td></td>';
@@ -5562,15 +5561,15 @@ class Tutor extends CI_Controller
             $result['data'] = $html;
             $result['success_amount'] = $amount;
             if($deposit_resources_status == 1){
-                $result['href_url'] = "<button class='btn btn-success btn-sm'>Paid</button>"; 
-                
+                $result['href_url'] = "<button class='btn btn-success btn-sm'>Paid</button>";
+
             }else if($deposit_resources_status == 2){
                 $result['href_url'] = "<button class='btn btn-danger btn-sm'>Pending</button>";
-                
+
             }else{
                 $result['href_url'] = ' <a href="questionStorePaymentOption/'.$subject_id.'" style="display: inline-block;">
                           <i class="fa fa-shopping-cart" style="font-size: 35px;margin-left: 5px"></i>
-                        </a>'; 
+                        </a>';
             }
             echo json_encode($result);
             die;
@@ -5585,7 +5584,7 @@ class Tutor extends CI_Controller
         if (is_numeric($id)) {
 
            $store = $this->Student_model->getInfo('tbl_questions_store', 'id',$id);
-           
+
            if (isset($store[0]['tutor_file'])) {
             $chapter =  $this->Student_model->getInfo('tbl_question_store_chapter', 'id',$store[0]['chapter']);
               $this->load->helper('download');
@@ -5634,7 +5633,7 @@ class Tutor extends CI_Controller
             if($file['name'] != ''){
                 $this->upload->initialize($config);
                 if (!$this->upload->do_upload($key)) {
-                  
+
                 }else{
 
                     $imageName = $this->upload->data();
@@ -5646,13 +5645,13 @@ class Tutor extends CI_Controller
                         $update_data['student_file']  = 'assets/question-store/'.$imageName["file_name"];
                         $update_data['student_title'] = $file['name'];
                     }
-                }    
+                }
             }
         }
         $store = $this->Student_model->getInfo('tbl_questions_store', 'id',$store_id);
         $tutor_path     = FCPATH.$store[0]['tutor_file'];
         $student_path   = FCPATH.$store[0]['student_file'];
-        
+
         $data = array();
         if ($update_data['tutor_file'] != '') {
            $data['tutor_file'] = $update_data['tutor_file'];
@@ -5671,9 +5670,9 @@ class Tutor extends CI_Controller
         $this->tutor_model->updateInfo('tbl_questions_store', 'id',$store_id,$data);
         $success['success'] = 'Successfully Updated';
         echo json_encode($success);
-        
+
     }
-    
+
     public function delete_store()
     {
         $post = $this->input->post();
@@ -5731,13 +5730,13 @@ class Tutor extends CI_Controller
                     $html .= '<option value="'.$subject['id'].'">'.$subject['subject_name'].'</option>';
                 }
             }
-            
+
             $result['success'] = 1;
             $result['html'] = $html;
             echo json_encode($result);
             die;
         }
-        
+
         echo json_encode($result);
         die;
     }
@@ -5776,13 +5775,13 @@ class Tutor extends CI_Controller
                     $html .= '<option value="'.$chapter['id'].'">'.$chapter['chapter_name'].'</option>';
                 }
             }
-            
+
             $result['success'] = 1;
             $result['html'] = $html;
             echo json_encode($result);
             die;
         }
-        
+
         echo json_encode($result);
         die;
     }
@@ -5811,13 +5810,13 @@ class Tutor extends CI_Controller
             echo $html;
         die;
         }
-        
+
     }
-    
+
     public function store_subject_chapter()
     {
         $_SESSION['prevUrl'] = base_url('/').'question-store/';
-        
+
          $data['user_info'] = $this->tutor_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
         $user_id  = $this->session->userdata('user_id');
         $data['allCountry']        = $this->Admin_model->search('tbl_country', [1=>1]);
@@ -5825,7 +5824,7 @@ class Tutor extends CI_Controller
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', '', true);
-       
+
         $data['allSubs'] = $this->renderSubs();
         $data['maincontent'] = $this->load->view('tutors/question/store_subject_chapter', $data, true);
 
@@ -5836,7 +5835,7 @@ class Tutor extends CI_Controller
     {
          $user_id  = $this->session->userdata('user_id');
          $allSubs  = $this->tutor_model->getInfo('tbl_question_store_subject', 'created_by', $user_id);
-         
+
         $html = '';
         foreach ($allSubs as $sub) {
             $allchaps =  $this->tutor_model->getInfo('tbl_question_store_chapter', 'subject_id', $sub['id']);
@@ -5847,7 +5846,7 @@ class Tutor extends CI_Controller
                 $html .= '<thead style="background-color:#CACACA"><tr> <td>Chapter Name</td> <td>Action</td></tr> </thead>';
             }
             $html .= '<tbody>';
-            
+
             foreach ($allchaps as $chap) {
                 $html .= '<tr>';
                 $html .= '<td>'.$chap['chapter_name'].'</td>';
@@ -5862,7 +5861,7 @@ class Tutor extends CI_Controller
     {
         $this->load->model('SubjectModel');
         $chapterExists = $this->SubjectModel->search('tbl_question_store_chapter', ['id'=>$id]);
-        
+
         if (count($chapterExists)) {
             $this->tutor_model->deleteStoreChapter($id);
             echo 'true';
@@ -5883,7 +5882,7 @@ class Tutor extends CI_Controller
             echo 'false';
         }
     }
-    
+
     public function update_store_subject_name()
     {
         $data = array();
@@ -5896,10 +5895,10 @@ class Tutor extends CI_Controller
     //story write
     public function edit_storyWriteParts()
     {
-       
+
         $data = $this->tutor_model->getQuestionInfo(9, $_POST['question_id']);
 
-    
+
         $questionName = json_decode($data[0]['questionName']);
 
         if ($_POST['type'] == "paragraphBtn") {
@@ -6113,7 +6112,7 @@ class Tutor extends CI_Controller
 
         $this->upload->initialize($config);
 
-        
+
         if (!$this->upload->do_upload('file')) {
             echo 0;
         } else {
@@ -6132,7 +6131,7 @@ class Tutor extends CI_Controller
         $ckWhiteboard  =  $this->Student_model->getAllInfo_classRoom();
         foreach ($ckWhiteboard as $key => $value) {
             $roomInfo = $this->Student_model->getInfo('tbl_classrooms', 'id', $value['id'] );
-            $url_data = $roomInfo[0]['class_url']; 
+            $url_data = $roomInfo[0]['class_url'];
 
             $roomInfo = $this->Student_model->deleteInfo('tbl_classrooms', 'id', $value['id']  );
             $toUpdate['in_use'] = 0;
@@ -6164,7 +6163,7 @@ class Tutor extends CI_Controller
             $all_student_details[$key2]['id'] = $student->id;
             $all_student_details[$key2]['user_email'] = $student->user_email;
         }
-        
+
 
         if (count($all_student_id)) {
             $x = $this->tutor_model->getInfo_Alstudent_two('tbl_useraccount', 'id' , $all_student_id);
@@ -6174,7 +6173,7 @@ class Tutor extends CI_Controller
             $x =array();
         }
         //echo "<pre>";print_r($all_student_details);die();
-        
+
         $data['all_student'] = $all_student_details;//$x;
 
 
@@ -6189,14 +6188,14 @@ class Tutor extends CI_Controller
                 $data['min_hr_sc'] = $min_hr_sc;
             }else{
                 $roomInfo = $this->Student_model->getInfo('tbl_classrooms', 'id', $ckExist[0]['id'] );
-   
-                $url_data = $roomInfo[0]['class_url'];  
+
+                $url_data = $roomInfo[0]['class_url'];
                 $roomInfo = $this->Student_model->deleteInfo('tbl_classrooms', 'id', $ckExist[0]['id']  );
                 $toUpdate['in_use'] = 0;
                 $this->tutor_model->updateInfo('tbl_available_rooms', 'room_id', $url_data, $toUpdate);
             }
         }
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
@@ -6240,14 +6239,14 @@ class Tutor extends CI_Controller
                 $this->tutor_model->updateInfo('tbl_available_rooms', 'id', $x[0]['id'], $toUpdate);
                 $data['class_url'] = $x[0]['room_id'];
                 $class_id =  $this->tutor_model->insertId('tbl_classrooms', $data);
-                
+
                 $class_url = base_url('/yourClassRoomTutor/').$class_id;
 
                 echo $class_url;
             }else{
                 echo 1;
             }
-            
+
         }else{
             echo 0;
         }
@@ -6264,7 +6263,7 @@ class Tutor extends CI_Controller
 
         $user_info = $this->Student_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
         $data['ifram'] = '<iframe src="//www.groupworld.net/room/'.$roomInfo[0]['class_url'].'/conf1?need_password=false&janus=true&hide_playback=true&username='.$user_info[0]['name'].'" allow="camera;microphone" width="100%" height="600" scrolling="no" frameborder="0"></iframe>';
-        
+
         $data['maincontent'] = $this->load->view('students/whiteboardDashboard', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -6272,8 +6271,8 @@ class Tutor extends CI_Controller
     public function removeClass()
     {
         $roomInfo = $this->Student_model->getInfo('tbl_classrooms', 'id', $_POST['data'] );
-       
-        $url_data = $roomInfo[0]['class_url'];  
+
+        $url_data = $roomInfo[0]['class_url'];
         $roomInfo = $this->Student_model->deleteInfo('tbl_classrooms', 'id', $_POST['data'] );
         $toUpdate['in_use'] = 0;
 
@@ -6289,7 +6288,7 @@ class Tutor extends CI_Controller
         $output ='';
         // $output .='<input class="form-control" type="number" value="'.$qty.'" id="box_qty_2" onchange="getImageBOXSS()">';
 
-        for ($i=0; $i <$qty ; $i++) { 
+        for ($i=0; $i <$qty ; $i++) {
 
         $output .='<div class="tab tabdata'.$i.'">';
 
@@ -6311,26 +6310,26 @@ class Tutor extends CI_Controller
                       <input type="hidden" readonly count_here="Image Field at tab [ '.($i+1).' ] " id="image_'.$i.'" name="Image['.$i.'][Image]" value="'.$_POST['imgdata'][$tmpid].'" required style="width: 249%;margin-left: -163px;">
                       </div>
                       <p style="color:red;" id="img_id_'.$i.'"></p>
-                    </div><br><br>';              
+                    </div><br><br>';
         $output .='<div class="form-group">
                       <div class="col-sm-4"><label for="inputEmail3" class="col control-label">Audio File</label></div>
                       <div class="col-sm-8">
                         <input type="file"  id="audio_'.$i.'" name="audioFile['.$i.'][audioFile]"  accept=".mp3, .mp4">
                         <p style="color:red;" id="aud_id_'.$i.'"></p>
                       </div>
-                    </div><br><br>';            
+                    </div><br><br>';
         $output .='<div class="form-group">
                        <div class="col-sm-4"><label for="spchToTxt" class="col control-label">Speech to text</label></div>
                       <div class="col-sm-8">
                         <input type="text"  id="speech_'.$i.'" class="form-control" name="speech_to_text['.$i.'][speech_to_text]" >
                         <p style="color:red;" id="spch_id_'.$i.'"></p>
                       </div>
-                    </div><br><br>'; 
+                    </div><br><br>';
 
-        $output .='</div>';                         
+        $output .='</div>';
         }
         // $output .='<script>';
-        // for ($i=0; $i <$qty ; $i++) { 
+        // for ($i=0; $i <$qty ; $i++) {
         //     $output .='var myDropzone_'.$i.' = new Dropzone("div#myId_'.$i.'", { url: "story_Upload"}); ';
 
         //     $output .='myDropzone_'.$i.'.on("complete", function(file) {
@@ -6339,19 +6338,19 @@ class Tutor extends CI_Controller
         // }
         //  $output .='</script>';
 
- 
+
 
         $output .='<div class="row" style="background-color: #3595d6; margin-bottom:0" >
-                   
+
                          <div class="col-sm-12">
                          <div style="float:right; ">
                              <div class="ss_pagination" style="margin-bottom:0">
                               <div>
                                 <button class="steprs" style="color: #4c4a4a; border: none; padding: 10px;font-weight: 500;" type="button" id="prevBtn" onclick="nextPrev(-999)" >Previous</button>';
 
-                         for ($i=0; $i <$qty ; $i++) { 
+                         for ($i=0; $i <$qty ; $i++) {
                               $output .='<button style="background: none;border: none; padding: 10px;font-weight: 500;" class="steprs number_'.$i.'" style="width:45px;" id="qty" value="'.$qty.'" type="button" onclick="showFixSlide('.$i.')">'.($i+1).'</button> ';
-                         }   
+                         }
 
                             $output .='<button type="button" style="color: #4c4a4a; border: none; padding: 10px;font-weight: 500;" class="btn_work" id="nextBtn" onclick="nextPrev(99999)">Next</button>
                           </div>
@@ -6359,11 +6358,11 @@ class Tutor extends CI_Controller
 
                         </div>
                      </div>
-                 </div>'; 
+                 </div>';
 
 
         // $output .='<div style="text-align:center;margin-top:40px;">';
-        // for ($i=0; $i <$qty ; $i++) { 
+        // for ($i=0; $i <$qty ; $i++) {
         //     $output .='<span class="step"></span>';
         // }
 
@@ -6391,12 +6390,12 @@ class Tutor extends CI_Controller
                       $(".steprs").each(function( index ) {
                         $(this).removeClass("activtab");
                     })
-                   
+
                         $(\'.number_\'+n).addClass("activtab");
 
-                    
+
                     console.log(n);
-                    
+
                     currentTab = n;
                     showTab(n);
                     fixStepIndicator(n);
@@ -6412,7 +6411,7 @@ class Tutor extends CI_Controller
                             if(currentTab<0) currentTab = 0;
                             console.log(currentTab);
                             fixStepIndicator(currentTab);
-                            
+
 
                         }
                         //next clicked
@@ -6422,7 +6421,7 @@ class Tutor extends CI_Controller
                            if(currentTab >= qty) currentTab = qty - 1;
                            fixStepIndicator(currentTab);
                             }
-                      
+
 
                         fixStepIndicator();
                         showTab(currentTab);
@@ -6480,7 +6479,7 @@ class Tutor extends CI_Controller
                 }
                 </script>';
 
-                                
+
         print_r($output);
     }
 
@@ -6488,7 +6487,7 @@ class Tutor extends CI_Controller
     {
         $qty = $this->input->post('qty', true);
 
-        for ($i=0; $i < $qty; $i++) { 
+        for ($i=0; $i < $qty; $i++) {
             foreach ($_POST['imgdata'] as $key => $value) {
                     if (strpos($_POST['imgdata'][$i] , "IMG_".($key+1).".")) {
                        $img[] = $value;
@@ -6507,7 +6506,7 @@ class Tutor extends CI_Controller
     {
         $data['all_modules'] = $this->Admin_model->getInfo('tbl_module', 'course_id', $id );
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
-        
+
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
@@ -6555,7 +6554,7 @@ class Tutor extends CI_Controller
                 $moduleType = "Assignment";
             }
 
-            $check = in_array($module["id"], $allModuleId) == 1 ? "checked": ""; 
+            $check = in_array($module["id"], $allModuleId) == 1 ? "checked": "";
 
             $row .= '<tr id="'.$module['id'].'">';
             $row .= '<td>'.date('d-M-Y', $module['exam_date']).'</td>';
@@ -6598,7 +6597,7 @@ class Tutor extends CI_Controller
                 $data['module_type']    = $x[0]['moduleType'];
                 $this->ModuleModel->insertInfo("student_homeworks" , $data );
             }
-            
+
         }
 
         echo 1;
@@ -6632,8 +6631,8 @@ class Tutor extends CI_Controller
         {
             $course_data['totalCost'] = $this->input->post('totalCost');
             $course_data['token']     = $this->input->post('token');
-            $course_data['paymentType'] = $this->input->post('paymentType'); 
-            $course_data['rs_subject'] = $this->input->post('rs_subject'); 
+            $course_data['paymentType'] = $this->input->post('paymentType');
+            $course_data['rs_subject'] = $this->input->post('rs_subject');
 
             if (!empty($this->input->post('no_direct_debit'))) {
                 $course_data['payment_process'] = $this->input->post('no_direct_debit');
@@ -6656,15 +6655,15 @@ class Tutor extends CI_Controller
                 // echo "<pre>";
                 // print_r($course_data);
                 // die();
-                redirect('/direct_deposit_qus_store');                    
+                redirect('/direct_deposit_qus_store');
             }else{
                 redirect('/qusStorePaymentOption');
             }
         }
-        
+
             // echo $this->session->userdata('registrationType');die;
-        
-        
+
+
         $resource = $this->db->where('subject_id',$subject)->get('resource_subject_amount')->row();
         $data['rs_amount'] = (isset($resource))?$resource->amount:0;
         $data['rs_subject'] = (isset($subject))?$subject:0;
@@ -6695,7 +6694,7 @@ class Tutor extends CI_Controller
         }
 
     }
-    
+
     public function search_vocubulary_word(){
         $search = $this->input->post('search');
         //echo $search;
@@ -6710,7 +6709,7 @@ class Tutor extends CI_Controller
         ];
         $all_question_list= $this->tutor_model->getUserQuestion('tbl_question', $conditions);
         $question_list= $this->tutor_model->getUserQuestion('tbl_question', $conditions_two);
-        
+
         $questions = array();
         $html = '';
         $html .=' <ul class="ss_question_menu" id="v_quesType_3">';
@@ -6729,27 +6728,27 @@ class Tutor extends CI_Controller
                     $html .= '<li class="main_li" style="background-color:#7f7f7f;" datas-id="'.$a.'_'.$qus_id.'" id="qu_'.($b+1).'_'.$qus_id.'">';
                     $html .= '<a href="question_edit/'.$a.'/'.$qus_id.'" style="position: relative;">'.$serial.'</a>';
                     $html .= '</li>';
-                   
+
                 }
 
             }
-            
+
         }
         $html .= '</ul>';
         echo $html;
     }
 
     public function tutor_students_list(){
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
         $data['maincontent'] = $this->load->view('tutors/tutor_students_list', $data, true);
         $this->load->view('master_dashboard', $data);
-    } 
+    }
     public function tutor_my_student_list(){
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
@@ -6758,25 +6757,25 @@ class Tutor extends CI_Controller
         $this->load->view('master_dashboard', $data);
     }
     public function idea_create_student_details($idea_id,$student_id,$question_id){
-        
+
         $data['student_ans_details']= $this->tutor_model->get_student_ans($idea_id,$student_id,$question_id);
         // echo "<pre>";print_r($data['student_ans_details']);die();
         $data['tutor_id'] = $this->session->userdata('user_id');
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
         $data['maincontent'] = $this->load->view('tutors/idea_create_student_details', $data, true);
         $this->load->view('master_dashboard', $data);
-    } 
+    }
     public function tutor_qstudy_students_list(){
-        
+
         $user_id = $this->session->userdata('user_id');
         $data['my_student'] =  $this->tutor_model->getMyStudents($user_id);
         //echo "<pre>";print_r($data['my_student']);die();
- 
-        
+
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
@@ -6797,12 +6796,12 @@ class Tutor extends CI_Controller
         $this->load->view('master_dashboard', $data);
     }
 
-    public function idea_create_tutor($student_id,$grade){ 
-        
+    public function idea_create_tutor($student_id,$grade){
+
         $data['student_ideas'] = $this->tutor_model->get_all_ideas($student_id);
         $data['student_info'] = $this->tutor_model->get_student_info($student_id);
         $data['grade'] = $grade;
-        
+
         // echo "<pre>";print_r($data['student_ideas']);die();
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -6811,7 +6810,7 @@ class Tutor extends CI_Controller
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
         $data['maincontent'] = $this->load->view('tutors/idea_create_tutor', $data, true);
         $this->load->view('master_dashboard', $data);
-    } 
+    }
     public function teacher_check_workout(){
         $student_id = $this->input->post("student_id");
         $idea_id = $this->input->post("idea_id");
@@ -6833,7 +6832,7 @@ class Tutor extends CI_Controller
         $imginfo = getimagesize( $file);
         $imgwidth = $imginfo[0];
         $imgheight = $imginfo[1];
-        
+
         $config['image_library'] = 'gd2';
         $config['source_image'] = $file;
         $config['maintain_ratio'] = true;
@@ -6845,11 +6844,11 @@ class Tutor extends CI_Controller
 
         $this->image_lib->initialize($config);
         $this->image_lib->resize();
-        
+
         $image_url = base_url().$file;
-        
-        
-        $data2['student_id']=$student_id; 
+
+
+        $data2['student_id']=$student_id;
         $data2['idea_id']=$idea_id;
         $data2['idea_no']=$idea_no;
         $data2['checker_id']=$tutor_id;
@@ -6857,7 +6856,7 @@ class Tutor extends CI_Controller
         $data2['question_id']=$question_id;
         $data2['module_id']=$module_id;
         $data2['checked_image_url']=$image_url;
-       
+
 
         // $this->db->insert('tutor_idea_check_workout',$data);
         $insert_id = $this->Tutor_model->getTutorIdeaCheckId('idea_check_workout',$data2);
@@ -6865,14 +6864,14 @@ class Tutor extends CI_Controller
         echo $insert_id;
     }
     public function idea_create_student_report($checkout_id){
-        
+
         $data['this_idea'] = $this->tutor_model->get_this_idea($checkout_id);
         $data['all_idea']  = $this->tutor_model->get_ideas($checkout_id);
         $data['teacher_workout']  = $this->tutor_model->get_teacher_workout($checkout_id);
-        
+
         $data['student_id'] = $data['this_idea'][0]['student_id'];
-        
-       
+
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
@@ -6885,7 +6884,7 @@ class Tutor extends CI_Controller
         $idea_id = $this->input->post("idea_id");
         $get_idea = $this->tutor_model->idea_get($student_id,$idea_id);
         echo json_encode($get_idea);
-        
+
     }
     public function correction_report_save(){
 
@@ -6917,7 +6916,7 @@ class Tutor extends CI_Controller
 
     public function studyType()
     {
-     
+
         $id=1;
         $data['user_info'] = $this->Student_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
         if ($id == 1) {
@@ -6945,14 +6944,14 @@ class Tutor extends CI_Controller
 
     public function all_tutors_by_type($tutor_id, $module_type,$is_practice=0)
     {
-        
+
         // echo $is_practice."hello";die();
         $_SESSION['show_tutorial_result'] = 0;
         $data['tutor_id'] = $tutor_id;
         $data['module_type'] = $module_type;
         $session_module_info = $this->session->userdata('data');
 
-       
+
 
         $this->session->unset_userdata('data');
         $this->session->unset_userdata('obtained_marks');
@@ -6964,7 +6963,7 @@ class Tutor extends CI_Controller
         $data['tutorInfo'] = $this->Student_model->getInfo('tbl_useraccount', 'id', $tutor_id);
         // echo "<pre>";
         // print_r($data);die();
-   
+
         $data['user_info'] = $this->Student_model->userInfo(754);
         if ($module_type == 2 && $data['tutorInfo'][0]['user_type'] == 7) {
             $get_all_course = $this->Student_model->studentCourses($this->loggedUserId);
@@ -6975,12 +6974,12 @@ class Tutor extends CI_Controller
                 $course_match_with_subject_key_val[] = $course;
             }
         } else {
-           
+
             if ($data['tutorInfo'][0]['user_type'] == 7) {
-              
+
                 $registered_courses = $this->Student_model->registeredCourse(754);
 
-                
+
                 $studentSubjects = array();
                 if (count($registered_courses) > 0) {
                     $oreder_s = 0;
@@ -6988,7 +6987,7 @@ class Tutor extends CI_Controller
                     foreach ($registered_courses as $sub) {
 
                         $assign_course = $this->Student_model->getInfo('tbl_assign_subject', 'course_id', $sub['id']);
-                        
+
 
                         if (!empty($assign_course)) {
                             $subjectId = json_decode($assign_course[0]['subject_id']);
@@ -6996,7 +6995,7 @@ class Tutor extends CI_Controller
                             foreach ($subjectId as $key => $value) {
 
                                 $sb =  $this->Student_model->getInfo('tbl_subject', 'subject_id', $value);
-                               
+
                                 if (!empty($sb)) {
                                     $studentSubjects[$oreder_s]['subject_id'] = $sb[0]['subject_id'];
                                     $studentSubjects[$oreder_s]['subject_name'] = $sb[0]['subject_name'];
@@ -7011,7 +7010,7 @@ class Tutor extends CI_Controller
             }
 
 
-            
+
         }
 
         if ($tutor_id == 2) {
@@ -7047,8 +7046,8 @@ class Tutor extends CI_Controller
                 $_SESSION['prevUrl'] = $_SERVER['HTTP_REFERER'];
             }
         }
-        
-       
+
+
         $this->session->set_userdata('is_practice', $is_practice);
 
         $assignModuleByTutor = array();
@@ -7057,8 +7056,8 @@ class Tutor extends CI_Controller
 
         // echo "<pre>";
         // echo $module_type;die();
-  
-        
+
+
         $data['has_back_button'] = 'student';
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
@@ -7068,7 +7067,7 @@ class Tutor extends CI_Controller
 
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function studentsModuleByQStudyNew()
     {
         $data['user_info'] = $this->Student_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
@@ -7082,7 +7081,7 @@ class Tutor extends CI_Controller
         $tutorId      = isset($posts['tutorId']) ? $posts['tutorId'] : '';
         $st_colaburation = 0;
 
-        
+
         $payment_courses  = $this->db->where('user_id', $this->session->userdata('user_id'))->where('cost <>', 0)->where('endTime >', time())->get('tbl_registered_course')->result_array();
         //echo "<pre>";print_r($payment_courses);die;
 
@@ -7092,9 +7091,9 @@ class Tutor extends CI_Controller
                 $st_colaburation = $st_colaburation + 1;
             }
         }
-        
+
         $data['st_colaburation'] = $st_colaburation;
-        
+
 
         $data['student_error_ans'] = $this->Student_model->getInfo('tbl_st_error_ans', 'st_id', $this->session->userdata('user_id'));
 
@@ -7264,10 +7263,10 @@ class Tutor extends CI_Controller
             foreach ($sct_info as $module) {
                 $new_array[] = $module;
             }
-           
+
             $this->show_all_module($new_array);
         } else {
-            
+
             $this->show_all_module($all_module);
         }
     }
@@ -7275,8 +7274,8 @@ class Tutor extends CI_Controller
     {
         // echo "hello445554";
         $is_practice = $this->session->userdata('is_practice');
-          
-     
+
+
         date_default_timezone_set($this->site_user_data['zone_name']);
 
         //date_default_timezone_set('Australia/Sydney');
@@ -7300,7 +7299,7 @@ class Tutor extends CI_Controller
             if ($allModule[0]['moduleType'] != 3) {
                 $row .= '<input type="hidden" id="first_module_id" value="' . $allModule[0]['id'] . '">';
             }
- 
+
             foreach ($allModule as $module) {
                 $now_time_for_additional_2 = date("Y-m-d", strtotime($module['exam_end']));
                 if ($module['moduleType'] != 3 || ($module['optionalTime'] == 0 && $module['moduleType'] == 3 && strtotime($now_time) < strtotime($module['exam_end']))) {
@@ -7333,7 +7332,7 @@ class Tutor extends CI_Controller
                             $pieces = explode("_", $value);
                             $day = $pieces[0];
                             if ($key == 0) {
-                               
+
                                 $row .= '<li> <a onclick="get_permission(' . $module['id'] . ')" href="javascript:;"> <span style="color:red;text-decoration: underline;"> Repeted wrong answer </span> <span class="text-muted" > ' . $date . ' </span> <span style="color:blue;" > ( ' . $day . ' Day) </span></a> </li>';
                             } else {
                                 $row .= '<li> <a onclick="get_permission(0)" href="javascript:;"> <span style="color:red;text-decoration: underline;"> Repeted wrong answer </span> <span class="text-muted" > ' . $date . ' </span> <span style="color:blue;" > ( ' . $day . ' Day) </span></a> </li>';
@@ -7396,7 +7395,7 @@ class Tutor extends CI_Controller
         $data['student_idea'] = $this->tutor_model->student_idea_details($question_id,$idea_id,$student_id,$module_id);
         // $data['student_info'] = $this->tutor_model->get_student_info($student_id);
         $data['grade'] = 1;
-        
+
         // echo "<pre>";print_r($data['student_idea']);die();
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -7406,7 +7405,7 @@ class Tutor extends CI_Controller
         $data['maincontent'] = $this->load->view('tutors/tutor_student_idea_setting', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function view_tutor_idea()
     {
         $idea_id=$this->input->post('idea_id');
@@ -7464,13 +7463,13 @@ class Tutor extends CI_Controller
 			$this->load->library('upload',$config);
 			$this->upload->initialize($config);
 
-			if($this->upload->do_upload('file')){ 
+			if($this->upload->do_upload('file')){
 				$uploadData = $this->upload->data();
 				$main_image = $uploadData['file_name'];
 				echo $main_image;
                 // die();
 				// $this->_create_thumbs($uploadData['file_name']);
-                
+
 			}else{
                 //print_r($this->upload->display_errors());die();
 				$return['main_image_error']	= array('error' => $this->upload->display_errors());
@@ -7498,7 +7497,7 @@ class Tutor extends CI_Controller
         $image['image_option_ans']=$this->input->post('image_option_ans');
         $image['option_one_image_texts']=$this->input->post('option_one_image_texts');
 
-        
+
 
         $ss_intro['ss_intro_option_one']=$this->input->post('ss_intro_option_one');
         $ss_intro['ss_intro_option_one_hint']=$this->input->post('ss_intro_option_one_hint');
@@ -7564,7 +7563,7 @@ class Tutor extends CI_Controller
         $this->db->where('idea_id',$this->input->post('idea_id'));
         $query = $this->db->get();
         $check_insert = $query->result_array();
-       
+
         if(empty($check_insert)){
             $this->db->insert('tutor_correction_idea_info',$data);
             $datas['success']='successfully insert';
@@ -7573,10 +7572,10 @@ class Tutor extends CI_Controller
             $datas['success']='Already insert';
             $datas['status']=2;
         }
-        
+
 
         // $this->db->where('student_id',$this->input->post('student_id'))->where('question_id',$this->input->post('question_id'))->update('idea_student_ans',$datas);
-        
+
 
         echo json_encode($datas);
     }
@@ -7601,7 +7600,7 @@ class Tutor extends CI_Controller
         $data['chapter_use'] = count($results);
         $data['chapters'] = $result;
         echo json_encode($data);
-        
+
     }
 
     public function chapter_moved_to_question(){
@@ -7628,7 +7627,7 @@ class Tutor extends CI_Controller
         $this->db->delete('tbl_chapter');
 
         echo $i;
-        
+
     }
-} 
+}
 

@@ -19,20 +19,20 @@ class Preview extends CI_Controller
         if ($user_type != 3 && $user_type != 7) {
             redirect('welcome');
         }
-        
+
         $this->load->model('Preview_model');
         $this->load->model('tutor_model');
         $this->load->library('form_validation');
         $this->load->library('upload');
-        
+
         $this->loggedUserId = $this->session->userdata('user_id');
-        
+
         $user_info = $this->Preview_model->userInfo($user_id);
 
         if ($user_info[0]['countryCode'] == 'any') {
             $user_info[0]['zone_name'] = 'Australia/Lord_Howe';
         }
-        
+
         $this->site_user_data = array(
             'userType' => $user_type,
             'zone_name' => $user_info[0]['zone_name'],
@@ -42,13 +42,13 @@ class Preview extends CI_Controller
 
     public function question_preview($question_item, $question_id)
     {
-    
+
         date_default_timezone_set($this->site_user_data['zone_name']);
         $exact_time = time();
         $this->session->set_userdata('exact_time', $exact_time);
         // echo $question_item;die();
         if ($question_item == 1) {
-            $this->general($question_item, $question_id); 
+            $this->general($question_item, $question_id);
         } elseif ($question_item == 2) {
             $this->true_false($question_item, $question_id);
         } elseif ($question_item == 3) {
@@ -107,7 +107,7 @@ class Preview extends CI_Controller
         {
             $this->preview_imageQuiz($question_item, $question_id);
         }
-        
+
     }
     public function preview_story_Write($question_item, $question_id){
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
@@ -155,7 +155,7 @@ class Preview extends CI_Controller
 
         foreach (json_decode($data['question_info'][0]['questionName'])->pictureList as $key => $value) {
             $title[0] = $value;
-            $title[1] = $questionList['wrongPictureIncrement'][$key]; 
+            $title[1] = $questionList['wrongPictureIncrement'][$key];
             $titles[] = $title;
         }
 
@@ -208,11 +208,11 @@ class Preview extends CI_Controller
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/preview_q_storyWrite', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     private function preview_workout_quiz_two($question_item, $question_id)
     {
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
@@ -220,7 +220,7 @@ class Preview extends CI_Controller
         $data['userType'] = $data['userType'][0]['user_slug'];
         $data['question_info_s'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $data['question_info'] = json_decode($data['question_info_s'][0]['questionName']);
-    
+
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
         $data['question_info_ind'] = $data['question_info'];
@@ -252,7 +252,7 @@ class Preview extends CI_Controller
         $data['question_info'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
 
         $data['question_info_s'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
-        
+
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -272,7 +272,7 @@ class Preview extends CI_Controller
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
         $data['userType']  = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
         $data['userType'] = $data['userType'][0]['user_slug'];
-        
+
         $data['question_info_s'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $data['question_info'] = json_decode($data['question_info_s'][0]['questionName']);
         $data['question_id'] = $question_id;
@@ -282,20 +282,20 @@ class Preview extends CI_Controller
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/preview_vocubulary', $data, true);
         $this->load->view('master_dashboard', $data);
     }
 
+    //***General Question Function ***/
     private function general($question_item, $question_id)
     {
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
         $data['userType']  = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
         $data['userType'] = $data['userType'][0]['user_slug'];
         $data['question_info'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
-
         //echo "<pre>"; print_r($data['question_info']); die();
-        
+
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -303,7 +303,7 @@ class Preview extends CI_Controller
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/question_image', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -314,17 +314,17 @@ class Preview extends CI_Controller
         $data['userType']  = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
         $data['userType'] = $data['userType'][0]['user_slug'];
         $data['question_info'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
-        
+
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
-        
+
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
         $data['maincontent'] = $this->load->view('preview/true_false', $data, true);
-        
+
         $this->load->view('master_dashboard', $data);
     }
 
@@ -335,7 +335,7 @@ class Preview extends CI_Controller
         $data['userType'] = $data['userType'][0]['user_slug'];
         $data['question_info_s'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $data['question_info'] = json_decode($data['question_info_s'][0]['questionName']);
-        
+
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
 
@@ -344,7 +344,7 @@ class Preview extends CI_Controller
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/preview_multiple_choice', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -356,16 +356,16 @@ class Preview extends CI_Controller
         $data['userType'] = $data['userType'][0]['user_slug'];
         $data['question_info_s'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $data['question_info'] = json_decode($data['question_info_s'][0]['questionName']);
-        
+
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/preview_multiple_response', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -380,15 +380,15 @@ class Preview extends CI_Controller
 
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
-        
-        
+
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
         $data['maincontent'] = $this->load->view('preview/preview_matching', $data, true);
-        
+
         $this->load->view('master_dashboard', $data);
     }
 
@@ -399,7 +399,7 @@ class Preview extends CI_Controller
      */
     public function preview_skip($question_item, $questionId)
     {
-        
+
         $quesInfo     = $this->Preview_model->getInfo('tbl_question', 'id', $questionId);
         $data['question_info_s']   = $quesInfo;
         $questionType = $quesInfo[0]['questionType'];
@@ -430,7 +430,7 @@ class Preview extends CI_Controller
             $data['questionBody'] = isset($quesInfo->question_body) ? $quesInfo->question_body : '';
             // print_r($data['questionBody']); die();
             $data['questionId']   = $questionId;
-            
+
             $quesAnsItem          = $quesInfo->skp_quiz_box;
 
             $items = $this->indexQuesAns($quesAnsItem);
@@ -442,12 +442,12 @@ class Preview extends CI_Controller
             $data['all_subject'] = $this->tutor_model->getInfo('tbl_subject', 'created_by', $user_id);
             $data['maincontent'] = $this->load->view('preview/skip_quiz', $data, true);
         }//end if
-        
+
         $this->load->view('master_dashboard', $data);
     }
-    
-    
-    
+
+
+
     public function preview_times_table($question_item, $question_id)
     {
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
@@ -457,17 +457,17 @@ class Preview extends CI_Controller
         $data['question_info'] = json_decode($data['question_info_s'][0]['questionName'], true);
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/preview_times_table', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function preview_algorithm($question_item, $question_id)
     {
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
@@ -478,17 +478,17 @@ class Preview extends CI_Controller
         $data['question_info'] = json_decode($data['question_info_s'][0]['questionName'], true);
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/preview_algorithm', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
 
     public function preview_workout_quiz($question_item, $question_id)
     {
@@ -504,18 +504,18 @@ class Preview extends CI_Controller
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('preview/workout_quiz', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function answer_matching()
     {
         $question_id = $this->input->post('question_id');
         $module_id = $this->input->post('module_id');
         $question_order_id = $this->input->post('current_order');
         $text = $this->input->post('answer');
-        
+
         $find = array('&nbsp;', '\n', '\t', '\r');
         $repleace = array('', '', '', '');
         $text = strip_tags($text);
@@ -524,14 +524,14 @@ class Preview extends CI_Controller
 
         $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $question_marks = $answer_info[0]['questionMarks'];
-        
+
         $text_1 = $answer_info[0]['answer'];
         $find = array('&nbsp;', '\n', '\t', '\r');
         $repleace = array('', '', '', '');
         $text_1 = strip_tags($text_1);
         $text_1 = str_replace($find, $repleace, $text_1);
         $text_1 = trim($text_1);
-        
+
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1);
     }
 
@@ -550,7 +550,7 @@ class Preview extends CI_Controller
             $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
             $text_1 = $answer_info[0]['answer'];
             $question_marks = $answer_info[0]['questionMarks'];
-            
+
             $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1);
         }
     }
@@ -561,8 +561,8 @@ class Preview extends CI_Controller
         if ($this->form_validation->run() == false) {
             echo 1;
         } else {
-            
-            $text = trim(strtolower($this->input->post('answer'))); 
+
+            $text = trim(strtolower($this->input->post('answer')));
             $question_id = $this->input->post('question_id');
             $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
 
@@ -572,11 +572,11 @@ class Preview extends CI_Controller
             $text_1 = trim(strtolower($answer_info[0]['answer']));
             // echo $text_1.'//'.$text;die();
             $question_marks = $answer_info[0]['questionMarks'];
-         
+
             $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1);
         }
     }
-    
+
     public function answer_matching_multiple_choice()
     {
         $question_id = $_POST['question_id'];
@@ -587,18 +587,18 @@ class Preview extends CI_Controller
         // Added AS
         $text = json_decode($answer_info[0]['answer']);
         $question_marks = $answer_info[0]['questionMarks'];
-        
+
         $result_count = count(array_intersect($text_1, $text));
-        
+
         $module_id = $_POST['module_id'];
-        
+
         //$question_order_id = $_POST['next_question'] - 1;
         $question_order_id = $_POST['current_order'];
-        
+
         // $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1);
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, count($text), $result_count);
     }
-    
+
     public function answer_matching_multiple_response()
     {
         $question_id = $_POST['question_id'];
@@ -616,7 +616,7 @@ class Preview extends CI_Controller
 
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, count($text), $result_count);
     }
-    
+
     public function st_answer_skip()
     {
         $module_id = $_POST['module_id'];
@@ -659,19 +659,19 @@ class Preview extends CI_Controller
 
         $this->take_decesion($question_marks, $questionId, $module_id, $question_order_id, $text, $text_1);
     }
-    
+
     public function answer_multiple_matching()
     {
         $total = $_POST['total_ans'];
 
         $question_id = $_POST['question_id'];
         $st_ans = array();
-        
+
         for ($i = 1; $i <= $total; $i++) {
             $ans_id = 'answer_' . $i;
             $st_ans[] = $_POST[$ans_id];
         }
-        
+
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
         $question_marks = $answer[0]['questionMarks'];
@@ -694,14 +694,14 @@ class Preview extends CI_Controller
 
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, json_encode($answer_info));
     }
-    
+
     public function answer_creative_quiz() {
         $question_id = $this->input->post('question_id');
         $student_ans = $this->input->post('answer');
         $paragraph = $this->input->post('paragraph');
-        
+
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
-        
+
         $answer_info['questionName'] = json_decode($answer[0]['questionName']);
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
         $question_marks = $answer[0]['questionMarks'];
@@ -719,7 +719,7 @@ class Preview extends CI_Controller
                     $text++;
                 }
             }
-            
+
             for ($k = 0; $k < sizeof($answer_info['questionName']->paragraph_order); $k++) {
                 if ($paragraph[$k] != $answer_info['questionName']->paragraph_order[$k]) {
                     $text++;
@@ -729,7 +729,7 @@ class Preview extends CI_Controller
 
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, array());
     }
-    
+
     public function answer_matching_workout_two()
     {
         $provide_ans ='';
@@ -760,7 +760,7 @@ class Preview extends CI_Controller
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, array());
 
     }
-    
+
     public function answer_workout_quiz()
     {
         $question_id = $this->input->post('question_id');
@@ -772,47 +772,47 @@ class Preview extends CI_Controller
         $text_1 = 0;
 
         $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
-        
+
         $ans_is_right = 'correct';
 
         $question_marks = 0;
 
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, array());
     }
-    
+
     public function answer_times_table()
     {
 
         $question_id = $this->input->post('question_id');
         $result = $this->input->post('result');
         $st_ans = array();
-        
+
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
         $question_marks = $answer[0]['questionMarks'];
         $answer_info['student_ans'] = $result;
-        
+
         $module_id = $_POST['module_id'];
         //$question_order_id = $_POST['next_question'] - 1;
         $question_order_id = $_POST['current_order'];
         $text = 0;
         $text_1 = 0;
         $flag = 1;
-        
+
         for ($k = 0; $k < sizeof($answer_info['student_ans']); $k++) {
             if ($answer_info['student_ans'][$k] != $answer_info['tutor_ans'][$k]) {
                 $text++;
                 $flag = 0;
             }
         }
-        
+
         $answer_info['student_ans'] = $result;
         $answer_info['flag'] = $flag;
 
 //       $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, json_encode($answer_info));
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, array());
     }
-    
+
     public function answer_algorithm()
     {
         $question_id = $this->input->post('question_id');
@@ -823,7 +823,7 @@ class Preview extends CI_Controller
 
         $text = 1;
         $module_id = $this->input->post('module_id');
-        
+
         $question_order_id = $this->input->post('current_order');
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $question_info = json_decode($answer[0]['questionName'], true);
@@ -832,9 +832,9 @@ class Preview extends CI_Controller
 
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
         $text_1 = 1;
-        
+
         //   echo '<pre>';print_r($question_info['operator']);die;
-        
+
         $question_marks = $answer[0]['questionMarks'];
         if ($question_info['operator'] != '/' && $result == $answer_info['tutor_ans']) {
             $text_1 = 1;
@@ -843,29 +843,29 @@ class Preview extends CI_Controller
         } else {
             $text_1++;
         }
-        
+
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, array());
     }
 
     public function answer_sentence_matching()
     {
-        
+
         $total = count($_POST['answer']);
 
         $question_id = $_POST['question_id'];
         $st_ans = array();
-        
+
         for ($i = 0; $i < $total; $i++) {
             $find_ans = explode(',,', $_POST['answer'][$i]);
             $st_ans[] = $find_ans[0];
         }
-        
+
 
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
         $question_marks = $answer[0]['questionMarks'];
         $answer_info['student_ans'] = $st_ans;
-        
+
         $module_id = $_POST['module_id'];
         $question_order_id = $_POST['current_order'];
         $text = 0;
@@ -882,22 +882,22 @@ class Preview extends CI_Controller
         }else{
             $answer_info = 3;
         }
-        
-        
+
+
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, json_encode($answer_info));
     }
 
     public function answer_word_memorization()
     {
         $total = count($_POST['answers']);
-        
+
         $question_id = $_POST['question_id'];
         $st_ans = array();
-        
+
         for ($i = 0; $i < $total; $i++) {
             $st_ans[] = $_POST['answers'][$i];
         }
-        
+
 
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
@@ -922,22 +922,22 @@ class Preview extends CI_Controller
         }else{
             $answer_info = 3;
         }
-        
-        
+
+
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, json_encode($answer_info));
     }
 
     public function answer_matching_comprehension()
     {
         $total = count($_POST['answers']);
-        
+
         $question_id = $_POST['question_id'];
         $st_ans = array();
-        
+
         for ($i = 0; $i < $total; $i++) {
             $st_ans[] = $_POST['answers'][$i];
         }
-        
+
 
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
@@ -962,17 +962,17 @@ class Preview extends CI_Controller
         }else{
             $answer_info = 3;
         }
-        
-        
+
+
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, json_encode($answer_info));
     }
 
     public function module_answer_matching_grammer()
     {
         //echo "<pre>";print_r($_POST);die();
-        
+
         $question_id = $_POST['question_id'];
-        
+
         $answer = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $answer_info['tutor_ans'] = json_decode($answer[0]['answer']);
         $question_marks = $answer[0]['questionMarks'];
@@ -1002,8 +1002,8 @@ class Preview extends CI_Controller
         }else{
             $answer_info = 3;
         }
-        
-        
+
+
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, json_encode($answer_info));
     }
 
@@ -1011,7 +1011,7 @@ class Preview extends CI_Controller
     {
         //****** Get Temp table data for Tutorial Module Type ******
         $user_id = $this->session->userdata('user_id');
-        
+
         $question_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
 
         $question_info_type = '';
@@ -1046,7 +1046,7 @@ class Preview extends CI_Controller
             } else {
                 $flag = 0;
             }
-            
+
             if ($question_info_type == 16)
             {
                 if ($question_info_pattern == 1)
@@ -1081,7 +1081,7 @@ class Preview extends CI_Controller
                         }
                     }
                 }
-                
+
                 if ($question_info_pattern == 3)
                 {
                      if ($text == $text_1) {
@@ -1090,7 +1090,7 @@ class Preview extends CI_Controller
                         $this->session->set_userdata('memorization_three_qus_part_answer','wrong');
                      }
                 }
-                
+
             }else
             {
                 $this->session->unset_userdata('memorization_three_part');
@@ -1099,7 +1099,7 @@ class Preview extends CI_Controller
             }
         }
 
-        
+
 
         //  echo 'ppp'.$text."==".$text_1.'ppp';die();
 
@@ -1124,7 +1124,7 @@ class Preview extends CI_Controller
             }
             $question_marks = 0;
         }
-        
+
         if ($question_info_type == 16) {
 
             if ($flag == 0 && $question_info_pattern == 3 && $next_step_patten_two == 0) {
@@ -1213,13 +1213,13 @@ class Preview extends CI_Controller
             $this->session->set_userdata('obtained_marks', $obtained_marks);
             $this->session->set_userdata('total_marks', $total_marks);
         }
-        
+
 
     }
 
 
 
-    
+
     public function show_tutorial_result($module)
     {
         $user_id = $this->session->userdata('user_id');
@@ -1227,7 +1227,7 @@ class Preview extends CI_Controller
 //        $data['obtained_marks'] = $this->Student_model->get_student_progress($user_id, $module);
         $tutorial_ans_info = $this->session->userdata('data');
         $data['obtained_marks'] = $this->session->userdata('obtained_marks');
-        
+
 //        $tutorial_ans_info = array();
 //        if ($data['module_info'][0]['moduleType'] == 1) {
 //            $get_tutorial_ans_info = $this->Student_model->getTutorialAnsInfo('tbl_temp_tutorial_mod_ques', $module, $user_id);
@@ -1243,13 +1243,13 @@ class Preview extends CI_Controller
 //            $tutorial_ans_info = json_decode($get_tutorial_ans_info[0]['st_ans'], true);
 //            $module_id = $tutorial_ans_info[1]['module_id'];
 //        }
-        
+
         // if($tutorial_ans_info) {
         $data['user_info'] = $this->tutor_model->getInfo('tbl_useraccount', 'id', $user_id);
-        
+
         $data['tutorial_ans_info'] = $tutorial_ans_info;
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
-        
+
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
@@ -1328,7 +1328,7 @@ class Preview extends CI_Controller
         $data['maincontent'] = $this->load->view('question_edit/edit_question', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     /**
      * before passing items to renderSkpQuizPrevTable() index it first with this func
      * @param  array $items json object array
@@ -1354,7 +1354,7 @@ class Preview extends CI_Controller
         }
         return $arr;
     }
-    
+
     /**
      * render the indexed item to table data for preview
      * @param  array  $items   ques ans as indexed item
@@ -1373,7 +1373,7 @@ class Preview extends CI_Controller
                 if ($items[$i][$j]['type']=='q') {
                     $row .= '<div class="sk_inner_box"><input type="button" data_q_type="0" data_num_colofrow="" value="'.$items[$i][$j]['val'].'" name="skip_counting[]" class="form-control input-box  rsskpinpt'.$i.'_'.$j.'" readonly style="min-width:45px; max-width:45px"></div>';
                 } else {
-                    $ansObj = array( 
+                    $ansObj = array(
                         'cr'=>$i.'_'.$j,
                         'val'=> $items[$i][$j]['val'],
                         'type'=> 'a',
@@ -1389,9 +1389,9 @@ class Preview extends CI_Controller
         }
         return $row;
     }
-    
-    
-    
+
+
+
     /**
      * Make table row element with assignment tasks
      *
@@ -1418,12 +1418,12 @@ class Preview extends CI_Controller
     public function tutorial_data($id)
     {
         $back  = $this->input->post('bk', true);
-       
+
         $next = $this->input->post('nxt', true);
         if (empty($back) && empty($next) ) {
 
             $datas = $this->Preview_model->tutorial_info($id,0);
-       
+
             $_SESSION["order"] = $datas[0]->orders;
             $output ='';
             $output .='<img src="assets/uploads/'.$datas[0]->img.'"  width="100%" height="100%"><br><br>';
@@ -1439,26 +1439,26 @@ class Preview extends CI_Controller
                       <i class="fa fa-volume-up" onclick="speak()"></i>
                       <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                       <input type="hidden" id="wordToSpeak" value="'.$datas[0]->speech.'">';
-                $output .='</div>';           
-                $output .='</div>';       
+                $output .='</div>';
+                $output .='</div>';
             }
 
             if ($datas[0]->audio !="none" && $datas[0]->speech =="none") {
                 $output .='Audio file: <audio controls>';
                 $output .='<source src ="assets/uploads/question_media/'.$datas[0]->audio.'" type="audio/mpeg">';
                 $output .='</audio><br><br>';
-                $output .='</div>';           
-                $output .='</div>'; 
+                $output .='</div>';
+                $output .='</div>';
             }
             if ($datas[0]->audio =="none" && $datas[0]->speech !="none") {
                 $output .='Speech to text :
                       <i class="fa fa-volume-up" onclick="speak()"></i>
                       <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                       <input type="hidden" id="wordToSpeak" value="'.$datas[0]->speech.'">';
-                $output .='</div>';           
+                $output .='</div>';
                 $output .='</div>';
             }
-            
+
 
             $output .='<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
             <script>
@@ -1474,12 +1474,12 @@ class Preview extends CI_Controller
                   display: none;
                 }
 
-            </style>'; 
+            </style>';
             print_r($output);
         }
         if (!empty($back)) {
-           $bk = $_SESSION["order"] - 1; 
-           $_SESSION["order"] = $bk; 
+           $bk = $_SESSION["order"] - 1;
+           $_SESSION["order"] = $bk;
            $datas = $this->Preview_model->tutorial_info($id,$bk);
            if (!empty($datas)) {
                 $output ='';
@@ -1496,23 +1496,23 @@ class Preview extends CI_Controller
                       <i class="fa fa-volume-up" onclick="speak()"></i>
                       <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                       <input type="hidden" id="wordToSpeak" value="'.$datas[0]->speech.'">';
-                $output .='</div>';           
-                $output .='</div>';       
+                $output .='</div>';
+                $output .='</div>';
                 }
 
                 if ($datas[0]->audio !="none" && $datas[0]->speech =="none") {
                     $output .='Audio file: <audio controls>';
                     $output .='<source src ="assets/uploads/question_media/'.$datas[0]->audio.'" type="audio/mpeg">';
                     $output .='</audio><br><br>';
-                    $output .='</div>';           
-                    $output .='</div>'; 
+                    $output .='</div>';
+                    $output .='</div>';
                 }
                 if ($datas[0]->audio =="none" && $datas[0]->speech !="none") {
                     $output .='Speech to text :
                           <i class="fa fa-volume-up" onclick="speak()"></i>
                           <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                           <input type="hidden" id="wordToSpeak" value="'.$datas[0]->speech.'">';
-                    $output .='</div>';           
+                    $output .='</div>';
                     $output .='</div>';
                 }
                 if ($datas[0]->orders ==0) {
@@ -1530,17 +1530,17 @@ class Preview extends CI_Controller
                     var word = $("#wordToSpeak").val();
                     responsiveVoice.speak(word);
                   }
-                </script>';  
+                </script>';
                 print_r($output);
            }
         }
 
         if (!empty($next)) {
-           $nxt = $_SESSION["order"] + 1; 
-           $_SESSION["order"] = $nxt; 
+           $nxt = $_SESSION["order"] + 1;
+           $_SESSION["order"] = $nxt;
            $datas = $this->Preview_model->tutorial_info($id,$nxt);
            $last_data = $this->Preview_model->tutorial_count($id);
-         
+
 
            if (!empty($datas)) {
                 $output ='';
@@ -1568,25 +1568,25 @@ class Preview extends CI_Controller
                       <i class="fa fa-volume-up" onclick="speak()"></i>
                       <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                       <input type="hidden" id="wordToSpeak" value="'.$datas[0]->speech.'">';
-                $output .='</div>';           
-                $output .='</div>';       
+                $output .='</div>';
+                $output .='</div>';
                 }
 
                 if ($datas[0]->audio !="none" && $datas[0]->speech =="none") {
                     $output .='Audio file: <audio controls>';
                     $output .='<source src ="assets/uploads/question_media/'.$datas[0]->audio.'" type="audio/mpeg">';
                     $output .='</audio><br><br>';
-                    $output .='</div>';           
-                    $output .='</div>'; 
+                    $output .='</div>';
+                    $output .='</div>';
                 }
                 if ($datas[0]->audio =="none" && $datas[0]->speech !="none") {
                     $output .='Speech to text :
                           <i class="fa fa-volume-up" onclick="speak()"></i>
                           <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                           <input type="hidden" id="wordToSpeak" value="'.$datas[0]->speech.'">';
-                    $output .='</div>';           
                     $output .='</div>';
-                } 
+                    $output .='</div>';
+                }
 
                 $output .='<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
                 <script>
@@ -1594,12 +1594,12 @@ class Preview extends CI_Controller
                     var word = $("#wordToSpeak").val();
                     responsiveVoice.speak(word);
                   }
-                </script>';  
+                </script>';
                 print_r($output);
            }
         }
     }
-    
+
     public function creative_quiz_ans_matching()
     {
 
@@ -1867,7 +1867,7 @@ class Preview extends CI_Controller
                 'data'=>$data,
                 'clue_id'=>$clue_id,
                 'array_sequence' => 'Paragraph order is Not correct.',
-                
+
             );
         }else
         {
@@ -1879,8 +1879,8 @@ class Preview extends CI_Controller
             );
         }
 
-        
-        
+
+
         echo json_encode($response);
     }
 
@@ -1923,7 +1923,7 @@ class Preview extends CI_Controller
         }
     }
     // memorization quiz create by aftab
-    
+
     private function preview_memorization_quiz($question_item, $question_id)
     {
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
@@ -1934,7 +1934,7 @@ class Preview extends CI_Controller
         $data['question_id'] = $question_id;
         $data['question_item'] = $question_item;
         $data['question_info_ind'] = $data['question_info'];
-        
+
 
         $question_info_ind = $data['question_info'];
 
@@ -1942,7 +1942,7 @@ class Preview extends CI_Controller
         if ($pattern_type == 4) {
             $qus_lefts = $question_info_ind->left_memorize_p_four;
             $qus_rights = $question_info_ind->right_memorize_p_four;
-            
+
             $qus_array = [];
             foreach ($qus_lefts as $key => $value) {
                 $qus_array[$key]['left'] = $value;
@@ -1951,11 +1951,11 @@ class Preview extends CI_Controller
             // shuffle($qus_array);
             $data['qus_array'] = $qus_array;
         }
-        
-        
+
+
         if ($pattern_type == 3) {
             $question_step = $question_info_ind->question_step_memorize_p_three;
-            
+
             $qus_setup_array = [];
             $k = 1;
             $inv = 0;
@@ -1979,7 +1979,7 @@ class Preview extends CI_Controller
         }
 
         if (isset($data['qus_setup_array'])) {
-           
+
             $question_step_details = $data['qus_setup_array'];
 
             shuffle($question_step_details);
@@ -1988,7 +1988,7 @@ class Preview extends CI_Controller
         // echo '<pre>';
         // print_r($data);
         // die();
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
@@ -2036,9 +2036,9 @@ class Preview extends CI_Controller
         }
         return $show_data_array;
     }
-    
-    
-    
+
+
+
     //preview_memorization
     public function memorization_hide_data_four($question_name)
     {
@@ -2063,7 +2063,7 @@ class Preview extends CI_Controller
         shuffle($show_data_array);
         return $show_data_array;
     }
-    
+
     public function memorization_ans_data_four($question_name)
     {
 
@@ -2087,8 +2087,8 @@ class Preview extends CI_Controller
         shuffle($show_data_array);
         return $show_data_array;
     }
-    
-    
+
+
 
     public function preview_memorization_pattern_one_matching()
     {
@@ -2196,7 +2196,7 @@ class Preview extends CI_Controller
             $leftSileData = array();
             $word_matching_answer = array();
             foreach ($left_memorize_p_one as $key=>$item) {
-                if ( preg_replace('/\s+/', '', strtolower($left_memorize_p_one[$key]))  == preg_replace('/\s+/', '', strtolower($word_matching[$key])) )    
+                if ( preg_replace('/\s+/', '', strtolower($left_memorize_p_one[$key]))  == preg_replace('/\s+/', '', strtolower($word_matching[$key])) )
                 {
                     $show_data_array[$key][0] = $item;
                     $show_data_array[$key][1] = 1;
@@ -2301,7 +2301,7 @@ class Preview extends CI_Controller
             $leftSileData = array();
             $word_matching_answer = array();
             foreach ($left_memorize_p_four as $key=>$item) {
-                if ( preg_replace('/\s+/', '', strtolower($left_memorize_p_four[$key]))  == preg_replace('/\s+/', '', strtolower($word_matching[$key])) )    
+                if ( preg_replace('/\s+/', '', strtolower($left_memorize_p_four[$key]))  == preg_replace('/\s+/', '', strtolower($word_matching[$key])) )
                 {
                     $show_data_array[$key][0] = $item;
                     $show_data_array[$key][1] = 1;
@@ -2373,8 +2373,8 @@ class Preview extends CI_Controller
 
         echo json_encode($data);
     }
-    
-    
+
+
     public function preview_memorization_pattern_four_try()
     {
         $data = array();
@@ -2432,8 +2432,8 @@ class Preview extends CI_Controller
 
         echo json_encode($data);
     }
-    
-    
+
+
     public function preview_memorization_pattern_one_ok()
     {
 
@@ -2467,8 +2467,8 @@ class Preview extends CI_Controller
 
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, array());
     }
-    
-    
+
+
     public function preview_memorization_pattern_four_ok()
     {
         $qus_ans =0;
@@ -2503,8 +2503,8 @@ class Preview extends CI_Controller
 
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1, array());
     }
-    
-    
+
+
     public function preview_memorization_pattern_three_take_decesion()
     {
 
@@ -2521,7 +2521,7 @@ class Preview extends CI_Controller
         $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         if ($memorization_answer == 'correct')
         {
-           
+
             if (isset($answer_info[0]['questionMarks']))
             {
                 $question_marks = $answer_info[0]['questionMarks'];
@@ -2778,7 +2778,7 @@ class Preview extends CI_Controller
         $left_memorize_h_p_two = $question_name->left_memorize_h_p_two;
         $right_memorize_p_two = $question_name->right_memorize_p_two;
         $right_memorize_h_p_two = $question_name->right_memorize_h_p_two;
-        
+
         $this->session->set_userdata('firstleftSerial',$left_memorize_p_two_ans);
         $left_content = array();
         $right_content = array();
@@ -2847,9 +2847,9 @@ class Preview extends CI_Controller
         foreach($hiddenContent as $key=>$item)
         {
             $TAns = str_replace(array('.', ' ', "\n", "\t", "\r"), '', strip_tags($tutorAns[$key][0]));
-            
+
             $SAns = str_replace(array('.', ' ', "\n", "\t", "\r"), '', $stdAns[$key]);
-            
+
 
             if ($item[0] == 1)
             {
@@ -2930,9 +2930,9 @@ class Preview extends CI_Controller
     }
     public function contentModify($data)
     {
-        
+
         $modifyData = array();
-        
+
         foreach($data as $key => $value)
         {
             $modifyData[$key]['left'] = $value[0];
@@ -3134,8 +3134,8 @@ class Preview extends CI_Controller
 
         // echo "<pre>";print_r($data);die();
         echo json_encode($data);
-        
-        
+
+
         // $data = array();
         // $question_id = $this->input->post('question_id');
         // $left_image_ans = $this->input->post('left_image_ans');
@@ -3316,7 +3316,7 @@ class Preview extends CI_Controller
         $module_id = $this->input->post('module_id');
         $question_order_id = $this->input->post('current_order');
         $text = $this->input->post('answerGiven');
-        
+
         $find = array('&nbsp;', '\n', '\t', '\r');
         $repleace = array('', '', '', '');
         $text = strip_tags($text);
@@ -3325,7 +3325,7 @@ class Preview extends CI_Controller
 
         $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
         $question_marks = $answer_info[0]['questionMarks'];
-        
+
         // $text_1 = $answer_info[0]['answer'];
         $text_1 = 1;
         $find = array('&nbsp;', '\n', '\t', '\r');
@@ -3333,7 +3333,7 @@ class Preview extends CI_Controller
         $text_1 = strip_tags($text_1);
         $text_1 = str_replace($find, $repleace, $text_1);
         $text_1 = trim($text_1);
-        
+
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1);
     }
 
@@ -3356,7 +3356,7 @@ class Preview extends CI_Controller
         // echo "<pre>";print_r($data['tutor_ideas']);die();
 
         $question_info_ind = $data['question_info'];
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
@@ -3379,7 +3379,7 @@ class Preview extends CI_Controller
         $data['question_info_ind'] = $data['question_info'];
 
         $data['sentence_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
-        
+
         $question_info_ind = $data['question_info'];
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -3402,7 +3402,7 @@ class Preview extends CI_Controller
         $data['question_info_ind'] = $data['question_info'];
 
         $data['word_match_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
-        
+
         $question_info_ind = $data['question_info'];
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -3426,7 +3426,7 @@ class Preview extends CI_Controller
         $data['question_info_ind'] = $data['question_info'];
 
         $data['comprehension_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
-        
+
         $question_info_ind = $data['question_info'];
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -3450,7 +3450,7 @@ class Preview extends CI_Controller
         $data['question_info_ind'] = $data['question_info'];
 
         $data['grammer_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
-        
+
         $question_info_ind = $data['question_info'];
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -3475,7 +3475,7 @@ class Preview extends CI_Controller
         $data['question_info_ind'] = $data['question_info'];
 
         $data['glossary_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
-        
+
         $question_info_ind = $data['question_info'];
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -3500,7 +3500,7 @@ class Preview extends CI_Controller
         $data['question_info_ind'] = $data['question_info'];
 
         $data['image_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
-        
+
         $question_info_ind = $data['question_info'];
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -3521,8 +3521,8 @@ class Preview extends CI_Controller
        $idea_no = $get_idea[1];
 
        $get_idea = $this->Preview_model->getPreviewIdeaInfo($question_id,$idea_no);
-       
-       echo json_encode($get_idea[0]); 
+
+       echo json_encode($get_idea[0]);
 
     }
     public function question_answer_matching_comprehension()
@@ -3531,7 +3531,7 @@ class Preview extends CI_Controller
 
         if($answer=='write_ans'){
             echo 4;
-        }else{ 
+        }else{
             $this->form_validation->set_rules('answer', 'answer', 'required');
             if ($this->form_validation->run() == false) {
                 echo 1;
@@ -3541,7 +3541,7 @@ class Preview extends CI_Controller
 
                 $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
                 $text_1 = strtolower($answer_info[0]['answer']);
-                
+
                 if ($answer == $text_1) {
                     echo 2;
                 } else {
@@ -3572,16 +3572,16 @@ class Preview extends CI_Controller
             }
 
     }
-    
+
 
     public function module_answer_matching_comprehension()
     {
         $answer = strtolower($this->input->post('answer'));
-        
+
         // print_r($this->input->post());die();
         if($answer=='write_ans'){
             echo 4;
-        }else{ 
+        }else{
             $this->form_validation->set_rules('answer', 'answer', 'required');
             if ($this->form_validation->run() == false) {
                 echo 1;
@@ -3592,7 +3592,7 @@ class Preview extends CI_Controller
 
                 $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
                 $text_1 = strtolower($answer_info[0]['answer']);
-                
+
                 if ($answer == $text_1) {
                     echo 2;
                 } else {
@@ -3608,7 +3608,7 @@ class Preview extends CI_Controller
 
         if($answer=='write_ans'){
             echo 4;
-        }else{ 
+        }else{
             $this->form_validation->set_rules('answer', 'answer', 'required');
             if ($this->form_validation->run() == false) {
                 echo 1;
@@ -3618,7 +3618,7 @@ class Preview extends CI_Controller
 
                 $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
                 $text_1 = strtolower($answer_info[0]['answer']);
-                
+
                 if ($answer == $text_1) {
                     echo 2;
                 } else {

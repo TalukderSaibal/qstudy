@@ -170,7 +170,7 @@
               <?php } ?>
             </select>
           </div>
-          
+
           <div class="form-group" style="float: left;margin-right: 10px;">
             <label>Country</label>
             <select class="form-control createQuesLabel select2" name="country" id="quesCountry">
@@ -178,7 +178,7 @@
               <?php foreach ($allCountry as $country) : ?>
                 <?php $sel = strlen($selCountry)&&($country['id']==$selCountry) ? 'selected' : ''; ?>
                 <option value="<?php echo $country['id'] ?>" <?php echo $sel; ?>><?php echo $country['countryName'] ?></option>
-              <?php endforeach ?>  
+              <?php endforeach ?>
             </select>
           </div>
 
@@ -191,7 +191,7 @@
           <a class="ss_q_btn btn pull-left" id="preview_btn" href="question_preview/<?php echo $question_info[0]['questionType']; ?>/<?php echo $question_info[0]['id']; ?>" style="">
             <i class="fa fa-file-o" aria-hidden="true"></i> Preview
           </a>
-		  <?php if ($question_info[0]['questionType'] == 4){?>
+        <?php if ($question_info[0]['questionType'] == 4){?>
           <a class="ss_q_btn btn pull-left" id="question_tutorial" href="#" style="background: #c4ffff">
             Tutorial Image
            <!--  <img src="<?php echo base_url('/')?>assets/images/question_tutorial_icon.png" width="46"> -->
@@ -201,7 +201,7 @@
             <!--<?php if ($question_info[0]['questionType'] == 4){?>
           <a class="ss_q_btn btn pull-left question_tutorial" style="text-decoration: underline;border: none;font-size: 15px; font-weight: 600;">
             Tutorial Image
-             <img src="<?php echo base_url('/')?>assets/images/question_tutorial_icon.png" width="46"> 
+             <img src="<?php echo base_url('/')?>assets/images/question_tutorial_icon.png" width="46">
           </a>
             <?php }?>-->
 
@@ -236,8 +236,8 @@
               <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne" style="padding: 0;">
                   <h4 class="panel-title">
-                    <a> 
-                      <label class="form-check-label" for="">Question Time</label> 
+                    <a>
+                      <label class="form-check-label" for="">Question Time</label>
 					  <?php
                         $checkedTime = '';
                         $time = explode(":",$question_info[0]['questionTime']);
@@ -249,9 +249,9 @@
                         }
 
                         ?>
-                      <input type="checkbox" id="question_time" name="ansTimeRequired" value="1" <?php echo $checkedTime ?>>  
-                      Calculator Required 
-                      <input type="checkbox" name="isCalculator" value="1" <?php if ($question_info[0]['isCalculator'] == 1) {echo 'checked';} ?>> 
+                      <input type="checkbox" id="question_time" name="ansTimeRequired" value="1" <?php echo $checkedTime ?>>
+                      Calculator Required
+                      <input type="checkbox" name="isCalculator" value="1" <?php if ($question_info[0]['isCalculator'] == 1) {echo 'checked';} ?>>
                       <!-- Score <input type="checkbox" name=""> -->
                       <?php if($this->session->userdata('userType') == 7) : ?>
                         <strong style="text-decoration: underline; cursor:pointer;" data-toggle="modal" data-target="#ss_instruction_model">Instruction</strong>
@@ -267,7 +267,7 @@
                       <p>Module Name:</p>
                       <div class="table-responsive">
                         <table class="table table-bordered">
-                          <thead>    
+                          <thead>
                             <tr>
                               <th>SL</th>
                               <th>Mark</th>
@@ -287,7 +287,7 @@
                                 <a href="" data-toggle="modal" data-target="#ss_description_model" class="text-center" style="display: inline-block;">
                                   <img src="assets/images/icon_details.png">
                                 </a>
-                                
+
                                 <a data-toggle="modal" data-target="#ss_video_model" class="text-center" style="display: inline-block;">
                                 <img src="/assets/ckeditor/plugins/svideo/icons/svideo.png">
                                 </a>
@@ -300,7 +300,7 @@
                       <!-- Modal -->
                       <?php
                         if($question_info[0]['questionType'] == 22){
-                          $question_description = isset($question_info[0]['questionDescription']) ? $question_info[0]['questionDescription'] : ''; 
+                          $question_description = isset($question_info[0]['questionDescription']) ? $question_info[0]['questionDescription'] : '';
                           $myquestion = json_decode($question_description);
                           $question = $myquestion->question_setting_description;
                         }else{
@@ -409,10 +409,10 @@
                           <select class="form-control" name="second">
                             <option>SS</option>
                             <?php for ($i = 0; $i < 60; $i++) { ?>
-                              <?php 
+                              <?php
                               if ($i < 60) {
                                 $second = str_pad($i, 2, "0", STR_PAD_LEFT);
-                              } 
+                              }
                               ?>
                               <option <?php if ($array[2] == $second) { echo 'selected'; } ?> value="<?php echo $second; ?>">
                                 <?php echo $second; ?>
@@ -421,7 +421,7 @@
 
                           </select>
                         </div>
-                        
+
                         <br/>
 
                       </div>
@@ -470,7 +470,7 @@
                               <input type="text" data_q_type="0" value="<?php echo $question_answer;?>" name="result" class="form-control input-box rsskpin" readonly style="min-width: 50px;background-color: #baffba;">
                             </td>
                           </tr>
-                        <?php } if($question_info_ind['operator'] == '/') { 
+                        <?php } if($question_info_ind['operator'] == '/') {
                         //Divisor
                           for($i = 1; $i <= 1; $i++) { ?>
                             <tr class="rw<?=$i?>">
@@ -574,7 +574,7 @@
               <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
             </div>
             <div class="modal-body row">
-              <img src="assets/images/icon_info.png" class="pull-left"> <span class="ss_extar_top20">Update Sucessfully</span> 
+              <img src="assets/images/icon_info.png" class="pull-left"> <span class="ss_extar_top20">Update Sucessfully</span>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn_blue" id="update_success_button" data-dismiss="modal">Ok</button>
@@ -987,7 +987,7 @@ $countTutorial = count($question_tutorial);
       </div>
     </div>
   </div>
-</div> 
+</div>
 
 <div class="modal fade ss_modal" id="chapter_info_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -1018,7 +1018,7 @@ $countTutorial = count($question_tutorial);
       </div>
     </div>
   </div>
-</div> 
+</div>
 
 <script>
   $(document).ready(function(e){
@@ -1030,7 +1030,7 @@ $countTutorial = count($question_tutorial);
         }else{
           alert('Please Select chapter First !!');
         }
-        
+
 
     });
 
@@ -1063,7 +1063,7 @@ $countTutorial = count($question_tutorial);
               },
                 err => console.log(err)
         );
-        
+
     });
 
     $('.module_chapter_delete').click(function(){
@@ -1084,7 +1084,7 @@ $countTutorial = count($question_tutorial);
               $("#chapter_info_modal").modal("show");
             }
           });
-          
+
         }else{
           alert('Please Select chapter First !!');
         }
@@ -1108,7 +1108,7 @@ $countTutorial = count($question_tutorial);
        }else{
         alert('Please select new chapter !');
        }
-       
+
 
     });
 
@@ -1150,7 +1150,7 @@ $countTutorial = count($question_tutorial);
             { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'NewPage', 'Preview','Preview', 'Print','Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
             { name: 'basicstyles', items: [ 'Bold', 'Italic','Underline','Strike','Subscript', 'Superscript', '-', 'SImage' ] },
             '/',
-            { name: 'document', items: [ 'RemoveFormat','Maximize', 'ShowBlocks','TextColor', 'BGColor','-', 'Templates','Link', 'addFile'] }, 
+            { name: 'document', items: [ 'RemoveFormat','Maximize', 'ShowBlocks','TextColor', 'BGColor','-', 'Templates','Link', 'addFile'] },
             '/',
             { name: 'styles', items: [ 'Styles', 'Format','Font','FontSize'] },
             { name: 'wiris', items: [ 'ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry'] }
@@ -1171,7 +1171,7 @@ $countTutorial = count($question_tutorial);
             var list = $(".sentence input:checked").map(function(){
                                                                 return $(this).attr("checkboxid");
                                                             }).get().join();
-            
+
             var arr = list.split(',');
             paragraph_order = paragraph_order.filter(function (el) {
                                                         return el != '';
@@ -1184,14 +1184,14 @@ $countTutorial = count($question_tutorial);
                         is_submit = 0;
                     }
                 }
-               
+
             }
-            
+
             var form = $("#question_form");
             var question_item = document.getElementById('question_item').value;
 
             if (question_item == 4) {
-                
+
               if ($('input:checkbox[name=questionName_1_checkbox]:checked').val() == 1) {
                 var first_question = $('input:checkbox[name=questionName_1_checkbox]:checked').val();
 
@@ -1210,23 +1210,23 @@ $countTutorial = count($question_tutorial);
                 $('#textarea_2').html('');
               }
 
-              
+
               if (first_question == 1 && second_question == 1) {
-          
+
               }else{
 
-                
+
                 if ($('#questionName_1').val() !='' && $('#questionName_2').val() !='') {
                   alert('You can not use at a time two question ')
                   return ;
                 }
-                
+
               }
-              
+
             }
-            
+
             var pathname = '<?php echo base_url(); ?>';
-            
+
             if(is_submit == 1) {
 				CKupdate();
 
@@ -1242,15 +1242,15 @@ $countTutorial = count($question_tutorial);
 					success: function (response) {
 
             if (response == "update") {
-              
-            
-            <?php 
+
+
+            <?php
               if(!empty($this->session->userdata('module_status'))){
             ?>
-          
+
                 var module_status = <?php echo $this->session->userdata('module_status'); ?>;
-               
-                <?php 
+
+                <?php
                   if(!empty($this->session->userdata('param_module_id'))){
                 ?>
                   var param_module_id = <?php echo $this->session->userdata('param_module_id'); ?>;
@@ -1259,48 +1259,48 @@ $countTutorial = count($question_tutorial);
                 if (module_status == 1) {
                   // window.location.href = "<?//=base_url()?>create-module/1";
                   var get_url = "<?=base_url()?>create-module/1";
-                  
+
                   $("#update_success_button").hide();
                   $("#update_success_button_with_url").css('display','inline-block');
                   $("#update_success_button_with_url").attr('href',get_url);
                 }else if (module_status == 2) {
                   // window.location.href = "<?//=base_url()?>new-edit-module/"+param_module_id;
-                  var get_url = "<?=base_url()?>new-edit-module/"+param_module_id; 
-                  
+                  var get_url = "<?=base_url()?>new-edit-module/"+param_module_id;
+
                   $("#update_success_button").hide();
                   $("#update_success_button_with_url").css('display','inline-block');
                   $("#update_success_button_with_url").attr('href',get_url);
                 }
             <?php }?>
 
-            <?php 
+            <?php
               if(!empty($this->session->userdata('module_edit_status'))){
             ?>
                   var module_edit_status = <?php echo $this->session->userdata('module_edit_status'); ?>;
-               
+
                   if(module_edit_status==2){
-                    <?php 
+                    <?php
                       if(!empty($this->session->userdata('module_status_edit_id'))){
                     ?>
                     var module_id = <?php echo $this->session->userdata('module_status_edit_id');?>;
                     <?php }
-                      
+
                     ?>
 
                     var get_url = "<?=base_url()?>new-edit-module/"+module_id+"/"+module_edit_status;
-                 
+
                     $("#update_success_button").hide();
                     $("#update_success_button_with_url").css('display','inline-block');
                     $("#update_success_button_with_url").attr('href',get_url);
                   }else if(module_edit_status==1){
-                    
+
                     var get_url = "<?=base_url()?>create-module/1";
-                    
+
                     $("#update_success_button").hide();
                     $("#update_success_button_with_url").css('display','inline-block');
                     $("#update_success_button_with_url").attr('href',get_url);
                   }
-                  
+
             <?php }?>
 
               $(".progress").hide();
@@ -1352,7 +1352,7 @@ $countTutorial = count($question_tutorial);
         }
 
         function open_question_setting() {
-     
+
           <?php if ($question_item != 17) { ?>
             $("#raccordion").show();
           <?php }?>
@@ -1416,16 +1416,16 @@ $countTutorial = count($question_tutorial);
 
 
         /*autocomplete*/
-        $(document).ready(function(){ 
-       
-		
+        $(document).ready(function(){
+
+
 			$('.instruction').ckeditor({
 				height: 60,
 				extraPlugins : 'svideo,youtube',
 				filebrowserBrowseUrl: '/assets/uploads?type=Images',
 				filebrowserUploadUrl: 'imageUpload',
 				toolbar: [
-				{ name: 'document', items: ['SVideo', 'Youtube'] }, 
+				{ name: 'document', items: ['SVideo', 'Youtube'] },
 
 				]
 			});
@@ -1435,11 +1435,11 @@ $countTutorial = count($question_tutorial);
                 filebrowserBrowseUrl: '/assets/uploads?type=Images',
                 filebrowserUploadUrl: 'imageUpload',
                 toolbar: [
-                { name: 'document', items: ['SVideo', 'Youtube'] }, 
-        
+                { name: 'document', items: ['SVideo', 'Youtube'] },
+
                 ]
               });
-			
+
 			$('.wordSearch').devbridgeAutocomplete({
 				serviceUrl: 'Subject/suggestSubject',
 				onSelect: function (suggestions) {
@@ -1449,7 +1449,7 @@ $countTutorial = count($question_tutorial);
         })
 
       </script>
-	  
+
 	  <script>
     $("#question_tutorial").click(function (event) {
         event.preventDefault();
@@ -1459,7 +1459,7 @@ $countTutorial = count($question_tutorial);
         var qty = $("#box_qty_tutorial").val();
 		//AS
         var qus_type ="<?=$question_info[0]['questionType']?>";
-		
+
         $.ajax({
             url:"<?php echo base_url(); ?>Tutor/input_tutor",
             type:"post",
@@ -1669,7 +1669,7 @@ $countTutorial = count($question_tutorial);
     $(".preview_close").click(function () {
         $(".question_tutorial_modal").modal("show");
     });
-    
+
     $("#show_module_list").click(function () {
         $(".module_list_class").show();
     });

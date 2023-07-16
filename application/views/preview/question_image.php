@@ -64,7 +64,6 @@ $question_instruct = isset($question_info[0]['question_video']) ? json_decode($q
 <input type="hidden" id="optionalTime" value="<?php echo $question_time_in_second; ?>" name="optionalTime" />
 <input type="hidden" id="exact_time" value="<?php echo $this->session->userdata('exact_time'); ?>" />
 
-
 <div class="ss_student_board">
     <div class="ss_s_b_top">
         <div class="ss_index_menu">
@@ -117,6 +116,7 @@ $question_instruct = isset($question_info[0]['question_video']) ? json_decode($q
 
                                                         <div class="math_plus" id="quesBody" style="display:inherit;">
                                                             <?php echo ($question_info[0]['questionName']); ?>
+                                                            <?php echo ($question_info[0]['studentsection']); ?>
                                                         </div>
                                                         <div class="form-group" style="padding: 0px 12px;">
                                                             <input type="text" autofill="off" class="form-control" autocorrect="off" spellcheck="false" autocomplete="off" name="answer" id="answer">
@@ -165,7 +165,7 @@ $question_instruct = isset($question_info[0]['question_video']) ? json_decode($q
                                                     <tr>
                                                         <td>1</td>
                                                         <td><?php echo $question_info[0]['questionMarks']; ?></td>
-                                                        <!-- <td><?php // echo $question_info[0]['questionMarks']; 
+                                                        <!-- <td><?php // echo $question_info[0]['questionMarks'];
                                                                     ?></td> -->
                                                         <td class="text-center">
                                                             <a onclick="showDescription()" class="text-center" style="display: inline-block;"><img src="assets/images/icon_details.png"></a>
