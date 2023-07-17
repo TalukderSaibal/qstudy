@@ -74,15 +74,15 @@
                     ?>
                     <select class="form-control" name="country" id="moduleCountry" onChange="moduleSearch()" >
                       <option value="" > Select Country </option>
-                      <?php //foreach ($allCountry as $country) : 
+                      <?php //foreach ($allCountry as $country) :
                       ?>
-                            <?php //$sel = strlen($selCountry)&&($country['id']==$selCountry) ? 'selected' : ''; 
+                            <?php //$sel = strlen($selCountry)&&($country['id']==$selCountry) ? 'selected' : '';
                             ?>
-                        <option value="<?php //echo $country['id'] 
-                                        ?>" <?php //echo $sel; 
-                                            ?>><?php //echo $country['countryName'] 
+                        <option value="<?php //echo $country['id']
+                                        ?>" <?php //echo $sel;
+                                            ?>><?php //echo $country['countryName']
                                                                             ?></option>
-                        <?php //endforeach; 
+                        <?php //endforeach;
                         ?>
                     </select>
                   </div>
@@ -161,7 +161,7 @@
                             <?php //$sel = isset($_SESSION['modInfo']['course_id'])&&($course['id']==$_SESSION['modInfo']['course_id']) ? 'selected' : '';
                             ?>
                         <option value="<?php //echo $course['id']
-                                        ?>" <?php //echo $sel; 
+                                        ?>" <?php //echo $sel;
                                             ?>>
                             <?php //echo $course['courseName'];
                             ?>
@@ -426,8 +426,8 @@
                     <?php echo $allStudents; ?>
                   </select>
                   <!--                    <select id="indivStIds" class="form-control select2" name="indivStIds[]" multiple="">
-                       <?php //echo $allStudents; 
-                        ?> 
+                       <?php //echo $allStudents;
+                        ?>
                       <option value="">--Student--</option>
                     </select>-->
                 </div>
@@ -680,7 +680,7 @@
 
   })
 
-  //module search 
+  //module search
   function moduleSearch() {
     var moduleName = $('#moduleName').val();
     var country = $('#moduleCountry :selected').val();

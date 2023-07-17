@@ -9,8 +9,8 @@ class Preview extends CI_Controller
     {
         parent::__construct();
 
-        $user_id = $this->session->userdata('user_id');
-        $user_type = $this->session->userdata('userType');
+        $user_id            = $this->session->userdata('user_id');
+        $user_type          = $this->session->userdata('userType');
         $this->loggedUserId = $user_id;
 
         if ($user_id == null && $user_type == null) {
@@ -34,8 +34,8 @@ class Preview extends CI_Controller
         }
 
         $this->site_user_data = array(
-            'userType' => $user_type,
-            'zone_name' => $user_info[0]['zone_name'],
+            'userType'      => $user_type,
+            'zone_name'     => $user_info[0]['zone_name'],
             'student_grade' => $user_info[0]['student_grade'],
         );
     }
@@ -46,7 +46,9 @@ class Preview extends CI_Controller
         date_default_timezone_set($this->site_user_data['zone_name']);
         $exact_time = time();
         $this->session->set_userdata('exact_time', $exact_time);
+
         // echo $question_item;die();
+
         if ($question_item == 1) {
             $this->general($question_item, $question_id);
         } elseif ($question_item == 2) {
@@ -75,40 +77,28 @@ class Preview extends CI_Controller
             $this->preview_multiple_choice($question_item, $question_id);
         }elseif ($question_item == 14) {
             $this->preview_tutor($question_item, $question_id);
-        }elseif ($question_item == 15)
-        {
+        }elseif ($question_item == 15){
             $this->preview_workout_quiz_two($question_item, $question_id);
-        }elseif ($question_item == 16)
-        {
+        }elseif ($question_item == 16){
             $this->preview_memorization_quiz($question_item, $question_id);
-        }elseif ($question_item == 17)
-        {
+        }elseif ($question_item == 17){
             $this->preview_creative_quiz($question_item, $question_id);
-        }elseif ($question_item == 18)
-        {
+        }elseif ($question_item == 18){
             $this->preview_sentence_match($question_item, $question_id);
-        }elseif ($question_item == 19)
-        {
+        }elseif ($question_item == 19){
             $this->preview_word_matching($question_item, $question_id);
-        }
-        elseif ($question_item == 20)
-        {
+        }elseif ($question_item == 20){
             $this->preview_comprehension($question_item, $question_id);
-        }
-        elseif ($question_item == 21)
-        {
+        }elseif ($question_item == 21){
             $this->preview_grammer($question_item, $question_id);
-        }
-        elseif ($question_item == 22)
-        {
+        }elseif ($question_item == 22){
             $this->preview_glossary($question_item, $question_id);
-        }
-        elseif ($question_item == 23)
-        {
+        }elseif ($question_item == 23){
             $this->preview_imageQuiz($question_item, $question_id);
         }
-
     }
+
+
     public function preview_story_Write($question_item, $question_id){
         $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
         $data['userType']  = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
@@ -310,19 +300,21 @@ class Preview extends CI_Controller
 
     private function true_false($question_item, $question_id)
     {
-        $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
-        $data['userType']  = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
-        $data['userType'] = $data['userType'][0]['user_slug'];
+        $data['user_info']     = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
+        $data['userType']      = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
+        $data['userType']      = $data['userType'][0]['user_slug'];
         $data['question_info'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
 
-        $data['question_id'] = $question_id;
+        $data['question_id']   = $question_id;
         $data['question_item'] = $question_item;
-        $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
+        $data['page_title']    = '.:: Q-Study :: Tutor yourself...';
 
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
+
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
-        $data['header'] = '';
-        $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
+
+        $data['header']      = '';
+        $data['footerlink']  = $this->load->view('dashboard_template/footerlink', $data, true);
         $data['maincontent'] = $this->load->view('preview/true_false', $data, true);
 
         $this->load->view('master_dashboard', $data);
