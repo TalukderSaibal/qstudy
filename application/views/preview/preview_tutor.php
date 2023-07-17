@@ -88,13 +88,13 @@ $countTutorial = 0;
 $countTutorial = count($tutorialInfo);
 ?>
 
-<?php 
+<?php
     $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
 ?>
 <style type="text/css">
   #img_show .row{
     padding: 20px;
-  }  
+  }
 </style>
 <input type="hidden" id="exam_end" value="" name="exam_end" />
 <input type="hidden" id="now" value="<?php echo $module_time;?>" name="now" />
@@ -107,9 +107,9 @@ $countTutorial = count($tutorialInfo);
         <div class="ss_index_menu">
             <a href="<?php echo base_url().$userType.'/view_course'; ?>">Question/Module</a>
         </div>
-        
-        <div class="col-sm-6 ss_next_pre_top_menu">         
-            
+
+        <div class="col-sm-6 ss_next_pre_top_menu">
+
             <a class="btn btn_next" href="question_edit/<?php echo $question_item; ?>/<?php echo $question_id; ?>">
                 <i class="fa fa-caret-left" aria-hidden="true"></i> Back
             </a>
@@ -117,7 +117,7 @@ $countTutorial = count($tutorialInfo);
             <a class="btn btn_next" href="javascript:void(0)" onclick="showDrawBoard()">Draw <img src="assets/images/icon_draw.png"></a>
         </div>
     </div>
-    
+
     <div class="container-fluid">
         <div class="row">
             <div class="ss_s_b_main" style="min-height: 100vh">
@@ -128,7 +128,7 @@ $countTutorial = count($tutorialInfo);
                               <li>
                                   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><span><img src="assets/images/icon_draw.png"> Instruction</span></a>
                               </li>
-                               
+
                                 <?php if ($question_time_in_second != 0) { ?>
 
                                     <li><div class="ss_timer" id="demo"><h1>00:00:00 </h1></div></li>
@@ -137,9 +137,9 @@ $countTutorial = count($tutorialInfo);
 
                                 <?php if ($question_info[0]['isCalculator']) : ?>
                                     <li> <input type="hidden" name="" id="scientificCalc"></li>
-                                <?php endif; ?>  
-                              
-                              
+                                <?php endif; ?>
+
+
                           </ul>
                         </div>
                     <div class="tutorial-point">
@@ -203,7 +203,7 @@ $countTutorial = count($tutorialInfo);
                         <div class="panel panel-default abc">
                             <div class="panel-heading" role="tab" id="headingOne">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">  
+                                    <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">
                                     <span>Module Name: Every Sector</span></a>
                                 </h4>
                             </div>
@@ -212,9 +212,9 @@ $countTutorial = count($tutorialInfo);
                                     <div class=" ss_module_result">
                                         <div class="table-responsive">
                                             <table class="table table-bordered">
-                                                <thead>    
+                                                <thead>
                                                     <tr>
-                                                       
+
                                                         <th>SL</th>
                                                         <th>Mark</th>
                                                         <!-- <th>Obtained</th> -->
@@ -236,7 +236,7 @@ $countTutorial = count($tutorialInfo);
                                                           <?php } ?>
                                                           </td>
                                                     </tr>
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -247,7 +247,7 @@ $countTutorial = count($tutorialInfo);
 
                     </div>
                 </div>
-                
+
                 <div class="col-sm-4 pull-right" id="draggable" style="display: none;">
                     <div class="panel-group" id="waccordion" role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default">
@@ -265,7 +265,7 @@ $countTutorial = count($tutorialInfo);
                     </div>
                 </div>
 
-                
+
 
             </div>
 
@@ -289,7 +289,7 @@ $countTutorial = count($tutorialInfo);
                 <h4 class="modal-title" id="myModalLabel">Question Description</h4>
             </div>
             <div class="modal-body row">
-                <span class="ss_extar_top20"><?php echo $question_info[0]['questionDescription']?></span> 
+                <span class="ss_extar_top20"><?php echo $question_info[0]['questionDescription']?></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -309,7 +309,7 @@ $countTutorial = count($tutorialInfo);
             </div>
 
             <div class="modal-body row">
-                <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span> 
+                <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -338,7 +338,7 @@ $countTutorial = count($tutorialInfo);
                       <source src="<?php echo isset($question_instruct[0]) ? trim($question_instruct[0]) : '';?>" type="video/mp4">
                     </video>
                     <?php if (isset($question_instruct[1]) && $question_instruct[1] != null ): ?>
-                        
+
                         <video controls style="width: 100%">
                           <source src="<?php echo isset($question_instruct[1]) ? trim($question_instruct[1]) : '';?>" type="video/mp4">
                         </video>
@@ -366,11 +366,11 @@ $countTutorial = count($tutorialInfo);
                 <i class="fa fa-times" style="font-size:20px;color:red"></i><br>
                 <span class="ss_extar_top20">
                     <?php echo $question_info[0]['question_solution']?>
-                    
+
                 </span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>         
+                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>
             </div>
         </div>
     </div>
@@ -384,12 +384,12 @@ $countTutorial = count($tutorialInfo);
                 <h4 class="modal-title" id="myModalLabel">Times Up</h4>
             </div>
             <div class="modal-body row">
-                <i class="fa fa-close" style="font-size:20px;color:red"></i> 
+                <i class="fa fa-close" style="font-size:20px;color:red"></i>
                 <!--<span class="ss_extar_top20">Your answer is wrong</span>-->
                 <br><?php echo $question_info[0]['question_solution']?>
             </div>
             <div class="modal-footer">
-                <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>         
+                <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>
             </div>
         </div>
     </div>
@@ -398,7 +398,7 @@ $countTutorial = count($tutorialInfo);
 
 <script>
     $(window).on('load', function () {
-        
+
         $('#myCarousel').carousel({
             pause: true,
             interval: false,
@@ -482,13 +482,13 @@ $countTutorial = count($tutorialInfo);
                 } else if (results == 1) {
                     clearInterval(clear_interval);
                     $('#ss_info_sucesss').modal('show');
-                    
+
                 }
             }
         });
 
     });
-    
+
     function showDescription(){
         $('#ss_info_description').modal('show');
     }
@@ -503,20 +503,20 @@ $countTutorial = count($tutorialInfo);
     var h1 = document.getElementsByTagName('h1')[0];
 
     function circulate1() {
-        
+
         remaining_time = remaining_time - 1;
-        
+
         var v_hours = Math.floor(remaining_time / 3600);
-        var remain_seconds = remaining_time - v_hours * 3600;       
+        var remain_seconds = remaining_time - v_hours * 3600;
         var v_minutes = Math.floor(remain_seconds / 60);
         var v_seconds = remain_seconds - v_minutes * 60;
-        
+
         if (remaining_time > 0) {
-            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;          
+            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
         } else {
             var user_answer = CKEDITOR.instances.answer.getData();
             var id = $('#question_id').val();
-            
+
             $.ajax({
                 type: 'POST',
                 url: 'IDontLikeIt/answer_matching',
@@ -529,7 +529,7 @@ $countTutorial = count($tutorialInfo);
                     if (results == 0) {
                         $('#times_up_message').modal('show');
                         $('#question_reload').click(function () {
-                            location.reload(); 
+                            location.reload();
                         });
                     } else if (results == 1) {
                         $('#ss_info_sucesss').modal('show');
@@ -539,23 +539,23 @@ $countTutorial = count($tutorialInfo);
             h1.textContent = "EXPIRED";
         }
     }
-    
+
     function takeDecesionForQuestion() {
-        
+
         var exact_time = $('#exact_time').val();
-        
+
         var now = $('#now').val();
         var opt = $('#optionalTime').val();
-        
-        
+
+
         var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
-        
-        var distance = countDownDate - now;  
+
+        var distance = countDownDate - now;
         var hours = Math.floor( distance/3600 );
 //        alert(distance)
         var x = distance % 3600;
 
-        var minutes = Math.floor(x/60); 
+        var minutes = Math.floor(x/60);
 
         var seconds = distance % 60;
 
@@ -570,7 +570,7 @@ $countTutorial = count($tutorialInfo);
 
         if(opt > total) {
             remaining_time = total;
-        } else {    
+        } else {
             remaining_time = parseInt(end_depend_optional) - parseInt(now);
         }
 
