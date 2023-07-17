@@ -1,4 +1,4 @@
-<style type="text/css">
+<style type="text/css"></style>
     body .modal-ku {
         width: 750px;
     }

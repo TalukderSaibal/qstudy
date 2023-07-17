@@ -4,7 +4,7 @@
     <head>
 		<base href="<?php echo base_url();?>" />
         <?php echo $headerlink;?>
-		
+
     </head>
     <body>
         <div class="wrapper">
@@ -12,14 +12,14 @@
 
             <section class="main_content ss_sign_up_content bg-gray animatedParent">
                 <div class="container-fluid container-fluid_padding">
-                    <div class="row"> 
-                        
+                    <div class="row">
+
                         <?php echo $header;?>
 
-                    </div> 
+                    </div>
                     <div class="">
                         <div class="row">
-                            
+
                             <?php echo $maincontent;?>
 							<div class="modal fade tutorialModalMaster" id="tutorialModalMaster" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document" style="width:70%">
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                             </div>
-							
+
 							 <div class="modal fade question_tutorial_master_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document" style="width:70%">
                                     <div class="modal-content" style="height: 96vh;">
@@ -84,19 +84,19 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <!--===================== End of Footer ========================-->
         </div>
-        
+
         <!--wrapper-->
-        
+
         <?php echo $footerlink;?>
-        
-        
+
+
     </body>
 </html>

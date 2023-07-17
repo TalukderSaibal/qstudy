@@ -11,9 +11,9 @@
 </style>
 
 <section class="main_content ss_sign_up_content bg-gray animatedParent">
-    <div class="container-fluid container-fluid_padding">			
+    <div class="container-fluid container-fluid_padding">
         <div class="container">
-            <div class="row">					
+            <div class="row">
                 <div class="">
                     <div class="col-md-10 col-md-offset-1">
                         <p class="accordion_new">
@@ -27,7 +27,7 @@
                                             <div class="col-md-6 bottom10">
                                                 <p id="success"></p>
                                                 <p id="error"></p>
-                                                <form class="form-horizontal" id="t_tutor_details">			
+                                                <form class="form-horizontal" id="t_tutor_details">
                                                     <div class="form-group">
                                                         <div class="text-left col-sm-4"><label class="control-label" for="email">User Name:</label></div>
                                                         <div class="col-sm-8">
@@ -49,7 +49,7 @@
                                                         <div class="text-left col-sm-4">
                                                             <label class="control-label" for="password">Password:</label>
                                                         </div>
-                                                        <div class="col-sm-8"> 
+                                                        <div class="col-sm-8">
                                                             <input type="password" class="form-control" name="password" id="password" value="<?php //echo $user_info[0]['user_pawd']; ?>">
                                                         </div>
                                                     </div>
@@ -58,7 +58,7 @@
                                                         <div class="text-left col-sm-4">
                                                             <label class="" for="passconf">Confirm Password:</label>
                                                         </div>
-                                                        <div class="col-sm-8"> 
+                                                        <div class="col-sm-8">
                                                             <input type="password" class="form-control" name="passconf" id="passconf" value="<?php //echo $user_info[0]['user_pawd']; ?>">
                                                         </div>
                                                     </div>
@@ -68,7 +68,7 @@
                                                         <div class="text-left col-sm-4">
                                                             <label class="control-label" for="country">Country:</label>
                                                         </div>
-                                                        <div class="col-sm-8"> 
+                                                        <div class="col-sm-8">
                                                             <input class="form-control" readonly type="text" id="country" value="<?php echo $user_info[0]['countryName']; ?>"/>
 
                                                         </div>
@@ -79,19 +79,19 @@
                                                         <div class="text-left col-sm-4">
                                                             <label class="control-label" for="Ref_link">Ref.Link No:</label>
                                                         </div>
-                                                        <div class="col-sm-8"> 
+                                                        <div class="col-sm-8">
                                                             <p><b><?php echo $user_info[0]['SCT_link']; ?></b></p>
-                                                        </div>																
+                                                        </div>
                                                     </div>
 
                                                 </form>
 
-                                            </div>								
+                                            </div>
                                             <div class="col-md-3 bottom10 text-center">
 
                                                 <a href="#"><b></b></a>
 
-                                            </div>								
+                                            </div>
                                             <div class="col-md-3 bottom10">
                                                 <ul class="setting_ul">
                                                     <li><a href="#"><img src="assets/images/menu_n1.png"></a></li>
@@ -99,13 +99,13 @@
 														<a onclick="upDateStudentProfile();">
 															<img src="assets/images/save_btn.png">
 														</a>
-													</li>	
+													</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -706,7 +706,7 @@ $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode(
                 <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span>
                 <!--                <div class="question_content" style="width:100%;padding: 10px;margin-top: 20px;">-->
                 <!--                    <div>-->
-                <!--                        --><?php //echo $question_info_ind->solution; 
+                <!--                        --><?php //echo $question_info_ind->solution;
                                                 ?>
                 <!--                    </div>-->
                 <!--                </div>-->
@@ -751,7 +751,7 @@ $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode(
 
                 <!--                <div class="question_content" style="width:100%;padding: 10px;margin-top: 20px;">-->
                 <!--                    <div>-->
-                <!--                        --><?php //echo $question_info_ind->solution; 
+                <!--                        --><?php //echo $question_info_ind->solution;
                                                 ?>
                 <!--                    </div>-->
                 <!--                </div>-->
