@@ -1176,7 +1176,6 @@ foreach ($total_question as $indwww) {
       $(this).css('display', 'none');
       $('#ans_submit').show();
       $('#student_answers_list').css('display', 'block');
-
     });
 
     $('#help_view').click(function() {
@@ -1553,7 +1552,7 @@ foreach ($total_question as $indwww) {
 
         ctrlVideo.pause();
 
-        $('.active_video_play').html("play");
+        $('.active_video_play').html("Play");
         $('.active_video_play').toggleClass("active");
       }
     });

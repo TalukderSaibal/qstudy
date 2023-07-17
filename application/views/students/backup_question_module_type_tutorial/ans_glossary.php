@@ -521,14 +521,14 @@
 
 </style>
 
-<?php 
+<?php
 foreach ($total_question as $ind) {
 
 if ($ind["question_type"] == 14) {
   $chk = $ind["question_order"];
  }
 
-} 
+}
   ?>
 
 <?php
@@ -542,7 +542,7 @@ if ($ind["question_type"] == 14) {
     $key = $question_info_s[0]['question_order'];
     date_default_timezone_set($this->site_user_data['zone_name']);
     $module_time = time();
-    
+
 if ($tutorial_ans_info) {
     $temp_table_ans_info = json_decode($tutorial_ans_info[0]['st_ans'], true);
     $desired = $temp_table_ans_info;
@@ -621,7 +621,7 @@ if (is_array($desired)) {
 ?>
 
 <form id="answer_form">
-    
+
 <?php if ($module_type == 3) { ?>
   <input type="hidden" id="exam_end" value="<?php echo strtotime($module_info[0]['exam_end']);?>" name="exam_end" />
   <input type="hidden" id="now" value="<?php echo $module_time;?>" name="now" />
@@ -629,13 +629,13 @@ if (is_array($desired)) {
   <input type="hidden" id="exact_time" value="<?php echo $this->session->userdata('exact_time');?>" />
 <?php }?>
 
-<!--         ***** For Tutorial & Everyday Study *****         -->    
+<!--         ***** For Tutorial & Everyday Study *****         -->
 <?php if ($module_type == 2 || $module_type == 1) { ?>
   <input type="hidden" id="exam_end" value="" name="exam_end" />
   <input type="hidden" id="now" value="<?php echo $module_time;?>" name="now" />
   <!--  <input type="hidden" id="optionalTime" value="--><?php //echo $question_time_in_second;?><!--" name="optionalTime" />-->
   <input type="hidden" id="optionalTime" value="<?php echo $setTime;?>" name="optionalTime" />
- 
+
   <input type="hidden" id="exact_time" value="<?php echo $this->session->userdata('exact_time');?>" />
 <?php }?>
 
@@ -647,7 +647,7 @@ if (is_array($desired)) {
     <input type="hidden" id="next_question" value="0" name="next_question" />
 <?php } ?>
 <input type="hidden" id="module_id" value="<?php echo $question_info_s[0]['module_id'] ?>" name="module_id">
-<input type="hidden" id="current_order" value="<?php echo $key; ?>" name="current_order"> 
+<input type="hidden" id="current_order" value="<?php echo $key; ?>" name="current_order">
 <input type='hidden' id="module_type" value="<?php echo $question_info_s[0]['moduleType']; ?>" name='module_type'>
 
 <input type='hidden' id="student_question_time" value="" name='student_question_time'>
@@ -655,9 +655,9 @@ if (is_array($desired)) {
 <div class="ss_student_board">
   <div class="ss_s_b_top">
   </div>
- 
+
   <div class="container-fluid">
-        <?php 
+        <?php
             $question = $question_info_s[0]['questionName'];
             $answer = $question_info_s[0]['answer'];
             $question_description = json_decode($question_info_s[0]['questionDescription'],true);
@@ -673,7 +673,7 @@ if (is_array($desired)) {
             <a class="btn ans_submit" type="button" style="padding:7px 22px;border:1px solid #62b1ce;background-color:#99d9ea;color:black;">Next</a>
         </div>
 
-  </div> 
+  </div>
 
 </div>
 </form>
@@ -681,12 +681,12 @@ if (is_array($desired)) {
 
 <script>
      $(window).on('load',function(){
-      <?php 
+      <?php
         foreach ($total_question as $ind) {
           if ( ($ind["question_type"] !=14) && ($question_info_s[0]['question_order'] == $ind['question_order']) ) { ?>
 
-          var id= <?php echo $ind['question_order']; ?>;  
-          <?php 
+          var id= <?php echo $ind['question_order']; ?>;
+          <?php
           if($ind['question_video']!='' && $ind['question_video']!="[]" && $ind['question_video']!= '""'){ ?>
         showQuestionVideo(id);
         <?php }}}?>
@@ -696,14 +696,14 @@ function showQuestionVideo(id){
 
 //$('#ss_question_video'+id).modal('show');
 }
-    
-    
+
+
     function videoCloseWithModal(id){
       $('#ss_question_video'+id).modal('hide');
       var video = $('#videoTag'+id).get(0);
       if (video.paused === false) {
         video.pause();
-      } 
+      }
     }
 </script>
 
@@ -711,13 +711,13 @@ function showQuestionVideo(id){
     <!--Success Modal-->
     <div class="modal fade ss_modal" id="ss_info_sucesss" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="height: 265px">  
+            <div class="modal-content" style="height: 265px">
                 <div class="modal-header" >
 
                     <h4 class="modal-title" id="myModalLabel"></h4>
                 </div>
                 <div class="modal-body row" style="height: 87%;">
-                    <img src="assets/images/icon_sucess.png" class="pull-left"> <br> <span class="">Your answer is correct</span> 
+                    <img src="assets/images/icon_sucess.png" class="pull-left"> <br> <span class="">Your answer is correct</span>
 
                 </div>
                 <div class="modal-footer">
@@ -727,15 +727,15 @@ function showQuestionVideo(id){
         </div>
     </div>
 
- 
-  
+
+
 
 
 <script>
 
     $(document).ready(function(){
         $('.ans_submit').click(function () {
-            
+
             var form = $("#answer_form");
 
             $.ajax({
@@ -744,10 +744,10 @@ function showQuestionVideo(id){
                 data: form.serialize(),
                 dataType: 'html',
                 success: function (results) {
-                        
+
                             commonCall();
-                      
-                
+
+
                 }
             });
 
@@ -765,12 +765,12 @@ function showQuestionVideo(id){
       function show_questionModal() {
         $('#myModal_2222').modal('show');
       }
-      
+
 
 
     $('body').on('click','.rsclose',function(){
         $('.response_answer_class').prop('checked', false);
-        $('.ans_image').hide(); 
+        $('.ans_image').hide();
     })
     $(".image_click").click(function(){
        var value = $(this).val();
@@ -778,30 +778,30 @@ function showQuestionVideo(id){
        $('#ans_image'+value).hide();
     });
 
-   
+
     </script>
 <script>
-    
+
     var time_count = 0;
-    
-      
-      
+
+
+
       function showModalDes(e)
       {
         $('#show_description_' + e).modal('show');
       }
-      
-      
+
+
       function commonCall()
       {
         $question_order = $('#next_question').val();
         //alert($question_order);
         $module_id = $('#module_id').val();
-        
+
         <?php if ($tutorial_ans_info) {?>
           window.location = 'show_tutorial_result/'+$module_id;
         <?php }?>
-        
+
         if ($question_order == 0) {
           window.location.href = 'show_tutorial_result/' + $module_id ;
         }
@@ -815,40 +815,40 @@ function showQuestionVideo(id){
 
       function takeDecesion(){
         var exact_time = $('#exact_time').val();
-        
+
         var countDownDate =  $('#exam_end').val();
 
         var now = $('#now').val();
         var opt = $('#optionalTime').val();
-        var h1 = document.getElementsByTagName('h1')[0];  
-        
-        var distance = countDownDate - now;  
+        var h1 = document.getElementsByTagName('h1')[0];
+
+        var distance = countDownDate - now;
         var hours = Math.floor(distance/3600);
         //alert(distance);
         var x = distance % 3600;
-        
-        var minutes = Math.floor(x/60); 
+
+        var minutes = Math.floor(x/60);
         var seconds = distance%60;
 
         var t_h = hours * 60 * 60;
         var t_m = minutes * 60;
         var t_s = seconds;
-        
+
         var total = parseInt(t_h) + parseInt(t_m) + parseInt(t_s);
-        
+
         var remaining_time;
         var end_depend_optional = parseInt(exact_time) + parseInt(opt);
 //  alert(opt);
         // if(opt > total){
         //   remaining_time = total;
-        // }else{  
+        // }else{
         //   remaining_time = parseInt(end_depend_optional) - parseInt(now);
         // }
 
         if(opt > 0){
           remaining_time = parseInt(end_depend_optional) - parseInt(now);
-        
-        } else {  
+
+        } else {
           remaining_time = total;
         }
 
@@ -857,16 +857,16 @@ function showQuestionVideo(id){
         function circulate(){
             time_count++;
             remaining_time = remaining_time - 1;
-    
+
             var v_hours = Math.floor(remaining_time / 3600);
-            var remain_seconds = remaining_time - v_hours * 3600;   
+            var remain_seconds = remaining_time - v_hours * 3600;
             var v_minutes = Math.floor(remain_seconds / 60);
             var v_seconds = remain_seconds - v_minutes * 60;
-            
+
             $("#student_question_time").val(time_count);
-    
+
             if (remaining_time > 0) {
-                h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;      
+                h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
             }else{
                 var form = $("#answer_form");
                 $.ajax({
@@ -893,21 +893,21 @@ function showQuestionVideo(id){
 
 <script>
   function takeDecesionForQuestion() {
-    
+
     var exact_time = $('#exact_time').val();
-    
+
     var now = $('#now').val();
     var opt = $('#optionalTime').val();
     var h1 = document.getElementsByTagName('h1')[0];
-    
+
     var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
-    
-    var distance = countDownDate - now;  
+
+    var distance = countDownDate - now;
     var hours = Math.floor( distance/3600 );
 //        alert(distance)
 var x = distance % 3600;
 
-var minutes = Math.floor(x/60); 
+var minutes = Math.floor(x/60);
 
 var seconds = distance % 60;
 
@@ -922,7 +922,7 @@ var end_depend_optional = parseInt(exact_time) + parseInt(opt);
 
 if(opt > total) {
   remaining_time = total;
-} else {  
+} else {
   remaining_time = parseInt(end_depend_optional) - parseInt(now);
 }
 
@@ -931,18 +931,18 @@ setInterval(circulate1,1000);
 function circulate1() {
 
     time_count++;
-  
+
   remaining_time = remaining_time - 1;
-  
+
   var v_hours = Math.floor(remaining_time / 3600);
-  var remain_seconds = remaining_time - v_hours * 3600;   
+  var remain_seconds = remaining_time - v_hours * 3600;
   var v_minutes = Math.floor(remain_seconds / 60);
   var v_seconds = remain_seconds - v_minutes * 60;
-  
+
   $("#student_question_time").val(time_count);
-  
+
   if (remaining_time > 0) {
-    h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;      
+    h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
   } else {
     var form = $("#answer_form");
     $.ajax({
@@ -954,11 +954,11 @@ function circulate1() {
         if (results == 3) {
           $('#times_up_message').modal('show');
           $('#question_reload').click(function () {
-            location.reload(); 
+            location.reload();
           });
         } if (results == 2) {
           $('#ss_info_sucesss').modal('show');
-          
+
         }
       }
     });

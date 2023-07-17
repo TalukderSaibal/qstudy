@@ -29,7 +29,7 @@ display:inline-block ;
   -webkit-transform: rotate(45deg);
 }
 
-   
+
 .frist_time_user_mid_con_mes strong{
    color: #ff7f27;
 }
@@ -79,7 +79,7 @@ display:inline-block ;
    height: 60px;
    width: 60px;
    line-height: 55px;
-   text-align: center; 
+   text-align: center;
    border-radius: 50%;
    font-size: 30px;
 }
@@ -201,7 +201,7 @@ padding-top: 20px;
        width: 14px;
        height: 14px;
        cursor: pointer;
-       position: relative; 
+       position: relative;
        border: 1px solid #959595;
    }
 
@@ -211,7 +211,7 @@ padding-top: 20px;
        background-color: #ed1c24;
        background: #ed1c24 url("data:image/gif;base64,R0lGODlhCwAKAIABAP////3cnSH5BAEKAAEALAAAAAALAAoAAAIUjH+AC73WHIsw0UCjglraO20PNhYAOw==") 3px 3px no-repeat;
        background-size: 8px;
-   } 
+   }
 @media (min-width: 1000px){
 #show_question_idea_profile .modal-dialog{
    width: 800px;
@@ -268,7 +268,7 @@ padding-top: 20px;
    align-items: end;
    flex-wrap: wrap;
 }
-.workout_menu ul > div{ 
+.workout_menu ul > div{
    margin-bottom: 10px;
 }
     .top_word_limt{
@@ -310,14 +310,14 @@ padding-top: 20px;
     }
     .ss_modal .modal-dialog{
       position: absolute;
-      margin-top: 0% !important; 
-    top: 50% !important;   
-    left: 50% !important;    
-    transform: translate(-50%, -50%) !important;  
+      margin-top: 0% !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
     }
 
-    .ss_modal .modal-content { 
-       padding: 5px !important; 
+    .ss_modal .modal-content {
+       padding: 5px !important;
    }
 
  .ss_modal .modal-header {
@@ -326,7 +326,7 @@ padding-top: 20px;
     padding: 0;
     border-radius: 5px;
 }
- 
+
 #show_question_idea_profile .modal-dialog {
     position: relative;
     margin-top: 2% !important;
@@ -361,7 +361,7 @@ padding-top: 20px;
 select{
       -webkit-appearance: listbox !important;
     }
-    
+
    img.calculator-trigger {
    margin: 0px;
    vertical-align: middle;
@@ -412,7 +412,7 @@ select{
 <?php
    date_default_timezone_set($this->site_user_data['zone_name']);
    $module_time = time();
-   
+
    //    For Question Time
    $question_time = explode(':', $question_info_s[0]['questionTime']);
    $hour = 0;
@@ -428,12 +428,12 @@ select{
    }
 
     $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
-    
+
 //    End For Question Time
    $letter = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 ?>
 
-   <?php 
+   <?php
       $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
    ?>
    <input type="hidden" id="exam_end" value="" name="exam_end" />
@@ -449,7 +449,7 @@ select{
                <div class="ss_index_menu ">
                   <a href="#">Details</a>
                </div>
-               <div class="col-sm-6 ss_next_pre_top_menu"> 
+               <div class="col-sm-6 ss_next_pre_top_menu">
                   <a class="btn btn_next" href="<?php echo base_url('Admin/idea_create_student_report') ?>">
                   Workout <img src="assets/images/icon_draw.png">
                   </a>
@@ -460,7 +460,7 @@ select{
                   <div class="ss_s_b_main" style="min-height: 100vh">
                     <div class="col-sm-7">
                         <div class="workout_menu" style=" padding-right: 15px;">
-                           <ul>                              
+                           <ul>
                             <li><a style="cursor:pointer" id="show_question"> <img src="assets/images/icon_draw.png"/> Instruction </a></li>
                            <?php if ($question_time_in_second != 0) { ?>
 
@@ -472,32 +472,32 @@ select{
                            <?php endif; ?>
                            </ul>
                         </div>
-                        
+
 
                         <div class="word_match_body">
-                           <?php 
+                           <?php
                            $all_questions = json_decode($word_match_info[0]['questionName'],true);
                            $answers = json_decode($word_match_info[0]['answer'],true);
-                           
+
                            $new_answers =[];
                            foreach($answers as $key=>$answer){
                               $new_answers[$key] = lcfirst($answer);
                            }
                            $answers = $new_answers;
-                           
-                           
+
+
 
                            $questions = $all_questions['questions'];
                            $wrong_questions = $all_questions['wrong_questions'];
                            ?>
                            <div id="skip_others">
-                              
+
                               <div id="question_list">
                               <h5 style="text-decoration: underline;color:#6ea6c5;font-size:21px;font-weight:bold;"><?php if($question_info_s[0]['country']==1 || $question_info_s[0]['country']==9){ echo "Memorise";}else{echo "Memorize";}?> the sentences and words</h5>
                               <br>
                                 <?php foreach($questions as $key => $question){
                                    $replace_html = '<span style="color:#fb8836;">'.$answers[$key].'</span>';
-                                   
+
                                    $make_question = str_replace($answers[$key],$replace_html,$question);
                                  ?>
                                    <p class="question_all" style="font-size: 22px;background-color: #0000000f;padding: 15px;"><?=$make_question?></p>
@@ -509,7 +509,7 @@ select{
                               <div id="answer_list" style="display:none;">
                               <h5 style="text-decoration: underline;color:#6ea6c5;font-size:21px;font-weight:bold;"><?php if($question_info_s[0]['country']==1 || $question_info_s[0]['country']==9){ echo "Memorise";}else{echo "Memorize";}?> the spelling of words <span style="color:red;">Serially.</span> </h5>
                               <br>
-                                <?php 
+                                <?php
                                 foreach($answers as $answer){
                                 ?>
                                  <p style="font-size: 22px;background-color: #0000000f;padding: 15px;color:#fb8836;"><?=$answer?></p>
@@ -526,10 +526,10 @@ select{
                               <br>
                               <a id="help_view" style="background-color: #03a9f4;width: 63px;color: white;padding: 5px 10px;font-size: 19px;font-weight: bold;cursor:pointer;">Help</a>
                               <br>
-                              <?php       
+                              <?php
                               $j=1;
                               foreach($questions as $key => $question){
-                                 
+
                                  ?>
                                  <div style="display: flex;">
                                     <div style="background-color: #0000000f;padding: 15px;width: 35%;">
@@ -543,12 +543,12 @@ select{
                                     </div>
                                     &nbsp;&nbsp;
                                     <div style="display:none;" class="sugg_box suggession_box<?=$j?>">
-                                   
+
                                        <!-- <p style="background-color:gray;color:white;text-align: center;padding:0px 15px;">Answer</p> -->
                                        <p class="ans_set<?=$j?>" style="text-align: center;background-color:wheat;">were</p>
                                     </div>
                                     <div style="display:none;" class="serial_box<?=$j?>">
-                                   
+
                                        <p style="background-color:#fe0000;color:white;text-align: center;padding:13px 15px;">You have to write serially.</p>
                                     </div>
                                  </div>
@@ -556,12 +556,12 @@ select{
                                 <?php $j++;}?>
                            </div>
 
-                           
+
                            <div>
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <a href="javascript:;" type="button" class="btn btn-primary" style="background-color: #fb8836;float:left;" id="ans_next">Next</a>
                               <a href="javascript:;" type="button" class="btn btn-primary" style="background-color: #fb8836;float:left;display:none;" id="start_memo">Start <?php if($question_info_s[0]['country']==1 || $question_info_s[0]['country']==9){ echo "Memorisation";}else{echo "Memorization";}?></a>
-                              
+
                               <br>
                               <a href="javascript:;" type="button" class="btn btn-primary" style="background-color: #fb8836;float:left;display:none;" id="ans_submit">Submit</a>
 
@@ -586,12 +586,12 @@ select{
                                     <div class=" ss_module_result">
                                         <div class="table-responsive">
                                             <table class="table table-bordered">
-                                                <thead>    
+                                                <thead>
                                                     <tr>
 
                                                         <th>SL</th>
                                                         <th>Mark</th>
-                                                        
+
                                                         <th>Description / Video</th>
 
                                                     </tr>
@@ -601,7 +601,7 @@ select{
 
                                                         <td>1</td>
                                                         <td><?php echo $question_info_s[0]['questionMarks']; ?></td>
-                                                        
+
                                                         <td>
                                                             <a onclick="showDescription()" style="display: inline-block;">
                                                                 <img src="assets/images/icon_details.png">
@@ -619,11 +619,11 @@ select{
                         </div>
                     </div>
                 </div>
-                    
+
                   </div>
                </div>
 
-               
+
             </div>
          </div>
       </div>
@@ -640,7 +640,7 @@ select{
         <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
       </div>
       <div class="modal-body row">
-        <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span> 
+        <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -653,17 +653,17 @@ select{
 <div class="modal fade ss_modal" id="help_question" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      
+
          <h4 class="modal-title"  style="font-size: 20px;padding: 10px;background: #34a9c9;color: white;"><p></p></h4>
          <div class="modal-header">
 
          </div>
       <div class="modal-body row">
         <div style="border: 2px solid #0000000f;padding:10px;">
-            <?php 
+            <?php
                $j=1;
                foreach($wrong_questions as $key => $wrong_question){
-                  
+
                   ?>
                   <p style="font-size: 22px;background-color: #0000000f;padding: 15px;"><?=$wrong_question?></p>
                   <br>
@@ -683,7 +683,7 @@ select{
   <!-- Modal -->
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-         
+
          <div class="btm_word_limt p-3">
              <div>
                 <button type="button" id="close_idea" class="pull-right" data-dismiss="modal">x</button>
@@ -693,7 +693,7 @@ select{
             <div style="height: 30px;">
             <button type="button" id="close_idea" class="btn btn-info pull-right" data-dismiss="modal">Close</button>
             </div>
-         </div> 
+         </div>
     </div>
   </div>
 </div>
@@ -706,7 +706,7 @@ select{
         <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
       </div>
       <div class="modal-body row">
-        <img src="assets/images/alertd_icon.png" style="height:50px;width:50px;" class="pull-left"> <span class="ss_extar_top20">Please select all answer</span> 
+        <img src="assets/images/alertd_icon.png" style="height:50px;width:50px;" class="pull-left"> <span class="ss_extar_top20">Please select all answer</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -722,11 +722,11 @@ select{
             <h4 class="modal-title" id="myModalLabel">Times Up</h4>
           </div>
           <div class="modal-body row">
-            <i class="fa fa-close" style="font-size:20px;color:red"></i> 
+            <i class="fa fa-close" style="font-size:20px;color:red"></i>
             <br><?php echo $question_info_s[0]['question_solution']; ?>
           </div>
           <div class="modal-footer">
-            <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>         
+            <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>
           </div>
         </div>
       </div>
@@ -764,18 +764,18 @@ select{
            var k= j+1;
            var get_stu_ans = $('.student_answers'+k).val();
            if(get_stu_ans != undefined && get_stu_ans!=''){
-            ans_check.push(get_stu_ans); 
+            ans_check.push(get_stu_ans);
            }
-           
+
         }
         console.log(ans_check);
         var question_length = questions.length;
         var answer_length = ans_check.length;
-        
+
 
 
         if(question_length==answer_length){
-             
+
             var matched_ans = new Array();
             var button_status = '';
             for(var i=0;i<answers.length;i++){
@@ -790,27 +790,27 @@ select{
                }
                if(answers[i]==get_ans){
                   $('.right_ans'+index).css('display','block');
-                  matched_ans.push(index+',,'+answers[i]+',,matched'); 
+                  matched_ans.push(index+',,'+answers[i]+',,matched');
                }else if(matchNotRight==1){
                   $('.right_ans'+index).css('display','none');
                   $('.notRightSerial'+index).css('display','block');
                   $('.serial_box'+index).css('display','block');
-                  matched_ans.push(index+',,'+answers[i]+',,not_matched'); 
+                  matched_ans.push(index+',,'+answers[i]+',,not_matched');
                }else{
                   $('.ans_set'+index).text(answers[i]);
                   $('.right_ans'+index).css('display','none');
                   $('.wrong_ans'+index).css('display','block');
                   $('.suggession_box'+index).css('display','block');
-                  matched_ans.push(index+',,'+answers[i]+',,not_matched'); 
+                  matched_ans.push(index+',,'+answers[i]+',,not_matched');
                }
             }
             for(var j=0;j<matched_ans.length;j++){
                var check = matched_ans[j].split(",,");
-               
+
                if(check[2]=='not_matched'){
 
                button_status =1;
-                  
+
                }
             }
             if(button_status==1){
@@ -819,7 +819,7 @@ select{
                ans_check.length = 0;
                $('.answer_append').val('');
             }else{
-               $('#ss_info_sucesss').modal('show'); 
+               $('#ss_info_sucesss').modal('show');
             }
 
         }else{
@@ -830,7 +830,7 @@ select{
 
       $('#ans_try_again').click(function(){
          $('.student_ans').attr('disabled',false);
-         var question_length = $('.question_all').length; 
+         var question_length = $('.question_all').length;
          var html='';
          var answers = <?php echo json_encode($answers);?>;
          // console.log(answers);
@@ -842,7 +842,7 @@ select{
             var matchNotRight2 = 0;
             for(var c=1;c<=question_length;c++){
                var que_no2 = c-1;
-               var ans2 = answers[que_no2]; 
+               var ans2 = answers[que_no2];
                if(student_ans == ans2){
                   matchNotRight2 = 1;
                }
@@ -859,7 +859,7 @@ select{
                $('.student_answers'+a).val('');
             }else{
                $('.right_ans'+a).css('display','block');
-               
+
             }
 
             $('#ans_submit').show();
@@ -877,16 +877,16 @@ select{
     var h1 = document.getElementsByTagName('h1')[0];
 
     function circulate1() {
-            
+
         remaining_time = remaining_time - 1;
-        
+
         var v_hours = Math.floor(remaining_time / 3600);
-        var remain_seconds = remaining_time - v_hours * 3600;       
+        var remain_seconds = remaining_time - v_hours * 3600;
         var v_minutes = Math.floor(remain_seconds / 60);
         var v_seconds = remain_seconds - v_minutes * 60;
-        
+
         if (remaining_time > 0) {
-            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;          
+            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
         } else {
             var questions = <?php echo json_encode($questions);?>;
             var answers = <?php echo json_encode($answers);?>;
@@ -896,18 +896,18 @@ select{
             var k= j+1;
             var get_stu_ans = $('.student_answers'+k).val();
             if(get_stu_ans != undefined && get_stu_ans!=''){
-               ans_check.push(get_stu_ans); 
+               ans_check.push(get_stu_ans);
             }
-            
+
          }
          // console.log(ans_check);
          var question_length = questions.length;
          var answer_length = ans_check.length;
-         
+
 
 
          if(question_length==answer_length){
-               
+
                var matched_ans = new Array();
                var button_status = '';
                for(var i=0;i<answers.length;i++){
@@ -921,27 +921,27 @@ select{
                   }
                   if(answers[i]==get_ans){
                      $('.right_ans'+index).css('display','block');
-                     matched_ans.push(index+',,'+answers[i]+',,matched'); 
+                     matched_ans.push(index+',,'+answers[i]+',,matched');
                   }else if(matchNotRight==1){
                      $('.right_ans'+index).css('display','none');
                      $('.notRightSerial'+index).css('display','block');
                      $('.serial_box'+index).css('display','block');
-                     matched_ans.push(index+',,'+answers[i]+',,not_matched'); 
+                     matched_ans.push(index+',,'+answers[i]+',,not_matched');
                   }else{
                      $('.ans_set'+index).text(answers[i]);
                      $('.right_ans'+index).css('display','none');
                      $('.wrong_ans'+index).css('display','block');
                      $('.suggession_box'+index).css('display','block');
-                     matched_ans.push(index+',,'+answers[i]+',,not_matched'); 
+                     matched_ans.push(index+',,'+answers[i]+',,not_matched');
                   }
                }
                for(var j=0;j<matched_ans.length;j++){
                   var check = matched_ans[j].split(",,");
-                  
+
                   if(check[2]=='not_matched'){
 
                   button_status =1;
-                     
+
                   }
                }
                if(button_status==1){
@@ -950,7 +950,7 @@ select{
                   ans_check.length = 0;
                   $('.answer_append').val('');
                }else{
-                  $('#ss_info_sucesss').modal('show'); 
+                  $('#ss_info_sucesss').modal('show');
                }
 
          }else{
@@ -959,49 +959,49 @@ select{
          }
          $('#times_up_message').modal('show');
          $('#question_reload').click(function () {
-               location.reload(); 
+               location.reload();
          });
         }
     }
-    
+
     function takeDecesionForQuestion() {
-        
+
         var exact_time = $('#exact_time').val();
-        
+
         var now = $('#now').val();
         var opt = $('#optionalTime').val();
-        
-        
+
+
         var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
-        
-        var distance = countDownDate - now;  
+
+        var distance = countDownDate - now;
         var hours = Math.floor( distance/3600 );
 //        alert(distance)
         var x = distance % 3600;
-    
-        var minutes = Math.floor(x/60); 
-        
+
+        var minutes = Math.floor(x/60);
+
         var seconds = distance % 60;
-        
+
         var t_h = hours * 60 * 60;
         var t_m = minutes * 60;
         var t_s = seconds;
-    
+
         var total = parseInt(t_h) + parseInt(t_m) + parseInt(t_s);
-    
-        
+
+
         var end_depend_optional = parseInt(exact_time) + parseInt(opt);
-    
+
         if(opt > total) {
             remaining_time = total;
-        } else {    
+        } else {
             remaining_time = parseInt(end_depend_optional) - parseInt(now);
         }
-    
+
         clear_interval = setInterval(circulate1,1000);
-    
+
     }
-    
+
 
     <?php if ($question_time_in_second != 0) { ?>
         takeDecesionForQuestion();

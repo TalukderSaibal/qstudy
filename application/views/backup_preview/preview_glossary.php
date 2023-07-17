@@ -29,7 +29,7 @@ display:inline-block ;
   -webkit-transform: rotate(45deg);
 }
 
-   
+
 .frist_time_user_mid_con_mes strong{
    color: #ff7f27;
 }
@@ -79,7 +79,7 @@ display:inline-block ;
    height: 60px;
    width: 60px;
    line-height: 55px;
-   text-align: center; 
+   text-align: center;
    border-radius: 50%;
    font-size: 30px;
 }
@@ -201,7 +201,7 @@ padding-top: 20px;
        width: 14px;
        height: 14px;
        cursor: pointer;
-       position: relative; 
+       position: relative;
        border: 1px solid #959595;
    }
 
@@ -211,7 +211,7 @@ padding-top: 20px;
        background-color: #ed1c24;
        background: #ed1c24 url("data:image/gif;base64,R0lGODlhCwAKAIABAP////3cnSH5BAEKAAEALAAAAAALAAoAAAIUjH+AC73WHIsw0UCjglraO20PNhYAOw==") 3px 3px no-repeat;
        background-size: 8px;
-   } 
+   }
 @media (min-width: 1000px){
 #show_question_idea_profile .modal-dialog{
    width: 800px;
@@ -310,14 +310,14 @@ padding-top: 20px;
     }
     .ss_modal .modal-dialog{
       position: absolute;
-      margin-top: 0% !important; 
-    top: 50% !important;   
-    left: 50% !important;    
-    transform: translate(-50%, -50%) !important;  
+      margin-top: 0% !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
     }
 
-    .ss_modal .modal-content { 
-       padding: 5px !important; 
+    .ss_modal .modal-content {
+       padding: 5px !important;
    }
 
  .ss_modal .modal-header {
@@ -326,7 +326,7 @@ padding-top: 20px;
     padding: 0;
     border-radius: 5px;
 }
- 
+
 #show_question_idea_profile .modal-dialog {
     position: relative;
     margin-top: 2% !important;
@@ -361,7 +361,7 @@ padding-top: 20px;
 select{
       -webkit-appearance: listbox !important;
     }
-    
+
    img.calculator-trigger {
    margin: 0px;
    vertical-align: middle;
@@ -409,7 +409,7 @@ select{
    }
    .image-editor{
       height:150px;
-    
+
    }
 
    .row-eq-height {
@@ -462,7 +462,7 @@ select{
 <?php
    date_default_timezone_set($this->site_user_data['zone_name']);
    $module_time = time();
-   
+
    //    For Question Time
    $question_time = explode(':', $question_info_s[0]['questionTime']);
    $hour = 0;
@@ -478,12 +478,12 @@ select{
    }
 
     $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
-    
+
    //    End For Question Time
    $letter = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 ?>
 
-   <?php 
+   <?php
       $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
    ?>
    <input type="hidden" id="exam_end" value="" name="exam_end" />
@@ -496,13 +496,13 @@ select{
       <div class="col-md-12">
          <div class="ss_student_board">
             <div class="ss_s_b_top">
-              
+
             </div>
             <div class="container-fluid">
                <div class="row">
                   <div class="ss_s_b_main" style="min-height: 100vh">
                     <div class="col-sm-12">
-                        <?php 
+                        <?php
                            $question = $glossary_info[0]['questionName'];
                            $answer = $glossary_info[0]['answer'];
                            $question_description = json_decode($glossary_info[0]['questionDescription'],true);
@@ -517,7 +517,7 @@ select{
                         <div style="text-align:center;">
                             <a class="btn ans_submit" type="button" style="padding:7px 22px;border:1px solid #62b1ce;color:black;">Next</a>
                         </div>
-                        
+
                     </div>
 
                </div>
@@ -541,7 +541,7 @@ select{
         <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
       </div>
       <div class="modal-body row">
-        <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span> 
+        <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -557,11 +557,11 @@ select{
    <!-- Modal -->
       <div style="max-width: 20%;" class="modal-dialog" role="document">
       <div class="modal-content">
-      
+
          <div class="modal-header">
             <h4>Success</h4>
          </div>
-      
+
          <div class="modal-body">
             <p><i class="fa fa-pencil" style="font-size:28px;color:#f5d743;"></i></p>
             <p>Examiner will scrutinize your answer and get back to you.</p>
@@ -570,7 +570,7 @@ select{
          <div class="modal-footer">
          <button id="get_next_question2" type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
          </div>
-      
+
       </div>
       </div>
    </div>
@@ -579,11 +579,11 @@ select{
    <!-- Modal -->
       <div style="max-width: 22%;" class="modal-dialog" role="document">
       <div class="modal-content">
-      
+
          <div class="modal-header">
             <h4></h4>
          </div>
-      
+
          <div class="modal-body">
             <p><i class="fa fa-pencil" style="font-size:28px;color:#f5d743;"></i></p>
             <p>You will not get extra bonus point !</p>
@@ -593,17 +593,17 @@ select{
             <button id="back_button" type="button" class="btn btn_blue" data-dismiss="modal">Back</button>
             <button id="get_next_question2" type="button" class="btn btn_blue" data-dismiss="modal">Preceed next question</button>
          </div>
-      
+
       </div>
       </div>
-      
+
    </div>
 
 <script>
 
 
     $('.ans_submit').click(function () {
-        
+
        $('#ss_info_sucesss').modal('show');
 
     });
@@ -617,16 +617,16 @@ select{
     var h1 = document.getElementsByTagName('h1')[0];
 
     function circulate1() {
-            
+
         remaining_time = remaining_time - 1;
-        
+
         var v_hours = Math.floor(remaining_time / 3600);
-        var remain_seconds = remaining_time - v_hours * 3600;       
+        var remain_seconds = remaining_time - v_hours * 3600;
         var v_minutes = Math.floor(remain_seconds / 60);
         var v_seconds = remain_seconds - v_minutes * 60;
-        
+
         if (remaining_time > 0) {
-            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;          
+            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
         } else {
             var form = $("#answer_form");
             $.ajax({
@@ -641,7 +641,7 @@ select{
                     else {
                         $('#times_up_message').modal('show');
                         $('#question_reload').click(function () {
-                            location.reload(); 
+                            location.reload();
                         });
                     }
                 }
@@ -649,44 +649,44 @@ select{
             h1.textContent = "EXPIRED";
         }
     }
-    
+
     function takeDecesionForQuestion() {
-        
+
         var exact_time = $('#exact_time').val();
-        
+
         var now = $('#now').val();
         var opt = $('#optionalTime').val();
-        
-        
+
+
         var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
-        
-        var distance = countDownDate - now;  
+
+        var distance = countDownDate - now;
         var hours = Math.floor( distance/3600 );
         //  alert(distance)
         var x = distance % 3600;
-    
-        var minutes = Math.floor(x/60); 
-        
+
+        var minutes = Math.floor(x/60);
+
         var seconds = distance % 60;
-        
+
         var t_h = hours * 60 * 60;
         var t_m = minutes * 60;
         var t_s = seconds;
-    
+
         var total = parseInt(t_h) + parseInt(t_m) + parseInt(t_s);
-    
-        
+
+
         var end_depend_optional = parseInt(exact_time) + parseInt(opt);
-    
+
         if(opt > total) {
             remaining_time = total;
-        } else {    
+        } else {
             remaining_time = parseInt(end_depend_optional) - parseInt(now);
         }
-    
+
         clear_interval = setInterval(circulate1,1000);
     }
-    
+
 
     <?php if ($question_time_in_second != 0) { ?>
         takeDecesionForQuestion();

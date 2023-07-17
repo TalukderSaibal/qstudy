@@ -69,9 +69,9 @@ $lettry_array = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'k', 'L'
 
 
     <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true">
-        
+
         <div class="col-sm-8">
-        <?php 
+        <?php
             $question = $question_info_s[0]['questionName'];
             $answer = $question_info_s[0]['answer'];
             $question_description = json_decode($question_info_s[0]['questionDescription'],true);
@@ -86,9 +86,9 @@ $lettry_array = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'k', 'L'
         <div style="text-align:center;">
             <a class="btn ans_submit" type="button" style="padding:5px 20px;border:1px solid #62b1ce;background-color:#99d9ea;color:black;">Next</a>
         </div>
-                  
+
         </div>
- 
+
     </div>
 
 </div>

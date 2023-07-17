@@ -644,8 +644,8 @@ $question_instruct_id = $question_info_s[0]['id'];
                                                                 <td><?php echo $ind['questionMarks']; ?></td>
                                                                 <td>
                                                                     <div class="description_video">
-                                                                        <?php 
-                                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+                                                                        <?php
+                                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
                                                                         if($ind['question_type'] == 22){
                                                                             $myquestion = json_decode($question_description);
                                                                             $question = $myquestion->question_setting_description;
@@ -818,7 +818,7 @@ foreach ($total_question as $ind) { ?>
 
 <?php $i = 1;
 foreach ($total_question as $ind) {
-    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
     if($ind['question_type'] == 22){
         $myquestion = json_decode($question_description);
         $question = $myquestion->question_setting_description;
@@ -856,7 +856,7 @@ foreach ($total_question as $ind) {
             <div class="modal-body row">
                 <i class="fa fa-close" style="font-size:20px;color:red"></i> <span class="ss_extar_top20">Your answer is wrong</span>
                 <br>
-                <!--                --><?php //echo strip_tags($question_info_s[0]['answer']); 
+                <!--                --><?php //echo strip_tags($question_info_s[0]['answer']);
                                         ?>
                 <div class="question_content" style="width:100%;padding: 10px;margin-top: 20px;">
                     <div>

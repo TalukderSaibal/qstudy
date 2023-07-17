@@ -791,10 +791,13 @@ class Student extends CI_Controller
         if (!$data['module_info'][0]) {
             show_404();
         }
+
         $qstudy_module_videos = array();
+
         if ($data['module_info'][0]['user_type'] == 7) {
             $qstudy_module_videos = $this->ModuleModel->getInfoByOrder('module_instruction_videos_new', 'module_id', $modle_id);
         }
+
         $data['qstudy_module_videos'] = $qstudy_module_videos;
 
         $isFirst = 1;
