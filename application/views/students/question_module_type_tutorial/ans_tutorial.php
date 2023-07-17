@@ -113,7 +113,7 @@ foreach ($total_question as $ind) {
 $countTutorial = 0;
 $countTutorial = count($tutorialInfo);
 ?>
-<!-- 
+<!--
   <style type="text/css">
     .ss_student_board {
     background: #0079bc;
@@ -438,7 +438,7 @@ $countTutorial = count($tutorialInfo);
                                 <td>
                                   <div class="description_video">
                                     <?php
-                                    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+                                    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
                                       if($ind['question_type'] == 22){
                                           $myquestion = json_decode($question_description);
                                           $question = $myquestion->question_setting_description;
@@ -696,7 +696,7 @@ $countTutorial = count($tutorialInfo);
       //  alert(opt);
       // if(opt > total){
       //   remaining_time = total;
-      // } else {  
+      // } else {
       //   remaining_time = parseInt(end_depend_optional) - parseInt(now);
       // }
 

@@ -171,7 +171,7 @@ $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode(
 $question_instruct_id = $question_info_s[0]['id'];
 ?>
 <!--         ***** For Tutorial & Everyday Study *****         -->
-<?php // if ($module_type == 2 || $module_type == 1) { 
+<?php // if ($module_type == 2 || $module_type == 1) {
 ?>
 <input type="hidden" id="exam_end" value="" name="exam_end" />
 <input type="hidden" id="now" value="<?php echo $module_time; ?>" name="now" />
@@ -468,8 +468,8 @@ $question_instruct_id = $question_info_s[0]['id'];
                                                             <td><?php echo $ind['questionMarks']; ?></td>
                                                             <td>
                                                                 <div class="description_video">
-                                                                    <?php 
-                                                                    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+                                                                    <?php
+                                                                    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
                                                                     if($ind['question_type'] == 22){
                                                                         $myquestion = json_decode($question_description);
                                                                         $question = $myquestion->question_setting_description;
@@ -647,7 +647,7 @@ foreach ($total_question as $ind) { ?>
 </script>
 <?php $i = 1;
 foreach ($total_question as $indwww) {
-    $question_description = isset($indwww['questionDescription']) ? $indwww['questionDescription'] : ''; 
+    $question_description = isset($indwww['questionDescription']) ? $indwww['questionDescription'] : '';
     if($indwww['question_type'] == 22){
         $myquestion = json_decode($question_description);
         $question = $myquestion->question_setting_description;
@@ -841,7 +841,7 @@ foreach ($total_question as $indwww) {
                                 ans_check.length = 0;
                                 $('.answer_append').val('');
                             } else {
-                                //$('#ss_info_sucesss').modal('show'); 
+                                //$('#ss_info_sucesss').modal('show');
                             }
                         }
 
@@ -945,7 +945,7 @@ foreach ($total_question as $indwww) {
             //         if (results == 3) {
             //             $('#times_up_message').modal('show');
             //             $('#question_reload').click(function () {
-            //                 location.reload(); 
+            //                 location.reload();
             //             });
 
             //         }

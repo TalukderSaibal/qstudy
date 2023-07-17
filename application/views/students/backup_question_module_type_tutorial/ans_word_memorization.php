@@ -473,7 +473,7 @@ $videoName = strlen($module_info[0]['video_name']) > 1 ? $module_info[0]['video_
         <form id="answer_form">
 
           <input type="hidden" value="<?php echo $question_info_s[0]['question_id']; ?>" name="id" id="question_id">
-          <?php // if (array_key_exists($key, $total_question) && !$tutorial_ans_info) { 
+          <?php // if (array_key_exists($key, $total_question) && !$tutorial_ans_info) {
           ?>
           <?php if (($last_question_order != $key) && !$tutorial_ans_info) { ?>
             <input type="hidden" id="next_question" value="<?php echo $question_info_s[0]['question_order'] + 1; ?>" name="next_question" />
@@ -495,7 +495,7 @@ $videoName = strlen($module_info[0]['video_name']) > 1 ? $module_info[0]['video_
                     <!-- <a style="cursor: pointer;">
                               <span style="color: white;" class=" qstudy_Instruction_click">
                                 <img src="assets/images/icon_draw.png" ><b> Instruction</b>
-                              </span> 
+                              </span>
                             </a> -->
                     <div class="workout_menu" style=" padding-right: 15px;">
                       <ul>
@@ -686,7 +686,7 @@ $videoName = strlen($module_info[0]['video_name']) > 1 ? $module_info[0]['video_
                   </div>
 
                   <div class="col-sm-5"></div>
-                  <!-- <div class="col-sm-4" style="margin-top: 10px;">   
+                  <!-- <div class="col-sm-4" style="margin-top: 10px;">
                                 <button type="button" class="btn btn_next" id="answer_matching">submit</button>
                             </div>                     -->
                   <div class="col-sm-4"></div>
@@ -812,11 +812,11 @@ $videoName = strlen($module_info[0]['video_name']) > 1 ? $module_info[0]['video_
                                 </td>
                                 <td>
                                   <div class="description_video">
-                                  <?php 
+                                  <?php
                                     // var_dump($ind[0]['questionDescription']);
                                     // echo var_dump($ind['questionDescription']);
 
-                                    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+                                    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
                                     if($ind['question_type'] == 22){
                                       $myquestion = json_decode($question_description);
                                       $question = $myquestion->question_setting_description;
@@ -895,7 +895,7 @@ foreach ($total_question as $ind) {
               // echo "<pre>"; print_r($question_instruct_vid); die();
             ?>
             <?php if (isset($question_instruct_vid[0]) && $question_instruct_vid[0] != null) { ?>
-              
+
               <video controls style="width: 100%" id="videoTag<?php echo $i; ?>">
                 <source src="<?php echo isset($question_instruct_vid[0]) ? trim($question_instruct_vid[0]) : '';?>" type="video/mp4">
               </video>
@@ -997,14 +997,14 @@ foreach ($total_question as $ind) {
 <?php $i = 1;
 foreach ($total_question as $indwww) {
 
-  $question_description = isset($indwww['questionDescription']) ? $indwww['questionDescription'] : ''; 
+  $question_description = isset($indwww['questionDescription']) ? $indwww['questionDescription'] : '';
   if($indwww['question_type'] == 22){
     $myquestion = json_decode($question_description);
     $question = $myquestion->question_setting_description;
   }else{
     $question = $question_description;
   }
-  
+
   ?>
   <div class="modal fade ss_modal ew_ss_modal" id="show_description_<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -1403,7 +1403,7 @@ foreach ($total_question as $indwww) {
     //  alert(opt);
     // if(opt > total){
     //   remaining_time = total;
-    // }else{  
+    // }else{
     //   remaining_time = parseInt(end_depend_optional) - parseInt(now);
     // }
 
