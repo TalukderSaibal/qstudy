@@ -460,7 +460,7 @@ $videoName = strlen($module_info[0]['video_name']) > 1 ? $module_info[0]['video_
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xs-1" style="color:<?php //; 
+                                                    <div class="col-xs-1" style="color:<?php //;
                                                                                         ?>">
                                                         <input type="hidden" id="percentage_<?php echo $i; ?>" name="percentage_<?php echo $i; ?>" value="">
                                                     </div>
@@ -612,7 +612,7 @@ $videoName = strlen($module_info[0]['video_name']) > 1 ? $module_info[0]['video_
                                                                 <td>
                                                                     <div class="description_video">
                                                                         <?php
-                                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+                                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
                                                                         if($ind['question_type'] == 22){
                                                                             $myquestion = json_decode($question_description);
                                                                             $question = $myquestion->question_setting_description;
@@ -914,7 +914,7 @@ foreach ($total_question as $ind) { ?>
 
         // if(opt > total){
         //   remaining_time = total;
-        // } else {  
+        // } else {
         //   remaining_time = parseInt(end_depend_optional) - parseInt(now);
         // }
 

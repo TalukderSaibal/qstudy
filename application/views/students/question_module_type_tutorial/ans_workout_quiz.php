@@ -1,6 +1,6 @@
 <script src="<?php echo base_url(); ?>assets/ckeditor/plugins/ckeditor_wiris/integration/WIRISplugins.js?viewer=image"></script>
 <style type="text/css">
-  
+
   .qstudy_module_video{
     position: absolute;
     width: 300px;
@@ -56,7 +56,7 @@
     display:none;
   }
 </style>
-<?php 
+<?php
 
 foreach ($total_question as $ind) {
 
@@ -64,7 +64,7 @@ if ($ind["question_type"] == 14) {
   $chk = $ind["question_order"];
  }
 
-} 
+}
   ?>
 
 <?php
@@ -164,7 +164,7 @@ $module_type = $question_info_s[0]['moduleType'];
   <input type="hidden" id="now" value="<?php echo $module_time;?>" name="now" />
  <!--  <input type="hidden" id="optionalTime" value="--><?php //echo $question_time_in_second;?><!--" name="optionalTime" />-->
   <input type="hidden" id="optionalTime" value="<?php echo $setTime;?>" name="optionalTime" />
-  
+
   <input type="hidden" id="exact_time" value="<?php echo $this->session->userdata('exact_time');?>" />
 <?php }?>
 
@@ -179,7 +179,7 @@ $module_type = $question_info_s[0]['moduleType'];
     <?php } else {?>
       <!-- <a >Index</a> -->
     <?php }?>
-    
+
     <?php  if ($module_info[0]['video_name']) { ?>
       <button class="btn btn_next" id="openVideo" style="margin-left: 25px;"><i class="fa fa-play" style="color:#35B6E7;margin-right: 5px;"></i><?php echo $videoName;  ?></button>
     <?php } ?>
@@ -212,7 +212,7 @@ $module_type = $question_info_s[0]['moduleType'];
         ?> <!-- only tutor&qstudy will be able to back next -->
         <?php if ($question_info_s[0]['moduleType'] == 1) { ?>
         <a class="btn btn_next" href="<?php echo $link; ?>"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</a>
-        <a class="btn btn_next" href="<?php echo $link_next; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Next</a>                                  
+        <a class="btn btn_next" href="<?php echo $link_next; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Next</a>
         <?php } else {?>
         <a class="btn btn_next" href="javascript:void(0);"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</a>
         <a class="btn btn_next" href="javascript:void(0);"><i class="fa fa-caret-right" aria-hidden="true"></i> Next</a>
@@ -237,18 +237,18 @@ $module_type = $question_info_s[0]['moduleType'];
         <input type="hidden" id="next_question" value="0" name="next_question" />
         <?php } ?>
       <input type="hidden" id="module_id" value="<?php echo $question_info_s[0]['module_id'] ?>" name="module_id">
-      <input type="hidden" id="current_order" value="<?php echo $key; ?>" name="current_order"> 
+      <input type="hidden" id="current_order" value="<?php echo $key; ?>" name="current_order">
       <input type='hidden' id="module_type" value="<?php echo $question_info_s[0]['moduleType']; ?>" name='module_type'>
 
       <input type='hidden' id="student_question_time" value="" name='student_question_time'>
-      
+
       <div class="row">
 	  <div>
               <div style="position: absolute;left:-8000px;min-height: 250px;min-width: 600px;text-align: center;" id="quesBody">
                     <?php echo ($question_info_s[0]['questionName']); ?>
 
               </div>
-              
+
             </div>
         <div class="ss_s_b_main" style="min-height: 100vh">
 		<div class="col-md-6">
@@ -259,7 +259,7 @@ $module_type = $question_info_s[0]['moduleType'];
 					<a style="cursor: pointer;">
 						  <span style="color: white;" class=" qstudy_Instruction_click">
 							  <img src="assets/images/icon_draw.png" ><b> Instruction</b>
-						  </span> 
+						  </span>
 					  </a>
 
 					<?php }else{?>
@@ -275,10 +275,10 @@ $module_type = $question_info_s[0]['moduleType'];
 						<?php }?>
                     </li>
                     <li><a style="cursor:pointer" id="show_question">Question<i>(Click Here)</i></a></li>
-                    
+
                   </ul>
               </div>
-			  
+
 			  <div style="display: none;" class="panel-group question_module" id="accordion" role="tablist" aria-multiselectable="true">
               <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
@@ -294,7 +294,7 @@ $module_type = $question_info_s[0]['moduleType'];
                 </div>
               </div>
             </div>
-			
+
 			<div class="panel-group answer_module" id="saccordion" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
                       <div class="panel-heading" role="tab" id="headingOne">
@@ -317,12 +317,12 @@ $module_type = $question_info_s[0]['moduleType'];
                   </div>
               </div>
 		</div>
-          
+
 		  <div class="col-sm-2">
 
             </div>
             <!-- <div class="col-sm-4">
-            
+
               <div class="panel-group" id="saccordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                   <div class="panel-heading" role="tab" id="headingOne">
@@ -330,18 +330,18 @@ $module_type = $question_info_s[0]['moduleType'];
                       <a role="button" data-toggle="collapse" data-parent="#saccordion" href="#collapseTow" aria-expanded="true" aria-controls="collapseOne">   Answer</a>
                     </h4>
                   </div>
-            
+
                   <div id="collapseTow" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <textarea name="answer" class="mytextarea"></textarea>
                   </div>
-                  
+
                 </div>
               </div>
-              
+
               <div class="text-center">
                 <a class="btn btn_next" id="answer_matching">Submit</a>
               </div>
-            
+
             </div> -->
             <!--<div class="col-sm-4">
               <strong class="text-center">
@@ -356,7 +356,7 @@ $module_type = $question_info_s[0]['moduleType'];
               <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                   <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">  
+                    <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">
                       <span>Module Name: <?php echo isset($module_info[0]['moduleName'])?$module_info[0]['moduleName']:'Not found'; ?></span></a>
                     </h4>
                   </div>
@@ -365,13 +365,13 @@ $module_type = $question_info_s[0]['moduleType'];
                       <div class=" ss_module_result">
                         <div class="table-responsive">
                           <table class="table table-bordered">
-                          <thead>    
+                          <thead>
                             <tr>
                               <th></th>
                               <th>SL</th>
                               <th>Mark</th>
                               <th>Obtained</th>
-                              <th>Description / Video</th>                                                  
+                              <th>Description / Video</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -380,7 +380,7 @@ $module_type = $question_info_s[0]['moduleType'];
                               foreach ($total_question as $ind) { ?>
                               <tr>
                                 <?php if($ind['question_type']==17){ ?>
-                                <td> <span class="glyphicon glyphicon-pencil" style="color: red;"></span></td> 
+                                <td> <span class="glyphicon glyphicon-pencil" style="color: red;"></span></td>
                                 <?php }else{
 
                                     $style = '';
@@ -403,7 +403,7 @@ $module_type = $question_info_s[0]['moduleType'];
                                               <?php }?>
                                           <?php }else if($desired[$i]['ans_is_right'] == 'idea'){?>
                                     <span class="glyphicon glyphicon-pencil" style="color: red;"></span>
-                                            
+
                                     <?php   } else {?>
                                       <span class="glyphicon glyphicon-remove" style="color: red;"></span>
 									  <?php if ($qus_tutorial && ($module_info[0]['repetition_days'] == '' || $module_info[0]['repetition_days'] == 'null')){?>
@@ -411,35 +411,35 @@ $module_type = $question_info_s[0]['moduleType'];
                                               <?php }?>
                                           <?php }
                                     }?>
-                                </td> 
+                                </td>
                                 <?php } ?>
-                                
+
                                        <?php  if ( ($ind["question_type"] !=14) && ($question_info_s[0]['question_order'] == $ind['question_order']) ) { ?>
                                             <td style="background-color:lightblue">
                                                 <?php echo $ind['question_order']; ?>
                                             </td>
-                                       <?php } 
+                                       <?php }
 
                                         elseif ( ($ind["question_type"] ==14) && $order >= $chk ) { ?>
                                             <td style="background-color:#dcf394;text-align: center;padding: 0px;">
                                               <a style="color: #000;" class="show_tutorial_modal" question_id="<?php echo $ind['question_id']; ?>" modalId="<?php echo $ind['module_id']; ?>" Order="<?php echo $ind['question_order']; ?>"><?php echo $ind['question_order']; ?><span style="font-weight: bolder;color: #ff8b00;font-size: 20px;margin-left: 3px;">T</span></a>
                                              </td>
-                                       <?php } 
+                                       <?php }
 
                                        elseif ( ($ind["question_type"] ==14) && $order < $chk ) { ?>
                                             <td style="background-color:#dcf394;text-align: center;padding: 0px;">
                                               <a style="color: #000;" class="show_tutorial_modal" question_id="<?php echo $ind['question_id']; ?>" modalId="<?php echo $ind['module_id']; ?>" Order="<?php echo $ind['question_order']; ?>"><?php echo $ind['question_order']; ?><span style="font-weight: bolder;color: #ff8b00;font-size: 20px;margin-left: 3px;">T</span></a>
                                              </td>
-                                       <?php } 
+                                       <?php }
 
                                         else{  ?>
 
                                           <td>
                                               <?php echo $ind['question_order']; ?>
                                           </td>
-                                          
+
                                        <?php } ?>
-                                        
+
 
                               <td>
                                   <?php
@@ -457,7 +457,7 @@ $module_type = $question_info_s[0]['moduleType'];
                               </td>
                               <td class="text-center">
                                   <a  class="text-center" onclick="showModalDes(<?php echo $i; ?>);" style="display: inline-block;"><img src="assets/images/icon_details.png"></a>
-                                    <?php 
+                                    <?php
                                         $question_instruct_vid = isset($ind['question_video']) ? json_decode($ind['question_video']):'';
                                     ?>
                                     <?php if (isset($question_instruct_vid[0]) && $question_instruct_vid[0] != null ){ ?>
@@ -477,12 +477,12 @@ $module_type = $question_info_s[0]['moduleType'];
                             </div>
                           </div>
                         </div>
-                      </div>                              
+                      </div>
                     </div>
-                  </div>  
-                  
-                  
-                  <div class="col-md-12">  
+                  </div>
+
+
+                  <div class="col-md-12">
 					<div class="col-sm-4" id="draggable" style="display: none;">
                     <div class="panel-group" id="waccordion" role="tablist" aria-multiselectable="true">
                       <div class="panel panel-default">
@@ -502,7 +502,7 @@ $module_type = $question_info_s[0]['moduleType'];
                   </div>
 				  </div>
 
-                </div>         
+                </div>
               </div>
             </form>
           </div>
@@ -525,14 +525,14 @@ foreach ($total_question as $ind) {
               <?php } ?>
             </div>
             <div class="modal-body">
-                <?php 
+                <?php
                     $question_instruct_vid = isset($ind['question_video']) ? json_decode($ind['question_video']):'';
                 ?>
                 <?php if (isset($question_instruct_vid[0]) && $question_instruct_vid[0] != null ){ ?>
                     <video controls style="width: 100%" id="videoTag<?php echo $i; ?>">
                         <source src="<?php echo isset($question_instruct_vid[0]) ? trim($question_instruct_vid[0]) : '';?>" type="video/mp4">
                     </video>
-                    
+
                     <?php if (isset($question_instruct_vid[1]) && $question_instruct_vid[1] != null ): ?>
                         <img class="active_video_play" src="assets/images/video_icon.PNG">
                         <video id="my-video" class="video-js" controls preload="auto" data-setup="{}"style="width: 100%;min-height:313px;"><source src="<?php echo isset($question_instruct_vid[1]) ? trim($question_instruct_vid[1]) : '';?>" type="video/mp4" /></video>
@@ -550,12 +550,12 @@ foreach ($total_question as $ind) {
 <?php }$i++; } ?>
 <script>
      $(window).on('load',function(){
-      <?php 
+      <?php
         foreach ($total_question as $ind) {
           if ( ($ind["question_type"] !=14) && ($question_info_s[0]['question_order'] == $ind['question_order']) ) { ?>
 
-          var id= <?php echo $ind['question_order']; ?>;  
-          <?php 
+          var id= <?php echo $ind['question_order']; ?>;
+          <?php
          if($ind['question_video']!='' && $ind['question_video']!="[]" && $ind['question_video']!= '""'){ ?>
         showQuestionVideo(id);
         <?php }}}?>
@@ -565,14 +565,14 @@ function showQuestionVideo(id){
 
 $('#ss_question_video'+id).modal('show');
 }
-    
-    
+
+
     function videoCloseWithModal(id){
       $('#ss_question_video'+id).modal('hide');
       var video = $('#videoTag'+id).get(0);
       if (video.paused === false) {
         video.pause();
-      } 
+      }
     }
 </script>
 
@@ -591,7 +591,7 @@ $('#ss_question_video'+id).modal('show');
                 </span>
               </div>
               <div class="modal-footer">
-                <button id="get_next_question" type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>        
+                <button id="get_next_question" type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
               </div>
             </div>
           </div>
@@ -605,15 +605,15 @@ $('#ss_question_video'+id).modal('show');
               </div>
               <div class="modal-body row">
                 <i class="fa fa-close" style="font-size:20px;color:red"></i> <span class="ss_extar_top20">Your answer is wrong</span>
-                <br><?php echo strip_tags($question_info_s[0]['question_solution']); ?>  
+                <br><?php echo strip_tags($question_info_s[0]['question_solution']); ?>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>         
+                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>
               </div>
             </div>
           </div>
         </div>
-        
+
         <div class="modal fade ss_modal" id="times_up_message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -627,7 +627,7 @@ $('#ss_question_video'+id).modal('show');
                 </span>
               </div>
               <div class="modal-footer">
-                <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>         
+                <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>
               </div>
             </div>
           </div>
@@ -707,13 +707,13 @@ $('#answer_matching').click(function () {
                 // $('#ss_info_sucesss').modal('show');
                 // $('#get_next_question').click(function () {
                   // commonCall();
-                // });  
-                
+                // });
+
               // }
             // });
 
           // });
-          
+
           function commonCall() {
             $question_order = $('#next_question').val();
             $module_id = $('#module_id').val();
@@ -721,7 +721,7 @@ $('#answer_matching').click(function () {
             <?php if ($tutorial_ans_info) {?>
               window.location.href = 'show_tutorial_result/'+$module_id;
             <?php }?>
-            
+
             if ($question_order == 0) {
               window.location.href = 'show_tutorial_result/' + $module_id ;
             }
@@ -746,14 +746,14 @@ $('#answer_matching').click(function () {
 
             var now = $('#now').val();
             var opt = $('#optionalTime').val();
-            var h1 = document.getElementsByTagName('h1')[0];  
+            var h1 = document.getElementsByTagName('h1')[0];
 
-            var distance = countDownDate - now;  
+            var distance = countDownDate - now;
             var hours = Math.floor(distance/3600);
 
             var x = distance % 3600;
 
-            var minutes = Math.floor(x/60); 
+            var minutes = Math.floor(x/60);
             var seconds = distance%60;
 
             var t_h = hours * 60 * 60;
@@ -767,14 +767,14 @@ $('#answer_matching').click(function () {
 
             // if(opt > total){
             //   remaining_time = total;
-            // } else {  
+            // } else {
             //   remaining_time = parseInt(end_depend_optional) - parseInt(now);
             // }
 
             if(opt > 0){
               remaining_time = parseInt(end_depend_optional) - parseInt(now);
-            
-            } else {  
+
+            } else {
               remaining_time = total;
             }
 
@@ -785,14 +785,14 @@ $('#answer_matching').click(function () {
               remaining_time = remaining_time - 1;
 
               var v_hours = Math.floor(remaining_time / 3600);
-              var remain_seconds = remaining_time - v_hours * 3600;   
+              var remain_seconds = remaining_time - v_hours * 3600;
               var v_minutes = Math.floor(remain_seconds / 60);
               var v_seconds = remain_seconds - v_minutes * 60;
 
               $("#student_question_time").val(time_count);
 
               if (remaining_time > 0) {
-                h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;      
+                h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
               } else {
                 var form = $("#answer_form");
                 $.ajax({
@@ -829,12 +829,12 @@ $('#answer_matching').click(function () {
 
             var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
 
-            var distance = countDownDate - now;  
+            var distance = countDownDate - now;
             var hours = Math.floor( distance/3600 );
 
             var x = distance % 3600;
 
-            var minutes = Math.floor(x/60); 
+            var minutes = Math.floor(x/60);
 
             var seconds = distance % 60;
 
@@ -849,7 +849,7 @@ $('#answer_matching').click(function () {
 
             if(opt > total) {
               remaining_time = total;
-            } else {  
+            } else {
               remaining_time = parseInt(end_depend_optional) - parseInt(now);
             }
 
@@ -858,16 +858,16 @@ $('#answer_matching').click(function () {
             function circulate1() {
               time_count++;
               remaining_time = remaining_time - 1;
-              
+
               var v_hours = Math.floor(remaining_time / 3600);
-              var remain_seconds = remaining_time - v_hours * 3600;   
+              var remain_seconds = remaining_time - v_hours * 3600;
               var v_minutes = Math.floor(remain_seconds / 60);
               var v_seconds = remain_seconds - v_minutes * 60;
-              
+
               $("#student_question_time").val(time_count);
-              
+
               if (remaining_time > 0) {
-                h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;      
+                h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
               } else {
                 var form = $("#answer_form");
                 $.ajax({
@@ -879,7 +879,7 @@ $('#answer_matching').click(function () {
                     if (results == 3) {
                       $('#times_up_message').modal('show');
                       $('#question_reload').click(function () {
-                        location.reload(); 
+                        location.reload();
                       });
                     } if (results == 2) {
                       $('#ss_info_sucesss').modal('show');
@@ -899,25 +899,25 @@ $('#answer_matching').click(function () {
             takeDecesionForQuestion();
             <?php }?>
       $( document ).ready(function() {
-        var id= <?php echo $ind['question_order']; ?>;  
-        var ctrlVideo = document.getElementById("videoTag"+id); 
-        
+        var id= <?php echo $ind['question_order']; ?>;
+        var ctrlVideo = document.getElementById("videoTag"+id);
+
         $('.active_video_play').click(function(){
           if ($('.active_video_play').hasClass("active")){
-            
+
                 ctrlVideo.play();
-            
+
             $('.active_video_play').html("Pause");
             $('.active_video_play').toggleClass("active");
           } else {
-            
+
                 ctrlVideo.pause();
-            
+
             $('.active_video_play').html("play");
             $('.active_video_play').toggleClass("active");
           }
         });
-    
+
       });
 
 </script>

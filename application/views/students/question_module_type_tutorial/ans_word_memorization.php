@@ -405,7 +405,6 @@ $videoName = strlen($module_info[0]['video_name']) > 1 ? $module_info[0]['video_
   <input type="hidden" id="exact_time" value="<?php echo $this->session->userdata('exact_time'); ?>" />
 <?php } ?>
 
-<div class="ss_student_board">
   <div class="ss_s_b_top">
     <div class="ss_index_menu <?php //if ($module_type == 3) {
                               ?>col-sm-5<?php
