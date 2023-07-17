@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        
+
                         <label for="exampleInputName2">Grade/Year/Lavel</label>
                         <div class="select">
                             <select class="form-control select-hidden">
@@ -22,7 +22,7 @@
                                     </option>
                                 <?php } ?>
                             </select>
-                            
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -36,7 +36,7 @@
                                     </option>
                                 <?php }?>
                             </select>
-                            
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -53,7 +53,7 @@
 
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <button type="submit" class="btn btn_green"><i class="fa fa-search"></i>  Search</button>
                     </div>

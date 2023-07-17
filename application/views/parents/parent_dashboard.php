@@ -1,7 +1,7 @@
 <?php if ($user_info[0]['suspension_status'] == 1){ ?>
 	<div class="row ml-20">
         <div class="col-md-8" id="message_denied">
-            <p class="alert alert-success"  style="width: 90%"> 
+            <p class="alert alert-success"  style="width: 90%">
                 <b> Your registration has suspend. Please contact with Q-study</b>
             </p>
         </div>
@@ -13,7 +13,7 @@
 		<li class="presonal2"><a href="">View Progress</a></li>
 	</ul>
 <?php } else{ ?>
-<div class=""> 
+<div class="">
 
 	<?php if ( $user_info[0]['subscription_type'] =="direct_deposite" && $user_info[0]['direct_deposite'] == 0 ) { ?>
 		<div style="margin: 10px 25px;" >

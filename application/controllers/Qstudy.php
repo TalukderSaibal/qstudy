@@ -2,7 +2,7 @@
 
 class Qstudy extends CI_Controller
 {
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -20,14 +20,13 @@ class Qstudy extends CI_Controller
 
     public function index()
     {
-        
         $data['user_info'] = $this->qstudy_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
         $this->session->unset_userdata('selCountry');
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('qstudy/qstudy_dashboard', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -35,12 +34,12 @@ class Qstudy extends CI_Controller
     public function student_setting()
     {
         $data['user_info'] = $this->qstudy_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('qstudy/student_setting', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -49,12 +48,12 @@ class Qstudy extends CI_Controller
     {
         $data['user_info'] = $this->qstudy_model->userInfo($this->session->userdata('user_id'));
         $data['studentRefLink'] = $this->qstudy_model->getStudentRefLink($this->session->userdata('user_id'));
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('qstudy/student_details', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -81,12 +80,12 @@ class Qstudy extends CI_Controller
         $data['get_involved_teacher'] = $this->qstudy_model->get_sct_enrollment_info($this->session->userdata('user_id'), 3);
         $data['get_involved_school'] = $this->qstudy_model->get_sct_enrollment_info($this->session->userdata('user_id'), 4);
         $data['get_involved_corporate'] = $this->qstudy_model->get_sct_enrollment_info($this->session->userdata('user_id'), 5);
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('qstudy/my_enrollment_list', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -142,12 +141,12 @@ class Qstudy extends CI_Controller
     public function student_upload_photo()
     {
         $data['user_info'] = $this->qstudy_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
-        
+
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('qstudy/upload', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -191,11 +190,11 @@ class Qstudy extends CI_Controller
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('qstudy/course_country', $data, true);
         $this->load->view('master_dashboard', $data);
     }
-    
+
     public function view_course()
     {
 		if(isset($_SESSION['list_submit']) && $_SESSION['list_submit'] == 1)
@@ -206,13 +205,13 @@ class Qstudy extends CI_Controller
         if (isset($_GET['country'])) {
             $this->session->set_userdata('selCountry', $_GET['country']);
             $countries = $this->Admin_model->getCountry($_GET['country']);
-            
+
             if($_GET['country']==1){
                 $this->session->set_userdata('setCountryName','Australia');
             }else{
                 $this->session->set_userdata('setCountryName',$countries['countryName']);
             }
-            
+
         }
         $data['user_info'] = $this->qstudy_model->userInfo($this->session->userdata('user_id'));
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
@@ -273,7 +272,7 @@ class Qstudy extends CI_Controller
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        
+
         $data['maincontent'] = $this->load->view('qstudy/data_input_people', $data, true);
         $this->load->view('master_dashboard', $data);
 

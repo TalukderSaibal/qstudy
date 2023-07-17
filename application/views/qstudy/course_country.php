@@ -12,7 +12,7 @@
       </select>
     </div>
   </div>
-  <div class="col-sm-6 col-sm-offset-4" style="margin-left: 39%;"> 
+  <div class="col-sm-6 col-sm-offset-4" style="margin-left: 39%;">
     <button class="btn btn_next" type="submit">
       <img src="<?php echo base_url(); ?>assets/images/arrow_next.png"/>Next
     </button>

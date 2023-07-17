@@ -1,8 +1,8 @@
- 
+
 <?php include("header.php"); ?>
 <section class="main_content ss_sign_up_content bg-gray animatedParent">
 		<div class="container-fluid container-fluid_padding">
-			<div class="row"> 
+			<div class="row">
 				 <div class="sign_up_header">
 				 	<div class="col-sm-4"></div>
 				 	<div class="col-sm-4 text-center">
@@ -18,11 +18,11 @@
 				 	</div>
 				 </div>
 
-				 
-				 
 
 
-			</div> 
+
+
+			</div>
 			<div class="container">
 				<div class="row">
 				<div class="">
@@ -38,4 +38,3 @@
 		</div>
 </section>
 <?php include("footer.php"); ?>
- 

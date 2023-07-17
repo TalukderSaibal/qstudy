@@ -1,11 +1,10 @@
-<?php  
+<?php
 
-if ($user_info[0]['subscription_type'] =="direct_deposite") {
-    if ( $user_info[0]['direct_deposite'] == 0 ) {
+if ($user_info[0]['subscription_type'] == "direct_deposite") {
+    if ($user_info[0]['direct_deposite'] == 0) {
         $parent_direct_deposite = 1;
     }
 }
-
 
 ?>
 
@@ -25,19 +24,19 @@ if ($user_info[0]['subscription_type'] =="direct_deposite") {
 
         <div ><img style="margin:20px auto;" src="assets/images/personal_n1.png" class="img-responsive"></div>
     </div>
-<?php endif ?>
+<?php endif?>
 
 
     <div class="row">
         <div class="col-md-7"></div>
-        
+
         <div class="col-md-5" id="message_denied" style="display: none;">
-            <p class="alert alert-success"  style="width: 90%"> 
+            <p class="alert alert-success"  style="width: 90%">
                 <b> You need to subcribe to get access full features. </b>
             </p>
         </div>
         <div class="col-md-5" id="quick_help_message_denied" style="display: none;">
-            <p class="alert alert-success"  style="width: 90%"> 
+            <p class="alert alert-success"  style="width: 90%">
                 <b> This feature is not yet, comming soon </b>
             </p>
         </div>
@@ -51,179 +50,179 @@ if ($user_info[0]['subscription_type'] =="direct_deposite") {
         <li class="presonal2"><a href="view-course">Course</a></li>
     </ul> -->
     <ul class="personal_ul personal_ul_course schedule ss_shudule">
-        <?php 
-            $end_subscription = $user_info[0]['end_subscription'];
-                if (isset($end_subscription)) {
-                     $d1 = date('Y-m-d',strtotime($end_subscription));
-                     $d2 = date('Y-m-d');
-                }
+        <?php
+$end_subscription = $user_info[0]['end_subscription'];
+if (isset($end_subscription)) {
+    $d1 = date('Y-m-d', strtotime($end_subscription));
+    $d2 = date('Y-m-d');
+}
 
-                if ($user_info[0]['subscription_type'] =="trial") {
-                        $createAt = $user_info[0]['created'];
-                        $this->load->helper('commonmethods_helper');
-                        $days = getTrailDate($createAt,$this->db);
+if ($user_info[0]['subscription_type'] == "trial") {
+    $createAt = $user_info[0]['created'];
+    $this->load->helper('commonmethods_helper');
+    $days = getTrailDate($createAt, $this->db);
 
-                }
-            if (isset($end_subscription) && $d1 > $d2) { ?>
-        
+}
+if (isset($end_subscription) && $d1 > $d2) {?>
+
             <li class="presonal">
                 <a href="<?php echo base_url(); ?>student_setting">
                     <h5>Personal</h5>
-                  <img src="<?= base_url('/assets/images/34_ Personal.jpg') ?>" height="40" >
+                  <img src="<?=base_url('/assets/images/34_ Personal.jpg')?>" height="40" >
               </a> </li>
             <li class="presonal2" style="padding: 10px">
-                <a href="student_progress"> 
+                <a href="student_progress">
                     <h5>View Progress</h5>
-             <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+             <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
             </a></li>
         <!--        <li class="presonal2"><a href="student_progress">View Progress</a></li>-->
-            <li class="presonal2" style="padding: 10px"><a href="view-course"> 
+            <li class="presonal2" style="padding: 10px"><a href="view-course">
                     <h5>Course</h5>
-             <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" ></a>
+             <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" ></a>
             </li>
 
-            <li class="presonal2" style="padding: 10px"><a href="<?php echo base_url(); ?>all_tutors_by_type/2/1"> 
+            <li class="presonal2" style="padding: 10px"><a href="<?php echo base_url(); ?>all_tutors_by_type/2/1">
                     <h5>Practice</h5>
-             <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" ></a>
+             <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" ></a>
             </li>
 
-            <li class="presonal2" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert"> 
+            <li class="presonal2" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert">
                     <h5>Quick Help From Tutor</h5>
-             <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
+             <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
             </li>
 
             <!-- shvou -->
             <!-- shvou -->
-            <?php 
-                if ($user_info[0]['subscription_type'] =="trial") {
-                    $createAt = $user_info[0]['created'];
-                    $this->load->helper('commonmethods_helper');
-                    $days = getTrailDate($createAt,$this->db);
+            <?php
+if ($user_info[0]['subscription_type'] == "trial") {
+    $createAt = $user_info[0]['created'];
+    $this->load->helper('commonmethods_helper');
+    $days = getTrailDate($createAt, $this->db);
 
-                }
-                if (isset($days)): ?>
+}
+    if (isset($days)): ?>
                 <?php if ($days < 1): ?>
-                    <li class="presonal2" style="background: #eadddd !important;padding:10px;"><a href="<?php echo base_url();?>select_course"> 
+                    <li class="presonal2" style="background: #eadddd !important;padding:10px;"><a href="<?php echo base_url(); ?>select_course">
                         Active Subcription
-                    </li> 
-                <?php endif ?>
-                
-                
-                <?php if ($days > 0): ?>
-                    <li class="presonal2" style="padding: 3px 19px;cursor: pointer;border:none;background:none;"><a href="<?php echo base_url();?>select_course"> 
-                        <u><span>Buy Now</span><br><br><span> Add Course</span></u>
-                        <img src="<?= base_url('/assets/images/product/juri.PNG') ?>" style="height: 40px;"></a>
                     </li>
-                <?php endif ?>
-            <?php endif ?>
+                <?php endif?>
 
-            <?php 
-                $end_subscription = $user_info[0]['end_subscription'];
-                 if (isset($end_subscription)) {
-                     $d1 = date('Y-m-d',strtotime($end_subscription));
-                     $d2 = date('Y-m-d');
-                 }
-                if (isset($end_subscription) && $end_subscription != null): ?>
-                <?php if (($d1 > $d2 && $user_info[0]['payment_status'] != "Cancel")){ ?>
-                    <li class="presonal2" style="background: #d63832 !important;padding:10px"><a data-toggle="modal" data-target="#subscriptions_cancel" style="cursor: pointer;color:#fff !important"> 
-                       <h5> Cancel Subcription</h5>
-                    </a></li> 
-                    
-                    <li class="presonal2" style="cursor: pointer;border:none;"><a href="<?php echo base_url();?>select_course"> 
+
+                <?php if ($days > 0): ?>
+                    <li class="presonal2" style="padding: 3px 19px;cursor: pointer;border:none;background:none;"><a href="<?php echo base_url(); ?>select_course">
                         <u><span>Buy Now</span><br><br><span> Add Course</span></u>
-                        <img src="<?= base_url('/assets/images/product/juri.PNG') ?>" style="height: 40px;"></a>
+                        <img src="<?=base_url('/assets/images/product/juri.PNG')?>" style="height: 40px;"></a>
                     </li>
-                 <?php }else if(($d1 < $d2 && $user_info[0]['payment_status'] != "Cancel")){ ?>
-                    <li class="presonal2" style="background: #eadddd !important;padding:10px;"><a href="<?php echo base_url();?>select_course"> 
+                <?php endif?>
+            <?php endif?>
+
+            <?php
+$end_subscription = $user_info[0]['end_subscription'];
+    if (isset($end_subscription)) {
+        $d1 = date('Y-m-d', strtotime($end_subscription));
+        $d2 = date('Y-m-d');
+    }
+    if (isset($end_subscription) && $end_subscription != null): ?>
+                <?php if (($d1 > $d2 && $user_info[0]['payment_status'] != "Cancel")) {?>
+                    <li class="presonal2" style="background: #d63832 !important;padding:10px"><a data-toggle="modal" data-target="#subscriptions_cancel" style="cursor: pointer;color:#fff !important">
+                       <h5> Cancel Subcription</h5>
+                    </a></li>
+
+                    <li class="presonal2" style="cursor: pointer;border:none;"><a href="<?php echo base_url(); ?>select_course">
+                        <u><span>Buy Now</span><br><br><span> Add Course</span></u>
+                        <img src="<?=base_url('/assets/images/product/juri.PNG')?>" style="height: 40px;"></a>
+                    </li>
+                 <?php } else if (($d1 < $d2 && $user_info[0]['payment_status'] != "Cancel")) {?>
+                    <li class="presonal2" style="background: #eadddd !important;padding:10px;"><a href="<?php echo base_url(); ?>select_course">
                         <h5>Active Subcriptions</h5>​</a>
-                    </li> 
-                <?php }else{ ?>
+                    </li>
+                <?php } else {?>
                     <li class="presonal2" style="background: #eadddd !important;padding:10px;"><a  data-toggle="modal" data-target="#subscriptions_active" style="cursor: pointer;">
                         <h5>Active Subcriptions</h5></a>
-                    </li> 
+                    </li>
                 <?php }?>
-            <?php endif ?>
-        
+            <?php endif?>
+
         <!-- main condition -->
-            <?php }else if(($user_info[0]['subscription_type'] =="trial" && $days > 0) || ($user_info[0]['subscription_type'] =="guest" && $user_info[0]['unlimited'] == 1)){ ?>
+            <?php } else if (($user_info[0]['subscription_type'] == "trial" && $days > 0) || ($user_info[0]['subscription_type'] == "guest" && $user_info[0]['unlimited'] == 1)) {?>
                 <li class="presonal">
                     <a href="<?php echo base_url(); ?>student_setting">
                         <h5>Personal</h5>
-                      <img src="<?= base_url('/assets/images/34_ Personal.jpg') ?>" height="40" >
+                      <img src="<?=base_url('/assets/images/34_ Personal.jpg')?>" height="40" >
                   </a> </li>
                 <li class="presonal2" style="padding: 10px">
-                    <a href="student_progress"> 
+                    <a href="student_progress">
                         <h5>View Progress</h5>
-                 <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+                 <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
                 </a></li>
             <!--        <li class="presonal2"><a href="student_progress">View Progress</a></li>-->
-                <li class="presonal2" style="padding: 10px"><a href="view-course"> 
+                <li class="presonal2" style="padding: 10px"><a href="view-course">
                         <h5>Course</h5>
-                 <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" ></a>
+                 <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" ></a>
                 </li>
 
-                <li class="presonal2" style="padding: 10px"><a href="<?php echo base_url(); ?>all_tutors_by_type/2/1"> 
+                <li class="presonal2" style="padding: 10px"><a href="<?php echo base_url(); ?>all_tutors_by_type/2/1">
                         <h5>Practice</h5>
-                 <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" ></a>
+                 <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" ></a>
                 </li>
 
-                <li class="presonal2" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert"> 
+                <li class="presonal2" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert">
                         <h5>Quick Help From Tutor</h5>
-                 <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
+                 <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
                 </li>
-                
-                <?php if (($user_info[0]['subscription_type'] =="trial" && $days > 0)): ?>
-                    <li class="presonal2" style="cursor: pointer;border:none;"><a href="<?php echo base_url();?>select_course"> 
+
+                <?php if (($user_info[0]['subscription_type'] == "trial" && $days > 0)): ?>
+                    <li class="presonal2" style="cursor: pointer;border:none;"><a href="<?php echo base_url(); ?>select_course">
                         <u><span>Buy Now</span><br><br><span> Add Course</span></u>
-                        <img src="<?= base_url('/assets/images/product/juri.PNG') ?>" style="height: 40px;"></a>
+                        <img src="<?=base_url('/assets/images/product/juri.PNG')?>" style="height: 40px;"></a>
                     </li>
-                <?php endif ?>
-            <?php }else{ ?>
+                <?php endif?>
+            <?php } else {?>
             <li class="presonal subcribe_expired">
                 <a style="cursor: pointer;">
                     <h5>Personal</h5>
-                  <img src="<?= base_url('/assets/images/34_ Personal.jpg') ?>" height="40" >
+                  <img src="<?=base_url('/assets/images/34_ Personal.jpg')?>" height="40" >
               </a> </li>
             <li class="presonal2 subcribe_expired" style="padding: 10px">
-                <a style="cursor: pointer;"> 
+                <a style="cursor: pointer;">
                     <h5>View Progress</h5>
-             <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+             <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
             </a></li>
-            <li class="presonal2 subcribe_expired" style="padding: 10px"><a style="cursor: pointer;"> 
+            <li class="presonal2 subcribe_expired" style="padding: 10px"><a style="cursor: pointer;">
                     <h5>Course</h5>
-             <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" ></a>
+             <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" ></a>
             </li>
 
-            <li class="presonal2 subcribe_expired" style="padding: 10px"><a style="cursor: pointer;"> 
+            <li class="presonal2 subcribe_expired" style="padding: 10px"><a style="cursor: pointer;">
                     <h5>Practice</h5>
-             <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" ></a>
+             <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" ></a>
             </li>
 
-            <li class="presonal2 subcribe_expired" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert"> 
+            <li class="presonal2 subcribe_expired" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert">
                     <h5>Quick Help From Tutor</h5>
-             <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
+             <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
             </li>
-            <li class="presonal2" style="background: #eadddd !important;padding:10px;"><a href="<?php echo base_url();?>select_course"> 
+            <li class="presonal2" style="background: #eadddd !important;padding:10px;"><a href="<?php echo base_url(); ?>select_course">
                         <h5>Active Subcriptions</h5>
                     </a></li>
-            <?php } ?>
+            <?php }?>
         </ul>
 
     <div ><img style="margin:20px auto;" src="assets/images/personal_n1.png" class="img-responsive"></div>
 </div>
-<?php endif ?>
+<?php endif?>
 
 
 
 <!-- added AS  -->
-<?php 
-    $end_subscription = $user_info[0]['end_subscription'];
-    if (isset($end_subscription)) {
-        $d1 = date('Y-m-d',strtotime($end_subscription));
-        $d2 = date('Y-m-d');
-        $diff = strtotime($d1) - strtotime($d2);
-        $r_days = floor($diff/(60*60*24));
-    }
+<?php
+$end_subscription = $user_info[0]['end_subscription'];
+if (isset($end_subscription)) {
+    $d1 = date('Y-m-d', strtotime($end_subscription));
+    $d2 = date('Y-m-d');
+    $diff = strtotime($d1) - strtotime($d2);
+    $r_days = floor($diff / (60 * 60 * 24));
+}
 ?>
 <!-- subscriptions_cancel Modal -->
 <div class="modal fade" id="subscriptions_cancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -232,7 +231,7 @@ if ($user_info[0]['subscription_type'] =="direct_deposite") {
       <div class="modal-body">
         <p class="modal-title" id="exampleModalLabel" style="padding: 5px;font-size: 20px;font-weight: bold;">Cancel Subscription?</p>
         <p style="font-weight: 500;padding: 5px;">
-        Your subscription will be cancel at the end of your belling period. After <b><u><?= (isset($r_days))?$r_days:'';?></u></b> days your subscription will end no payment will be taken.<br> Change your mind any time before this date.</p> 
+        Your subscription will be cancel at the end of your belling period. After <b><u><?=(isset($r_days)) ? $r_days : '';?></u></b> days your subscription will end no payment will be taken.<br> Change your mind any time before this date.</p>
       </div>
     <div class="modal-footer" style="border-bottom: 1px solid #e5e5e5;border-top:none;margin-bottom: 20px;padding: 15px 50px;">
         <button type="button" class="btn btn-danger" id="cancel_subscription_form">Cancel Subscription</button>
@@ -292,7 +291,7 @@ if ($user_info[0]['subscription_type'] =="direct_deposite") {
            $("#quick_help_message_denied").show();
            $("#quick_help_message_denied").fadeOut( 20000 );
         })
-        
+
         //expired alert
         $('.subcribe_expired').click(function(){
             $("#message_denied").show();
@@ -334,7 +333,7 @@ max-height: 51px
     box-sizing: border-box;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
-      
+
 }
 .ss_shudule li:first-child{
     border-radius: 58%;

@@ -1,17 +1,17 @@
 <?php
-    // echo "<pre>";print_r($user_info);die();
-    $parent_detail = getParentIDPaymetStatus($user_info[0]['parent_id']);
+// echo "<pre>";print_r($user_info);die();
+$parent_detail = getParentIDPaymetStatus($user_info[0]['parent_id']);
 
-    if ($parent_detail[0]['subscription_type'] =="direct_deposite") {
-        if ($parent_detail[0]['direct_deposite'] == 0 ) {
-            $parent_direct_deposite = 1;
-        }
-    }
-
-    if($checkDirectDepositCourseStatus > 0 && $checkRegisterCourses == 0){
-        $checkDirectDepositCourseStatus = 1;
+if ($parent_detail[0]['subscription_type'] == "direct_deposite") {
+    if ($parent_detail[0]['direct_deposite'] == 0) {
         $parent_direct_deposite = 1;
     }
+}
+
+if ($checkDirectDepositCourseStatus > 0 && $checkRegisterCourses == 0) {
+    $checkDirectDepositCourseStatus = 1;
+    $parent_direct_deposite = 1;
+}
 
 ?>
 
@@ -86,7 +86,7 @@
     }
 </style>
 
-<?php if ($user_info[0]['suspension_status'] == 1){ ?>
+<?php if ($user_info[0]['suspension_status'] == 1) {?>
     <div class="row">
         <div class="col-md-5" id="message_denied">
             <p class="alert alert-success"  style="width: 100%">
@@ -108,57 +108,57 @@
         <li class="presonal2" style="padding: 10px">
             <a href="">
                 <h5>View Progress</h5>
-                <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+                <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
             </a>
         </li>
 
         <li class="presonal2" style="padding: 10px"><a href="">
             <h5>Course</h5>
-            <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" ></a>
+            <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" ></a>
         </li>
 
         <li class="presonal2" style="padding: 10px"><a href="">
             <h5>Practice</h5>
-            <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" ></a>
+            <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" ></a>
         </li>
 
         <li class="presonal2" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert">
             <h5>Quick Help From Tutor</h5>
-            <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
+            <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
         </li>
     </ul>
 
-<?php }else{ ?>
+<?php } else {?>
 
     <div class="">
-        <input type="hidden" id="checkUnavailableProduct" value="<?= (isset($checkUnavailableProduct))?$checkUnavailableProduct:0;?>">
+        <input type="hidden" id="checkUnavailableProduct" value="<?=(isset($checkUnavailableProduct)) ? $checkUnavailableProduct : 0;?>">
         <?php if (isset($parent_direct_deposite)): ?>
             <div style="margin: 10px 25px;" >
                 <img src="assets/images/rsz_59.jpg" class="img-responsive"> <br>
                 <span style="color: red;"> Your subscriptions is pending . As soon as received the payment it will active. </span>
             </div>
-        <?php endif ?>
+        <?php endif?>
 
         <?php
-            $end_subscription = $user_info[0]['end_subscription'];
-            if (isset($end_subscription)) {
-                $d1 = date('Y-m-d',strtotime($end_subscription));
-                $d2 = date('Y-m-d');
-            }
+$end_subscription = $user_info[0]['end_subscription'];
+    if (isset($end_subscription)) {
+        $d1 = date('Y-m-d', strtotime($end_subscription));
+        $d2 = date('Y-m-d');
+    }
 
-            if ($user_info[0]['subscription_type'] =="trial") {
-            $createAt = $user_info[0]['created'];
-            $this->load->helper('commonmethods_helper');
-            $days = getTrailDate($createAt,$this->db);
+    if ($user_info[0]['subscription_type'] == "trial") {
+        $createAt = $user_info[0]['created'];
+        $this->load->helper('commonmethods_helper');
+        $days = getTrailDate($createAt, $this->db);
 
-            }
-            if ((isset($end_subscription) && $d1 > $d2) || ($user_info[0]['subscription_type'] =="trial" && $days > 0) || ($user_info[0]['subscription_type'] =="guest" && $user_info[0]['unlimited'] == 1)) { ?>
+    }
+    if ((isset($end_subscription) && $d1 > $d2) || ($user_info[0]['subscription_type'] == "trial" && $days > 0) || ($user_info[0]['subscription_type'] == "guest" && $user_info[0]['unlimited'] == 1)) {?>
         <div class="row" class="studentAllModule" style="margin: 0 83px;text-align: center;display: flex;justify-content: center;" >
-            <?php  if ($student_colaburation != 1): ?>
+            <?php if ($student_colaburation != 1): ?>
                 <div class="col-md-2" id="q_study_homework" style="display: none;float: none;">
                     <div >
                         <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
-                        <a href="<?= base_url("/")."all_tutors_by_type/2/2" ?>">
+                        <a href="<?=base_url("/") . "all_tutors_by_type/2/2"?>">
                             <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red;  " >  <b> Q-study Homework </b>  </p> <p style="color: red; text-align: center;"><b>(Everyday Study)</b>   </p>   </span>
                         </a>
                     </div>
@@ -167,31 +167,31 @@
                 <div class="col-md-2" id="q_study_tutorial" style="display: none;float: none;" >
                     <div >
                         <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
-                        <a href="<?= base_url("/")."all_tutors_by_type/2/1" ?>">
+                        <a href="<?=base_url("/") . "all_tutors_by_type/2/1"?>">
                             <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " ><b> Q-study Homework </b> </p> <p style="color: red; text-align: center;"><b>(Tutorial)</b>  </p> </span>
                         </a>
                     </div>
                 </div>
-            <?php endif ?>
+            <?php endif?>
             <?php
-                    foreach ($getIdeaInfos as $ideaInfo) {
+foreach ($getIdeaInfos as $ideaInfo) {
 
-                        $modType = $ideaInfo['modtype'];
+        $modType = $ideaInfo['modtype'];
 
-                        if ($modType == 1) {
-                            $value = 'Tutorial';
-                        }else if($modType == 1){
-                            $value = 'Everyday Study';
-                        }else if($modType == 1){
-                            $value = 'Special Exam';
-                        }else{
-                            $value = 'Assignment';
-                        } ?>
+        if ($modType == 1) {
+            $value = 'Tutorial';
+        } else if ($modType == 1) {
+            $value = 'Everyday Study';
+        } else if ($modType == 1) {
+            $value = 'Special Exam';
+        } else {
+            $value = 'Assignment';
+        }?>
 
                         <div class="col-md-2" id="q_study_tutorial_">
                             <div>
                                 <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
-                                <a href="<?= base_url(); ?>student_report/<?= $ideaInfo['student_id']; ?>/<?= $ideaInfo['idea_id']; ?>/<?= $ideaInfo['idea_no']; ?>/<?= $ideaInfo['question_id']; ?>
+                                <a href="<?=base_url();?>student_report/<?=$ideaInfo['student_id'];?>/<?=$ideaInfo['idea_id'];?>/<?=$ideaInfo['idea_no'];?>/<?=$ideaInfo['question_id'];?>
                                 " style="cursor: pointer;" class="subcribe_expired">
                                     <span style="color: red;">
                                         <p style="text-align: center; text-decoration: underline; color: red; "><b> Q-study Homework </b> </p>
@@ -202,13 +202,13 @@
                         </div>
 
                     <?php
-                    }
-                    ?>
+}
+        ?>
 
             <div class="col-md-2" id="tutor_showTutorEveyday" style="display: none;float: none;" >
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
-                    <a href="<?= base_url("/")."module/tutor_list/2" ?>">
+                    <a href="<?=base_url("/") . "module/tutor_list/2"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Tutor Homework</b> </p> <p style="color: red; text-align: center;"><b>(Everyday Study)</b>  </p>  </span>
                     </a>
                 </div>
@@ -218,7 +218,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/tutor_list/1" ?>">
+                    <a href="<?=base_url("/") . "module/tutor_list/1"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Tutor Homework</b> </p> <p style="color: red; text-align: center;"><b>(Tutorial)</b>  </p>  </span>
                     </a>
 
@@ -230,7 +230,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/tutor_list/3" ?>">
+                    <a href="<?=base_url("/") . "module/tutor_list/3"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Tutor Homework</b> </p> <p style="color: red; text-align: center;"><b>(Spacial Exam)</b>  </p>  </span>
                     </a>
                 </div>
@@ -240,7 +240,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/tutor_list/4" ?>">
+                    <a href="<?=base_url("/") . "module/tutor_list/4"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Tutor Homework</b> </p> <p style="color: red; text-align: center;"><b>(Assignment)</b>  </p>  </span>
                     </a>
                 </div>
@@ -249,7 +249,7 @@
             <div class="col-md-2" id="school_showTutorEveyday" style="display: none;float: none;" >
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
-                    <a href="<?= base_url("/")."module/school/tutor_list/2" ?>">
+                    <a href="<?=base_url("/") . "module/school/tutor_list/2"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>School Homework</b> </p> <p style="color: red; text-align: center;"><b>(Everyday Study)</b>  </p>  </span>
                     </a>
                 </div>
@@ -259,7 +259,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/school/tutor_list/1" ?>">
+                    <a href="<?=base_url("/") . "module/school/tutor_list/1"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>School Homework</b> </p> <p style="color: red; text-align: center;"><b>(Tutorial)</b>  </p>  </span>
                     </a>
 
@@ -271,7 +271,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/school/tutor_list/3" ?>">
+                    <a href="<?=base_url("/") . "module/school/tutor_list/3"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>School Homework</b> </p> <p style="color: red; text-align: center;"><b>(Spacial Exam)</b>  </p>  </span>
                     </a>
                 </div>
@@ -281,7 +281,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/school/tutor_list/4" ?>">
+                    <a href="<?=base_url("/") . "module/school/tutor_list/4"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>School Homework</b> </p> <p style="color: red; text-align: center;"><b>(Assignment)</b>  </p>  </span>
                     </a>
                 </div>
@@ -290,7 +290,7 @@
             <div class="col-md-2" id="corporate_showTutorEveyday" style="display: none;float: none;" >
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
-                    <a href="<?= base_url("/")."module/corporate/tutor_list/2" ?>">
+                    <a href="<?=base_url("/") . "module/corporate/tutor_list/2"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Corporate Homework</b> </p> <p style="color: red; text-align: center;"><b>(Everyday Study)</b>  </p>  </span>
                     </a>
                 </div>
@@ -300,7 +300,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/corporate/tutor_list/1" ?>">
+                    <a href="<?=base_url("/") . "module/corporate/tutor_list/1"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Corporate Homework</b> </p> <p style="color: red; text-align: center;"><b>(Tutorial)</b>  </p>  </span>
                     </a>
 
@@ -312,7 +312,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/corporate/tutor_list/3" ?>">
+                    <a href="<?=base_url("/") . "module/corporate/tutor_list/3"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Corporate Homework</b> </p> <p style="color: red; text-align: center;"><b>(Spacial Exam)</b>  </p>  </span>
                     </a>
                 </div>
@@ -323,7 +323,7 @@
                 <div >
                     <img src="assets/images/rsz_59.jpg" class="img-responsive" style="margin: 0 25%;"> <br>
 
-                    <a href="<?= base_url("/")."module/corporate/tutor_list/4" ?>">
+                    <a href="<?=base_url("/") . "module/corporate/tutor_list/4"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Corporate Homework</b> </p> <p style="color: red; text-align: center;"><b>(Assignment)</b>  </p>  </span>
                     </a>
                 </div>
@@ -331,7 +331,7 @@
 
         </div>
 
-        <?php }else{ ?>
+        <?php } else {?>
         <div class="row" class="studentAllModule" style="margin: 0 83px;text-align: center;display: flex;justify-content: center;" >
             <div class="col-md-2" id="q_study_homework_" style="display: none;float: none;">
                 <div>
@@ -472,7 +472,7 @@
             </div>
 
         </div>
-        <?php } ?>
+        <?php }?>
 
         <div class="row">
             <div class="col-md-7"></div>
@@ -493,194 +493,194 @@
             <ul class="personal_ul personal_ul_course schedule ss_shudule">
                 <?php
 
-                $end_subscription = $user_info[0]['end_subscription'];
-                if (isset($end_subscription)) {
-                    $d1 = date('Y-m-d',strtotime($end_subscription));
-                    $d2 = date('Y-m-d');
-                }
+    $end_subscription = $user_info[0]['end_subscription'];
+    if (isset($end_subscription)) {
+        $d1 = date('Y-m-d', strtotime($end_subscription));
+        $d2 = date('Y-m-d');
+    }
 
-                if ($user_info[0]['subscription_type'] =="trial") {
-                    $createAt = $user_info[0]['created'];
-                    $this->load->helper('commonmethods_helper');
-                    $days = getTrailDate($createAt,$this->db);
-                }
+    if ($user_info[0]['subscription_type'] == "trial") {
+        $createAt = $user_info[0]['created'];
+        $this->load->helper('commonmethods_helper');
+        $days = getTrailDate($createAt, $this->db);
+    }
 
-                if (isset($end_subscription) && $d1 > $d2){ ?>
+    if (isset($end_subscription) && $d1 > $d2) {?>
                 <li class="presonal">
                     <a href="<?php echo base_url(); ?>student_setting">
                         <h5>Personal</h5>
-                    <img src="<?= base_url('/assets/images/34_ Personal.jpg') ?>" height="40" >
+                    <img src="<?=base_url('/assets/images/34_ Personal.jpg')?>" height="40" >
                 </a> </li>
                 <li class="presonal2" style="padding: 10px">
                     <a href="<?php echo base_url(); ?>student_progress_step">
                         <h5>View Progress</h5>
-                <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+                <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
                 </a></li>
                 <li class="presonal2" style="padding: 10px"><a href="<?php echo base_url(); ?>student/organization">
                         <h5>Course</h5>
-                <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" ></a>
+                <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" ></a>
                 </li>
 
                 <li class="presonal2" style="padding: 10px"><a href="<?php echo base_url(); ?>all_tutors_by_type/2/1/1">
                         <h5>Practice</h5>
-                <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" ></a>
+                <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" ></a>
                 </li>
 
                 <li class="presonal2" style="padding: 10px;cursor: pointer;"><a id="quick_help_alert">
                     <h5>Quick Help From Tutor</h5>
-                    <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
+                    <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;"></a>
                 </li>
 
                 <!-- shvou -->
                 <?php
-                    if ($user_info[0]['subscription_type'] =="trial") {
-                        $createAt = $user_info[0]['created'];
-                        $this->load->helper('commonmethods_helper');
-                        $days = getTrailDate($createAt,$this->db);
-                    }
+if ($user_info[0]['subscription_type'] == "trial") {
+        $createAt = $user_info[0]['created'];
+        $this->load->helper('commonmethods_helper');
+        $days = getTrailDate($createAt, $this->db);
+    }
 
-                    if (isset($days)): ?>
+        if (isset($days)): ?>
                     <?php if ($days < 1): ?>
-                        <li class="presonal2" style="background: #eadddd !important;"><a href="<?php echo base_url();?>select_course">
+                        <li class="presonal2" style="background: #eadddd !important;"><a href="<?php echo base_url(); ?>select_course">
                             <h5>Active Subcription</h5>
                         </li>
-                    <?php endif ?>
+                    <?php endif?>
 
-                <?php endif ?>
+                <?php endif?>
 
                 <?php
-                    $end_subscription = $user_info[0]['end_subscription'];
-                    if (isset($end_subscription)) {
-                        $d1 = date('Y-m-d',strtotime($end_subscription));
-                        $d2 = date('Y-m-d');
-                    }
+$end_subscription = $user_info[0]['end_subscription'];
+        if (isset($end_subscription)) {
+            $d1 = date('Y-m-d', strtotime($end_subscription));
+            $d2 = date('Y-m-d');
+        }
 
-                    if (isset($end_subscription) && $end_subscription != null): ?>
-                    <?php if (($d1 > $d2 && $user_info[0]['payment_status'] != "Cancel")){ ?>
-                        <?php if ($user_info[0]['user_type'] == 6){ ?>
+        if (isset($end_subscription) && $end_subscription != null): ?>
+                    <?php if (($d1 > $d2 && $user_info[0]['payment_status'] != "Cancel")) {?>
+                        <?php if ($user_info[0]['user_type'] == 6) {?>
                             <li class="presonal2" style="background: #d63832 !important;padding: 10px;">
                                 <a data-toggle="modal" data-target="#subscriptions_cancel_by_student" style="cursor: pointer;color: #fff !important;">
                                     <h5>Cancel Subcription</h5>
                                 </a>
                             </li>
 
-                        <?php }else{ ?>
+                        <?php } else {?>
                             <li class="presonal2" style="background: #d63832 !important;padding: 10px;">
                                 <a data-toggle="modal" data-target="#subscriptions_cancel" style="cursor: pointer;color: #fff !important;">
                                     <h5>Cancel Subcription</h5>
                                 </a>
                             </li>
-                        <?php } ?>
-                    <?php }else if(($d1 < $d2 && $user_info[0]['payment_status'] != "Cancel")){ ?>
+                        <?php }?>
+                    <?php } else if (($d1 < $d2 && $user_info[0]['payment_status'] != "Cancel")) {?>
                         <li class="presonal2" style="background: #eadddd !important;">
-                            <a href="<?php echo base_url();?>select_course">
+                            <a href="<?php echo base_url(); ?>select_course">
                                 <h5>Active Subcription</h5>
                             </a>
                         </li>
-                    <?php }else{ ?>
+                    <?php } else {?>
                         <li class="presonal2" style="background: #eadddd !important;">
                             <a  data-toggle="modal" data-target="#subscriptions_active" style="cursor: pointer;">
                                 <h5>Active Subcription</h5>
                             </a>
                         </li>
-                    <?php } ?>
+                    <?php }?>
 
                     <li class="presonal2" style="padding: 3px 29px;cursor: pointer;border:none">
-                        <a href="<?php echo base_url();?>select_course" id="quick_help_alert">
+                        <a href="<?php echo base_url(); ?>select_course" id="quick_help_alert">
                             <h5><u>Buy Now Add Course</u></h5>
-                            <img src="<?= base_url('/assets/images/product/juri.PNG') ?>" style="height: 40px;">
+                            <img src="<?=base_url('/assets/images/product/juri.PNG')?>" style="height: 40px;">
                         </a>
                     </li>
-                <?php endif ?>
+                <?php endif?>
 
                 <!-- main condition -->
-                <?php }else if(($user_info[0]['subscription_type'] =="trial" && $days > 0) || ($user_info[0]['subscription_type'] =="guest" && $user_info[0]['unlimited'] == 1)){ ?>
+                <?php } else if (($user_info[0]['subscription_type'] == "trial" && $days > 0) || ($user_info[0]['subscription_type'] == "guest" && $user_info[0]['unlimited'] == 1)) {?>
                     <li class="presonal">
                         <a href="<?php echo base_url(); ?>student_setting">
                             <h5>Personal</h5>
-                            <img src="<?= base_url('/assets/images/34_ Personal.jpg') ?>" height="40" >
+                            <img src="<?=base_url('/assets/images/34_ Personal.jpg')?>" height="40" >
                         </a>
                     </li>
 
                     <li class="presonal2" style="padding: 10px">
                         <a href="<?php echo base_url(); ?>student_progress_step">
                             <h5>View Progress</h5>
-                            <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+                            <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
                         </a>
                     </li>
 
                     <li class="presonal2" style="padding: 10px">
                         <a href="<?php echo base_url(); ?>student/organization">
                             <h5>Course</h5>
-                            <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" >
+                            <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" >
                         </a>
                     </li>
 
                     <li class="presonal2" style="padding: 10px">
                         <a href="<?php echo base_url(); ?>all_tutors_by_type/2/1">
                             <h5>Practice</h5>
-                            <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" >
+                            <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" >
                         </a>
                     </li>
 
                     <li class="presonal2" style="padding: 10px;cursor: pointer;">
                         <a id="quick_help_alert">
                             <h5>Quick Help From Tutor</h5>
-                            <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;">
+                            <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;">
                         </a>
                     </li>
 
                     <li class="presonal2" style="padding: 3px 29px;cursor: pointer;border:none">
-                        <a href="<?php echo base_url();?>select_course" id="quick_help_alert">
+                        <a href="<?php echo base_url(); ?>select_course" id="quick_help_alert">
                             <h5><u>Buy Now Add Course</u></h5>
-                            <img src="<?= base_url('/assets/images/product/juri.PNG') ?>" style="height: 40px;">
+                            <img src="<?=base_url('/assets/images/product/juri.PNG')?>" style="height: 40px;">
                         </a>
                     </li>
 
-                <?php }else{ ?>
+                <?php } else {?>
                 <li class="presonal subcribe_expired">
                     <a style="cursor: pointer;">
                         <h5>Personal</h5>
-                        <img src="<?= base_url('/assets/images/34_ Personal.jpg') ?>" height="40" >
+                        <img src="<?=base_url('/assets/images/34_ Personal.jpg')?>" height="40" >
                     </a>
                 </li>
 
                 <li class="presonal2 subcribe_expired" style="padding: 10px">
                     <a style="cursor: pointer;">
                         <h5>View Progress</h5>
-                        <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+                        <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
                     </a>
                 </li>
 
                 <li class="presonal2 subcribe_expired" style="padding: 10px">
                     <a style="cursor: pointer;">
                         <h5>Course</h5>
-                        <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" >
+                        <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" >
                     </a>
                 </li>
 
                 <li class="presonal2 subcribe_expired" style="padding: 10px">
                     <a style="cursor: pointer;">
                         <h5>Practice</h5>
-                        <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" >
+                        <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" >
                     </a>
                 </li>
 
                 <li class="presonal2 subcribe_expired" style="padding: 10px;cursor: pointer;">
                     <a id="quick_help_alert">
                         <h5>Quick Help From Tutor</h5>
-                        <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;">
+                        <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;">
                     </a>
                 </li>
 
                 <li class="presonal2" style="background: #eadddd !important;padding: 10px">
-                    <a href="<?php echo base_url();?>select_course">
+                    <a href="<?php echo base_url(); ?>select_course">
                     <h5>Active Subcriptions</h5>
                 </li>
 
-                <?php } ?>
+                <?php }?>
             </ul>
-        <?php endif ?>
+        <?php endif?>
 
         <?php if (isset($parent_direct_deposite)): ?>
 
@@ -688,35 +688,35 @@
                 <li class="presonal">
                     <a href="<?php echo base_url(); ?>">
                         <h5>Personal</h5>
-                        <img src="<?= base_url('/assets/images/34_ Personal.jpg') ?>" height="40" >
+                        <img src="<?=base_url('/assets/images/34_ Personal.jpg')?>" height="40" >
                     </a>
                 </li>
 
                 <li class="presonal2" style="padding: 10px">
                     <a href="<?php echo base_url(); ?>">
                         <h5>View Progress</h5>
-                        <img src="<?= base_url('/assets/images/35_ View Progress.jpg') ?>"  height="40">
+                        <img src="<?=base_url('/assets/images/35_ View Progress.jpg')?>"  height="40">
                     </a>
                 </li>
 
                 <li class="presonal2" style="padding: 10px">
                     <a href="<?php echo base_url(); ?>">
                         <h5>Course</h5>
-                        <img src="<?= base_url('/assets/images/36_Course.jpg') ?>"  height="40" >
+                        <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" >
                     </a>
                 </li>
 
                 <li class="presonal2" style="padding: 10px">
                     <a href="<?php echo base_url(); ?>">
                         <h5>Practice</h5>
-                        <img src="<?= base_url('/assets/images/practice.jpg') ?>"  height="40" >
+                        <img src="<?=base_url('/assets/images/practice.jpg')?>"  height="40" >
                     </a>
                 </li>
 
                 <li class="presonal2" style="padding: 10px;cursor: pointer;">
                     <a href="<?php echo base_url(); ?>">
                         <h5>Quick Help From Tutor</h5>
-                        <img src="<?= base_url('/assets/images/quick_help.jpg') ?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;">
+                        <img src="<?=base_url('/assets/images/quick_help.jpg')?>" style="height: 40px;width: 50px;position: relative;top: -25px;left: 55px;">
                     </a>
                 </li>
 
@@ -725,48 +725,48 @@
 
                 <!-- shvou -->
                 <?php
-                    if ($user_info[0]['subscription_type'] =="trial") {
-                        $createAt = $user_info[0]['created'];
-                        $this->load->helper('commonmethods_helper');
-                        $days = getTrailDate($createAt,$this->db);
-                    }
-                    if (isset($days)): ?>
+if ($user_info[0]['subscription_type'] == "trial") {
+        $createAt = $user_info[0]['created'];
+        $this->load->helper('commonmethods_helper');
+        $days = getTrailDate($createAt, $this->db);
+    }
+    if (isset($days)): ?>
                     <?php if ($days < 1): ?>
                         <li class="presonal2"><a href="#">
                             Active Subcription
                         </li>
-                    <?php endif ?>
-                <?php endif ?>
+                    <?php endif?>
+                <?php endif?>
 
-        <?php endif ?>
+        <?php endif?>
 
     <div>
 
-    <?php if (count($class_rooms) ) {
+    <?php if (count($class_rooms)) {
 
-        foreach ($class_rooms as $key => $value) { ?>
+        foreach ($class_rooms as $key => $value) {?>
             <div class="studentClassroom">
-                <div><b>Tutor Information: </b> <span><?= $value[1]; ?></span> </div><br>
-                <div style="display: flex;margin-left: 277px;"><b>Class Url: </b> <a style="margin: 0 5px;" href="<?= $value[0]; ?>"> <span style="color: #7c87ff;"> <?= $value[0]; ?></span> </a> </div>
+                <div><b>Tutor Information: </b> <span><?=$value[1];?></span> </div><br>
+                <div style="display: flex;margin-left: 277px;"><b>Class Url: </b> <a style="margin: 0 5px;" href="<?=$value[0];?>"> <span style="color: #7c87ff;"> <?=$value[0];?></span> </a> </div>
             </div>
-        <?php  } } ?>
+        <?php }}?>
 
-    <?php if ($student_colaburation != 1  && (!isset($parent_direct_deposite))): ?>
+    <?php if ($student_colaburation != 1 && (!isset($parent_direct_deposite))): ?>
         <?php if ($user_info[0]['student_grade'] == $gradeCheck->grade): ?>
             <div class="point-section" style="margin-top: 20px;">
                 <?php if ($productPoint->recent_point > $point->targetPoint): ?>
                     <div class="congratulation">
-                        <img style="margin:20px auto;width: 100px" src="<?= base_url() ?>assets/images/product/congratulations.jpg" class="img-responsive">
+                        <img style="margin:20px auto;width: 100px" src="<?=base_url()?>assets/images/product/congratulations.jpg" class="img-responsive">
                     </div>
-                <?php endif ?>
+                <?php endif?>
                 <div class="row" style="padding: 10px">
                     <div class="col-md-6 text-right" style="padding: 0px;width:45%;">
-                        <label>Number of Lessons: <span style="border: 1px solid #c3c3c3; border-radius:4px; padding: 3px 10px;"><?= (30 - $numOfLession)?></span></label>
+                        <label>Number of Lessons: <span style="border: 1px solid #c3c3c3; border-radius:4px; padding: 3px 10px;"><?=(30 - $numOfLession)?></span></label>
                     </div>
                     <div class="col-md-6" style="margin-left:4px">
-                        <label>Your Point: <span style="border: 1px solid #c3c3c3; border-radius:4px; padding: 3px 10px;color:red;font-weight:bold;"><?=($modulePoint->point)?$modulePoint->point:0;?></span></label>
+                        <label>Your Point: <span style="border: 1px solid #c3c3c3; border-radius:4px; padding: 3px 10px;color:red;font-weight:bold;"><?=($modulePoint->point) ? $modulePoint->point : 0;?></span></label>
 
-                        <label style="margin-left: 8px;">Target: <span style="border: 1px solid #c3c3c3; border-radius:4px; padding: 3px 10px;"><?= $point->targetPoint ?></span></label>
+                        <label style="margin-left: 8px;">Target: <span style="border: 1px solid #c3c3c3; border-radius:4px; padding: 3px 10px;"><?=$point->targetPoint?></span></label>
 
                     </div>
                 </div>
@@ -778,32 +778,32 @@
                     </div>
 
                     <div class="col-md-6" >
-                        <?php if ($modulePoint->point > $point->targetPoint){ ?>
+                        <?php if ($modulePoint->point > $point->targetPoint) {?>
                             <a href="price_dashboard" class="btn btn-danger btn-sm">Click Here</a>
-                        <?php }else{ ?>
+                        <?php } else {?>
                             <button class="btn btn-default" style="background:#dce6f2"> Get Prize</button>
-                        <?php } ?>
+                        <?php }?>
                     </div>
 
                 </div>
 
-                <img style="margin:20px auto;width: 100px" src="<?= base_url() ?>assets/images/product/tropy.PNG" class="img-responsive">
+                <img style="margin:20px auto;width: 100px" src="<?=base_url()?>assets/images/product/tropy.PNG" class="img-responsive">
             </div>
-        <?php endif ?>
-    <?php endif ?>
+        <?php endif?>
+    <?php endif?>
 </div>
 
 </div>
 
     <!-- added AS  -->
     <?php
-        $end_subscription = $user_info[0]['end_subscription'];
-        if (isset($end_subscription)) {
-            $d1 = date('Y-m-d',strtotime($end_subscription));
-            $d2 = date('Y-m-d');
-            $diff = strtotime($d1) - strtotime($d2);
-            $r_days = floor($diff/(60*60*24));
-        }
+$end_subscription = $user_info[0]['end_subscription'];
+    if (isset($end_subscription)) {
+        $d1 = date('Y-m-d', strtotime($end_subscription));
+        $d2 = date('Y-m-d');
+        $diff = strtotime($d1) - strtotime($d2);
+        $r_days = floor($diff / (60 * 60 * 24));
+    }
     ?>
 
 
@@ -817,7 +817,7 @@
                     <p class="modal-title" id="exampleModalLabel" style="padding: 5px;font-size: 20px;font-weight: bold;">Cancel Subscription?</p>
                     <p style="font-weight: 500;padding: 5px;">
                         Your subscription will be cancel at the end of your
-                        belling period. After <b><u><?= (isset($r_days))?$r_days:'';?></u></b>
+                        belling period. After <b><u><?=(isset($r_days)) ? $r_days : '';?></u></b>
                         days your subscription will end no payment will be taken.<br> Change your mind any time before this date.
                     </p>
                 </div>
@@ -893,7 +893,7 @@
         </div>
     </div>
 
-<?php } ?>
+<?php }?>
 
 
 <script type="text/javascript">
@@ -1003,7 +1003,7 @@
     //     var subjectId = "all";
     //     var tutorId = 2;
     //     var moduleType = 1;
-    //     var courseId = "<?= $registered_courses[0]['id'] ?>";
+    //     var courseId = "<?=$registered_courses[0]['id']?>";
 
     //     $.ajax({
     //         url: '<?php echo site_url('Student/studentsModuleByQStudyNew'); ?>',
@@ -1023,11 +1023,11 @@
 
 </script>
 
-<?php  foreach ($all_teachers as $key => $value) { ?>
+<?php foreach ($all_teachers as $key => $value) {?>
 
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 1;
 
         $.ajax({
@@ -1045,13 +1045,13 @@
 
     </script>
 
-<?php } ?>
+<?php }?>
 
-<?php  foreach ($all_teachers as $key => $value) { ?>
+<?php foreach ($all_teachers as $key => $value) {?>
 
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 2;
 
         $.ajax({
@@ -1068,13 +1068,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 
-<?php  foreach ($all_teachers as $key => $value) { ?>
+<?php foreach ($all_teachers as $key => $value) {?>
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 3;
 
         $.ajax({
@@ -1091,13 +1091,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 
-<?php  foreach ($all_teachers as $key => $value) { ?>
+<?php foreach ($all_teachers as $key => $value) {?>
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 4;
 
         $.ajax({
@@ -1114,7 +1114,7 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 <script type="text/javascript">
     function showTutorTutorial() {
@@ -1137,11 +1137,11 @@
 
 
 
-<?php  foreach ($allSchoolTutors as $key => $value) { ?>
+<?php foreach ($allSchoolTutors as $key => $value) {?>
 
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 1;
 
         $.ajax({
@@ -1159,13 +1159,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
-<?php  foreach ($allSchoolTutors as $key => $value) { ?>
+<?php foreach ($allSchoolTutors as $key => $value) {?>
 
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 2;
 
         $.ajax({
@@ -1182,13 +1182,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 
-<?php  foreach ($allSchoolTutors as $key => $value) { ?>
+<?php foreach ($allSchoolTutors as $key => $value) {?>
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 3;
 
         $.ajax({
@@ -1205,13 +1205,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 
-<?php  foreach ($allSchoolTutors as $key => $value) { ?>
+<?php foreach ($allSchoolTutors as $key => $value) {?>
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 4;
 
         $.ajax({
@@ -1228,7 +1228,7 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 <script type="text/javascript">
     function showSchoolTutorial() {
@@ -1257,11 +1257,11 @@
 
 
 
-<?php  foreach ($allCorporateTutors as $key => $value) { ?>
+<?php foreach ($allCorporateTutors as $key => $value) {?>
 
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 1;
 
         $.ajax({
@@ -1278,13 +1278,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
-<?php  foreach ($allCorporateTutors as $key => $value) { ?>
+<?php foreach ($allCorporateTutors as $key => $value) {?>
 
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 2;
 
         $.ajax({
@@ -1301,13 +1301,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 
-<?php  foreach ($allCorporateTutors as $key => $value) { ?>
+<?php foreach ($allCorporateTutors as $key => $value) {?>
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 3;
 
         $.ajax({
@@ -1324,13 +1324,13 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 
-<?php  foreach ($allCorporateTutors as $key => $value) { ?>
+<?php foreach ($allCorporateTutors as $key => $value) {?>
     <script type="text/javascript">
         var subjectId = "all";
-        var tutorId = "<?= $value['id']; ?>";
+        var tutorId = "<?=$value['id'];?>";
         var moduleType = 4;
 
         $.ajax({
@@ -1347,7 +1347,7 @@
         });
 
     </script>
-<?php } ?>
+<?php }?>
 
 <script type="text/javascript">
     function showCorpotateTutorial() {
