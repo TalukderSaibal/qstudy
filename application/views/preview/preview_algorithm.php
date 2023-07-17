@@ -29,11 +29,11 @@ if (isset($question_info['item'])) {
         $px = -18;
     }
 }
-    
+
 //    echo '<pre>';print_r($question_info);die;
 ?>
 
-<?php 
+<?php
     $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
 ?>
 
@@ -43,7 +43,7 @@ if (isset($question_info['item'])) {
         position: relative;
         width: 0;
     }
-    
+
     .operator_div span{
         position: absolute;
         bottom: -2px;
@@ -85,10 +85,10 @@ if (isset($question_info['item'])) {
 <?php
     //$answerCount = count($question_info_s[0]['answer']);
     // echo "<pre>";print_r($answerCount);die();
-    
+
     date_default_timezone_set($this->site_user_data['zone_name']);
     $module_time = time();
-    
+
     //    For Question Time
     $question_time = explode(':', $question_info_s[0]['questionTime']);
     $hour = 0;
@@ -143,7 +143,7 @@ if (is_numeric($question_time[0])) {
                                 <?php if ($question_info_s[0]['isCalculator']) : ?>
                                     <li><input type="hidden" name="" id="scientificCalc"></li>
                                 <?php endif; ?>
-                              
+
                               <?php if($question_info_s[0]['question_name_type'] == 2) { ?>
 
                                 <li><a style="cursor:pointer" id="show_question" onclick="show_question()">Question<i>(Click Here)</i></a></li>
@@ -151,9 +151,9 @@ if (is_numeric($question_time[0])) {
                           </ul>
                         </div>
                     </div>
-                    
+
                     <input type="hidden" value="<?php echo $question_id; ?>" name="question_id" id="question_id">
-                    
+
                     <div class="col-sm-4">
 
                         <div style="border:1px solid #dfdfdf;margin-bottom: 5px;">
@@ -221,16 +221,16 @@ if (is_numeric($question_time[0])) {
                                     <input type="text" class="form-control" id="" name="answer" autocomplete="off" autofocus style="font-size: 30px; margin-bottom: 10px;margin-left: 30%;width: 40%;margin-top: -10px;">
 
                                      <?php } ?>
-                                    
+
                                 </div>
-                                
+
                             </div>
                         </div>
-                        
+
                         <div class="col-sm-12" style="text-align: center">
                             <button class="btn btn_next" type="submit" id="answer_matching">Submit</button>
                         </div>
-                        
+
                     </div>
 
                     <div class="col-sm-4">
@@ -238,7 +238,7 @@ if (is_numeric($question_time[0])) {
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">  
+                                        <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">
                                             <span>Module Name: Every Sector</span></a>
                                         </h4>
                                     </div>
@@ -247,7 +247,7 @@ if (is_numeric($question_time[0])) {
                                             <div class=" ss_module_result">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered">
-                                                        <thead>    
+                                                        <thead>
                                                             <tr>
 
                                                                 <th>SL</th>
@@ -282,7 +282,7 @@ if (is_numeric($question_time[0])) {
 
                             </div>
                     </div>
-                    
+
                     <div class="col-sm-4 pull-right" id="draggable" style="display: none;">
                         <div class="panel-group" id="waccordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
@@ -320,7 +320,7 @@ if (is_numeric($question_time[0])) {
                     <h4 class="modal-title" id="myModalLabel">Question Description</h4>
                 </div>
                 <div class="modal-body row">
-                    <span class="ss_extar_top20"><?php echo $question_info_s[0]['questionDescription']?></span> 
+                    <span class="ss_extar_top20"><?php echo $question_info_s[0]['questionDescription']?></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -348,7 +348,7 @@ if (is_numeric($question_time[0])) {
                       <source src="<?php echo isset($question_instruct[0]) ? trim($question_instruct[0]) : '';?>" type="video/mp4">
                     </video>
                     <?php if (isset($question_instruct[1]) && $question_instruct[1] != null ): ?>
-                        
+
                         <video controls style="width: 100%">
                           <source src="<?php echo isset($question_instruct[1]) ? trim($question_instruct[1]) : '';?>" type="video/mp4">
                         </video>
@@ -374,9 +374,9 @@ if (is_numeric($question_time[0])) {
                 </div>
 
                 <div class="modal-body row">
-					<img src="assets/images/icon_sucess.png" class="pull-left"> 
+					<img src="assets/images/icon_sucess.png" class="pull-left">
                     <span class="ss_extar_top20">Your answer is correct</span>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -397,11 +397,11 @@ if (is_numeric($question_time[0])) {
                     <i class="fa fa-times" style="font-size:20px;color:red"></i><br>
                     <span class="ss_extar_top20">
                         <?php echo $question_info_s[0]['question_solution']?>
-                        
+
                     </span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>         
+                    <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>
                 </div>
             </div>
         </div>
@@ -409,7 +409,7 @@ if (is_numeric($question_time[0])) {
 
 
 <script>
-   
+
     $("#preview_form").on('submit', function (e) {
         e.preventDefault();
 		var workout_val = CKEDITOR.instances['workout'].getData();
@@ -417,7 +417,7 @@ if (is_numeric($question_time[0])) {
 			alert('You have to do workout first');
 		}  else {
             var form = $("#preview_form");
-        
+
             $.ajax({
                 type: 'POST',
                 url: 'IDontLikeIt/answer_algorithm',
@@ -446,16 +446,16 @@ if (is_numeric($question_time[0])) {
     var h1 = document.getElementsByTagName('h1')[0];
 
     function circulate1() {
-            
+
         remaining_time = remaining_time - 1;
-        
+
         var v_hours = Math.floor(remaining_time / 3600);
-        var remain_seconds = remaining_time - v_hours * 3600;       
+        var remain_seconds = remaining_time - v_hours * 3600;
         var v_minutes = Math.floor(remain_seconds / 60);
         var v_seconds = remain_seconds - v_minutes * 60;
-        
+
         if (remaining_time > 0) {
-            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;          
+            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
         } else {
             var form = $("#answer_form");
             $.ajax({
@@ -470,7 +470,7 @@ if (is_numeric($question_time[0])) {
                     else {
                         $('#times_up_message').modal('show');
                         $('#question_reload').click(function () {
-                            location.reload(); 
+                            location.reload();
                         });
                     }
                 }
@@ -480,43 +480,43 @@ if (is_numeric($question_time[0])) {
     }
 
     function takeDecesionForQuestion() {
-        
+
         var exact_time = $('#exact_time').val();
-        
+
         var now = $('#now').val();
         var opt = $('#optionalTime').val();
-        
+
         //alert('vvv');
         var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
-        
-        var distance = countDownDate - now;  
+
+        var distance = countDownDate - now;
         var hours = Math.floor( distance/3600 );
 //        alert(distance)
         var x = distance % 3600;
-    
-        var minutes = Math.floor(x/60); 
-        
+
+        var minutes = Math.floor(x/60);
+
         var seconds = distance % 60;
-        
+
         var t_h = hours * 60 * 60;
         var t_m = minutes * 60;
         var t_s = seconds;
-    
+
         var total = parseInt(t_h) + parseInt(t_m) + parseInt(t_s);
-    
-        
+
+
         var end_depend_optional = parseInt(exact_time) + parseInt(opt);
-    
+
         if(opt > total) {
             remaining_time = total;
-        } else {    
+        } else {
             remaining_time = parseInt(end_depend_optional) - parseInt(now);
         }
-    
+
         clear_interval = setInterval(circulate1,1000);
-    
+
     }
-    
+
 
     <?php if ($question_time_in_second != 0) { ?>
         takeDecesionForQuestion();

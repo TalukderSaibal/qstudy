@@ -13,7 +13,7 @@
       text-align: center;
   }
 </style>
-<?php 
+<?php
     $question_instruct = isset($question_info[0]['question_video']) ? json_decode($question_info[0]['question_video']):'';
 ?>
 <br>
@@ -97,13 +97,13 @@
         <div class="col-sm-2">
 
         </div>
-        
+
             <div class="col-sm-4">
                 <div class="panel-group" id="raccordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                       <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
-                          <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">  
+                          <a role="button" data-toggle="collapse" data-parent="#taccordion" href="#collapsethree" aria-expanded="true" aria-controls="collapseOne">
                             <span>Module Name: Every Sector</span></a>
                           </h4>
                         </div>
@@ -112,7 +112,7 @@
                                 <div class=" ss_module_result">
                                   <div class="table-responsive">
                                     <table class="table table-bordered">
-                                      <thead>    
+                                      <thead>
                                         <tr>
 
                                           <th>SL</th>
@@ -146,7 +146,7 @@
                     </div>
                 </div>
             </div>
-          
+
             <div class="col-sm-4 pull-right" id="draggable" style="display: none;">
                 <div class="panel-group" id="waccordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -164,13 +164,13 @@
                 </div>
             </div>
 
-          
+
         </div>
 
       </div>
 
       <div class="row">
-        
+
       </div>
     </div>
   </div>
@@ -184,7 +184,7 @@
           <h4 class="modal-title" id="myModalLabel">Question Description</h4>
         </div>
         <div class="modal-body row">
-          <span class="ss_extar_top20"><?php echo $question_info[0]['questionDescription']?></span> 
+          <span class="ss_extar_top20"><?php echo $question_info[0]['questionDescription']?></span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -214,7 +214,7 @@
                       <source src="<?php echo isset($question_instruct[0]) ? trim($question_instruct[0]) : '';?>" type="video/mp4">
                     </video>
                     <?php if (isset($question_instruct[1]) && $question_instruct[1] != null ): ?>
-                        
+
                         <video controls style="width: 100%">
                           <source src="<?php echo isset($question_instruct[1]) ? trim($question_instruct[1]) : '';?>" type="video/mp4">
                         </video>
@@ -240,7 +240,7 @@
         </div>
 
         <div class="modal-body row">
-          <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span> 
+          <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -264,7 +264,7 @@
           </span>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>         
+          <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>
         </div>
       </div>
     </div>

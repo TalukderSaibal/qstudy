@@ -1239,7 +1239,6 @@ class Student extends CI_Controller
     public function get_tutor_tutorial_module($modle_id, $question_order_id, $is_every_study = 0)
     {
         // echo "<pre>";print_r($_SESSION);die();
-
         $select = '*';
         $table = 'tbl_module';
 

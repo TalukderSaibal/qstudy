@@ -1118,7 +1118,7 @@ $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode(
         <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
       </div>
       <div class="modal-body row">
-        <span class="ss_extar_top20"><?php echo $question_info_s[0]['questionDescription']?></span> 
+        <span class="ss_extar_top20"><?php echo $question_info_s[0]['questionDescription']?></span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -1145,7 +1145,7 @@ $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode(
                       <source src="<?php echo isset($question_instruct[0]) ? trim($question_instruct[0]) : '';?>" type="video/mp4">
                     </video>
                     <?php if (isset($question_instruct[1]) && $question_instruct[1] != null ): ?>
-                        
+
                         <video controls style="width: 100%">
                           <source src="<?php echo isset($question_instruct[1]) ? trim($question_instruct[1]) : '';?>" type="video/mp4">
                         </video>
@@ -1347,7 +1347,7 @@ $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode(
       var first_hint = `<?= $question_description['first_hint'] ?>`;
       var second_hint = `<?= $question_description['second_hint'] ?>`;
 
-      // console.log(text_two_hint_no); 
+      // console.log(text_two_hint_no);
 
 
       if (text_one_hint_no != '') {

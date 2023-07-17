@@ -105,7 +105,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
 
 ?>
 
-<?php 
+<?php
     $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
 ?>
 <input type="hidden" id="exam_end" value="" name="exam_end" />
@@ -120,11 +120,11 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
             <a href="<?php echo base_url().$userType.'/view_course'; ?>">Question/Module</a>
         </div>
 
-        
+
 
         <div class="col-sm-6 ss_next_pre_top_menu">
 
-            
+
 
             <a class="btn btn_next" href="question_edit/<?php echo $question_item?>/<?php echo $question_id?>">
                 <i class="fa fa-caret-left" aria-hidden="true"></i> Back
@@ -195,7 +195,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
                                     <div class="panel-body">
                                         <div class=" math_plus">
                                             <?php echo $question_info->questionName; ?>
-                                        </div> 
+                                        </div>
                                         <!-- <textarea disabled class="mytextarea"><?php echo $question_info->questionName;?></textarea> -->
                                     </div>
                                 </div>
@@ -261,7 +261,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
                                                     <?php echo $row[0]; ?>
                                                 </div>
                                                 <div class="row editor_hide " id="list_box_<?php echo $i; ?>" style="margin-bottom:5px">
-                                                     
+
                                                     <div class="col-xs-2" >
                                                         <p class="ss_lette" style="display:none;background:none;min-height:40px;line-height: 40px"><?php echo $lettry_array[$i - 1]; ?></p>
                                                     </div>
@@ -396,7 +396,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
             </div>
 
             <div class="modal-body row">
-                <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span> 
+                <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -423,7 +423,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>   
+                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>
             </div>
         </div>
 
@@ -449,7 +449,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
                       <source src="<?php echo isset($question_instruct[0]) ? trim($question_instruct[0]) : '';?>" type="video/mp4">
                     </video>
                     <?php if (isset($question_instruct[1]) && $question_instruct[1] != null ): ?>
-                        
+
                         <video controls style="width: 100%">
                           <source src="<?php echo isset($question_instruct[1]) ? trim($question_instruct[1]) : '';?>" type="video/mp4">
                         </video>
@@ -579,7 +579,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
        $("#answer_box").hide();
        $(".btn_next").hide();
        $("#box_two").hide();
-       
+
     });
     $("#woq_close_btn").click(function () {
        $("#answer_box").show();
@@ -663,20 +663,20 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
           }
           s = s + 1;
       }
-      
+
     }
-    
+
     function active_button(a,b){
       for(var j=0; j<=100;j){
           var value = $('.c_percent_'+j+'_'+a).val();
           var classExsit = $('.c_percent_'+j+'_'+a).hasClass( "value_active_class_"+j );
          //   console.log('.c_percent_'+j+'_'+a);
           if(classExsit == false){
-            $('.c_percent_'+j+'_'+a).prop('disabled',false); 
+            $('.c_percent_'+j+'_'+a).prop('disabled',false);
           }
           j = j + 25;
       }
-      
+
       var s = 1;
       for(var k=0; k<=4;k++){
           var value = $('.c_percent_'+b+'_'+s).val();
@@ -688,10 +688,10 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
           }
           s = s + 1;
       }
-      
-      
+
+
     }
-    
+
     function add_value_class(b){
       var s = 1;
       for(var k=0; k<=4;k++){
@@ -706,7 +706,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
           s = s + 1;
       }
     }
-    
+
 
 </script>
 <script>
@@ -747,7 +747,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
                 dataType: 'json',
                 success: function (results) {
                     resultArray = results;
-                    
+
                     var correct = results.correct;
                     var correct_ans = results.correct_ans;
                     var PercentageObj = results.percentage_array;
@@ -818,7 +818,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
             $(".percent_color").removeClass( "question_bg"+Tid );
             $(".list_q_box_bg").removeClass( "question_bg"+Tid );
             $('.percent_color').prop('disabled',false);
-            
+
             $(".c_percent_0_"+Tid).css({"background": "#fff","color":"#444444"});
             $(".c_percent_25_"+Tid).css({"background": "#fff","color":"#444444"});
             $(".c_percent_50_"+Tid).css({"background": "#fff","color":"#444444"});
@@ -883,7 +883,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
                 {
                     classIcon = 'c_p_box_'+percentInputValue+'_'+i;
                     $("."+classIcon).css({"display": "none"});
-                    
+
                     $(".percent_color").removeClass( "question_bg_"+percentInputValue);
                     $(".list_q_box_bg").removeClass( "question_bg_"+percentInputValue);
                 }else {
@@ -896,7 +896,7 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
                     $(".percent_color").removeClass( "question_bg_"+percentInputValue);
                     $(".list_q_box_bg").removeClass( "question_bg_"+percentInputValue);
                     $('.percent_color').prop('disabled',false);
-                    
+
                     $("."+classBg).css({"background-color": "#fff","color":"black"});
                 }
             }
@@ -909,6 +909,6 @@ $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
 
         }
     });
-    
+
 </script>
 <?php $this->load->view('preview/drawingBoardForWorkoutTwo'); ?>
