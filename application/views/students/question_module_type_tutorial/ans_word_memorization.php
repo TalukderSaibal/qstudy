@@ -11,6 +11,24 @@
     overflow: auto;
   }
 
+  .video_container {
+    position: relative;
+    width: 100%;
+  }
+
+  .play-button {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  #gf{
+    width: 100px;
+  }
+
   .modal-body {
     position: relative;
     padding: 15px;
@@ -898,9 +916,17 @@ foreach ($total_question as $ind) {
             ?>
             <?php if (isset($question_instruct_vid[0]) && $question_instruct_vid[0] != null) { ?>
 
-              <video controls style="width: 100%" id="videoTag<?php echo $i; ?>">
-                <source src="<?php echo isset($question_instruct_vid[0]) ? trim($question_instruct_vid[0]) : '';?>" type="video/mp4">
-              </video>
+              <div class="video_container">
+
+                <video controls style="width: 100%" id="videoTag<?php echo $i; ?>">
+                  <source src="<?php echo isset($question_instruct_vid[0]) ? trim($question_instruct_vid[0]) : '';?>" type="video/mp4">
+                </video>
+
+                <div id="playButton<?php echo $i; ?>" class="play-button">
+                  <img id="gf" src="assets/images/play-button-icon-design-illustration-vector.jpg" alt="Play Button">
+                </div>
+
+              </div>
 
               <?php if (isset($question_instruct_vid[1]) && $question_instruct_vid[1] != null) : ?>
                 <img class="active_video_play" src="assets/images/video_icon.PNG">
@@ -1161,6 +1187,63 @@ foreach ($total_question as $indwww) {
     }
   }
 
+  // function videoCloseWithModal1(id,playButton){
+  //   $('#ss_question_video' + id).modal('show');
+  //   var video = $('#videoTag' + id).get(0);
+
+  //   if (video.paused === false) {
+  //     video.pause();
+  //     alert('ok');
+  //     playButton.show();
+  //   } else{
+  //     video.play();
+  //     playButton.hide();
+  //   }
+  // }
+
+
+  // Attach event listeners to the play button
+  // $('.play-button').click(function() {
+  //   $('#ss_question_video' + id).modal('show');
+  //   var id = $(this).attr('id').replace('playButton', '');
+  //   var playButton = $('#playButton' + id);
+  //   var video = $('#videoTag' + id).get(0);
+
+    // videoCloseWithModal1(id,playButton);
+
+  //   if (video.paused === false) {
+  //       video.pause();
+        // playButton.show();
+  //   } else {
+  //       video.play();
+        // playButton.hide();
+  //   }
+  //   playButton.toggle();
+  // });
+
+
+  $('.play-button').click(function() {
+    var video = $(this).siblings('video')[0];
+
+    if (video.paused) {
+      video.play();
+      $(this).hide();
+    } else {
+      video.pause();
+    }
+  });
+
+  $('video').on('play', function() {
+    $(this).siblings('.play-button').hide();
+  });
+
+  $('video').on('pause', function() {
+    $(this).siblings('.play-button').show();
+  });
+
+
+
+
   $(document).ready(function() {
     $('#ans_submit').hide();
     $('#ans_next').click(function() {
@@ -1275,9 +1358,9 @@ foreach ($total_question as $indwww) {
     $('#ans_try_again').click(function() {
 
       $('.student_ans').attr('readonly', false);
-      var question_length = $('.question_all').length;
-      var html = '';
-      var answers = <?php echo json_encode($answers); ?>;
+        var question_length = $('.question_all').length;
+        var html = '';
+        var answers = <?php echo json_encode($answers); ?>;
 
       for (var a = 1; a <= question_length; a++) {
         var que_no = a - 1;
@@ -1537,25 +1620,25 @@ foreach ($total_question as $indwww) {
     takeDecesionForQuestion();
   <?php } ?>
 
-  $(document).ready(function() {
-    var id = <?php echo $ind['question_order']; ?>;
-    var ctrlVideo = document.getElementById("videoTag" + id);
+  // $(document).ready(function() {
+  //   var id = <?php echo $ind['question_order']; ?>;
+  //   var ctrlVideo = document.getElementById("videoTag" + id);
 
-    $('.active_video_play').click(function() {
-      if ($('.active_video_play').hasClass("active")) {
+  //   $('.active_video_play').click(function() {
+  //     if ($('.active_video_play').hasClass("active")) {
 
-        ctrlVideo.play();
+  //       ctrlVideo.play();
 
-        $('.active_video_play').html("Pause");
-        $('.active_video_play').toggleClass("active");
-      } else {
+  //       $('.active_video_play').html("Pause");
+  //       $('.active_video_play').toggleClass("active");
+  //     } else {
 
-        ctrlVideo.pause();
+  //       ctrlVideo.pause();
 
-        $('.active_video_play').html("Play");
-        $('.active_video_play').toggleClass("active");
-      }
-    });
+  //       $('.active_video_play').html("Play");
+  //       $('.active_video_play').toggleClass("active");
+  //     }
+  //   });
 
   });
 </script>
