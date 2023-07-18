@@ -1027,7 +1027,6 @@ class Tutor extends CI_Controller
         $questionMarks        = $this->input->post('questionMarks');
         $description          = $this->input->post('questionDescription');
         $solution             = $this->input->post('question_solution');
-        $demoquestionInfo     = $this->input->post('demoquestionInfo');
 
         $file_name     = $_FILES['demoImage']['name'];
         $file_type     = $_FILES['demoImage']['type'];
@@ -1402,8 +1401,6 @@ class Tutor extends CI_Controller
         $data['chapter']             = $this->input->post('chapter');
         $data['country']             = $this->input->post('country');
         $data['questionName']        = $questionName;
-        $data['demoquestionInfo']    = $demoquestionInfo;
-        $data['demoImage']           = $file_name;
         $data['answer']              = $answer;
         $data['questionMarks']       = $questionMarks;
         $data['questionDescription'] = $description;

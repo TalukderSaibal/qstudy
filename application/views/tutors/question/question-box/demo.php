@@ -9,7 +9,7 @@
 
     <div class="form-group">
         <label for="exampleInputEmail1">Question Info</label>
-        <input type="text" class="form-control" name="demoquestionInfo" placeholder="Enter name">
+        <textarea class="mytextarea" name="questionName"></textarea>
     </div>
 
     <div class="form-group">
