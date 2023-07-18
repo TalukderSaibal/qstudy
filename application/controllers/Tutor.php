@@ -932,17 +932,15 @@ class Tutor extends CI_Controller
             $question_box .= '/word_memorization';
         }elseif($item == 20){
             $question_box .= '/comprehension';
-        }
-        elseif($item == 21){
+        }elseif($item == 21){
             $question_box .= '/grammer';
-        }
-        elseif($item == 22){
+        }elseif($item == 22){
             $question_box .= '/glossary';
-        }
-        elseif($item == 23){
+        }elseif($item == 23){
             $question_box .= '/image_quiz';
+        }elseif($item == 24){
+            $question_box .= '/demo';
         }
-
 
         if ($item != 8) {
             $data['question_box']=$this->load->view($question_box, $datas, true);
@@ -1029,6 +1027,12 @@ class Tutor extends CI_Controller
         $questionMarks        = $this->input->post('questionMarks');
         $description          = $this->input->post('questionDescription');
         $solution             = $this->input->post('question_solution');
+        $demoquestionInfo     = $this->input->post('demoquestionInfo');
+
+        $file_name     = $_FILES['demoImage']['name'];
+        $file_type     = $_FILES['demoImage']['type'];
+        $file_tmp_name = $_FILES['demoImage']['tmp_name'];
+        $file_size     = $_FILES['demoImage']['size'];
 
         if ($data['questionType'] == 3) {
             $questionName =  $this->processVocabulary($post);
@@ -1078,11 +1082,11 @@ class Tutor extends CI_Controller
 
         if ($data['questionType'] == 6) { //skip quiz
             $temp['question_body'] = isset($clean['question_body']) ? $clean['question_body'] : '';
-            $temp['skp_quiz_box'] = $clean['ques_ans'];
+            $temp['skp_quiz_box']  = $clean['ques_ans'];
             $temp['numOfRows']     = isset($clean['numOfRows']) ? $clean['numOfRows'] : 0;
             $temp['numOfCols']     = isset($clean['numOfCols']) ? $clean['numOfCols'] : 0;
-            $questionName =  json_encode($temp);
-            $answer = json_encode(array_values(array_filter($clean['ans'])));
+            $questionName          = json_encode($temp);
+            $answer                = json_encode(array_values(array_filter($clean['ans'])));
         }
 
         if ($_POST['questionType'] == 7) {
@@ -1398,6 +1402,8 @@ class Tutor extends CI_Controller
         $data['chapter']             = $this->input->post('chapter');
         $data['country']             = $this->input->post('country');
         $data['questionName']        = $questionName;
+        $data['demoquestionInfo']    = $demoquestionInfo;
+        $data['demoImage']           = $file_name;
         $data['answer']              = $answer;
         $data['questionMarks']       = $questionMarks;
         $data['questionDescription'] = $description;
@@ -2086,7 +2092,7 @@ class Tutor extends CI_Controller
                 } elseif ($data['chapter'] == '') {
                     $return_data['msg'] = 'Chapter Need To Be Selected';
                     $return_data['flag'] = 0;
-                } elseif ($data['questionName'] == '') {
+                }elseif ($data['questionName'] == '') {
                     $return_data['msg'] = 'Question Can Not Be empty';
                     $return_data['flag'] = 0;
                 } elseif ($data['answer'] == '') {
@@ -2156,7 +2162,18 @@ class Tutor extends CI_Controller
                     $return_data['msg'] = 'Solution Can Not Be empty';
                     $return_data['flag'] = 0;
                 }
-            }else{
+            }else if($data['questionType']==24){
+                if ($data['studentgrade'] == '') {
+                    $return_data['msg'] = 'Student Grade Need To Be Selected';
+                    $return_data['flag'] = 0;
+                } elseif ($data['subject'] == '') {
+                    $return_data['msg'] = 'Subject Need To Be Selected';
+                    $return_data['flag'] = 0;
+                } elseif ($data['chapter'] == '') {
+                    $return_data['msg'] = 'Chapter Need To Be Selected';
+                    $return_data['flag'] = 0;
+                }
+            } else{
                 if ($data['studentgrade'] == '') {
                     $return_data['msg'] = 'Student Grade Need To Be Selected';
                     $return_data['flag'] = 0;
@@ -2164,7 +2181,7 @@ class Tutor extends CI_Controller
                     $return_data['msg'] = 'Section Need To Be Selected';
                     $return_data['flag'] = 0;
                 }
-                 elseif ($data['subject'] == '') {
+                elseif ($data['subject'] == '') {
                     $return_data['msg'] = 'Subject Need To Be Selected';
                     $return_data['flag'] = 0;
                 } elseif ($data['chapter'] == '') {

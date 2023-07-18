@@ -81,10 +81,10 @@
                         </div>
 
                         <div class="form-group" style="float: left;margin-right: 10px;">
-                            <label>Subject 
-                                <span data-toggle="modal" data-target="#add_subject"><img src="assets/images/icon_new.png"> New</span> 
+                            <label>Subject
+                                <span data-toggle="modal" data-target="#add_subject"><img src="assets/images/icon_new.png"> New</span>
                             </label>
-                        
+
                             <select class="form-control createQuesLabel subject select2" name="subject" id="subject" onchange="getChapter(this)">
                             <option value="" disabled selected>Select Subject</option>
 
@@ -106,8 +106,8 @@
                                 <option value="">Select Chapter</option>
                             </select>
                         </div>
-                    
-                            
+
+
                         <div class="form-group" style="float: left;margin-right: 10px;">
                             <label>Country</label>
                             <select class="form-control createQuesLabel select2" name="country" id="quesCountry">
@@ -115,7 +115,7 @@
                                 <?php foreach ($allCountry as $country) : ?>
                                     <?php $sel = strlen($selCountry)&&($country['id']==$selCountry) ? 'selected' : ''; ?>
                                 <option value="<?php echo $country['id'] ?>" <?php echo $sel; ?>><?php echo $country['countryName'] ?></option>
-                                <?php endforeach ?>  
+                                <?php endforeach ?>
                             </select>
                         </div>
 
@@ -129,13 +129,13 @@
                         <a  class="ss_q_btn btn btn_red pull-left " onclick="open_question_setting()">
                             Question setting
                         </a>
-                                
+
                         <?php } ?>
-                
-                        <input type="submit" name="submit" class="btn btn-danger ss_q_btn " value="Save"/> 
+
+                        <input type="submit" name="submit" class="btn btn-danger ss_q_btn " value="Save"/>
 
                         <a class="ss_q_btn btn pull-left " href="#"><i class="fa fa-remove" aria-hidden="true"></i> Cancel</a>
-                        
+
                         <a class="ss_q_btn btn pull-left " href="" id="preview_btn" style="display: none;">
                         <i class="fa fa-file-o" aria-hidden="true"></i> Preview
                         </a>
@@ -150,7 +150,7 @@
                             <a class="btn btn-danger ss_q_btn question_tutorial pull-left" style="text-decoration: underline;border: none;font-size: medium; font-weight: 600;">
                                 Tutorial Image <div class="uploadsMsg_"> </div>
                             </a>
-                            
+
                         <?php }?>
                     </div>
 
@@ -166,17 +166,17 @@
         <div class="ss_s_b_main" style="min-height: 100vh">
 
             <?php echo $question_box; ?>
-            
-            
+
+
         <div class="col-sm-4">
             <div class="panel-group ss_edit_q" id="raccordion" role="tablist" aria-multiselectable="true" style="display: none;">
             <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne" style="padding: 0;">
             <h4 class="panel-title">
-                <a> 
-                <label class="form-check-label" for="question_time">Question Time</label> 
-                <input type="checkbox" id="question_time" name="question_time">  
-                Calculator Required <input type="checkbox" name="isCalculator" value="1"> 
+                <a>
+                <label class="form-check-label" for="question_time">Question Time</label>
+                <input type="checkbox" id="question_time" name="question_time">
+                Calculator Required <input type="checkbox" name="isCalculator" value="1">
                 <!-- Score <input type="checkbox" name=""> -->
                 <?php if ($this->session->userdata('userType') == 7) : ?>
                 <strong style="text-decoration: underline; cursor:pointer;" data-toggle="modal" data-target="#ss_instruction_model">Instruction</strong>
@@ -193,7 +193,7 @@
             <p>Module Name:</p>
             <div class="table-responsive">
                 <table class="table table-bordered">
-                <thead>    
+                <thead>
                 <tr>
                 <th></th>
                 <th>SL</th>
@@ -215,7 +215,7 @@
                     <a data-toggle="modal" data-target="#ss_description_model" class="text-center" style="display: inline-block;">
                     <img src="assets/images/icon_details.png">
                     </a>
-                
+
                     <a data-toggle="modal" data-target="#ss_video_model" class="text-center" style="display: inline-block;">
                     <img src="/assets/ckeditor/plugins/svideo/icons/svideo.png">
                     </a>
@@ -402,7 +402,7 @@
                 </div>
                 <div class="modal-body row">
                     <textarea class="mytextarea" name="question_solution"></textarea>
-                    
+
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn_blue" data-dismiss="modal">Close</button>
@@ -410,7 +410,7 @@
             </div>
             </div>-->
         </div>
-        </div> 
+        </div>
     </form>
 
 
@@ -439,7 +439,7 @@
                     </div>
                 </div>
                 </form>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn_blue" onclick="markData()">Save</button>
@@ -456,7 +456,7 @@
             <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
         </div>
         <div class="modal-body row">
-            <img src="assets/images/icon_info.png" class="pull-left"> <span class="ss_extar_top20">Save Sucessfully</span> 
+            <img src="assets/images/icon_info.png" class="pull-left"> <span class="ss_extar_top20">Save Sucessfully</span>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn_blue" id="save_success_button" data-dismiss="modal">Ok</button>
@@ -475,7 +475,7 @@
             <h4 class="modal-title" id="myModalLabel">Add Chapter</h4>
         </div>
         <div id="chapter_error"></div>
-        
+
         <div class="modal-body">
             <form class="" id="add_subject_wise_chapter">
 
@@ -490,7 +490,7 @@
 
             </form>
             </div>
-        
+
         <div class="modal-footer">
             <button type="button" onclick="add_chapter()" class="btn btn_blue">Save</button>
             <button type="button" class="btn btn_blue" data-dismiss="modal">Cancel</button>
@@ -579,7 +579,7 @@ function setSolution() {
     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'NewPage', 'Preview','Preview', 'Print','Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
     { name: 'basicstyles', items: [ 'Bold', 'Italic','Underline','Strike','Subscript', 'Superscript', '-', 'SImage' ] },
     '/',
-    { name: 'document', items: [ 'RemoveFormat','Maximize', 'ShowBlocks','TextColor', 'BGColor','-', 'Templates','Link', 'addFile'] }, 
+    { name: 'document', items: [ 'RemoveFormat','Maximize', 'ShowBlocks','TextColor', 'BGColor','-', 'Templates','Link', 'addFile'] },
     '/',
     { name: 'styles', items: [ 'Styles', 'Format','Font','FontSize'] },
     { name: 'wiris', items: [ 'ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry'] }
@@ -617,7 +617,7 @@ $(document).ready(function(e){
                 $('#get_chapter_value').val(cliptext);
                 var get_subject_value = $('#subject').val();
                 var get_chapter_id = $('#get_chapter_value').val();
-                
+
 
                 if (get_subject_value == '') {
 
@@ -636,7 +636,7 @@ $(document).ready(function(e){
                 }
                 },
                 err => console.log(err)
-        );  
+        );
 
     });
 
@@ -646,7 +646,7 @@ $(document).ready(function(e){
         filebrowserBrowseUrl: '/assets/uploads?type=Images',
         filebrowserUploadUrl: 'imageUpload',
         toolbar: [
-        { name: 'document', items: ['SVideo', 'Youtube'] }, 
+        { name: 'document', items: ['SVideo', 'Youtube'] },
 
         ]
     });
@@ -657,7 +657,7 @@ $(document).ready(function(e){
         filebrowserBrowseUrl: '/assets/uploads?type=Images',
         filebrowserUploadUrl: 'imageUpload',
         toolbar: [
-        { name: 'document', items: ['SVideo', 'Youtube'], }, 
+        { name: 'document', items: ['SVideo', 'Youtube'], },
 
         ],
     });
@@ -685,7 +685,7 @@ $(document).ready(function(e){
             var list = $(".sentence input:checked").map(function(){
                 return $(this).attr("checkboxid");
             }).get().join();
-            
+
             var arr = list.split(',');
             paragraph_order = paragraph_order.filter(function (el) {
                 return el != '';
@@ -696,7 +696,7 @@ $(document).ready(function(e){
 
             if(paragraph_order.length > 0){
 
-                for(var i = 0;i < arr.length; i++){                 
+                for(var i = 0;i < arr.length; i++){
                     if(paragraph_order[i] == ''){
                         is_submit = 0;
                     }
@@ -727,14 +727,14 @@ $(document).ready(function(e){
         }
 
         if (first_question == 1 && second_question == 1) {
-        
+
         }else{
 
         if ($('#questionName_1').val() !='' && $('#questionName_2').val() !='') {
             alert('You can not use at a time two question ')
             return ;
         }
-        
+
         }
     }
 
@@ -749,16 +749,16 @@ $(document).ready(function(e){
         cache:false,
 
         success: function (response) {
-            <?php 
+            <?php
             if(!empty($this->session->userdata('module_status'))){
             ?>
             var module_status = <?php echo $this->session->userdata('module_status'); ?>;
-            <?php 
+            <?php
             if(!empty($this->session->userdata('module_edit_id'))){
             ?>
             var module_edit_id = <?php echo $this->session->userdata('module_edit_id'); ?>;
             <?php }?>
-            <?php 
+            <?php
             if(!empty($this->session->userdata('param_module_id'))){
             ?>
             var param_module_id = <?php echo $this->session->userdata('param_module_id'); ?>;
@@ -836,7 +836,7 @@ function getChapter(e) {
         subject_id: subject_id
         },
         success: function (response) {
-        
+
         $('#subject_chapter').html(response);
         var get_dup_ques_chapter = $('#dup_ques_chapter').val();
         if(get_dup_ques_chapter!=''){
@@ -936,7 +936,7 @@ function markData(){
     })
 
     /*autocomplete*/
-    $(document).ready(function(){ 
+    $(document).ready(function(){
     $('.wordSearch').devbridgeAutocomplete({
         serviceUrl: 'Subject/suggestSubject',
         onSelect: function (suggestions) {
