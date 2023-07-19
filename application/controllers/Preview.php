@@ -95,6 +95,8 @@ class Preview extends CI_Controller
             $this->preview_glossary($question_item, $question_id);
         }elseif ($question_item == 23){
             $this->preview_imageQuiz($question_item, $question_id);
+        }elseif($question_item == 24){
+            $this->preview_demo($question_item, $question_id);
         }
     }
 
@@ -3192,21 +3194,22 @@ class Preview extends CI_Controller
     public function preview_memorization_pattern_three_try_again()
     {
 
-        $data = array();
-        $leftAns = explode(",",$this->input->post('leftAns'));
+        $data     = array();
+        $leftAns  = explode(",",$this->input->post('leftAns'));
         $rightAns = explode(',',$this->input->post('rightAns'));
 
-        $question_id = $this->input->post('question_id');
-        $left_image_ans = $this->input->post('left_image_ans');
-        $right_image_ans = $this->input->post('right_image_ans');
-        $question_name = $this->getQuestionById($question_id);
-        $left_memorize_h_p_three = $question_name->left_memorize_h_p_three;
+        $question_id              = $this->input->post('question_id');
+        $left_image_ans           = $this->input->post('left_image_ans');
+        $right_image_ans          = $this->input->post('right_image_ans');
+        $question_name            = $this->getQuestionById($question_id);
+        $left_memorize_h_p_three  = $question_name->left_memorize_h_p_three;
         $right_memorize_h_p_three = $question_name->right_memorize_h_p_three;
-        $left_memorize_p_three = $question_name->left_memorize_p_three;
-        $right_memorize_p_three = $question_name->right_memorize_p_three;
+        $left_memorize_p_three    = $question_name->left_memorize_p_three;
+        $right_memorize_p_three   = $question_name->right_memorize_p_three;
 
         $html = '';
-        $i = 1;
+        $i    = 1;
+
         foreach($left_memorize_p_three as $key=>$left_data)
         {
             $html .= '<div class="row" style="margin-bottom: 10px;">';
@@ -3432,13 +3435,13 @@ class Preview extends CI_Controller
     }
     private function preview_grammer($question_item, $question_id)
     {
-        $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
-        $data['userType']  = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
-        $data['userType'] = $data['userType'][0]['user_slug'];
-        $data['question_info_s'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
-        $data['question_info'] = json_decode($data['question_info_s'][0]['questionName']);
-        $data['question_id'] = $question_id;
-        $data['question_item'] = $question_item;
+        $data['user_info']         = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
+        $data['userType']          = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
+        $data['userType']          = $data['userType'][0]['user_slug'];
+        $data['question_info_s']   = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
+        $data['question_info']     = json_decode($data['question_info_s'][0]['questionName']);
+        $data['question_id']       = $question_id;
+        $data['question_item']     = $question_item;
         $data['question_info_ind'] = $data['question_info'];
 
         $data['grammer_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
@@ -3450,7 +3453,6 @@ class Preview extends CI_Controller
         // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
         $data['header'] = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-
         $data['maincontent'] = $this->load->view('preview/preview_grammer', $data, true);
         $this->load->view('master_dashboard', $data);
     }
@@ -3480,15 +3482,42 @@ class Preview extends CI_Controller
         $this->load->view('master_dashboard', $data);
     }
 
+    //Demo Question Preview
+    public function preview_demo($question_item, $question_id){
+        $data['user_info']         = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
+        $data['userType']          = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
+        $data['userType']          = $data['userType'][0]['user_slug'];
+        $data['question_info_s']   = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
+        $data['question_info']     = $data['question_info_s'][0]['questionName'];
+        $data['question_id']       = $question_id;
+        $data['question_item']     = $question_item;
+        $data['question_info_ind'] = $data['question_info'];
+        $data['questionaudio'] = $data['question_info_s'][0]['questionaudio'];
+
+
+        $data['image_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
+
+        $question_info_ind = $data['question_info'];
+
+        $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
+        $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
+            // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
+
+        $data['header']     = '';
+        $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
+        $data['maincontent'] = $this->load->view('preview/demo_preview', $data, true);
+        $this->load->view('master_dashboard', $data);
+    }
+
     private function preview_imageQuiz($question_item, $question_id)
     {
-        $data['user_info'] = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
-        $data['userType']  = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
-        $data['userType'] = $data['userType'][0]['user_slug'];
-        $data['question_info_s'] = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
-        $data['question_info'] = json_decode($data['question_info_s'][0]['questionName']);
-        $data['question_id'] = $question_id;
-        $data['question_item'] = $question_item;
+        $data['user_info']         = $this->Preview_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
+        $data['userType']          = $this->Preview_model->getInfo('tbl_usertype', 'id', $this->session->userdata('userType'));
+        $data['userType']          = $data['userType'][0]['user_slug'];
+        $data['question_info_s']   = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
+        $data['question_info']     = json_decode($data['question_info_s'][0]['questionName']);
+        $data['question_id']       = $question_id;
+        $data['question_item']     = $question_item;
         $data['question_info_ind'] = $data['question_info'];
 
         $data['image_info'] = $this->Preview_model->getQuestionDetails('tbl_question', $question_id);
@@ -3497,8 +3526,8 @@ class Preview extends CI_Controller
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
-        // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
-        $data['header'] = '';
+            // $data['header'] = $this->load->view('dashboard_template/header', $data, true);
+        $data['header']     = '';
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
 
         $data['maincontent'] = $this->load->view('preview/preview_image_quiz', $data, true);
