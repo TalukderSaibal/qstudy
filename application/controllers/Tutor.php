@@ -257,8 +257,8 @@ class Tutor extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $user_type = $this->session->userdata('userType');
         if($user_type == 3){
-          $country_id = $this->tutor_model->getCountryId($user_id);
-          $this->session->set_userdata('selCountry', $country_id);
+            $country_id = $this->tutor_model->getCountryId($user_id);
+            $this->session->set_userdata('selCountry', $country_id);
         }
 
         $data['user_info'] = $this->tutor_model->userInfo($user_id);
@@ -1028,10 +1028,77 @@ class Tutor extends CI_Controller
         $description          = $this->input->post('questionDescription');
         $solution             = $this->input->post('question_solution');
 
-        $file_name     = $_FILES['demoImage']['name'];
-        $file_type     = $_FILES['demoImage']['type'];
-        $file_tmp_name = $_FILES['demoImage']['tmp_name'];
-        $file_size     = $_FILES['demoImage']['size'];
+        if($data['questionType'] == 24){
+
+                $uploadedAudioFiles = array();
+                $uploadedImageFiles = array();
+
+            if($_FILES['audio']['name']){
+                $this->load->library('upload');
+
+                // Set up the configuration for file upload
+                $config['upload_path'] = './assets/audiouploads/';
+                $config['allowed_types'] = 'mp3|wav|mp4';
+                $config['max_size'] = 5048;
+
+                $this->upload->initialize($config);
+
+                foreach ($_FILES['audio']['name'] as $key => $fileName) {
+                    $_FILES['audiofile']['name']     = $_FILES['audio']['name'][$key];
+                    $_FILES['audiofile']['type']     = $_FILES['audio']['type'][$key];
+                    $_FILES['audiofile']['tmp_name'] = $_FILES['audio']['tmp_name'][$key];
+                    $_FILES['audiofile']['error']    = $_FILES['audio']['error'][$key];
+                    $_FILES['audiofile']['size']     = $_FILES['audio']['size'][$key];
+
+                    if (!$this->upload->do_upload('audiofile')) {
+                        // If file upload fails, handle the error
+                        $error = $this->upload->display_errors();
+                        echo $error;
+                    } else {
+                        // File upload successful, continue with your logic
+                        $audio = $this->upload->data();
+                        // Store the file data in the database
+                        $audioFile = $audio['client_name']; // Get the file name from the uploaded data
+                        $uploadedAudioFiles[] = $audioFile; // Add the file name to the array
+                        echo "video uploaded and stored in the database.";
+                    }
+                }
+            }
+
+            if($_FILES['demoImage']['name']){
+                $this->load->library('upload');
+
+                // Set up the configuration for file upload
+                $config['upload_path'] = './assets/audiouploads/images';
+                $config['allowed_types'] = 'jpg|png|webp';
+                $config['max_size'] = 5048;
+
+                $this->upload->initialize($config);
+
+                foreach ($_FILES['demoImage']['name'] as $key => $imageName) {
+                    $_FILES['imageFile']['name']     = $_FILES['demoImage']['name'][$key];
+                    $_FILES['imageFile']['type']     = $_FILES['demoImage']['type'][$key];
+                    $_FILES['imageFile']['tmp_name'] = $_FILES['demoImage']['tmp_name'][$key];
+                    $_FILES['imageFile']['error']    = $_FILES['demoImage']['error'][$key];
+                    $_FILES['imageFile']['size']     = $_FILES['demoImage']['size'][$key];
+
+                    if (!$this->upload->do_upload('imageFile')) {
+                        // If file upload fails, handle the error
+                        $error = $this->upload->display_errors();
+                        echo $error;
+                    } else {
+                        $image = $this->upload->data();
+                        $imageFile = $image['client_name'];
+                        $uploadedImageFile = $imageFile;
+                        $uploadedImageFiles[] = $uploadedImageFile;
+                        echo "Image uploaded and stored in the database.";
+                    }
+
+                }
+
+            }
+        }
+
 
         if ($data['questionType'] == 3) {
             $questionName =  $this->processVocabulary($post);
@@ -1393,7 +1460,6 @@ class Tutor extends CI_Controller
             $description  = json_encode($image_data);
         }
 
-
         $data['studentgrade']        = $this->input->post('studentgrade');
         $data['user_id']             = $this->session->userdata('user_id');
         $data['studentsection']      = $this->input->post('studentsection');
@@ -1401,9 +1467,11 @@ class Tutor extends CI_Controller
         $data['chapter']             = $this->input->post('chapter');
         $data['country']             = $this->input->post('country');
         $data['questionName']        = $questionName;
-        $data['answer']              = $answer;
-        $data['questionMarks']       = $questionMarks;
-        $data['questionDescription'] = $description;
+        $data['answer']              = ($answer == '') ? 'Answer': $answer;
+        $data['questionMarks']       = ($questionMarks == '') ? 'no marking' : $questionMarks;
+        $data['questionDescription'] = ($description == '') ? 'Nothing' : $description;
+        $data['questionaudio']       = implode(',',$uploadedAudioFiles);
+        $data['demoImage']           = implode(',',$uploadedImageFiles);
 
         if ($_POST['questionType'] == 18) {
             $data['question_instruction'] = $post['question_instruct'];
@@ -2163,13 +2231,17 @@ class Tutor extends CI_Controller
                 if ($data['studentgrade'] == '') {
                     $return_data['msg'] = 'Student Grade Need To Be Selected';
                     $return_data['flag'] = 0;
-                } elseif ($data['subject'] == '') {
+                } elseif($data['studentsection'] == ''){
+                    $return_data['msg'] = 'Section Need To Be Selected';
+                    $return_data['flag'] = 0;
+                }elseif ($data['subject'] == '') {
                     $return_data['msg'] = 'Subject Need To Be Selected';
                     $return_data['flag'] = 0;
                 } elseif ($data['chapter'] == '') {
                     $return_data['msg'] = 'Chapter Need To Be Selected';
                     $return_data['flag'] = 0;
                 }
+
             } else{
                 if ($data['studentgrade'] == '') {
                     $return_data['msg'] = 'Student Grade Need To Be Selected';
@@ -2397,6 +2469,7 @@ class Tutor extends CI_Controller
         $user_id                   = $this->session->userdata('user_id');
         $data['all_grade']         = $this->tutor_model->getAllInfo('tbl_studentgrade');
         $data['all_subject']       = $this->tutor_model->getInfo('tbl_subject', 'created_by', $user_id);
+        $data['all_section']       = $this->tutor_model->getSection('tbl_question', 'id', $question_id);
         $subject_id                = $data['question_info'][0]['subject'];
 
         $data['subject_base_chapter'] = $this->tutor_model->getInfo('tbl_chapter', 'subjectId', $subject_id);
@@ -2677,6 +2750,11 @@ class Tutor extends CI_Controller
         {
             $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
             $question_box .= '/edit_image_quiz.php';
+        }
+
+        if($type == 24){
+            $data['question_info_ind'] = json_decode($data['question_info'][0]['questionName']);
+            $question_box .= '/demoEdit.php';
         }
 
 

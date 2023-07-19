@@ -546,49 +546,47 @@
 
 
 <script>
-function setSolution() {
-    //$("#set_solution").modal('show');
-    $( "#dialog" ).dialog({
-    height: 400,
-    width: 600,
-    buttons: [
-    {
-        text:"Close",
-        icon: "ui-icon-heart",
-        click: function() {
+    function setSolution() {
+        //$("#set_solution").modal('show');
+        $( "#dialog" ).dialog({
+        height: 400,
+        width: 600,
+        buttons: [
+        {
+            text:"Close",
+            icon: "ui-icon-heart",
+            click: function() {
 
-        $( this ).dialog( "close" );
+            $( this ).dialog( "close" );
+            }
+        },
+        {
+            text:"Save",
+            click: function() {
+            var solution = ($('#setSolution').val());
+            ($('#setSolutionHidden').val(solution));
+            $( this ).dialog( "close" );
+            }
         }
-    },
-    {
-        text:"Save",
-        click: function() {
-        var solution = ($('#setSolution').val());
-        ($('#setSolutionHidden').val(solution));
-        $( this ).dialog( "close" );
-        }
+        ]
+        });
+        $('#setSolution').ckeditor({
+        height: 200,
+        extraPlugins : 'simage,ckeditor_wiris',
+        filebrowserBrowseUrl: '/assets/uploads?type=Images',
+        filebrowserUploadUrl: 'imageUpload',
+        toolbar: [
+        { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'NewPage', 'Preview','Preview', 'Print','Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+        { name: 'basicstyles', items: [ 'Bold', 'Italic','Underline','Strike','Subscript', 'Superscript', '-', 'SImage' ] },
+        '/',
+        { name: 'document', items: [ 'RemoveFormat','Maximize', 'ShowBlocks','TextColor', 'BGColor','-', 'Templates','Link', 'addFile'] },
+        '/',
+        { name: 'styles', items: [ 'Styles', 'Format','Font','FontSize'] },
+        { name: 'wiris', items: [ 'ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry'] }
+        ],
+        allowedContent: true
+        });
     }
-    ]
-    });
-    $('#setSolution').ckeditor({
-    height: 200,
-    extraPlugins : 'simage,ckeditor_wiris',
-    filebrowserBrowseUrl: '/assets/uploads?type=Images',
-    filebrowserUploadUrl: 'imageUpload',
-    toolbar: [
-    { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'NewPage', 'Preview','Preview', 'Print','Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-    { name: 'basicstyles', items: [ 'Bold', 'Italic','Underline','Strike','Subscript', 'Superscript', '-', 'SImage' ] },
-    '/',
-    { name: 'document', items: [ 'RemoveFormat','Maximize', 'ShowBlocks','TextColor', 'BGColor','-', 'Templates','Link', 'addFile'] },
-    '/',
-    { name: 'styles', items: [ 'Styles', 'Format','Font','FontSize'] },
-    { name: 'wiris', items: [ 'ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry'] }
-    ],
-    allowedContent: true
-    });
-}
-
-
 
 </script>
 

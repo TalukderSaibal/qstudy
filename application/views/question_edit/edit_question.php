@@ -28,70 +28,70 @@
   .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 40px;
   }
-#prevBtn {
-      background-color: #bbbbbb;
-  }
-  .image_box_list {
-      overflow: hidden;
-      box-shadow: 0px 0px 0px 1px #91b7ef;
-      background-color: #fbfbfb;
-  }
+  #prevBtn {
+        background-color: #bbbbbb;
+    }
+    .image_box_list {
+        overflow: hidden;
+        box-shadow: 0px 0px 0px 1px #91b7ef;
+        background-color: #fbfbfb;
+    }
 
-  input[type=text] {
-      width: 50%;
-      border: 1px solid #e1f2f7;
-      /*padding: 7px 130px;
-*/
-  }
+    input[type=text] {
+        width: 50%;
+        border: 1px solid #e1f2f7;
+        /*padding: 7px 130px;
+  */
+    }
 
-  #tbl_show {
-      color: #222222;
-      font-size: 14px;
-      line-height: 24px;
-      letter-spacing: .5px;
+    #tbl_show {
+        color: #222222;
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: .5px;
 
-  }
-  #tbl_show .tab{
-      padding: 20px;
-  }
-  .blue{
-      color: red;
-  }
+    }
+    #tbl_show .tab{
+        padding: 20px;
+    }
+    .blue{
+        color: red;
+    }
 
 
-  .ss_pagination{
-      margin-right: 80px;
-      background: #fff;
-      margin-top: 1px;
-  }
-  .ss_pagination button{
-      background-color: transparent !important;
-      padding: 10px 15px !important;
-      line-height: 17px;
-      margin: 4px 0px 5px 0px;
-  }
-  .ss_pagination button.activtab{
-      background: url(assets/images/ss_p_bg.jpg) repeat-x bottom !important;
-      border: 1px solid #979797 !important;
-      border-top: 2px solid #979797 !important;
-      border-radius: 5px;
-  }
-  .ss_pagination #prevBtn {
-      color: #666 !important;
-  }
+    .ss_pagination{
+        margin-right: 80px;
+        background: #fff;
+        margin-top: 1px;
+    }
+    .ss_pagination button{
+        background-color: transparent !important;
+        padding: 10px 15px !important;
+        line-height: 17px;
+        margin: 4px 0px 5px 0px;
+    }
+    .ss_pagination button.activtab{
+        background: url(assets/images/ss_p_bg.jpg) repeat-x bottom !important;
+        border: 1px solid #979797 !important;
+        border-top: 2px solid #979797 !important;
+        border-radius: 5px;
+    }
+    .ss_pagination #prevBtn {
+        color: #666 !important;
+    }
 
-  .question_tutorial_modal .modal-dialog{
-      overflow-y: initial !important
-  }
-  .question_tutorial_modal .modal-body{
-      height: 400px;
-      overflow-y: auto;
-  }
+    .question_tutorial_modal .modal-dialog{
+        overflow-y: initial !important
+    }
+    .question_tutorial_modal .modal-body{
+        height: 400px;
+        overflow-y: auto;
+    }
 </style>
 
 <?//php if($_SESSION['userType']== 7 ){?>
     <!-- <div class="col-md-12 upperbutton" style="text-align: center;margin-bottom: 10px;">
-     <a href="all-module" style="font-size:20px;font-weight: bold;display: inline-block;">Module Inbox</a>
+    <a href="all-module" style="font-size:20px;font-weight: bold;display: inline-block;">Module Inbox</a>
     </div> -->
 <?//php }?>
 
@@ -140,6 +140,25 @@
                   <?php echo $grade; ?>
                 </option>
               <?php } ?>
+            </select>
+          </div>
+
+          <div class="form-group" style="float: left;margin-right: 10px;">
+            <label for="exampleInputName2">Select Section</label>
+            <select class="form-control createQuesLabel" name="studentsection">
+                <!-- <option value="" disabled selected>Select Section</option> -->
+
+                <?php
+                  $sections = ['a', 'b', 'c', 'd']
+                ?>
+
+                <?php
+
+                  foreach($sections as $section){ ?>
+                    <option value="<?= $section ?>" <?php if($question_info[0]['studentsection'] == $section) { echo 'selected';} ?>><?= $section ?></option>
+                  <?php }
+
+                ?>
             </select>
           </div>
 
