@@ -90,8 +90,8 @@
 
             var audioInput = $('<div class="form-group"><label>Audio File ' + boxNumber + '</label><input type="file" class="form-control-file" name="audio[]"></div>');
             var imageInput = $('<div class="form-group"><label>Image ' + boxNumber + '</label><input type="file" class="form-control-file" name="demoImage[]"></div>');
-            var textInput  = $('<div class="form-group"><label>Text ' + boxNumber + '</label><input type="text" name="demo[]" class="form-control" name="text' + boxNumber + '"></div>');
-            var checkbox   = $('<div class="form-check"><input class="form-check-input" type="checkbox" name="correct[]" value="' + boxNumber + '"><label class="form-check-label">Correct ' + boxNumber + '</label></div>');
+            var textInput  = $('<div class="form-group"><label>Text ' + boxNumber + '</label><input type="text" name="demoText['+ boxNumber +'][text]" class="form-control"></div>');
+            var checkbox   = $('<div class="form-check"><input class="form-check-input" type="checkbox" name="demoText['+ boxNumber +'][status]" value="0"><label class="form-check-label">Correct ' + boxNumber + '</label></div>');
 
             inputSet.append(audioInput, imageInput, textInput, checkbox);
             $('#input-boxes').append(inputSet);

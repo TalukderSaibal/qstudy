@@ -1027,11 +1027,13 @@ class Tutor extends CI_Controller
         $questionMarks        = $this->input->post('questionMarks');
         $description          = $this->input->post('questionDescription');
         $solution             = $this->input->post('question_solution');
+        $demoText             = $this->input->post('demoText');
+
 
         if($data['questionType'] == 24){
-
-                $uploadedAudioFiles = array();
-                $uploadedImageFiles = array();
+                $uploadedAudioFiles         = array();
+                $uploadedImageFiles         = array();
+                $uploadedQuestionImageFiles = '';
 
             if($_FILES['audio']['name']){
                 $this->load->library('upload');
@@ -1087,15 +1089,47 @@ class Tutor extends CI_Controller
                         $error = $this->upload->display_errors();
                         echo $error;
                     } else {
-                        $image = $this->upload->data();
-                        $imageFile = $image['client_name'];
-                        $uploadedImageFile = $imageFile;
-                        $uploadedImageFiles[] = $uploadedImageFile;
+                        $image                = $this->upload->data();
+                        $imageFile            = $image['client_name'];
+                        $uploadedImageFile    = $imageFile;
+                        $uploadedQuestionImageFiles = $uploadedImageFile;
                         echo "Image uploaded and stored in the database.";
                     }
 
                 }
 
+            }
+
+            if($_FILES['questionImage']['name']){
+                $this->load->library('upload');
+
+                // Set up the configuration for file upload
+                $config['upload_path'] = './assets/audiouploads/Questionimages';
+                $config['allowed_types'] = 'jpg|png|webp';
+                $config['max_size'] = 5048;
+
+                $this->upload->initialize($config);
+
+                foreach ($_FILES['questionImage']['name'] as $key => $imageName) {
+                    $_FILES['questionImageFile']['name']     = $_FILES['questionImage']['name'][$key];
+                    $_FILES['questionImageFile']['type']     = $_FILES['questionImage']['type'][$key];
+                    $_FILES['questionImageFile']['tmp_name'] = $_FILES['questionImage']['tmp_name'][$key];
+                    $_FILES['questionImageFile']['error']    = $_FILES['questionImage']['error'][$key];
+                    $_FILES['questionImageFile']['size']     = $_FILES['questionImage']['size'][$key];
+
+                    if (!$this->upload->do_upload('questionImageFile')) {
+                        // If file upload fails, handle the error
+                        $error = $this->upload->display_errors();
+                        echo $error;
+                    } else {
+                        $image                = $this->upload->data();
+                        $imageFile            = $image['client_name'];
+                        $uploadedImageFile    = $imageFile;
+                        $uploadedImageFiles[] = $uploadedImageFile;
+                        echo "Image uploaded and stored in the database.";
+                    }
+
+                }
             }
         }
 
@@ -1470,8 +1504,9 @@ class Tutor extends CI_Controller
         $data['answer']              = ($answer == '') ? 'Answer': $answer;
         $data['questionMarks']       = ($questionMarks == '') ? 'no marking' : $questionMarks;
         $data['questionDescription'] = ($description == '') ? 'Nothing' : $description;
+        $data['questionImage']       = $uploadedQuestionImageFiles;
         $data['questionaudio']       = implode(',',$uploadedAudioFiles);
-        $data['demoImage']           = implode(',',$uploadedImageFiles);
+        $data['demoImage']           = $uploadedImageFiles;
 
         if ($_POST['questionType'] == 18) {
             $data['question_instruction'] = $post['question_instruct'];
@@ -2323,15 +2358,15 @@ class Tutor extends CI_Controller
      */
     public function processVocabulary($items)
     {
-        $arr['definition'] = $items['definition'];
+        $arr['definition']      = $items['definition'];
         $arr['parts_of_speech'] = $items['parts_of_speech'];
-        $arr['synonym'] = $items['synonym'];
-        $arr['antonym'] = $items['antonym'];
-        $arr['sentence'] = $items['sentence'];
-        $arr['near_antonym'] = $items['near_antonym'];
-        $arr['speech_to_text'] = $items['speech_to_text'];
-        $arr['ytLinkInput'] = $items['ytLinkInput'];
-        $arr['ytLinkTitle'] = $items['ytLinkTitle'];
+        $arr['synonym']         = $items['synonym'];
+        $arr['antonym']         = $items['antonym'];
+        $arr['sentence']        = $items['sentence'];
+        $arr['near_antonym']    = $items['near_antonym'];
+        $arr['speech_to_text']  = $items['speech_to_text'];
+        $arr['ytLinkInput']     = $items['ytLinkInput'];
+        $arr['ytLinkTitle']     = $items['ytLinkTitle'];
 
         $uType = $this->session->userdata('userType');
 
