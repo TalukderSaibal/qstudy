@@ -700,38 +700,7 @@
                                     <h6 style="font-weight: bold;margin-left:30px;font-size:17px;"> <?= $question ?></h6>
                                 </div>
                                 <div>
-                                    <?php $i = 1;
-                                    foreach ($questionaudio as $desc) { ?>
-                                    <div style="padding-left: 30px;gap:10px;">
 
-                                        <div style="margin-top: 6px;position:relative;">
-                                            <div class="set_tooltip<?= $i ?>" style="position:relative;display:inline-flex;gap:10px;align-items: baseline;">
-
-                                                <div style="max-width:20px;position:absolute;left:-25px; top: -5px;">
-                                                <i class="fa fa-close ans_wrong wrong_ans<?= $i ?>" style="font-size:24px;color:red;margin-top:4px;display:none;"></i>
-                                                <i class="fa fa-check ans_right right_ans<?= $i ?>" style="font-size:21px;color:green;margin-top:4px;display:none;"></i>
-                                                </div>
-                                                <label class="custom_radio"><span class="option_no<?= $i ?> all_options"><?= $option ?></span>
-                                                <input type="radio" class="radio_ans" id="html<?= $i ?>" name="answer" value="<?= $i ?>">
-                                                <span class="checkmark "></span>
-                                                </label>
-                                            </div>
-
-
-                                            <?php if ($i == 1) { ?>
-                                                <div class="first_hint_text tooltip_rs hint_text<?= $i ?>"><?= $question_description['first_hint'] ?></div>
-                                            <?php } elseif ($i == 2) { ?>
-                                                <div class="second_hint_text tooltip_rs hint_text<?= $i ?>"><?= $question_description['second_hint'] ?></div>
-                                            <?php } elseif ($i == 3) { ?>
-                                                <div class="third_hint_text tooltip_rs hint_text<?= $i ?>"><?= $question_description['third_hint'] ?></div>
-                                            <?php } elseif ($i == 4) { ?>
-                                                <div class="fourth_hint_text tooltip_rs hint_text<?= $i ?>"><?= $question_description['four_hint'] ?></div>
-                                            <?php } ?>
-
-                                        </div>
-                                    </div>
-                                    <?php $i++;
-                                    } ?>
                                 </div>
                                 <div style="margin-left: 30px;margin-top:30px;">
                                     <input type="hidden" value="<?php echo $question_id; ?>" name="question_id" id="question_id">
