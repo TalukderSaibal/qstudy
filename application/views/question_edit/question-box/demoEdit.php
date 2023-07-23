@@ -1,9 +1,9 @@
 <style>
     .ss_img {
-  border: 1px solid;
-  padding: 5px;
-  margin: 5px;
-}
+        border: 1px solid;
+        padding: 5px;
+        margin: 5px;
+    }
 </style>
 
 <input type="hidden" name="questionType" value="24">
@@ -47,18 +47,7 @@
 <div class="col-sm-4">
     <div class="panel-group" id="saccordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
-            <?php
-
-            $image = explode(',',$question_info[0]['demoImage']);
-
-            foreach($image as $img){ ?>
-                <div class="ss_img">
-                    <img src="assets/audiouploads/images/<?= $img?>" alt="no images">
-                </div>
-            <?php }
-
-            ?>
-
+            <p>This is image,but something went wrong</p>
         </div>
     </div>
 </div>

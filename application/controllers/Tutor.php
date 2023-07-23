@@ -995,6 +995,134 @@ class Tutor extends CI_Controller
         }
     }
 
+    private function move_uploaded_file($temp_path, $filename) {
+        $upload_path = './assets/audiouploads';
+        $target_path = $upload_path . $filename;
+
+        if (move_uploaded_file($temp_path, $target_path)) {
+            return $filename;
+        } else {
+            // Handle upload error
+            return NULL;
+        }
+    }
+
+    //My Files handling Method
+    public function uploadFileData(){
+
+        $post = $this->input->post();
+
+        $one = $this->input->post('one');
+
+        $files = $_FILES;
+        $questions = array();
+
+        for($i = 0; $i < count($one); $i++){
+            if($files['one']['name']['demo'.$i +1]['audio']){
+                $fileName = $_FILES['one']['name'] = $files['one']['name']['demo'.$i + 1]['audio'];
+
+                $_FILES['one']['type']     = $files['one']['type'];
+                $tmp = $_FILES['one']['tmp_name'] = $files['one']['tmp_name'];
+                $_FILES['one']['error']    = $files['one']['error'];
+                $_FILES['one']['size']     = $files['one']['size'];
+
+                $config['upload_path']   = 'assets/audiouploads/';
+                $config['allowed_types'] = 'mp3|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
+                $config['max_size']      = 0;
+                $config['max_width']     = 0;
+                $config['max_height']    = 0;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                $error = array();
+                if (!$this->upload->do_upload('one[]')) {
+                    $error = $this->upload->display_errors();
+                    //echo $error;
+                } else {
+                    $audio = $this->upload->data();
+                    $base  = base_url() . 'assets/audiouploads/' . $fileName;
+                }
+            }
+
+            if($files['one']['name']['demo'.$i +1]['image']){
+                $imageName = $_FILES['one']['name'] = $files['one']['name']['demo'.$i + 1]['image'];
+
+                $_FILES['one']['type']     = $files['one']['type'];
+                $_FILES['one']['tmp_name'] = $files['one']['tmp_name'];
+                $_FILES['one']['error']    = $files['one']['error'];
+                $_FILES['one']['size']     = $files['one']['size'];
+
+                $config['upload_path'] = 'assets/audiouploads/images/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
+                $config['max_size'] = 0;
+                $config['max_width'] = 0;
+                $config['max_height'] = 0;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                $error = array();
+                if (!$this->upload->do_upload('one[]')) {
+                    $error = $this->upload->display_errors();
+                    //echo $error;
+                } else {
+                    $image = $this->upload->data();
+                    $base  = base_url() . 'assets/audiouploads/images/' . $imageName;
+                }
+            }
+
+            $text    = $_POST['one']['demo' . ($i + 1)]['text'];
+            $correct = (isset($_POST['one']['demo' . ($i + 1)]['correct'])) ? 1 : 0;
+
+
+            // Create an array for each question
+            $question_data = array(
+                'audio'   => $fileName,
+                'image'   => $imageName,
+                'text'    => $text,
+                'correct' => $correct
+            );
+
+            // Add the question data to the $questions array
+            $questions[] = $question_data;
+        }
+        $q = json_encode($questions);
+        return $q;
+    }
+
+    public function imageUpload1($file){
+        $files = $_FILES;
+
+        if(isset($_FILES['questionImage']['name'])){
+            $_FILES['questionImage']['name']     = $files['questionImage']['name'];
+            $_FILES['questionImage']['type']     = $files['questionImage']['type'];
+            $_FILES['questionImage']['tmp_name'] = $files['questionImage']['tmp_name'];
+            $_FILES['questionImage']['error']    = $files['questionImage']['error'];
+            $_FILES['questionImage']['size']     = $files['questionImage']['size'];
+
+            $config['upload_path'] = 'assets/audiouploads/Questionimages/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
+            $config['max_size'] = 0;
+            $config['max_width'] = 0;
+            $config['max_height'] = 0;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            //        $this->upload->do_upload();
+
+            $error = array();
+            if (!$this->upload->do_upload('questionImage')) {
+                $error = $this->upload->display_errors();
+                //echo $error;
+            } else {
+                $imageName = $this->upload->data();
+                $base = base_url() . 'assets/audiouploads/Questionimages/' . $imageName['file_name'];
+                return $imageName['file_name'];
+            }
+        }
+    }
+
     public function save_question_data()
     {
         $post = $this->input->post();
@@ -1027,112 +1155,11 @@ class Tutor extends CI_Controller
         $questionMarks        = $this->input->post('questionMarks');
         $description          = $this->input->post('questionDescription');
         $solution             = $this->input->post('question_solution');
-        $demoText             = $this->input->post('demoText');
 
-
-        if($data['questionType'] == 24){
-                $uploadedAudioFiles         = array();
-                $uploadedImageFiles         = array();
-                $uploadedQuestionImageFiles = '';
-
-            if($_FILES['audio']['name']){
-                $this->load->library('upload');
-
-                // Set up the configuration for file upload
-                $config['upload_path'] = './assets/audiouploads/';
-                $config['allowed_types'] = 'mp3|wav|mp4';
-                $config['max_size'] = 5048;
-
-                $this->upload->initialize($config);
-
-                foreach ($_FILES['audio']['name'] as $key => $fileName) {
-                    $_FILES['audiofile']['name']     = $_FILES['audio']['name'][$key];
-                    $_FILES['audiofile']['type']     = $_FILES['audio']['type'][$key];
-                    $_FILES['audiofile']['tmp_name'] = $_FILES['audio']['tmp_name'][$key];
-                    $_FILES['audiofile']['error']    = $_FILES['audio']['error'][$key];
-                    $_FILES['audiofile']['size']     = $_FILES['audio']['size'][$key];
-
-                    if (!$this->upload->do_upload('audiofile')) {
-                        // If file upload fails, handle the error
-                        $error = $this->upload->display_errors();
-                        echo $error;
-                    } else {
-                        // File upload successful, continue with your logic
-                        $audio = $this->upload->data();
-                        // Store the file data in the database
-                        $audioFile = $audio['client_name']; // Get the file name from the uploaded data
-                        $uploadedAudioFiles[] = $audioFile; // Add the file name to the array
-                        echo "video uploaded and stored in the database.";
-                    }
-                }
-            }
-
-            if($_FILES['demoImage']['name']){
-                $this->load->library('upload');
-
-                // Set up the configuration for file upload
-                $config['upload_path'] = './assets/audiouploads/images';
-                $config['allowed_types'] = 'jpg|png|webp';
-                $config['max_size'] = 5048;
-
-                $this->upload->initialize($config);
-
-                foreach ($_FILES['demoImage']['name'] as $key => $imageName) {
-                    $_FILES['imageFile']['name']     = $_FILES['demoImage']['name'][$key];
-                    $_FILES['imageFile']['type']     = $_FILES['demoImage']['type'][$key];
-                    $_FILES['imageFile']['tmp_name'] = $_FILES['demoImage']['tmp_name'][$key];
-                    $_FILES['imageFile']['error']    = $_FILES['demoImage']['error'][$key];
-                    $_FILES['imageFile']['size']     = $_FILES['demoImage']['size'][$key];
-
-                    if (!$this->upload->do_upload('imageFile')) {
-                        // If file upload fails, handle the error
-                        $error = $this->upload->display_errors();
-                        echo $error;
-                    } else {
-                        $image                = $this->upload->data();
-                        $imageFile            = $image['client_name'];
-                        $uploadedImageFile    = $imageFile;
-                        $uploadedQuestionImageFiles = $uploadedImageFile;
-                        echo "Image uploaded and stored in the database.";
-                    }
-
-                }
-
-            }
-
-            if($_FILES['questionImage']['name']){
-                $this->load->library('upload');
-
-                // Set up the configuration for file upload
-                $config['upload_path'] = './assets/audiouploads/Questionimages';
-                $config['allowed_types'] = 'jpg|png|webp';
-                $config['max_size'] = 5048;
-
-                $this->upload->initialize($config);
-
-                foreach ($_FILES['questionImage']['name'] as $key => $imageName) {
-                    $_FILES['questionImageFile']['name']     = $_FILES['questionImage']['name'][$key];
-                    $_FILES['questionImageFile']['type']     = $_FILES['questionImage']['type'][$key];
-                    $_FILES['questionImageFile']['tmp_name'] = $_FILES['questionImage']['tmp_name'][$key];
-                    $_FILES['questionImageFile']['error']    = $_FILES['questionImage']['error'][$key];
-                    $_FILES['questionImageFile']['size']     = $_FILES['questionImage']['size'][$key];
-
-                    if (!$this->upload->do_upload('questionImageFile')) {
-                        // If file upload fails, handle the error
-                        $error = $this->upload->display_errors();
-                        echo $error;
-                    } else {
-                        $image                = $this->upload->data();
-                        $imageFile            = $image['client_name'];
-                        $uploadedImageFile    = $imageFile;
-                        $uploadedImageFiles[] = $uploadedImageFile;
-                        echo "Image uploaded and stored in the database.";
-                    }
-
-                }
-            }
+        if($_POST['questionType'] == 24){
+            $q = $this->uploadFileData();
+            $questionImage = $this->imageUpload1($post);
         }
-
 
         if ($data['questionType'] == 3) {
             $questionName =  $this->processVocabulary($post);
@@ -1504,9 +1531,8 @@ class Tutor extends CI_Controller
         $data['answer']              = ($answer == '') ? 'Answer': $answer;
         $data['questionMarks']       = ($questionMarks == '') ? 'no marking' : $questionMarks;
         $data['questionDescription'] = ($description == '') ? 'Nothing' : $description;
-        $data['questionImage']       = $uploadedQuestionImageFiles;
-        $data['questionaudio']       = implode(',',$uploadedAudioFiles);
-        $data['demoImage']           = $uploadedImageFiles;
+        $data['demoquestions']       = $q;
+        $data['questionImage']       = $questionImage;
 
         if ($_POST['questionType'] == 18) {
             $data['question_instruction'] = $post['question_instruct'];
@@ -2318,8 +2344,7 @@ class Tutor extends CI_Controller
         return $return_data;
     }
 
-    public function imageUpload()
-    {
+    public function imageUpload(){
         $files = $_FILES;
 
         $_FILES['file']['name'] = $files['file']['name'];
@@ -2384,6 +2409,7 @@ class Tutor extends CI_Controller
         }
 
         $files = $_FILES;
+
         //only q-study user can upload video
         if (isset($_FILES['videoFile']) && $_FILES['videoFile']['error'][0] != 4 && $uType==7 ) {
             $_FILES['videoFile']['name'] = $files['videoFile']['name'];
