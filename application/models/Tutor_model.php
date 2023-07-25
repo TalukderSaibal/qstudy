@@ -113,6 +113,7 @@ class Tutor_model extends CI_Model
         $this->db->from($table);
 
         $this->db->where($conditions);
+        $this->db->limit(10);
 
         $query = $this->db->get();
 

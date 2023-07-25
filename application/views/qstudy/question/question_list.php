@@ -28,7 +28,7 @@
                 <?php foreach ($all_question_type as $key) {?>
             <div class="row">
                 <div class="col-sm-3">
-                    <ul class="ss_q_left"> 
+                    <ul class="ss_q_left">
                         <li><a href="<?php echo base_url();?>create-question/<?=$key['id']?>"><?php echo $key['questionType'];?></a></li>
 <!--                        <li><a href="<?php echo base_url();?>create-question/2">True/False</a></li>
                         <li><a href="<?php echo base_url();?>create-question/3">Vocabulary</a></li>
@@ -39,7 +39,7 @@
                         <li><a href="#">Assignment</a></li>-->
                     </ul>
                 </div>
-                
+
                     <div class="col-sm-9">
                         <ul class="ss_question_menu">
                             <?php $i = 1;foreach ($all_question[$key['id']] as $row){?>
@@ -74,7 +74,7 @@
 
 
 <script>
-    
+
     function fn_show_upper(aval, acat, acount){
         var vspinnerval = $("#spinner_val_" + acat +"").html();
         var spinnerval = vspinnerval.substr(0, vspinnerval.indexOf('['));
@@ -135,7 +135,7 @@
             }
         }
     }
-    
+
     function lastTenquestion(acat, acount){
 	var vinterval = acount / 10;
 	vinterval = Math.ceil(vinterval) - 1;

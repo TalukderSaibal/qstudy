@@ -587,7 +587,6 @@ class Tutor extends CI_Controller
 
     public function question_list($id = "",$param_module_id = "",$module_edit_id = ""){
         if($id == 2){
-
             $this->session->set_userdata('module_status', $id);
 
             if($module_edit_id == ""){
@@ -623,24 +622,27 @@ class Tutor extends CI_Controller
         }
 
 
-        $data['video_help'] = $this->FaqModel->videoSerialize(22, 'video_helps');
+        $data['video_help']        = $this->FaqModel->videoSerialize(22, 'video_helps');
         $data['video_help_serial'] = 22;
 
-        $post = $this->input->post();
-        $post = array_filter($post);
-        $get = $this->input->get();
-        $countrySelected = 0;
+        $post                 = $this->input->post();
+        $post                 = array_filter($post);
+        $get                  = $this->input->get();
+        $countrySelected      = 0;
         $fromQuestionEditPage = 0;
 
         if (isset($post['list_submit']) && $post['list_submit'] == 1) {
             $_SESSION["list_submit"] = 1;
         }
+
         if (isset($_SESSION["list_submit"])) {
         } else {
             unset($_SESSION["modInfo"]);
         }
+
         //module info in flash data for all question area search param
         //if come from module edit page
+
         if (isset($get['type']) && ($get['type'] == 'edit')) {
             $data["edit_has"] = "yes";
             $mId = $get['mId'];
@@ -677,17 +679,17 @@ class Tutor extends CI_Controller
         }
 
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
-        $data['header'] = $this->load->view('dashboard_template/header', $data, true);
+        $data['header']     = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', '', true);
 
         $user_id = $this->session->userdata('user_id');
         // added shvou
         $data['tutor_permission_check'] = $this->db->where('id', $user_id)->get('tbl_useraccount')->row();
 
-        $data['user_info'] = $this->tutor_model->userInfo($user_id);
-        $data['all_module'] = $this->tutor_model->getInfo('tbl_module', 'user_id', $user_id);
-        $data['all_grade'] = $this->tutor_model->getAllInfo('tbl_studentgrade');
-        $data['all_module_type'] = $this->tutor_model->getAllInfo('tbl_moduletype');
+        $data['user_info']         = $this->tutor_model->userInfo($user_id);
+        $data['all_module']        = $this->tutor_model->getInfo('tbl_module', 'user_id', $user_id);
+        $data['all_grade']         = $this->tutor_model->getAllInfo('tbl_studentgrade');
+        $data['all_module_type']   = $this->tutor_model->getAllInfo('tbl_moduletype');
         $data['all_question_type'] = $this->tutor_model->getAllInfo('tbl_questiontype');
 
         foreach ($data['all_question_type'] as $questionType) {
@@ -695,20 +697,20 @@ class Tutor extends CI_Controller
         }
 
         if (count($post) || ($countrySelected) || $fromQuestionEditPage) {
-            //if get query string fetch question from query scoped module
-            $mId = isset($_GET['mId']) ? $_GET['mId'] : null;
+              //if get query string fetch question from query scoped module
+            $mId    = isset($_GET['mId']) ? $_GET['mId'] : null;
             $module = $this->Admin_model->search('tbl_module', ['id' => $mId]);
 
             $moduleName = count($module) ? $module[0]['moduleName'] : (isset($post['moduleName']) ? $post['moduleName'] : '');
-            //$country = count($module) ? $module[0]['country'] : (isset($post['country']) ? $post['country'] : (isset($get['country']) ? $get['country'] : ''));
+              //$country = count($module) ? $module[0]['country'] : (isset($post['country']) ? $post['country'] : (isset($get['country']) ? $get['country'] : ''));
             $country = count($module) ? $module[0]['country'] : (isset($country) ? $country : '');
-            $grade = isset($post['grade']) ? $post['grade'] : (isset($module[0]['studentGrade']) ? $module[0]['studentGrade'] : '');
+            $grade   = isset($post['grade']) ? $post['grade'] : (isset($module[0]['studentGrade']) ? $module[0]['studentGrade'] : '');
 
-            $moduleType =  count($module) ? $module[0]['moduleType'] : (isset($post['moduleType']) ? $post['moduleType'] : '');
-            $subject = isset($post['subject']) ? $post['subject'] : (isset($module[0]['subject']) ? $module[0]['subject'] : '');
-            $chapter = isset($post['chapter']) ? $post['chapter'] : (isset($module[0]['chapter']) ? $module[0]['chapter'] : '');
-            $course  = isset($post['course']) ? $post['course'] : (isset($module[0]['course_id']) ? $module[0]['course_id'] : '');
-            $user_id = $this->loggedUserId;
+            $moduleType = count($module) ? $module[0]['moduleType'] : (isset($post['moduleType']) ? $post['moduleType'] : '');
+            $subject    = isset($post['subject']) ? $post['subject'] : (isset($module[0]['subject']) ? $module[0]['subject'] : '');
+            $chapter    = isset($post['chapter']) ? $post['chapter'] : (isset($module[0]['chapter']) ? $module[0]['chapter'] : '');
+            $course     = isset($post['course']) ? $post['course'] : (isset($module[0]['course_id']) ? $module[0]['course_id'] : '');
+            $user_id    = $this->loggedUserId;
 
             if ($post) {
                 //save on session for filtering(ques search button click)
@@ -722,8 +724,10 @@ class Tutor extends CI_Controller
                     'course'       => $course,
                 ];
             }
+
             //if request param for module/country/module_type then fetch module question
             //else fetch question from question table
+
             if (isset($post['moduleName']) ||  isset($post['moduleType']) || isset($_GET['mId'])) {
                 $conditions = [
                     'moduleName'   => $moduleName,
@@ -735,14 +739,15 @@ class Tutor extends CI_Controller
                     'course_id'    => $course,
                     'user_id'      => $user_id,
                 ];
-                $conditions = array_filter($conditions);
-                $modules = $this->Admin_model->search('tbl_module', $conditions);
-                $moduleIds = count($modules) ? array_column($modules, 'id') : -1;
+
+                $conditions      = array_filter($conditions);
+                $modules         = $this->Admin_model->search('tbl_module', $conditions);
+                $moduleIds       = count($modules) ? array_column($modules, 'id') : -1;
                 $moduleQuestions = $this->Admin_model->whereIn('tbl_modulequestion', 'module_id', $moduleIds);
 
                 $questionIds = count($moduleQuestions) ? array_column($moduleQuestions, 'question_id') : -1;
-                $conditions = !empty($grade) ? ['studentgrade' => $grade] : [];
-                $questions = $this->Admin_model->whereIn('tbl_question', 'id', $questionIds, $conditions);
+                $conditions  = !empty($grade) ? ['studentgrade' => $grade] : [];
+                $questions   = $this->Admin_model->whereIn('tbl_question', 'id', $questionIds, $conditions);
 
                 foreach ($questions as $question) {
                     $question_list[$question['questionType']][] = $question;
@@ -755,19 +760,19 @@ class Tutor extends CI_Controller
             } else {
                 //if params come from question edit page
                 if (isset($_SESSION['modInfo'])) {
-                    $sSub = isset($_SESSION['modInfo']['subject']) ? $_SESSION['modInfo']['subject'] : '';
-                    $pSub = isset($post['subject']) ? $post['subject'] : '';
-                    $sChap = isset($_SESSION['modInfo']['selChapter']) ? $_SESSION['modInfo']['selChapter'] : '';
-                    $pChap = isset($post['chapter']) ? $post['chapter'] : '';
-                    $sGrade = isset($_SESSION['modInfo']['studentGrade']) ? $_SESSION['modInfo']['studentGrade'] : '';
-                    $pGrade = isset($post['grade']) ? $post['grade'] : '';
+                    $sSub     = isset($_SESSION['modInfo']['subject']) ? $_SESSION['modInfo']['subject'] : '';
+                    $pSub     = isset($post['subject']) ? $post['subject'] : '';
+                    $sChap    = isset($_SESSION['modInfo']['selChapter']) ? $_SESSION['modInfo']['selChapter'] : '';
+                    $pChap    = isset($post['chapter']) ? $post['chapter'] : '';
+                    $sGrade   = isset($_SESSION['modInfo']['studentGrade']) ? $_SESSION['modInfo']['studentGrade'] : '';
+                    $pGrade   = isset($post['grade']) ? $post['grade'] : '';
                     $sCountry = isset($_SESSION['modInfo']['country']) ? $_SESSION['modInfo']['country'] : '';
                     $pCountry = isset($post['country']) ? $post['country'] : '';
 
                     $subject      = isset($sSub) ? $sSub : (isset($pSub) ? $pSub : '');
                     $chapter      = isset($sChap) ? $sChap : (isset($pChap) ? $pChap : '');
                     $studentgrade = isset($sGrade) ? $sGrade : (isset($pGrade) ? $pGrade : '');
-                    $country      = $country; //isset($sCountry) ? $sCountry : (isset($pCountry) ? $pCountry : '');
+                    $country      = $country;                                                    //isset($sCountry) ? $sCountry : (isset($pCountry) ? $pCountry : '');
                 } else {
                     $subject      = isset($post['subject']) ? $post['subject'] : '';
                     $chapter      = isset($post['chapter']) ? $post['chapter'] : '';
