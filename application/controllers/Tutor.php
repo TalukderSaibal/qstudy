@@ -584,8 +584,8 @@ class Tutor extends CI_Controller
 
         $this->load->view('master_dashboard', $data);
     }
-    public function question_list($id = "",$param_module_id = "",$module_edit_id = "")
-    {
+
+    public function question_list($id = "",$param_module_id = "",$module_edit_id = ""){
         if($id == 2){
 
             $this->session->set_userdata('module_status', $id);
@@ -713,27 +713,27 @@ class Tutor extends CI_Controller
             if ($post) {
                 //save on session for filtering(ques search button click)
                 $_SESSION['modInfo'] =  [
-                    'moduleName' => $moduleName,
-                    'country' =>    $country,
+                    'moduleName'   => $moduleName,
+                    'country'      => $country,
                     'studentGrade' => $grade,
-                    'moduleType' => $moduleType,
-                    'subject'    => $subject,
-                    'chapter'    => $this->get_chapter_name($subject, $chapter),
-                    'course'    => $course,
+                    'moduleType'   => $moduleType,
+                    'subject'      => $subject,
+                    'chapter'      => $this->get_chapter_name($subject, $chapter),
+                    'course'       => $course,
                 ];
             }
             //if request param for module/country/module_type then fetch module question
             //else fetch question from question table
             if (isset($post['moduleName']) ||  isset($post['moduleType']) || isset($_GET['mId'])) {
                 $conditions = [
-                    'moduleName' => $moduleName,
-                    'country' =>    $country,
-                    'studentGrade' =>    $grade,
-                    'moduleType' => $moduleType,
-                    'subject'    => $subject,
-                    'chapter'    => $chapter,
+                    'moduleName'   => $moduleName,
+                    'country'      => $country,
+                    'studentGrade' => $grade,
+                    'moduleType'   => $moduleType,
+                    'subject'      => $subject,
+                    'chapter'      => $chapter,
                     'course_id'    => $course,
-                    'user_id' =>    $user_id,
+                    'user_id'      => $user_id,
                 ];
                 $conditions = array_filter($conditions);
                 $modules = $this->Admin_model->search('tbl_module', $conditions);

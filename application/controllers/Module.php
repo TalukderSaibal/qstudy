@@ -3470,13 +3470,16 @@ public function renderReorderModule($modules = [])
 
         // echo "<pre>";print_r($data['module_cre_info']);die();
 
-        $_SESSION['prevUrl'] = $_SERVER['HTTP_REFERER'];
-        if (strpos($_SESSION['prevUrl'], "edit-module") || strpos($_SESSION['prevUrl'], "add-module")) {
-            if (!empty($_GET['country'])) {
-                $_SESSION['prevUrl'] = base_url('/qstudy/view_course/?country=') . $_GET['country'];
-            } else {
-                $_SESSION['prevUrl'] = base_url('/qstudy/view_course/');
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $_SESSION['prevUrl'] = $_SERVER['HTTP_REFERER'];
+            if (strpos($_SESSION['prevUrl'], "edit-module") || strpos($_SESSION['prevUrl'], "add-module")) {
+                if (!empty($_GET['country'])) {
+                    $_SESSION['prevUrl'] = base_url('/qstudy/view_course/?country=') . $_GET['country'];
+                } else {
+                    $_SESSION['prevUrl'] = base_url('/qstudy/view_course/');
+                }
             }
+
         }
 
         $data['video_help']        = $this->FaqModel->videoSerialize(25, 'video_helps');  //rakesh
@@ -3515,10 +3518,6 @@ public function renderReorderModule($modules = [])
         // $data['module_types'] = $this->ModuleModel->getModuleType();
 
         $data['tbl_pre_module_temp'] = $this->ModuleModel->getTblPreModuleTempCourse();
-
-        echo '<pre>';
-        print_r($data);
-        die();
 
         $question_list = [];
 
@@ -3772,15 +3771,16 @@ public function renderReorderModule($modules = [])
         $date = $post['dateCreated'];
 
         $startTime = date('Y-m-d', strtotime($date)) . ' ' . $post['startTime'];
-        $endTime = date('Y-m-d', strtotime($date)) . ' ' . $post['endTime'];
+        $endTime   = date('Y-m-d', strtotime($date)) . ' ' . $post['endTime'];
 
-        $video_link = str_replace('</p>', '', $_POST['video_link']);
+        $video_link  = str_replace('</p>', '', $_POST['video_link']);
         $video_array = array_filter(explode('<p>', $video_link));
 
         $new_array = array();
         foreach ($video_array as $row) {
             $new_array[] = strip_tags($row);
         }
+
         // print_r(json_encode($video_array));die;
         // $video_link[] = $this->input->post('video_link');
 
@@ -3802,16 +3802,19 @@ public function renderReorderModule($modules = [])
         $module_check = $this->ModuleModel->get_module_serial($clean['moduleType'],$clean['studentGrade'],$clean['course_id']);
         //print_r($module_check);die();
         if(!empty($module_check)){
-           $serial_no = $module_check['max_serial']+1;
+            $serial_no = $module_check['max_serial']+1;
         }else{
             $serial_no = 1;
         }
+
         if(empty($post['startTime'])){
             $startTime='';
         }
+
         if(empty($post['endTime'])){
             $endTime='';
         }
+
         if(!empty($post['optTime'])){
             $optional_time = $optionalHour + $optionalMinute;
         }else{
@@ -3843,10 +3846,13 @@ public function renderReorderModule($modules = [])
             'exam_end'          => $endTime,
             'optionalTime'      => $optional_time,
             'show_student'      => isset($_POST['show_student']) ? $_POST['show_student'] : 0,
-            //'serial'      => isset($_POST['serial']) ? $_POST['serial'] : 0,
-            'serial'      => $serial_no,
+              //'serial'      => isset($_POST['serial']) ? $_POST['serial'] : 0,
+            'serial' => $serial_no,
         ];
 
+        // echo '<pre>';
+        // print_r($moduleTableData);
+        // die();
 
         // echo "<pre>"; print_r($moduleTableData); die();
 
