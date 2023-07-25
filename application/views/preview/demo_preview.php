@@ -73,7 +73,13 @@
 <?php
     $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
 ?>
+<?php
 
+// echo '<pre>';
+// print_r($demoquestions);
+// die();
+
+?>
 <?php
 
 // echo '<pre>';
