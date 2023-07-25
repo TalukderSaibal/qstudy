@@ -308,20 +308,20 @@ input:-moz-placeholder {
   font-style: normal;
 }
 
-@font-face { 
-  font-family: Tahoma; 
-  /*src: url('../fonts/Tahoma/TAHOMAB0.TTF');*/ 
-} 
-
-@font-face { 
-  font-family: Agency fb; 
-  src: url('../fonts/agency-fb_[allfont.net].ttf'); 
+@font-face {
+  font-family: Tahoma;
+  /*src: url('../fonts/Tahoma/TAHOMAB0.TTF');*/
 }
 
-@font-face { 
-  font-family: Agency FB Bold; 
-  src: url('../fonts/agency-fb-bold_[allfont.net].ttf'); 
-} 
+@font-face {
+  font-family: Agency fb;
+  src: url('../fonts/agency-fb_[allfont.net].ttf');
+}
+
+@font-face {
+  font-family: Agency FB Bold;
+  src: url('../fonts/agency-fb-bold_[allfont.net].ttf');
+}
 
 
 /*=====  End of 03. Base Style  ======*/
@@ -376,7 +376,7 @@ header .menu {
  float: right;
  margin-right: 24px;
  background: url(../images/menu_bg.png) repeat-x;
- border-radius: 5px; 
+ border-radius: 5px;
  box-shadow: 0px 2px 6px #191919;
  position: relative;
  top: -25px;
@@ -542,7 +542,7 @@ header .button-header .custom-btn:hover {
   -ms-flex-direction: column;
   flex-direction: column;
   -ms-flex-pack: justify;
-  
+
 }
 .mobile-menu .menu {
   padding:0 0;
@@ -759,10 +759,10 @@ footer {
 /*=====  End of 06. Footer  ======*/
 /*=========================================
 =            04. Elements Less            =
- 
- 
- 
- 
+
+
+
+
 
 
 /*=====  Default Style New  ======*/
@@ -774,7 +774,7 @@ footer {
     width:100%;
 }
 
-/*=====  Home Style New  ======*/ 
+/*=====  Home Style New  ======*/
 
 .top100{
   margin-top:100px;
@@ -805,7 +805,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 .dropdown-menu.country {
   width: 100%;
-} 
+}
 .dropdown-menu.country a {
   padding: 8px 16px;
 }
@@ -876,7 +876,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 .dropdown-menu.country {
   width: 100%;
-} 
+}
 .dropdown-menu.country a {
   padding: 8px 16px;
 }
@@ -1031,7 +1031,7 @@ ul.personal2 LI {
   padding: 10px 4px 3px 17px;
 }
 
-/*=====  Personal page Style New  ======*/ 
+/*=====  Personal page Style New  ======*/
 
 li.presonal {
   background-color: #0078ae;
@@ -1055,16 +1055,16 @@ li.presonal2 {
   padding: 30px 0;
   text-align: center;
 }
-.personal_ul{ 
-  /*padding-top: 50px;*/ 
+.personal_ul{
+  /*padding-top: 50px;*/
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center; 
+  text-align: center;
 }
 
-li.presonal2 a{  
-  color: #000; 
+li.presonal2 a{
+  color: #000;
 }
 ul.personal_ul li:first-child {
   margin-right: 2%;
@@ -1117,7 +1117,7 @@ ul.country {
   border-radius: 6px;
 }
 .button_schedule2 li a{ color: #fff; }
-/*=====  class schedule2 Style New  ======*/ 
+/*=====  class schedule2 Style New  ======*/
 
 .c_shcedule th {
   background-image: -moz-linear-gradient( 90deg, rgb(249,142,84) 0%, rgb(234,86,9) 50%, rgb(243,127,65) 51%, rgb(252,194,162) 100%);
@@ -1140,7 +1140,7 @@ table.table.table-bordered.c_shcedule th{
 .button_schedule{
   margin-bottom:40px;
 }
-/*=====  class schedule Style New  ======*/ 
+/*=====  class schedule Style New  ======*/
 ul.personal_ul.schedule li {
   background-color: #d63832;
   color: #fff;
@@ -1150,7 +1150,7 @@ ul.personal_ul.schedule li:first-child {
   color: #fff;
 }
 
-/*=====  Home Style New  ======*/ 
+/*=====  Home Style New  ======*/
 .left_menu1 ul li {
  background: #d8e4f4;
  padding: 6px 8px;
@@ -1195,32 +1195,32 @@ header .container-fluid{ width: 100%; }
 .top_signup li span{ min-width: 40px; text-align: center; line-height: 20px; display: inline-block; margin-left: 5px; background: #007ac9; color: #fff; font-size: 16px; font-weight: bold; }
 .ss_sign_up_content{ padding-top: 10px; }
 
-.sign_up_menu h3{ 
-  color: #1f3366; 
-  text-decoration: underline; 
-  font-weight: bold;  
-  font-size: 19px; 
-  padding: 20px 0px 0px 0px; 
-  text-align: center;  
+.sign_up_menu h3{
+  color: #1f3366;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 19px;
+  padding: 20px 0px 0px 0px;
+  text-align: center;
 }
 
-.sign_up_menu li { 
+.sign_up_menu li {
   width: 13%;
   margin: 10px 1%;
   background: #1f3366;
   padding: 10px;
   text-align: left;
-  display: inline-flex;  
+  display: inline-flex;
 }
 
-.sign_up_menu li a{ 
+.sign_up_menu li a{
   min-height: 60px;
   color: #fff;
   text-decoration: none;
   line-height: 20px;
 }
 
-.sign_up_menu ul{ 
+.sign_up_menu ul{
   overflow: hidden;
   padding-bottom: 50px;
   display: inline !important;
@@ -1232,28 +1232,28 @@ header .container-fluid{ width: 100%; }
 .sign_up_menu li a:hover{ text-decoration: underline; }
 .sign_up_menu_plan{ overflow: hidden; }
 
-.sign_up_menu_plan li{ 
-  display: inline-block; 
-  text-align: center; 
-  width: 30%; 
+.sign_up_menu_plan li{
+  display: inline-block;
+  text-align: center;
+  width: 30%;
   margin: 12% 1% 6%;
 }
 
-.sign_up_menu_plan li a{ 
-  font-weight: bold; 
+.sign_up_menu_plan li a{
+  font-weight: bold;
   font-size: 19px;
   color: #064f90;
 }
-.sign_up_menu_plan li:first-child a{ 
-  text-decoration: underline; 
-  font-weight: bold; 
+.sign_up_menu_plan li:first-child a{
+  text-decoration: underline;
+  font-weight: bold;
   font-size: 19px;
   color: #064f90;
 }
 
-.sign_up_menu_plan li img{ 
-  display: block; 
-  margin: auto; 
+.sign_up_menu_plan li img{
+  display: block;
+  margin: auto;
   max-width: 100%;
   margin-top: 3px;
 }
@@ -1265,48 +1265,48 @@ header .container-fluid{ width: 100%; }
   margin-right: 58px;
 }
 
-.btn_next{  
-  font-family: "HelveticaNeue"; 
-  color: #2198c5; 
-  display: inline-block; 
-  padding: 0; 
-  line-height: 20px;  
-  padding: 4px 15px 4px 15px; 
-  text-align: center; 
-  font-size: 16px; 
-  font-weight: bold; 
-  text-decoration: none; 
-  background: url(../images/next_bg.png) bottom repeat-x #fff; 
-  border-radius: 5px; 
-  border:1px solid #e2e1e6;  
+.btn_next{
+  font-family: "HelveticaNeue";
+  color: #2198c5;
+  display: inline-block;
+  padding: 0;
+  line-height: 20px;
+  padding: 4px 15px 4px 15px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  background: url(../images/next_bg.png) bottom repeat-x #fff;
+  border-radius: 5px;
+  border:1px solid #e2e1e6;
 }
 
 .btn_next img{ padding-right: 6px; }
 .ss_form{ min-height: 150px; margin: 40px 0px; }
 
-.warnin_text{ 
-  color: #b0423b; 
-  font-size: 12px; 
-  text-align: center; 
-  font-weight: bold; 
+.warnin_text{
+  color: #b0423b;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
   padding: 30px 10px 10px;
 }
 
 .ss_top_s_course{ overflow: hidden; margin-bottom: 20px; }
-/*.ss_top_s_course li{ 
-    width: 30.3%; 
-    float: left; 
-    min-height: 150px; 
-    margin: 10px 2%; 
+/*.ss_top_s_course li{
+    width: 30.3%;
+    float: left;
+    min-height: 150px;
+    margin: 10px 2%;
     background: #007ac9;
-    padding: 10px; 
+    padding: 10px;
     }*/
 
     ss_top_s_course ul{
       display: inline;
     }
 
-    .ss_top_s_course li{ 
+    .ss_top_s_course li{
       width: 23%;
       min-height: 90px;
       margin: 10px 1.3%;
@@ -1323,16 +1323,16 @@ header .container-fluid{ width: 100%; }
     .accordion_body2 .country-select{ display: block; }
     .filled-in{ position: relative;     min-height: 25px;}
 
-    .ss_top_s_course input[type=checkbox] {   
-      cursor: pointer;   font-size: 16px;  
+    .ss_top_s_course input[type=checkbox] {
+      cursor: pointer;   font-size: 16px;
       /*visibility: hidden;*/
-      position: absolute;  bottom: 5px;  left: 0;   
+      position: absolute;  bottom: 5px;  left: 0;
       transform: scale(1);
     }
 
-    .filled-in input[type=checkbox]{ 
-      right: 5px; 
-      left: auto; 
+    .filled-in input[type=checkbox]{
+      right: 5px;
+      left: auto;
     }
 
     .ss_top_s_course input[type=checkbox]:after {
@@ -1356,14 +1356,14 @@ header .container-fluid{ width: 100%; }
     .ss_bottom_s_course{ overflow: hidden; }
 
 
-    .ss_bottom_s_course > div{ 
-      text-align: center; 
-      display: inline-block; 
-      vertical-align: middle; 
-      margin: 0px 0.5%; 
-      min-height: 57px; 
-      padding: 10px; 
-      border: 1px solid #9e988c; 
+    .ss_bottom_s_course > div{
+      text-align: center;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0px 0.5%;
+      min-height: 57px;
+      padding: 10px;
+      border: 1px solid #9e988c;
       min-width: 105px;
       line-height: 57px;
     }
@@ -1374,23 +1374,23 @@ header .container-fluid{ width: 100%; }
     .ss_bottom_s_course > div:last-child{ margin-left: 0; }
     .ss_bottom_s_course .select.active, .ss_bottom_s_course .select:hover{ background: #c6c2c1;  }
 
-    .ss_bottom_s_course .total{ 
-      background: #ffb98b; 
-      font-size: 18px;   
+    .ss_bottom_s_course .total{
+      background: #ffb98b;
+      font-size: 18px;
       min-height: 28px;
       line-height: 28px;
     }
 
     .ss_number{ max-width: 60px; }
 
-    .g_heading{ 
-      line-height: 24px; 
+    .g_heading{
+      line-height: 24px;
       margin-bottom: 20px;
       /*font-family: Tahoma;*/
-      font-size: 17px; 
-      /*font-weight: bold;*/ 
-      color: #000; 
-      /*color: #22b14c;*/ 
+      font-size: 17px;
+      /*font-weight: bold;*/
+      color: #000;
+      /*color: #22b14c;*/
     }
 
     .ss_reg_form{ margin-top: 40px; }
@@ -1422,13 +1422,13 @@ header .container-fluid{ width: 100%; }
     .ss_compleate h4{ color: #000; font-size: 18px; font-weight: bold; }
     .accordion_body2 .select-styled, .accordion_body2 .select-options { display: none;}
     .sign_my_acount{ margin-top: 50px; }
-    
-    #login_form .modal-dialog,  .ss_modal .modal-dialog{ 
+
+    #login_form .modal-dialog,  .ss_modal .modal-dialog{
         /*margin-top: 20%; */
         margin-top: 16%;
-        max-width: 265px; 
+        max-width: 265px;
     }
-    
+
     #login_form .modal-content,.ss_modal .modal-content{ border: 1px solid #a6c9e2; padding: 5px;}
     #login_form .modal-header, .ss_modal .modal-header{ background: url(../images/login_bg.png) repeat-x; color: #fff; padding: 0; border-radius: 5px; }
     #login_form .modal-header h4, .ss_modal .modal-header h4{     font-size: 15px;  line-height: 27px;   padding-left: 15px;  font-weight: bold; }
@@ -1442,9 +1442,9 @@ header .container-fluid{ width: 100%; }
       .s_personal_ul_course ul.personal_ul.schedule li, .ss_teachers_ul_course ul.personal_ul.schedule li{ margin-right: 2%; }
       .s_personal_ul_course ul.personal_ul.schedule li:first-child{ background-color: #d63832; }
 
-      .ss_nenu_right_side{ 
-        /*padding-top: 40px;*/ 
-        text-align: center; 
+      .ss_nenu_right_side{
+        /*padding-top: 40px;*/
+        text-align: center;
       }
 
       .ss_nenu_right_side li{ text-align: center; list-style-type: none; display: inline-block; padding: 10px; }
@@ -1467,10 +1467,10 @@ header .container-fluid{ width: 100%; }
       .ss_qstudy_list_mid .nav-tabs>li{ margin: 0; }
       .ss_qstudy_list_mid .nav-tabs a:hover, .ss_qstudy_list_mid .nav-tabs a:focus{ background-color: transparent;  border-color:#1f3367;  margin: 0; }
 
-      .ss_qstudy_list_mid_right{ 
-        text-align: right; 
-        overflow: hidden; 
-        /*padding-top: 20px;*/ 
+      .ss_qstudy_list_mid_right{
+        text-align: right;
+        overflow: hidden;
+        /*padding-top: 20px;*/
       }
 
       .ss_qstudy_list_mid_right a{ display: inline-block; padding: 10px; color: #fff; text-decoration: underline;  }
@@ -1482,16 +1482,16 @@ header .container-fluid{ width: 100%; }
       .ss_qstudy_list_bottom .table tr{ font-size:13px;  }
       .ss_qstudy_list_bottom .table-responsive{ max-height: 300px; overflow-x: auto; }
 
-      .ss_student_board{ 
-        background: #0079bc; 
+      .ss_student_board{
+        background: #0079bc;
         padding: 15px 0px;
       }
 
       .ss_student_board .ss_s_b_top{ width: 90%; margin: auto; overflow: hidden; padding-bottom: 10px; }
-      
-      .ss_student_board .container-fluid{ 
-       background: #FFF; 
-       padding: 15PX; 
+
+      .ss_student_board .container-fluid{
+       background: #FFF;
+       padding: 15PX;
        box-shadow: 0px 0px 15px #333;
        width: 98%;
      }
@@ -1500,11 +1500,11 @@ header .container-fluid{ width: 100%; }
       float: left;
     }
 
-    .ss_index_menu a{ 
-      color: #fff; 
-      /*font-weight: bold;*/ 
-      font-size: 20px; 
-      text-decoration: underline;  
+    .ss_index_menu a{
+      color: #fff;
+      /*font-weight: bold;*/
+      font-size: 20px;
+      text-decoration: underline;
     }
 
     .ss_next_pre_top_menu{
@@ -1519,10 +1519,10 @@ header .container-fluid{ width: 100%; }
     .ss_s_b_main .panel-title a{ text-align: center; color: #211b3d; font-size: 20px; font-weight: 800; }
     .ss_s_b_main .panel-title a span{  float: left;  display: inline-block; font-size: 16px; font-weight:normal; }
 
-/*.math_plus p{ 
-    font-size: 40px; 
-    display: block; 
-    line-height: 40px; 
+/*.math_plus p{
+    font-size: 40px;
+    display: block;
+    line-height: 40px;
     }*/
     #marksValue div > input{ margin: 5px 0px;}
     #marksValue .sh_input{ margin-top: 20px;}
@@ -1552,11 +1552,11 @@ header .container-fluid{ width: 100%; }
     .ss_alltask_list .panel-body li{  line-height: 20px; padding: 5px 0px; border-bottom: 1px solid #d6e4f6; margin-bottom: 0;  }
     .ss_alltask_list .panel-body li::before{padding-left: 8px;  font-family: FontAwesome; content: "\f0da"; display: inline-block; float: left; margin-right: 10px; }
     .ss_alltask_list .panel-body li a{ color: #7782aa;  }
-    
-    .ss_student_progress{ 
-        /*padding-top: 50px;*/  
+
+    .ss_student_progress{
+        /*padding-top: 50px;*/
     }
-    
+
     .search_filter{ overflow: hidden; margin-bottom: 20px; text-align: center; }
     .ss_student_progress h3{ text-align: center; }
     .search_filter select{ border-color: #7e9aa6; }
@@ -1609,13 +1609,13 @@ header .container-fluid{ width: 100%; }
     .t_f_button{ padding: 30px 0px; }
     .btn_yellow{ background: url(../images/y_bg.png) repeat-x bottom #e8d495; border-color: #c4ab59; color: #064044; }
     .btn_yellow.btn-lg{ font-weight: bold; }
-    
-    .t_f_button label span{ 
-        display: inline-block; 
-        float: left; 
-        margin-right: 40px; 
+
+    .t_f_button label span{
+        display: inline-block;
+        float: left;
+        margin-right: 40px;
     }
-    
+
     .t_f_button label input{ top: 11px; }
     .t_f_button label{ margin-bottom: 20px; }
     .ss_image_add_form label{ font-size: 13px; }
@@ -1623,13 +1623,13 @@ header .container-fluid{ width: 100%; }
     .ss_h_mi select, .ss_h_mi .select{ display: inline-block ; width: auto; }
     .image_box_list{ overflow: hidden; }
     .image_box_list .row{ margin-bottom: 15px; }
-    
-    .image_box_list .box { 
-        /*background: #eeeeee;*/ 
+
+    .image_box_list .box {
+        /*background: #eeeeee;*/
         padding: 10px;
         /*border:1px solid #565656;*/
     }
-    
+
     .ss_lette{ display: block; text-align: center; min-height: 100px; line-height: 100px; font-size: 30px; text-transform: uppercase; }
     .image_box_list .box textarea{ min-height: 80px; }
     .image_box_list .row > div:first-child{ padding-right: 0; }
@@ -1642,14 +1642,14 @@ header .container-fluid{ width: 100%; }
     .image_q_list > .row .col-xs-4{ text-align: right; padding-right: 10px; }
     .q_headin{ font-size: 24px; color: #222; }
     .q_headin span{ color: #bb2323; }
-    .result_board{ background: #fff; padding: 10px; }
+    .result_board{ background: #fff; padding: 10px;}
     .image_box_list .letter_box{ margin-top: 10px; }
 
-    .ss_m_qu .row > div:last-child{ padding-left: 0; } 
+    .ss_m_qu .row > div:last-child{ padding-left: 0; }
 
-    .ss_w_box{ 
-      background: #fff; 
-      /*padding: 10px; 
+    .ss_w_box{
+      background: #fff;
+      /*padding: 10px;
       height: 80px;*/
     }
 
@@ -1789,11 +1789,11 @@ header .container-fluid{ width: 100%; }
         .sign_up_menu_plan .text-right{
             margin-right: 0px;
         }
-        
+
         .sign_up_menu li{
             width: 29%;
         }
-        
+
         .ss_top_s_course li {
             width: 100%;
             min-height: 90px;
@@ -1802,19 +1802,19 @@ header .container-fluid{ width: 100%; }
             padding: 10px;
             display: inline-block;
         }
-        
+
         .top_signup li {
             padding: 0px;
         }
-        
-        .ss_bottom_s_course > div{ 
-            text-align: center; 
-            display: inline-block; 
-            vertical-align: middle; 
-            margin: 5px 0.5%; 
-            min-height: 57px; 
-            padding: 10px; 
-            border: 1px solid #9e988c; 
+
+        .ss_bottom_s_course > div{
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 5px 0.5%;
+            min-height: 57px;
+            padding: 10px;
+            border: 1px solid #9e988c;
             min-width: 157px;
             line-height: 57px;
         }
@@ -1827,30 +1827,30 @@ header .container-fluid{ width: 100%; }
             width: 29%;
             margin: 12% 1% 6%;
         }
-        
-        .sign_up_menu_plan li:first-child a{ 
-            text-decoration: underline; 
-            font-weight: bold; 
+
+        .sign_up_menu_plan li:first-child a{
+            text-decoration: underline;
+            font-weight: bold;
             font-size: 15px;
             color: #064f90;
         }
-        
+
         .sign_up_menu_plan li a {
             text-decoration: none;
             font-weight: bold;
             font-size: 15px;
             color: #064f90;
         }
-        
+
         .sign_up_menu_plan .text-right{
             margin-right: 0px;
         }
-        
+
         .sign_up_menu li{
             width: 100%;
             display: inline-block;
         }
-        
+
         .sign_up_menu li a {
             min-height: 0px;
             color: #fff;
@@ -1859,11 +1859,11 @@ header .container-fluid{ width: 100%; }
             line-height: 0;
             font-size: 14px;
         }
-        
+
         .top_signup li {
             padding: 0px;
         }
-        
+
         .ss_top_s_course li {
             width: 100%;
             min-height: 90px;
@@ -1872,23 +1872,23 @@ header .container-fluid{ width: 100%; }
             padding: 10px;
             display: inline-block;
         }
-        
-        .ss_bottom_s_course > div { 
-            text-align: center; 
-            display: inline-block; 
-            vertical-align: middle; 
-            margin: 5px 0.5%; 
-            min-height: 57px; 
-            padding: 10px; 
-            border: 1px solid #9e988c; 
+
+        .ss_bottom_s_course > div {
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 5px 0.5%;
+            min-height: 57px;
+            padding: 10px;
+            border: 1px solid #9e988c;
             min-width: 157px;
             line-height: 57px;
         }
-        
+
         .ss_index_menu a {
             font-size: 16px;
         }
-        
+
         .btn_next {
             padding: 4px 5px 4px 5px;
             font-size: 11px;
@@ -1921,14 +1921,14 @@ header .container-fluid{ width: 100%; }
   .ss_tutor_p_list a{ color: #0747A6; }
   .btn-profile{ color: #000; background: #fddfc7; border-color: #ccbb9f; }
   .dictionary_serch { background: #40a4a6; padding: 10px 30px; color: #fff; }
-  
-.dictionary_serch a{ 
-    line-height: 30px; 
-    text-decoration: underline; 
-    color: #fff; 
+
+.dictionary_serch a{
+    line-height: 30px;
+    text-decoration: underline;
+    color: #fff;
     cursor: pointer;
 }
-  
+
 
   .topnav .search-container {
    position: relative;
@@ -1947,7 +1947,7 @@ header .container-fluid{ width: 100%; }
 .topnav .search-container button {
   position: absolute;
   top: 6px;
-  right: 6px; 
+  right: 6px;
   background: transparent;
   font-size: 17px;
   border: none;
@@ -1972,7 +1972,7 @@ header .container-fluid{ width: 100%; }
     padding: 14px;
   }
   .topnav input[type=text] {
-    border: 1px solid #ccc;  
+    border: 1px solid #ccc;
   }
 }
 
@@ -2280,7 +2280,7 @@ padding-right: 12px;
 .copyright{
   text-align: center;
   padding: 17px 0px;
- 
+
 }
 .copyright .text-right{
   text-align: center !important;
@@ -2296,7 +2296,7 @@ padding-right: 12px;
   left: -185px;
 }
 .top_menu .ss_new_menu li{
-  min-width: 130px; 
+  min-width: 130px;
 }
 .new_home .container-fluid{
   position: relative;
@@ -2664,7 +2664,7 @@ padding-right: 12px;
 
 @media screen and (max-width: 767px) {
 .ss_r_compleate .row .col-xs-2{
-   padding:20px 0; 
+   padding:20px 0;
 }
 .registrationComplete{
   margin: 0 !important;
@@ -2906,7 +2906,7 @@ button#pictureBtn {
     min-width: 150px!important;
     border: 1px solid #828282;
     margin: 0 7px;
-} 
+}
 
 .storyWriteBody .storyWritePartsImage {
     display: flex;

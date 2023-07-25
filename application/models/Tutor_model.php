@@ -213,6 +213,8 @@ class Tutor_model extends CI_Model
 
     public function getModuleQuestion($id, $question_order_id, $status)//id=>module_id
     {
+        return $question_order_id;
+        die();
         $this->db->select('*');
         $this->db->from('tbl_modulequestion');
         $this->db->join('tbl_module', 'tbl_modulequestion.module_id = tbl_module.id', 'LEFT');
@@ -329,22 +331,18 @@ class Tutor_model extends CI_Model
         return $res;
     }
 
-    public function last_id()
-    {
+    public function last_id(){
+        $this->db->select('id');
+        $this->db->from('tbl_question');
+        $this->db->order_by("id", "desc");
+        $this->db->where('questionType', 14);
+        $this->db->limit(1);
 
-      $this->db->select('id');
-      $this->db->from('tbl_question');
-      $this->db->order_by("id", "desc");
-      $this->db->where('questionType', 14);
-      $this->db->limit(1);
-
-      $query = $this->db->get();
-
-      return $query->result_array();
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
-    public function tutor_edit($type, $question_id)
-    {
+    public function tutor_edit($type, $question_id){
 
     $this->db->select('for_tutorial_tbl_question.*');
     $this->db->from('for_tutorial_tbl_question');
@@ -352,36 +350,33 @@ class Tutor_model extends CI_Model
     $this->db->where('tbl_question.questionType', $type);
     $this->db->where('tbl_question.id', $question_id);
 
-      $query = $this->db->get();
+    $query = $this->db->get();
 
-      return $query->result_array();
+    return $query->result_array();
     }
 
-    public function tutor_update($id)
-    {
-      $this->db->select('id');
-      $this->db->from('tbl_question');
-      $this->db->where('id', $id);
+    public function tutor_update($id){
+        $this->db->select('id');
+        $this->db->from('tbl_question');
+        $this->db->where('id', $id);
 
 
-      $query = $this->db->get();
+        $query = $this->db->get();
 
-      return $query->result_array();
+        return $query->result_array();
     }
 
-    public function chk_value($questionType, $user_id)
-    {
-      $this->db->select('id, questionType');
-      $this->db->from('tbl_question');
-      $this->db->where('questionType', $questionType);
-      $this->db->where('user_id', $user_id);
-      $query = $this->db->get();
+    public function chk_value($questionType, $user_id){
+        $this->db->select('id, questionType');
+        $this->db->from('tbl_question');
+        $this->db->where('questionType', $questionType);
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get();
 
-      return $query->result_array();
+        return $query->result_array();
     }
 
-    public function last_data($id)
-    {
+    public function last_data($id){
         $this->db->select("*");
         $this->db->from("tbl_question");
         $this->db->limit(1);
@@ -391,8 +386,8 @@ class Tutor_model extends CI_Model
 
         return $query->result_array();
     }
-    public function get_country($user_id)
-    {
+
+    public function get_country($user_id){
         $this->db->select('country_id');
         $this->db->from('tbl_useraccount');
         $this->db->where('id',$user_id);
@@ -400,8 +395,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
     }
 
-	public function getQuestionStore()
-    {
+	public function getQuestionStore(){
         $this->db->select('tbl_questions_store.*,tbl_chapter.chapterName');
         $this->db->from('tbl_questions_store');
 
@@ -412,42 +406,40 @@ class Tutor_model extends CI_Model
 
         return $query->result_array();
     }
-	public function get_store_data($chapter_id)
-    {
+
+	public function get_store_data($chapter_id){
         $this->db->select('*');
         $this->db->from('tbl_questions_store');
         $this->db->where('chapter',$chapter_id);
-       $query =  $this->db->get();
-       return $query->result_array();
+        $query =  $this->db->get();
+        return $query->result_array();
     }
-	public function deleteStoreChapter($id)
-    {
-       $stores  = $this->get_store_data($id);
-       if(count($stores) > 0)
-       {
-        foreach($stores as $store)
-           {
-                $tutor_path     = FCPATH.$store['tutor_file'];
-                $student_path   = FCPATH.$store['student_file'];
-                if (file_exists($tutor_path)){
-                    unlink($tutor_path);
-                }
-                if (file_exists($student_path)){
-                    unlink($student_path);
-                }
-           }
-       }
-        //delete all question store with this chapter
-        $this->db
-            ->where('chapter', $id)
-            ->delete('tbl_questions_store');
-        //delete chapter
-        $this->db
-            ->where('id', $id)
-            ->delete('tbl_question_store_chapter');
+
+	public function deleteStoreChapter($id){
+    $stores  = $this->get_store_data($id);
+    if(count($stores) > 0){
+        foreach($stores as $store){
+            $tutor_path     = FCPATH.$store['tutor_file'];
+            $student_path   = FCPATH.$store['student_file'];
+            if (file_exists($tutor_path)){
+                unlink($tutor_path);
+            }
+            if (file_exists($student_path)){
+                unlink($student_path);
+            }
+        }
     }
-    public function deleteStoreSubject($id)
-    {
+    //delete all question store with this chapter
+    $this->db
+        ->where('chapter', $id)
+        ->delete('tbl_questions_store');
+    //delete chapter
+    $this->db
+        ->where('id', $id)
+        ->delete('tbl_question_store_chapter');
+    }
+
+    public function deleteStoreSubject($id){
         //get all chapters associated
         $chapters = $this->chaptersOfSubject($id);
 
@@ -461,19 +453,16 @@ class Tutor_model extends CI_Model
             ->where('id', $id)
             ->delete('tbl_question_store_subject');
     }
-    public function chaptersOfSubject($subjectId)
-    {
 
+    public function chaptersOfSubject($subjectId){
         $this->db->where('subject_id', $subjectId);
         $res = $this->db
             ->get('tbl_question_store_chapter')
             ->result_array();
-
         return $res;
     }
 
-    public function getInfo_Alstudent($table, $colName, $colValue)
-    {
+    public function getInfo_Alstudent($table, $colName, $colValue){
         $this->db->select('st_id');
         $this->db->from($table);
         $this->db->where($colName, $colValue);
@@ -482,8 +471,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
     }
 
-    public function getInfo_Alstudent_two($table, $colName, $data)
-    {
+    public function getInfo_Alstudent_two($table, $colName, $data){
         $this->db->select('id , user_email');
         $this->db->from($table);
         $this->db->where_in('id', $data);
@@ -494,8 +482,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
     }
 
-    public function getClassRooms()
-    {
+    public function getClassRooms(){
         $this->db->select('*');
         $this->db->from('tbl_available_rooms');
         $this->db->where('in_use', 0);
@@ -505,8 +492,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
     }
 
-    public function getClassRoomsCk($tutor_id)
-    {
+    public function getClassRoomsCk($tutor_id){
         $this->db->select('*');
         $this->db->from('tbl_classrooms');
         $this->db->where('tutor_id', $tutor_id);
@@ -516,8 +502,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
     }
 
-    public function getInfo_subject($tbl_subject , $created_by , $user_id)
-    {
+    public function getInfo_subject($tbl_subject , $created_by , $user_id){
         $this->db->select('*');
         $this->db->from($tbl_subject);
         $this->db->where('created_by', $user_id);
@@ -526,8 +511,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
     }
 
-    public function ck_schl_corporate_exist($value)
-    {
+    public function ck_schl_corporate_exist($value){
         $this->db->select('*');
         $this->db->from('tbl_useraccount');
         $this->db->where_in('user_type', [4,5] );
@@ -538,22 +522,21 @@ class Tutor_model extends CI_Model
         return $query->result_array();
     }
 
-    public function ideainsertId($table, $data)
-    {
+    public function ideainsertId($table, $data){
         $this->db->insert($table, $data);
 
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
-    public function idea_des_Id($table, $data)
-    {
+
+    public function idea_des_Id($table, $data){
         $this->db->insert($table, $data);
 
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
-    public function getMyStudents($user_id)
-    {
+
+    public function getMyStudents($user_id){
         $this->db->select('tbl_useraccount.student_grade as student_grade,idea_student_ans.student_ans as student_ans');
         $this->db->from('assigned_student');
         $this->db->join('tbl_useraccount', 'assigned_student.student_id = tbl_useraccount.id', 'LEFT');
@@ -564,8 +547,8 @@ class Tutor_model extends CI_Model
         $query = $this->db->get();
         //echo $this->db->last_query();die();
         return $query->result_array();
-
     }
+
     public function grade_by_students($grade,$user_id){
         $this->db->select('*');
         $this->db->from('assigned_student');
@@ -580,6 +563,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
 
     }
+
     public function get_all_ideas($student_id){
         // $this->db->select('*');
         // $this->db->from('idea_student_ans');
@@ -597,6 +581,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
 
     }
+
     public function get_student_ans($idea_id,$student_id,$question_id){
         $this->db->select('*, question_ideas.id as idea_id');
         $this->db->from('question_ideas');
@@ -608,6 +593,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
 
     }
+
     public function get_student_info($student_id){
         $this->db->select('*');
         $this->db->from('tbl_useraccount');
@@ -617,6 +603,7 @@ class Tutor_model extends CI_Model
         return $query->result_array();
 
     }
+
     public function getTutorIdeaCheckId($table,$data){
 
         $this->db->select('*');
@@ -639,9 +626,8 @@ class Tutor_model extends CI_Model
             $this->db->update($table, $data);
             return $check->id;
         }
-
-
     }
+
     public function get_this_idea($checkout_id){
         $this->db->select('*');
         $this->db->from('idea_check_workout');
@@ -650,17 +636,18 @@ class Tutor_model extends CI_Model
         $query = $this->db->get();
         $result = $query->row();
 
-       // echo $result->idea_id;
-       $this->db->select('*');
-       $this->db->from('idea_student_ans');
-       $this->db->join('idea_info', 'idea_student_ans.idea_id = idea_info.id', 'LEFT');
-       $this->db->where('idea_student_ans.idea_id', $result->idea_id);
-       $this->db->where('idea_student_ans.student_id', $result->student_id);
+        // echo $result->idea_id;
+        $this->db->select('*');
+        $this->db->from('idea_student_ans');
+        $this->db->join('idea_info', 'idea_student_ans.idea_id = idea_info.id', 'LEFT');
+        $this->db->where('idea_student_ans.idea_id', $result->idea_id);
+        $this->db->where('idea_student_ans.student_id', $result->student_id);
 
-       $query2 = $this->db->get();
-       return $query2->result_array();
-
+        $query2 = $this->db->get();
+        return $query2->result_array();
     }
+
+
     public function get_ideas($checkout_id){
         $this->db->select('*');
         $this->db->from('idea_check_workout');
@@ -669,16 +656,16 @@ class Tutor_model extends CI_Model
         $query = $this->db->get();
         $result = $query->row();
 
-       // echo $result->idea_id;
-       $this->db->select('*');
-       $this->db->from('idea_student_ans');
-       $this->db->join('idea_info', 'idea_student_ans.idea_id = idea_info.id', 'LEFT');
-       $this->db->where('idea_student_ans.idea_id', $result->idea_id);
+        // echo $result->idea_id;
+        $this->db->select('*');
+        $this->db->from('idea_student_ans');
+        $this->db->join('idea_info', 'idea_student_ans.idea_id = idea_info.id', 'LEFT');
+        $this->db->where('idea_student_ans.idea_id', $result->idea_id);
 
-       $query2 = $this->db->get();
-       return $query2->result_array();
-
+        $query2 = $this->db->get();
+        return $query2->result_array();
     }
+
     public function get_teacher_workout($checkout_id){
         $this->db->select('*');
         $this->db->from('idea_check_workout');
@@ -688,19 +675,19 @@ class Tutor_model extends CI_Model
         return $query->result_array();
 
     }
+
     public function idea_get($student_id,$idea_id){
-       $this->db->select('*');
-       $this->db->from('idea_student_ans');
-       $this->db->join('idea_info', 'idea_student_ans.idea_id = idea_info.id', 'LEFT');
-       $this->db->where('idea_student_ans.idea_id', $idea_id);
-       $this->db->where('idea_student_ans.student_id', $student_id);
+        $this->db->select('*');
+        $this->db->from('idea_student_ans');
+        $this->db->join('idea_info', 'idea_student_ans.idea_id = idea_info.id', 'LEFT');
+        $this->db->where('idea_student_ans.idea_id', $idea_id);
+        $this->db->where('idea_student_ans.student_id', $student_id);
 
-       $query = $this->db->get();
-       return $result = $query->row();
-
+        $query = $this->db->get();
+        return $result = $query->row();
     }
-    public function idea_correction_report_save($table,$data){
 
+    public function idea_correction_report_save($table,$data){
         $this->db->select('*');
         $this->db->from($table);
         $this->db->where('student_id',  $data['student_id']);
@@ -743,19 +730,15 @@ class Tutor_model extends CI_Model
             $this->db->update("idea_student_ans", $data2);
             return $check->id;
         }
-
-
     }
-    public function tutor_idea_save($table, $data)
-    {
-        $this->db->insert($table, $data);
 
+    public function tutor_idea_save($table, $data){
+        $this->db->insert($table, $data);
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
 
     public function getIdeaInfoByQuestion($question_id){
-
         $this->db->select('*, idea_info.question_id as question_id, tbl_question.created_at as created_at, question_ideas.approval as idea_approval');
         $this->db->from('tbl_question');
         $this->db->join('idea_info', 'tbl_question.id = idea_info.question_id', 'LEFT');
@@ -777,14 +760,11 @@ class Tutor_model extends CI_Model
         $query = $this->db->get();
         $question_info = $query->result_array();
 
-
         if($question_info[0]['duplicate_question']==2){
             $ques_id = $question_info[0]['parent_question_id'];
         }else{
             $ques_id = $question_id;
         }
-
-
 
         $this->db->select('*, question_ideas.id as id');
         $this->db->from('question_ideas');
@@ -797,6 +777,7 @@ class Tutor_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+
     public function ideaUpdateId($table, $data, $question_id){
         $this->db->where('question_id', $question_id);
         $this->db->update($table, $data);
@@ -809,7 +790,6 @@ class Tutor_model extends CI_Model
         $result = $query->result_array();
         // print_r($result[0]);die();
         return $result[0]['id'];
-
     }
 
     public function getEditIdea($question_id, $idea_no){
@@ -820,10 +800,9 @@ class Tutor_model extends CI_Model
         $query = $this->db->get();
         $result = $query->result_array();
         // $result = $query->row_array();
-
         // echo $this->db->last_query(); die();
-
         // return $result;
+
         return $result[0];
     }
 
@@ -852,6 +831,7 @@ class Tutor_model extends CI_Model
         $query = $this->db->get();
         return $result = $query->result_array();
     }
+
     public function getIQuestionCreator($question_id){
         $this->db->select('tbl_useraccount.name');
         $this->db->from('tbl_question');
@@ -861,6 +841,7 @@ class Tutor_model extends CI_Model
         $query = $this->db->get();
         return $result = $query->result_array();
     }
+
     public function get_question_new_ideas($user_id){
         $this->db->select('*');
         $this->db->from('idea_save_temp');

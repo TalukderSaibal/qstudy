@@ -1248,7 +1248,6 @@ $countTutorial = count($question_tutorial);
 
             if(is_submit == 1) {
 				CKupdate();
-
 				$.ajax({
 					url: "update_question_data",
 					type: "POST",

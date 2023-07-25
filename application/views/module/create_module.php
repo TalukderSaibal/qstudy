@@ -2149,7 +2149,6 @@
   });
 
   $("#addNewSubject").click(function(){
-
     $("#addSubjectModal").modal('show');
   });
 
@@ -2286,7 +2285,7 @@
         },
         success: function(data) {
           alert("Module question changes Successgully !");
-           location.reload();
+          location.reload();
         }
       });
 

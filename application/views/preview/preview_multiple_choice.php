@@ -103,7 +103,7 @@ color: #222;
 }
 .workout_menu ul li {
     display: inline-block;
-  
+
     margin-right: 5px;
   }
   .ss_timer {
@@ -132,10 +132,10 @@ color: #222;
 <?php
     $answerCount = count(json_decode($question_info_s[0]['answer']));
     // echo "<pre>";print_r($answerCount);die();
-    
+
     date_default_timezone_set($this->site_user_data['zone_name']);
     $module_time = time();
-    
+
     //    For Question Time
     $question_time = explode(':', $question_info_s[0]['questionTime']);
     $hour = 0;
@@ -150,7 +150,7 @@ if (is_numeric($question_time[0])) {
 }
 
     $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
-    
+
 //    End For Question Time
 
 ?>
@@ -164,12 +164,12 @@ if (is_numeric($question_time[0])) {
         <div class="ss_index_menu">
             <a href="<?php echo base_url().$userType.'/view_course'; ?>">Question/Module</a>
         </div>
-        
-        
-        
+
+
+
         <div class="col-sm-6 ss_next_pre_top_menu">
-            
-            
+
+
             <a class="btn btn_next" href="question_edit/<?php echo $question_item?>/<?php echo $question_id?>">
                 <i class="fa fa-caret-left" aria-hidden="true"></i> Back
             </a>
@@ -199,7 +199,7 @@ if (is_numeric($question_time[0])) {
                                 <?php if ($question_info_s[0]['isCalculator']) : ?>
                                     <li><input type="hidden" name="" id="scientificCalc"></li>
                                 <?php endif; ?>
-                              
+
                               <?php if($question_info_s[0]['question_name_type'] == 2) { ?>
 
                                 <li><a style="cursor:pointer" id="show_question" onclick="show_question()">Question<i>(Click Here)</i></a></li>
@@ -217,38 +217,24 @@ if (is_numeric($question_time[0])) {
                               </li>
 
                               <li><a style="cursor:pointer" id="show_question" onclick="show_question()">Question<i>(Click Here)</i></a></li>
-                              
+
                           </ul>
                       </div>
 
-<!-- 
-                      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                          <div class="panel panel-default">
-                              <div class="panel-heading" role="tab" id="headingOne">
-                                  <h4 class="panel-title">
-                                      <a role="button" onclick="show_question()">
-                                          <span style="color:#2198c5;" class="Instruction_click">
-                                              <img src="assets/images/icon_draw.png" ><b> Instruction</b>
-                                          </span>  Question ( Click )
-                                      </a>
-                                  </h4>
-                              </div>
-                          </div>
-                      </div> -->
-                  </div>
+
+                </div>
                 <?php  } ?>
-                
+
                 <?php $lettry_array = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'k', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T');?>
-                
+
                 <form id="answer_form">
-                    <div class="col-sm-8" style="padding:0;">              
+                    <div class="col-sm-8" style="padding:0;">
                         <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true">
-                            <div class="panel panel-default" style="border:none;">                                
+                            <div class="panel panel-default" style="border:none;">
                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body ss_imag_add_right" >
                                         <?php  if ($question_info_s[0]['question_name_type']) { ?>
                                             <div class="panel-body panel_p_qus" style="padding:0;">
-                                               
                                                 <?php echo $question_info->questionName;?>
                                                 <br>
                                             </div>
@@ -274,7 +260,7 @@ if (is_numeric($question_time[0])) {
                                                             <div class="box ">
                                                                 <div class="ss_w_box">
                                                                     <?php echo $row[0]; ?>
-                                                                </div>                                                   
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -282,13 +268,13 @@ if (is_numeric($question_time[0])) {
                                                 <?php $i++;
                                             } ?>
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                     <div class="col-sm-5"></div>
-                                    <div class="col-sm-4" style="margin-top: 10px;">     
+                                    <div class="col-sm-4" style="margin-top: 10px;">
                                         <button type="button" class="btn btn_next" id="answer_matching">submit</button>
-                                    </div>                                  
+                                    </div>
                                     <div class="col-sm-3"></div>
 
                                 </div>
@@ -314,12 +300,12 @@ if (is_numeric($question_time[0])) {
                                     <div class=" ss_module_result">
                                         <div class="table-responsive">
                                             <table class="table table-bordered">
-                                                <thead>    
+                                                <thead>
                                                     <tr>
 
                                                         <th>SL</th>
                                                         <th>Mark</th>
-                                                        
+
                                                         <th>Description / Video</th>
 
                                                     </tr>
@@ -329,7 +315,7 @@ if (is_numeric($question_time[0])) {
 
                                                         <td>1</td>
                                                         <td><?php echo $question_info_s[0]['questionMarks']; ?></td>
-                                                        
+
                                                         <td>
                                                             <a onclick="showDescription()" style="display: inline-block;">
                                                                 <img src="assets/images/icon_details.png">
@@ -391,7 +377,7 @@ if (is_numeric($question_time[0])) {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>   
+                <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>
             </div>
         </div>
     </div>
@@ -411,7 +397,7 @@ if (is_numeric($question_time[0])) {
             <div class="box ">
                 <div class="ss_w_box_modal">
                     <?php echo $row[0]; ?>
-                </div>                                                   
+                </div>
             </div>
           </div>
         </div>
@@ -424,17 +410,17 @@ if (is_numeric($question_time[0])) {
   function show_question() {
     $('#myModal_2222').modal('show');
   }
-  
-  
-    
-  
+
+
+
+
     $(".response_answer_class").click(function(){
        if($('.response_answer_class').is(":checked")) {
-            var question = <?=$answerCount?>;  
+            var question = <?=$answerCount?>;
             var value = $(this).val();
             $('#ans_image'+value).show();
             if(question == 1){
-                
+
                 for (var i = 1; i <= 10; i++)
                 {
                     if(value != i){
@@ -442,12 +428,12 @@ if (is_numeric($question_time[0])) {
                         $('#response_answer_id'+i).prop('checked',false);
                     }
                 }
-               
+
             }
         }else{
         }
     });
-    
+
     $(".image_click").click(function(){
        var value = $(this).val();
        $('#response_answer_id'+value).prop('checked',false);
@@ -464,7 +450,7 @@ if (is_numeric($question_time[0])) {
                 <h4 class="modal-title" id="myModalLabel">Question Description</h4>
             </div>
             <div class="modal-body row">
-                <span class="ss_extar_top20"><?php echo $question_info_s[0]['questionDescription']?></span> 
+                <span class="ss_extar_top20"><?php echo $question_info_s[0]['questionDescription']?></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn_blue" data-dismiss="modal">Ok</button>
@@ -483,7 +469,7 @@ if (is_numeric($question_time[0])) {
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body row" style="height: 87%;">
-                <img src="assets/images/icon_sucess.png" class="pull-left"> <br> <span class="">Your answer is correct</span> 
+                <img src="assets/images/icon_sucess.png" class="pull-left"> <br> <span class="">Your answer is correct</span>
 
             </div>
             <div class="modal-footer">
@@ -494,7 +480,7 @@ if (is_numeric($question_time[0])) {
 </div>
 
 <!--Success Modal-->
-<?php 
+<?php
     $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
 ?>
 <div class="modal fade" id="ss_question_video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -514,7 +500,7 @@ if (is_numeric($question_time[0])) {
                       <source src="<?php echo isset($question_instruct[0]) ? trim($question_instruct[0]) : '';?>" type="video/mp4">
                     </video>
                     <?php if (isset($question_instruct[1]) && $question_instruct[1] != null ): ?>
-                        
+
                         <video controls style="width: 100%">
                           <source src="<?php echo isset($question_instruct[1]) ? trim($question_instruct[1]) : '';?>" type="video/mp4">
                         </video>
@@ -546,7 +532,7 @@ if (is_numeric($question_time[0])) {
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn_blue rsclose" data-dismiss="modal">close</button>   
+                <button type="button" class="btn btn_blue rsclose" data-dismiss="modal">close</button>
             </div>
         </div>
 
@@ -574,7 +560,7 @@ if (is_numeric($question_time[0])) {
     });
      $('body').on('click','.rsclose',function(){
         $('.response_answer_class').prop('checked', false);
-        $('.ans_image').hide(); 
+        $('.ans_image').hide();
     })
     function showDescription(){
         $('#ss_info_description').modal('show');
@@ -592,16 +578,16 @@ if (is_numeric($question_time[0])) {
     var h1 = document.getElementsByTagName('h1')[0];
 
     function circulate1() {
-            
+
         remaining_time = remaining_time - 1;
-        
+
         var v_hours = Math.floor(remaining_time / 3600);
-        var remain_seconds = remaining_time - v_hours * 3600;       
+        var remain_seconds = remaining_time - v_hours * 3600;
         var v_minutes = Math.floor(remain_seconds / 60);
         var v_seconds = remain_seconds - v_minutes * 60;
-        
+
         if (remaining_time > 0) {
-            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;          
+            h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
         } else {
             var form = $("#answer_form");
             $.ajax({
@@ -616,7 +602,7 @@ if (is_numeric($question_time[0])) {
                     else {
                         $('#times_up_message').modal('show');
                         $('#question_reload').click(function () {
-                            location.reload(); 
+                            location.reload();
                         });
                     }
                 }
@@ -624,45 +610,45 @@ if (is_numeric($question_time[0])) {
             h1.textContent = "EXPIRED";
         }
     }
-    
+
     function takeDecesionForQuestion() {
-        
+
         var exact_time = $('#exact_time').val();
-        
+
         var now = $('#now').val();
         var opt = $('#optionalTime').val();
-        
-        
+
+
         var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
-        
-        var distance = countDownDate - now;  
+
+        var distance = countDownDate - now;
         var hours = Math.floor( distance/3600 );
 //        alert(distance)
         var x = distance % 3600;
-    
-        var minutes = Math.floor(x/60); 
-        
+
+        var minutes = Math.floor(x/60);
+
         var seconds = distance % 60;
-        
+
         var t_h = hours * 60 * 60;
         var t_m = minutes * 60;
         var t_s = seconds;
-    
+
         var total = parseInt(t_h) + parseInt(t_m) + parseInt(t_s);
-    
-        
+
+
         var end_depend_optional = parseInt(exact_time) + parseInt(opt);
-    
+
         if(opt > total) {
             remaining_time = total;
-        } else {    
+        } else {
             remaining_time = parseInt(end_depend_optional) - parseInt(now);
         }
-    
+
         clear_interval = setInterval(circulate1,1000);
-    
+
     }
-    
+
 
     <?php if ($question_time_in_second != 0) { ?>
         takeDecesionForQuestion();
