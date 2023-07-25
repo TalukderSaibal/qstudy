@@ -214,8 +214,6 @@ class Tutor_model extends CI_Model
 
     public function getModuleQuestion($id, $question_order_id, $status)//id=>module_id
     {
-        return $question_order_id;
-        die();
         $this->db->select('*');
         $this->db->from('tbl_modulequestion');
         $this->db->join('tbl_module', 'tbl_modulequestion.module_id = tbl_module.id', 'LEFT');

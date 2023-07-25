@@ -182,10 +182,10 @@
       <a href="details-module" style="font-size:22px;color:#8e9295;text-decoration:underline;display: inline-block;margin-left:10px;">Module Details</a>
     </div>
   </div>
-   <?php
-   //echo $module_cre_info['module_name'];
-   //print_r($module_cre_info);die();
-   ?>
+  <?php
+  //echo $module_cre_info['module_name'];
+  //print_r($module_cre_info);die();
+  ?>
   <div class="">
     <!--============================================
                   new module start
@@ -1589,7 +1589,7 @@
         chapter_id=null;
        }
 
-       $.ajax({
+      $.ajax({
         url: "save_module_info",
         method: 'POST',
         data: {

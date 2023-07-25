@@ -42,7 +42,7 @@ $question_instruct_id = $question_info_s[0]['id'];
 ?>
 
 <!--         ***** For Tutorial & Everyday Study *****         -->
-<?php // if ($module_type == 2 || $module_type == 1) { 
+<?php // if ($module_type == 2 || $module_type == 1) {
 ?>
 <input type="hidden" id="exam_end" value="" name="exam_end" />
 <input type="hidden" id="now" value="<?php echo $module_time; ?>" name="now" />
@@ -235,7 +235,7 @@ $question_instruct_id = $question_info_s[0]['id'];
                                                                 <td>
                                                                     <div class="description_video">
                                                                         <?php
-                                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+                                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
                                                                         if($ind['question_type'] == 22){
                                                                             $myquestion = json_decode($question_description);
                                                                             $question = $myquestion->question_setting_description;
@@ -410,13 +410,13 @@ foreach ($total_question as $ind) { ?>
 
 <?php $i = 1;
 foreach ($total_question as $ind) {
-    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
     if($ind['question_type'] == 22){
         $myquestion = json_decode($question_description);
         $question = $myquestion->question_setting_description;
     }else{
         $question = $question_description;
-    }    
+    }
 ?>
     <div class="modal fade ss_modal ew_ss_modal" id="show_description_<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">

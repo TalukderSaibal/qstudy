@@ -728,19 +728,19 @@
 
 <script>
 
-  <?php  if($this->session->flashdata('delete_success')){ ?>
+  <?php  if(empty($this->session->flashdata('delete_success'))){ ?>
 
   alert('Successfully Deleted !!');
 
   <?php }?>
 
   $('.assign_serial').on('change', function(){
-    var serial = $(this).val();
+    var serial    = $(this).val();
     var module_id = $(this).attr('data-id');
     var serial_no = $(this).attr('data-index');
     var course_id = $(this).attr('data-course');
-    var grade_id = $(this).attr('data-grade');
-    var modType = $(this).attr('data-modType');
+    var grade_id  = $(this).attr('data-grade');
+    var modType   = $(this).attr('data-modType');
 
     $.ajax({
       url: "<?php echo base_url(); ?>assign_serial_to_module",
