@@ -1252,7 +1252,7 @@ public function renderReorderModule($modules = [])
                 $data['maincontent']             = $this->load->view('module/preview/preview_vocabulary', $data, true);
 
             } elseif ($data['question_info_s'][0]['questionType'] == 4) {
-                $_SESSION['q_order_2'] = $this->uri->segment('3');
+                $_SESSION['q_order_2']           = $this->uri->segment('3');
                 $data['question_info_vcabulary'] = $quesInfo;
                 $data['maincontent']             = $this->load->view('module/preview/preview_multiple_choice', $data, true);
             } elseif ($data['question_info_s'][0]['question_type'] == 5) {
@@ -1369,18 +1369,18 @@ public function renderReorderModule($modules = [])
                 shuffle($titles);
 
                 $info['conclution'] = $titles;
-                $data['question'] = $info;
+                $data['question']   = $info;
 
                 $data['maincontent'] = $this->load->view('module/preview/module_preview_storyWrite', $data, true);
 
             } elseif ($data['question_info_s'][0]['questionType'] == 10) {
                 $_SESSION['q_order_2'] = $this->uri->segment('3');
-                $data['question_info']   = json_decode($data['question_info_s'][0]['questionName'], true);
-                $data['maincontent']     = $this->load->view('module/preview/preview_times_table', $data, true);
+                $data['question_info'] = json_decode($data['question_info_s'][0]['questionName'], true);
+                $data['maincontent']   = $this->load->view('module/preview/preview_times_table', $data, true);
             } elseif ($data['question_info_s'][0]['questionType'] == 11) {
                 $_SESSION['q_order_2'] = $this->uri->segment('3');
-                $data['question_info']   = json_decode($data['question_info_s'][0]['questionName'], true);
-                $data['maincontent']     = $this->load->view('module/preview/preview_algorithm', $data, true);
+                $data['question_info'] = json_decode($data['question_info_s'][0]['questionName'], true);
+                $data['maincontent']   = $this->load->view('module/preview/preview_algorithm', $data, true);
             } elseif ($data['question_info_s'][0]['questionType'] == 12) {
                 $_SESSION['q_order_2'] = $this->uri->segment('3');
                 $data['question_info']   = json_decode($data['question_info_s'][0]['questionName'], true);
@@ -1409,11 +1409,9 @@ public function renderReorderModule($modules = [])
                 $data['question_item']=$data['question_info_s'][0]['questionType'];
                 $data['question_info'] = json_decode($data['question_info_s'][0]['questionName']);
                 $data['question_info_ind'] = $data['question_info'];
-                if (isset($data['question_info_ind']->percentage_array))
-                {
+                if (isset($data['question_info_ind']->percentage_array)){
                     $data['ans_count'] = count((array)$data['question_info_ind']->percentage_array);
-                }else
-                {
+                }else{
                     $data['ans_count'] = 0;
                 }
                 $data['maincontent'] = $this->load->view('module/preview/preview_workout_quiz_two', $data, true);
@@ -1424,8 +1422,7 @@ public function renderReorderModule($modules = [])
                 $data['question_info_ind'] = $data['question_info'];
 
                 $question_info_ind = $data['question_info'];
-
-                $pattern_type = $question_info_ind->pattern_type;
+                $pattern_type      = $question_info_ind->pattern_type;
 
                 if ($pattern_type == 4) {
                     $qus_lefts  = $question_info_ind->left_memorize_p_four;
@@ -1433,7 +1430,7 @@ public function renderReorderModule($modules = [])
 
                     $qus_array = [];
                     foreach ($qus_lefts as $key => $value) {
-                        $qus_array[$key]['left'] = $value;
+                        $qus_array[$key]['left']  = $value;
                         $qus_array[$key]['right'] = $qus_rights[$key];
                     }
                     // shuffle($qus_array);
@@ -1447,8 +1444,8 @@ public function renderReorderModule($modules = [])
                     $inv=0;
                     foreach ($question_step as $key => $value) {
                         $qus_setup_array[$key]['question_step'] = $value[0];
-                        $qus_setup_array[$key]['clue'] = $value[1];
-                        $qus_setup_array[$key]['ecplanation'] = $value[2];
+                        $qus_setup_array[$key]['clue']          = $value[1];
+                        $qus_setup_array[$key]['ecplanation']   = $value[2];
                         $qus_setup_array[$key]['answer_status'] = $value[3];
                         if($value[3] == 0){
                             $qus_setup_array[$key]['order'] = $k;

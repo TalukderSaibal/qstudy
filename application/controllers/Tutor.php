@@ -1237,21 +1237,21 @@ class Tutor extends CI_Controller
 
             if (!empty($post['rightTitle']) && !empty($post['rightIntro']) && !empty($post['lastpictureSelected']) && !empty($post['Paragraph']) && !empty($post['rightConclution']) && !empty($post['wrongTitles']) && !empty($post['wrongTitlesIncrement']) && !empty($post['pictureList'])  && !empty($post['wrongIntro']) && !empty($post['wrongIntroIncrement']) &&  !empty($post['wrongConclution']) && !empty($post['wrongConclutionIncrement']) && !empty($post['wrongPictureIncrement'])) {
 
-                $question['rightTitle'] = $post['rightTitle'];
-                $question['rightIntro'] = $post['rightIntro'];
+                $question['rightTitle']          = $post['rightTitle'];
+                $question['rightIntro']          = $post['rightIntro'];
                 $question['lastpictureSelected'] = $post['lastpictureSelected'];
-                $question['Paragraph']  = $post['Paragraph'];
-                $question['rightConclution'] = $post['rightConclution'];
+                $question['Paragraph']           = $post['Paragraph'];
+                $question['rightConclution']     = $post['rightConclution'];
 
-                $answer = json_encode($question);
-                $question['wrongTitles'] = $post['wrongTitles'];
-                $question['wrongTitlesIncrement'] = $post['wrongTitlesIncrement'];
-                $question['wrongPictureIncrement'] = $post['wrongPictureIncrement'];
+                $answer                               = json_encode($question);
+                $question['wrongTitles']              = $post['wrongTitles'];
+                $question['wrongTitlesIncrement']     = $post['wrongTitlesIncrement'];
+                $question['wrongPictureIncrement']    = $post['wrongPictureIncrement'];
                 $question['wrongConclutionIncrement'] = $post['wrongConclutionIncrement'];
-                $question['wrongIntro'] = $post['wrongIntro'];
-                $question['wrongIntroIncrement'] = $post['wrongIntroIncrement'];
-                $question['wrongConclution'] = $post['wrongConclution'];
-                $question['wrongParagraphIncrement'] = $post['wrongParagraphIncrement'];
+                $question['wrongIntro']               = $post['wrongIntro'];
+                $question['wrongIntroIncrement']      = $post['wrongIntroIncrement'];
+                $question['wrongConclution']          = $post['wrongConclution'];
+                $question['wrongParagraphIncrement']  = $post['wrongParagraphIncrement'];
 
                 if (isset($_POST['pictureList'])) {
                     foreach ($_POST['pictureList'] as $key => $value) {
@@ -1534,7 +1534,7 @@ class Tutor extends CI_Controller
         $data['country']             = $this->input->post('country');
         $data['questionName']        = $questionName;
         $data['answer']              = ($answer == '') ? 'Answer': $answer;
-        $data['questionMarks']       = ($questionMarks == '') ? 'no marking' : $questionMarks;
+        $data['questionMarks']       = ($questionMarks == '') ? 5 : $questionMarks;
         $data['questionDescription'] = ($description == '') ? 'Nothing' : $description;
         $data['demoquestions']       = $q;
         $data['questionImage']       = $questionImage;

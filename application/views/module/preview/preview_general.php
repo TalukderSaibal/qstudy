@@ -1,44 +1,44 @@
 <?php
-date_default_timezone_set($this->site_user_data['zone_name']);
-$module_time = time();
+    date_default_timezone_set($this->site_user_data['zone_name']);
+    $module_time = time();
 
-$key = $question_info_s[0]['question_order'];
-$desired = $this->session->userdata('data');
+    $key = $question_info_s[0]['question_order'];
+    $desired = $this->session->userdata('data');
 
-//    For Question Time
-$question_time = explode(':', $question_info_s[0]['questionTime']);
-$hour = 0;
-$minute = 0;
-$second = 0;
-if (is_numeric($question_time[0])) {
-    $hour = $question_time[0];
-}
-if (is_numeric($question_time[1])) {
-    $minute = $question_time[1];
-}
-if (is_numeric($question_time[2])) {
-    $second = $question_time[2];
-}
-
-$question_time_in_second = ($hour * 3600) + ($minute * 60) + $second;
-$module_type = $question_info_s[0]['moduleType'];
-//    End For Question Time
-?>
-
-<?php
-
-
-foreach ($total_question as $ind) {
-
-    if ($ind["question_type"] == 14) {
-        $chk = $ind["question_order"];
+    //    For Question Time
+    $question_time = explode(':', $question_info_s[0]['questionTime']);
+    $hour = 0;
+    $minute = 0;
+    $second = 0;
+    if (is_numeric($question_time[0])) {
+        $hour = $question_time[0];
     }
-}
+    if (is_numeric($question_time[1])) {
+        $minute = $question_time[1];
+    }
+    if (is_numeric($question_time[2])) {
+        $second = $question_time[2];
+    }
+
+    $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second;
+    $module_type = $question_info_s[0]['moduleType'];
+    //    End For Question Time
 ?>
 
 <?php
-$question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']) : '';
-$question_instruct_id = $question_info_s[0]['id'];
+
+    foreach ($total_question as $ind) {
+
+        if ($ind["question_type"] == 14) {
+            $chk = $ind["question_order"];
+        }
+    }
+
+?>
+
+<?php
+    $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']) : '';
+    $question_instruct_id = $question_info_s[0]['id'];
 ?>
 
 <!--         ***** For Tutorial & Everyday Study *****         -->
@@ -53,16 +53,16 @@ $question_instruct_id = $question_info_s[0]['id'];
 
 <style>
     /* .description_video{
-   position: relative;
-}
-.description_class{
-    position: absolute;
-    left: 45px;
-}
-.question_video_class{
-    position: absolute;
-    left: 70px;
-} */
+    position: relative;
+    }
+    .description_class{
+        position: absolute;
+        left: 45px;
+    }
+    .question_video_class{
+        position: absolute;
+        left: 70px;
+    } */
     .ss_timer h1 {
         font-size: 17px;
         margin: 0;
@@ -72,6 +72,7 @@ $question_instruct_id = $question_info_s[0]['id'];
         border: 1px solid #7c7979;
     }
 </style>
+
 <div class="ss_student_board">
     <div class="ss_s_b_top">
         <div class="ss_index_menu">
