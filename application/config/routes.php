@@ -360,12 +360,8 @@ $route['question_duplicate']='Question/duplicateQuestion';
 $route['send_to_qStudy']='Question/send_to_q_Study';
 $route['question_delete/(:any)']='Question/deleteQuestion/$1';
 
-
-
-
+// Question Create Route
 $route['create-question/(:any)']='tutor/create_question/$1';
-
-
 
 
 $route['add_subject_name']='tutor/add_subject_name';

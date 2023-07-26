@@ -88,7 +88,6 @@
         overflow-y: auto;
     }
 </style>
-
 <?//php if($_SESSION['userType']== 7 ){?>
     <!-- <div class="col-md-12 upperbutton" style="text-align: center;margin-bottom: 10px;">
     <a href="all-module" style="font-size:20px;font-weight: bold;display: inline-block;">Module Inbox</a>
@@ -1247,6 +1246,8 @@ $countTutorial = count($question_tutorial);
             var pathname = '<?php echo base_url(); ?>';
 
             if(is_submit == 1) {
+              var formData  = new FormData(this);
+              console.log(formData);
 				CKupdate();
 				$.ajax({
 					url: "update_question_data",
@@ -1558,33 +1559,33 @@ $countTutorial = count($question_tutorial);
         });
     });
     $("#q_tutorial_preview").click(function () {
-       var question_id =  $("#question_id").val();
+      var question_id =  $("#question_id").val();
 
-       if (question_id)
-       {
-           $.ajax({
-               url:"<?php echo base_url(); ?>Tutor/question_tutorial_preview",
-               type:"post",
-               dataType:'html',
-               data:{question_id:question_id},
-               success:function(data){
-                   console.log(data);
-                   $(".question_tutorial_modal").modal("hide");
-                   $("#tutorialModal .carousel-inner").html(data);
-                   $('#tutorialModal').modal('show');
-                   var word =  $("#tutorialModal #myCarousel .item.active").attr("id");
-                   console.log(word);
-                   if (word =='none')
-                   {
-					   $(".sound_play").hide();
-                       return true;
-                   }else {
-                       $(".sound_play").show();
-                   }
-                   speak(word);
-               }
-           });
-       }
+        if (question_id)
+        {
+            $.ajax({
+                url:"<?php echo base_url(); ?>Tutor/question_tutorial_preview",
+                type:"post",
+                dataType:'html',
+                data:{question_id:question_id},
+                success:function(data){
+                    console.log(data);
+                    $(".question_tutorial_modal").modal("hide");
+                    $("#tutorialModal .carousel-inner").html(data);
+                    $('#tutorialModal').modal('show');
+                    var word =  $("#tutorialModal #myCarousel .item.active").attr("id");
+                    console.log(word);
+                    if (word =='none')
+                    {
+              $(".sound_play").hide();
+                        return true;
+                    }else {
+                        $(".sound_play").show();
+                    }
+                    speak(word);
+                }
+            });
+        }
     });
 </script>
 <!--<script src="https://code.responsivevoice.org/responsivevoice.js"></script>-->
