@@ -1212,13 +1212,13 @@ public function renderReorderModule($modules = [])
 
         $data['question_info_s'] = $this->tutor_model->getModuleQuestion($modle_id, $question_order_id, null);
 
-        echo '<pre>';
-        print_r($data['question_info_s']);
-        die;
+        // echo '<pre>';
+        // print_r($data['question_info_s']);
+        // die;
 
         $data['main_module']     = $this->tutor_model->getInfo('tbl_module', 'id', $modle_id);
 
-        echo '<pre>';
+        // echo '<pre>';
         // print_r($data['main_module']);die();
 
         $data['total_question'] = $this->tutor_model->getModuleQuestion($modle_id, null, 1);
