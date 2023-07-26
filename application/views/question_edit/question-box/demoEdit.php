@@ -20,6 +20,14 @@
     }
 </style>
 
+<?php
+
+// echo '<pre>';
+// print_r($question_info);
+// die();
+
+?>
+
 <input type="hidden" name="questionType" value="24">
 
 <div class="col-sm-4">
@@ -55,6 +63,7 @@
                 <img class="questionImage" src="assets/audiouploads/Questionimages/<?= $question_info[0]['questionImage'] ?>" alt="Question Image">
                 <label for="exampleFormControlFile1">Choose New Question Image</label>
                 <input type="file" class="form-control-file" name="questionImage">
+                <input type="hidden" name="existed_audio_File" value="<?php echo (isset($question_info[0]['questionImage'])) ? $question_info[0]['questionImage'] : '' ?>">
             </div>
         </div>
     </div>
@@ -82,6 +91,10 @@
 
                         ?>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="dd" value="<?= htmlspecialchars($question_info[0]['demoquestions'])?>">
                 </div>
             </div>
         </div>

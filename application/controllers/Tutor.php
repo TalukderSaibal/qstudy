@@ -1017,93 +1017,115 @@ class Tutor extends CI_Controller
 
         $post = $this->input->post();
 
-        $one = $this->input->post('one');
+        $dd = $post['dd'];
 
-        // echo '<pre>';
-        // print_r($one);
-        // die();
+        $one = $this->input->post('one');
 
         $files = $_FILES;
         $questions = array();
 
         if(is_countable($one) && count($one) > 0){
             for ($i = 0; $i < count($one); $i++) {
-    if ($files['one']['name']['demo' . $i + 1]['audio']) {
-        $fileName = $_FILES['one']['name'] = $files['one']['name']['demo' . $i + 1]['audio'];
+                    if ($files['one']['name']['demo' . $i + 1]['audio']) {
+                    $fileName = $_FILES['one']['name'] = $files['one']['name']['demo' . $i + 1]['audio'];
 
-        $_FILES['one']['type'] = $files['one']['type'];
-        $tmp = $_FILES['one']['tmp_name'] = $files['one']['tmp_name'];
-        $_FILES['one']['error'] = $files['one']['error'];
-        $_FILES['one']['size'] = $files['one']['size'];
+                    $_FILES['one']['type'] = $files['one']['type'];
+                    $tmp = $_FILES['one']['tmp_name'] = $files['one']['tmp_name'];
+                    $_FILES['one']['error'] = $files['one']['error'];
+                    $_FILES['one']['size'] = $files['one']['size'];
 
-        $config['upload_path'] = 'assets/audiouploads/';
-        $config['allowed_types'] = 'mp3|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
-        $config['max_size'] = 0;
-        $config['max_width'] = 0;
-        $config['max_height'] = 0;
+                    $config['upload_path'] = 'assets/audiouploads/';
+                    $config['allowed_types'] = 'mp3|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
+                    $config['max_size'] = 0;
+                    $config['max_width'] = 0;
+                    $config['max_height'] = 0;
 
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
 
-        $error = array();
-        if (!$this->upload->do_upload('one[]')) {
-            $error = $this->upload->display_errors();
-            //echo $error;
-        } else {
-            $audio = $this->upload->data();
-            $base = base_url() . 'assets/audiouploads/' . $fileName;
+                    $error = array();
+                    if (!$this->upload->do_upload('one[]')) {
+                        $error = $this->upload->display_errors();
+                        //echo $error;
+                    } else {
+                        $audio = $this->upload->data();
+                        $base = base_url() . 'assets/audiouploads/' . $fileName;
+                    }
+                    }
+
+                    if ($files['one']['name']['demo' . $i + 1]['image']) {
+                        $imageName = $_FILES['one']['name'] = $files['one']['name']['demo' . $i + 1]['image'];
+
+                        $_FILES['one']['type'] = $files['one']['type'];
+                        $_FILES['one']['tmp_name'] = $files['one']['tmp_name'];
+                        $_FILES['one']['error'] = $files['one']['error'];
+                        $_FILES['one']['size'] = $files['one']['size'];
+
+                        $config['upload_path'] = 'assets/audiouploads/images/';
+                        $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
+                        $config['max_size'] = 0;
+                        $config['max_width'] = 0;
+                        $config['max_height'] = 0;
+
+                        $this->load->library('upload', $config);
+                        $this->upload->initialize($config);
+
+                        $error = array();
+                        if (!$this->upload->do_upload('one[]')) {
+                            $error = $this->upload->display_errors();
+                            //echo $error;
+                        } else {
+                            $image = $this->upload->data();
+                            $base = base_url() . 'assets/audiouploads/images/' . $imageName;
+                        }
+                    }
+
+            $text = $_POST['one']['demo' . ($i + 1)]['text'];
+            $correct = (isset($_POST['one']['demo' . ($i + 1)]['correct'])) ? 1 : 0;
+
+            // Create an array for each question
+            $question_data = array(
+                'audio' => $fileName,
+                'image' => $imageName,
+                'text' => $text,
+                'correct' => $correct,
+            );
+
+            // Add the question data to the $questions array
+            $questions[] = $question_data;
         }
-    }
-
-    if ($files['one']['name']['demo' . $i + 1]['image']) {
-        $imageName = $_FILES['one']['name'] = $files['one']['name']['demo' . $i + 1]['image'];
-
-        $_FILES['one']['type'] = $files['one']['type'];
-        $_FILES['one']['tmp_name'] = $files['one']['tmp_name'];
-        $_FILES['one']['error'] = $files['one']['error'];
-        $_FILES['one']['size'] = $files['one']['size'];
-
-        $config['upload_path'] = 'assets/audiouploads/images/';
-        $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
-        $config['max_size'] = 0;
-        $config['max_width'] = 0;
-        $config['max_height'] = 0;
-
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-
-        $error = array();
-        if (!$this->upload->do_upload('one[]')) {
-            $error = $this->upload->display_errors();
-            //echo $error;
-        } else {
-            $image = $this->upload->data();
-            $base = base_url() . 'assets/audiouploads/images/' . $imageName;
-        }
-    }
-
-    $text = $_POST['one']['demo' . ($i + 1)]['text'];
-    $correct = (isset($_POST['one']['demo' . ($i + 1)]['correct'])) ? 1 : 0;
-
-    // Create an array for each question
-    $question_data = array(
-        'audio' => $fileName,
-        'image' => $imageName,
-        'text' => $text,
-        'correct' => $correct,
-    );
-
-    // Add the question data to the $questions array
-    $questions[] = $question_data;
-}
 
         }
-        $q = json_encode($questions);
-        return $q;
+
+        if(empty($questions)){
+            return $dd;
+        }else{
+            $q = json_encode(array_merge($questions, json_decode($dd)));
+            return $q;
+        }
     }
 
     public function imageUpload1($file){
+
         $files = $_FILES;
+
+        if (isset($file['existed_audio_File']) && $file['existed_audio_File'] != '') {
+            return $imageName = $file['existed_audio_File'];
+        }
+
+        // echo '<pre>';
+        // print_r($files);
+        // die();
+
+
+        // if($_FILES['questionImage']['name'] != ''){
+        //     echo '<pre>';
+        //     print_r($_FILES['questionImage']);
+        // }else{
+        //     echo 'blank';
+        // }
+
+        // die();
 
         if(isset($_FILES['questionImage']['name'])){
             $_FILES['questionImage']['name']     = $files['questionImage']['name'];
@@ -1112,11 +1134,11 @@ class Tutor extends CI_Controller
             $_FILES['questionImage']['error']    = $files['questionImage']['error'];
             $_FILES['questionImage']['size']     = $files['questionImage']['size'];
 
-            $config['upload_path'] = 'assets/audiouploads/Questionimages/';
-            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|webm|doc|docx|mp4|webm|ogg|avi';
-            $config['max_size'] = 0;
-            $config['max_width'] = 0;
-            $config['max_height'] = 0;
+            $config['upload_path']   = 'assets/audiouploads/Questionimages/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|webp|doc|docx|mp4|webm|ogg|avi';
+            $config['max_size']      = 0;
+            $config['max_width']     = 0;
+            $config['max_height']    = 0;
 
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
@@ -1299,6 +1321,7 @@ class Tutor extends CI_Controller
 
                 $answer = json_encode($post['remainder']);
             }
+
             if ($post['operator'] != '/') {
                 $question_data['item'] = $post['item'];
                 $answer = json_encode($post['result']);
@@ -3279,7 +3302,9 @@ class Tutor extends CI_Controller
 
         if($data['questionType'] == 24){
             $q = $this->uploadFileData();
-            $questionImage = $this->imageUpload1($post);
+            // echo $q;
+            // die();
+            $questionImage = $this->imageUpload1($_POST);
         }
 
         if ($_POST['questionType'] == 4) {
