@@ -1194,8 +1194,10 @@ public function renderReorderModule($modules = [])
 
 
     public function module_preview($modle_id, $question_order_id){
-        // echo $modle_id;
+
+        // echo $question_order_id;
         // die();
+
         $data['order']              = $this->uri->segment('3');
         $_SESSION['q_order']        = $this->uri->segment('3');
         $_SESSION['q_order_module'] = $this->uri->segment('2');
@@ -1210,14 +1212,14 @@ public function renderReorderModule($modules = [])
 
         $data['question_info_s'] = $this->tutor_model->getModuleQuestion($modle_id, $question_order_id, null);
 
-        // echo '<pre>';
-        // print_r($data['question_info_s']);
-        // die();
-
+        echo '<pre>';
+        print_r($data['question_info_s']);
+        die;
 
         $data['main_module']     = $this->tutor_model->getInfo('tbl_module', 'id', $modle_id);
 
-        // print_r($data['question_info_s']);
+        echo '<pre>';
+        // print_r($data['main_module']);die();
 
         $data['total_question'] = $this->tutor_model->getModuleQuestion($modle_id, null, 1);
 
@@ -1228,8 +1230,8 @@ public function renderReorderModule($modules = [])
         $data['quesOrder']  = $question_order_id;
 
         // print_r($data['total_question']);die();
-        //if question not found
 
+        //if question not found
         if (!$data['question_info_s'][0]['id']) {
             $question_order_id = $question_order_id + 1;
             redirect('get_tutor_tutorial_module/'.$modle_id.'/'.$question_order_id);

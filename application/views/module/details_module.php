@@ -632,22 +632,25 @@
               // alert(url);
 
               if(chk_grade!=modules[i].studentGrade){
-                 chk_grade=modules[i].studentGrade;
-                 part_change = 1;
+                  chk_grade=modules[i].studentGrade;
+                  part_change = 1;
               }
               if(chk_moduleType!=modules[i].moduleType){
-                 chk_moduleType=modules[i].moduleType;
-                 part_change = 1;
+                  chk_moduleType=modules[i].moduleType;
+                  part_change = 1;
               }
+
               if(chk_courseId!=modules[i].course_id){
-                 chk_courseId=modules[i].course_id;
-                 part_change = 1;
+                  chk_courseId=modules[i].course_id;
+                  part_change = 1;
               }
+
               if(part_change==1){
                 part_color_class = 'change_part_color';
               }else{
                 part_color_class = '';
               }
+
               console.log(part_color_class);
 
               html+= '<tr class="parent_class" id="'+modules[i].serial+'" data-id="'+modules[i].id+'" data-grade="'+modules[i].studentGrade+'" data-moduleType="'+modules[i].moduleType+'" data-courseId="'+modules[i].course_id+'"><td><div class="form-group"><button type="button" class="btn btn-default"><label for="formInputButton">Show <span><input type="checkbox" name="show_student" id="formInputButton" value="1" '+show_checked+'></span> </label></button></div></td><td><div class="form-group"><button type="button" class="btn btn-default bluebutton"><label for="formInputButton1" style="width: 80px">SL<input type="text" data-index="'+modules[i].course_id+'" value="'+modules[i].serial+'" data-id="'+modules[i].id+'" data-course="'+modules[i].course_id+'" data-grade = "'+modules[i].studentGrade+'" data-modType="'+modules[i].moduleType+'" class="form-control assign_serial serial_'+i+'"></label></button></div></td><td><div class="form-group"><input type="button" value="'+modules[i].moduleName+'" onclick="'+url+'" class="form-control '+part_color_class+'" name="moduleName" id="moduleName"></div></td><td><div class="form-group"><input type="text" style="max-width:120px" class="form-control '+part_color_class+'" id="grade" value="'+modules[i].subject_name+'"></div></td><td><div class="form-group"><input type="text" style="max-width:120px" class="form-control '+part_color_class+'" id="grade" value="'+modules[i].chapterName+'"></div></td><td style="width: 60px;"><div class="form-group"><input type="text" style="max-width:120px" class="form-control '+part_color_class+'" id="grade" value="'+modules[i].studentGrade+'"></div></td><td><div class="form-group"><input  style="max-width:120px" type="text" class="form-control '+part_color_class+'" value="'+mod_types[modules[i].moduleType]+'"></div></td><td><div class="form-group"><input  type="text" class="form-control '+part_color_class+'" value="'+$(modules[i].courseName).text()+'"></div></td><td class="actionbutton"><a class="ss_q_btn btn pull-left duplicate-module '+part_color_class+'" type="button" data-countryname="'+modules[i].countryName+'" data-modulename="'+modules[i].moduleName+'" data-moduletype="'+modules[i].moduleType+'" data-course="'+modules[i].courseName+'" data-grade="'+modules[i].studentGrade+'" data-moduleid="'+modules[i].id+'" data-courseId="'+modules[i].course_id+'" data-moduleTypeId="'+modules[i].moduleType+'" data-subjectId="'+modules[i].subject+'" data-chapterId="'+modules[i].chapter+'"><i class="fa fa-clipboard" aria-hidden="true"></i></a><a class="ss_q_btn btn pull-left deleteModule '+part_color_class+'" href="delete_new_module/'+modules[i].id+'"><i class="fa fa-trash" aria-hidden="true"></i></a><a class="ss_q_btn btn pull-left '+part_color_class+'" href="<?= base_url()?>module_preview/'+modules[i].id+ '/1" id="preview_btn"><i class="fa fa-file-o" aria-hidden="true"></i> Preview</a><input type="submit" name="submit" class="ss_q_btn btn btn-danger '+part_color_class+'" value="Save" /><img style="height:33px" src="assets/images/image-plus.png"></td></tr>';
@@ -728,7 +731,7 @@
 
 <script>
 
-  <?php  if(empty($this->session->flashdata('delete_success'))){ ?>
+  <?php  if(!empty($this->session->flashdata('delete_success'))){ ?>
 
   alert('Successfully Deleted !!');
 
@@ -876,14 +879,14 @@
   });
 
   $(document).delegate('#select_module_type_duplicate', "change", function() {
-     var mod_type = $(this).val();
-     if(mod_type==1){
-      $('.d_subject').show();
-      $('.d_chapter').show();
-     }else{
-      $('.d_subject').hide();
-      $('.d_chapter').hide();
-     }
+      var mod_type = $(this).val();
+      if(mod_type==1){
+        $('.d_subject').show();
+        $('.d_chapter').show();
+      }else{
+        $('.d_subject').hide();
+        $('.d_chapter').hide();
+      }
   });
 //==================================
 
