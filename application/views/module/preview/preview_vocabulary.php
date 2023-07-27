@@ -1,57 +1,56 @@
 <?php
-date_default_timezone_set($this->site_user_data['zone_name']);
-$module_time = time();
+  date_default_timezone_set($this->site_user_data['zone_name']);
+  $module_time = time();
 
-$key = $question_info_s[0]['question_order'];
-$desired = $this->session->userdata('data');
+  $key = $question_info_s[0]['question_order'];
+  $desired = $this->session->userdata('data');
 
-    //    For Question Time
-$question_time = explode(':', $question_info_s[0]['questionTime']);
-$hour = 0;
-$minute = 0;
-$second = 0;
-if (is_numeric($question_time[0])) {
-    $hour = $question_time[0];
-} if (is_numeric($question_time[1])) {
-    $minute = $question_time[1];
-} if (is_numeric($question_time[2])) {
-    $second = $question_time[2];
-}
+      //    For Question Time
+  $question_time = explode(':', $question_info_s[0]['questionTime']);
+  $hour = 0;
+  $minute = 0;
+  $second = 0;
+  if (is_numeric($question_time[0])) {
+      $hour = $question_time[0];
+  } if (is_numeric($question_time[1])) {
+      $minute = $question_time[1];
+  } if (is_numeric($question_time[2])) {
+      $second = $question_time[2];
+  }
 
-$question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
-$module_type = $question_info_s[0]['moduleType'];
-//    End For Question Time
+  $question_time_in_second = ($hour * 3600) + ($minute * 60) + $second ;
+  $module_type = $question_info_s[0]['moduleType'];
+  //    End For Question Time
+  ?>
+
+<?php
+
+  foreach ($total_question as $ind) {
+
+  if ($ind["question_type"] == 14) {
+    $chk = $ind["question_order"];
+  }
+
+  }
 ?>
 
-<?php 
-
-
-foreach ($total_question as $ind) {
-
-if ($ind["question_type"] == 14) {
-  $chk = $ind["question_order"];
- }
-
-} 
-?>
-
-<?php 
+<?php
     $question_instruct = isset($question_info_s[0]['question_video']) ? json_decode($question_info_s[0]['question_video']):'';
     $question_instruct_id = $question_info_s[0]['id'];
-    
+
     // echo "<pre>";print_r($total_question);die();
 ?>
 
-<!--         ***** For Tutorial & Everyday Study *****         -->    
+<!--         ***** For Tutorial & Everyday Study *****         -->
 <?php //if ($module_type == 2 || $module_type == 1) { ?>
   <input type="hidden" id="exam_end" value="" name="exam_end" />
   <input type="hidden" id="now" value="<?php echo $module_time;?>" name="now" />
   <input type="hidden" id="optionalTime" value="<?php echo $question_time_in_second;?>" name="optionalTime" />
   <input type="hidden" id="exact_time" value="<?php echo $this->session->userdata('exact_time');?>" />
-    <?php //}?>
+<?php //}?>
 
   <div class="ss_student_board">
-   <div class="ss_s_b_top">
+    <div class="ss_s_b_top">
     <div class="col-sm-6 ss_index_menu">
       <a href="#">Module Setting</a>
     </div>
@@ -65,20 +64,20 @@ if ($ind["question_type"] == 14) {
        <input type="hidden" name="" id="scientificCalc">
         <?php endif; ?>
 
-        <?php if ($question_info_s[0]['question_order'] == 1) { ?>                                                      
+        <?php if ($question_info_s[0]['question_order'] == 1) { ?>
        <a class="btn btn_next" href="<?php echo base_url(); ?>module_preview/<?php echo $question_info_s[0]['module_id']; ?>/1">
         <i class="fa fa-caret-left" aria-hidden="true"></i> Back
       </a>
-      
+
         <?php } else { ?>
      <a class="btn btn_next" href="<?php echo base_url(); ?>module_preview/<?php echo $question_info_s[0]['module_id']; ?>/<?php echo ($question_info_s[0]['question_order'] - 1); ?>">
       <i class="fa fa-caret-left" aria-hidden="true"></i> Back
     </a>
-        <?php } ?> 
-  
+        <?php } ?>
+
     <?php if (array_key_exists($key, $total_question)) { ?>
    <a class="btn btn_next" id="question_order_link" href="<?php echo base_url(); ?>module_preview/<?php echo $question_info_s[0]['module_id']; ?>/<?php echo $question_info_s[0]['question_order'] + 1; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i> Next</a>
-    <?php } ?>                                                                              
+    <?php } ?>
  <a class="btn btn_next" id="draw" onClick="showDrawBoard()" data-toggle="modal" data-target=".bs-example-modal-lg">
    Draw <img src="assets/images/icon_draw.png">
  </a>
@@ -122,7 +121,7 @@ if ($ind["question_type"] == 14) {
                   </div>
                   <div class="row">
                     <div class="col-xs-4 text-right" style="font-size: 13px;">Hint</div>
-                    <div class="col-xs-8">                    
+                    <div class="col-xs-8">
                       <a href="javascript:;" id="hintPopover" class="text-center" style="display: inline-block;">
                         <img src="assets/images/icon_details.png">
                       </a>
@@ -142,27 +141,27 @@ if ($ind["question_type"] == 14) {
                         <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                         <input type="hidden" id="wordToSpeak" value="<?php echo isset($question_info_vcabulary->speech_to_text) ? $question_info_vcabulary->speech_to_text:''; ?>">
                       </div>
-                      
+
                       <div class="col-xs-6" style="padding-left:0px;">
                         <small  style="font-size:12px !important;color:red; float:left;">Listening to audio will deduct 2 number</small>
                       </div>
                     <?php }?>
-                    
+
                   </div>
-                  
+
                   <!--<div class="row">
                     <div class="col-xs-4">Speech to text</div>
                     <div class="col-xs-2">
                       <input onclick='speak()' type='button' value='ߔꠐlay' />
                       <input type="hidden" id="wordToSpeak" value="<?php echo isset($question_info_vcabulary->speech_to_text) ? $question_info_vcabulary->speech_to_text:''; ?>">
-                      
+
                     </div>
-                      
+
                   </div>
-                  
+
                   <div class="row" style="margin-top:0px;">
                     <div class="col-xs-4"></div>
-                    
+
                     <div class="col-xs-1">
                       <i style="color:red;" class="fa fa-exclamation-triangle"></i>
                     </div>
@@ -172,7 +171,7 @@ if ($ind["question_type"] == 14) {
                   </div> -->
 
                   <div class="row">
-                    
+
                     <?php if (isset($question_info_vcabulary->audioFile)&& file_exists($question_info_vcabulary->audioFile)) : ?>
                     <div class="col-xs-4 text-right" style="font-size: 13px;">Audio File</div>
                     <div class="col-xs-2" onclick="showAudio()" style="font-size: 18px; padding-right:0px">
@@ -253,7 +252,7 @@ if ($ind["question_type"] == 14) {
 
           <div class="image_box_list" style="overflow: visible;">
            <div class="row">
-             
+
             <div class="">
              <div class="">
                 <?php foreach ($question_info_vcabulary->vocubulary_image as $row) { ?>
@@ -306,13 +305,13 @@ if ($ind["question_type"] == 14) {
           <div class=" ss_module_result">
             <div class="table-responsive">
               <table class="table table-bordered">
-                                              <thead>    
+                                              <thead>
                                                 <tr>
                                                   <th></th>
                                                   <th>SL</th>
                                                   <th>Mark</th>
                                                   <th>Obtained</th>
-                                                  <th>Description / Video</th>                                                  
+                                                  <th>Description / Video</th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -323,7 +322,7 @@ if ($ind["question_type"] == 14) {
                                                     <td>
                                                         <?php if (isset($desired[$i]['ans_is_right'])) {
 															$qus_tutorial = get_question_tutorial($ind['question_id']);
-															
+
                                                               if ($desired[$i]['ans_is_right'] == 'correct') {?>
                                                           <span class="glyphicon glyphicon-ok" style="color: green;"></span>
 														  <?php if ($qus_tutorial && ($main_module[0]['repetition_days'] == '' || $main_module[0]['repetition_days'] == 'null')){?>
@@ -336,35 +335,35 @@ if ($ind["question_type"] == 14) {
                                                                   <?php }?>
                                                               <?php }
                                                         }?>
-                                                    </td> 
+                                                    </td>
 
-                                                    
+
                                                            <?php  if ( ($ind["question_type"] !=14) && ($question_info_s[0]['question_order'] == $ind['question_order']) ) { ?>
                                                                 <td style="background-color:lightblue">
                                                                     <?php echo $ind['question_order']; ?>
                                                                 </td>
-                                                           <?php } 
+                                                           <?php }
 
                                                             elseif ( ($ind["question_type"] ==14) && $order >= $chk ) { ?>
                                                                 <td style="background-color:#FFA500">
                                                                   <a class="show_tutorial_modal" question_id="<?php echo $ind['question_id']; ?>" modalId="<?php echo $ind['module_id']; ?>" Order="<?php echo $ind['question_order']; ?>"><?php echo $ind['question_order']; ?></a>
                                                                  </td>
-                                                           <?php } 
+                                                           <?php }
 
                                                            elseif ( ($ind["question_type"] ==14) && $order < $chk ) { ?>
                                                                 <td style="background-color:#FFA500">
                                                                   <a class="show_tutorial_modal" question_id="<?php echo $ind['question_id']; ?>" modalId="<?php echo $ind['module_id']; ?>" Order="<?php echo $ind['question_order']; ?>"><?php echo $ind['question_order']; ?></a>
                                                                  </td>
-                                                           <?php } 
+                                                           <?php }
 
                                                             else{  ?>
 
                                                               <td>
                                                                   <?php echo $ind['question_order']; ?>
                                                               </td>
-                                                              
+
                                                            <?php } ?>
-                                                            
+
 
                                                   <td>
                                                       <?php
@@ -375,8 +374,8 @@ if ($ind["question_type"] == 14) {
                                                   <td><?php echo $ind['questionMarks']; ?></td>
                                                     <td>
                                                       <div class="description_video">
-                                                        <?php 
-                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+                                                        <?php
+                                                        $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
                                                         if($ind['question_type'] == 22){
                                                             $myquestion = json_decode($question_description);
                                                             $question = $myquestion->question_setting_description;
@@ -386,7 +385,7 @@ if ($ind["question_type"] == 14) {
                                                         if (isset($question) && $question != null ){ ?>
                                                             <a  class="description_class" onclick="showModalDes(<?php echo $i; ?>);" style="display: inline-block;"><img src="assets/images/icon_details.png"></a>
                                                         <?php } ?>
-                                                        <?php 
+                                                        <?php
                                                             $question_instruct_vid = isset($ind['question_video']) ? json_decode($ind['question_video']):'';
                                                         ?>
                                                         <?php if (isset($question_instruct_vid[0]) && $question_instruct_vid[0] != null ){ ?>
@@ -442,7 +441,7 @@ if ($ind["question_type"] == 14) {
         <h4 class="modal-title" id="myModalLabel">&nbsp;</h4>
       </div>
       <div class="modal-body row">
-        <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span> 
+        <img src="assets/images/icon_sucess.png" class="pull-left"> <span class="ss_extar_top20">Your answer is correct</span>
       </div>
       <div class="modal-footer">
         <a id="next_qustion_link" href="">
@@ -469,17 +468,17 @@ foreach ($total_question as $ind) { ?>
               <?php } ?>
             </div>
             <div class="modal-body">
-                <?php 
+                <?php
                     $question_instruct_vid = isset($ind['question_video']) ? json_decode($ind['question_video']):'';
                 ?>
                 <?php if (isset($question_instruct_vid[0]) && $question_instruct_vid[0] != null ){ ?>
-                
+
                     <video controls style="width: 100%" id="videoTag<?php echo $i; ?>">
                       <source src="<?php echo isset($question_instruct_vid[0]) ? trim($question_instruct_vid[0]) : '';?>" type="video/mp4">
                     </video>
 
                     <?php if (isset($question_instruct_vid[1]) && $question_instruct_vid[1] != null ): ?>
-                        
+
                         <video controls style="width: 100%" id="videoTag<?php echo $i; ?>">
                           <source src="<?php echo isset($question_instruct_vid[1]) ? trim($question_instruct_vid[1]) : '';?>" type="video/mp4">
                         </video>
@@ -500,13 +499,13 @@ foreach ($total_question as $ind) { ?>
     function showQuestionVideo(id){
       $('#ss_question_video'+id).modal('show');
     }
-    
+
     function videoCloseWithModal(id){
       $('#ss_question_video'+id).modal('hide');
       var video = $('#videoTag'+id).get(0);
       if (video.paused === false) {
         video.pause();
-      } 
+      }
     }
 </script>
 
@@ -518,14 +517,14 @@ foreach ($total_question as $ind) { ?>
       </div>
       <div class="modal-body row">
         <i class="fa fa-close" style="font-size:20px;color:red"></i> <span class="ss_extar_top20">Your answer is wrong</span>
-        <br><?php echo strtolower($question_info_s[0]['question_solution']); ?> 
+        <br><?php echo strtolower($question_info_s[0]['question_solution']); ?>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>         
+        <button type="button" class="btn btn_blue" data-dismiss="modal">close</button>
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 <!--Times Up Modal-->
 <div class="modal fade ss_modal" id="times_up_message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -535,12 +534,12 @@ foreach ($total_question as $ind) { ?>
         <h4 class="modal-title" id="myModalLabel">Times Up</h4>
       </div>
       <div class="modal-body row">
-        <i class="fa fa-close" style="font-size:20px;color:red"></i> 
+        <i class="fa fa-close" style="font-size:20px;color:red"></i>
         <!--<span class="ss_extar_top20">Your answer is wrong</span>-->
         <br><?php echo $question_info_s[0]['question_solution'] ?>
       </div>
       <div class="modal-footer">
-        <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>         
+        <button type="button" id="question_reload" class="btn btn_blue" data-dismiss="modal">close</button>
       </div>
     </div>
   </div>
@@ -548,7 +547,7 @@ foreach ($total_question as $ind) { ?>
 
 <?php $i = 1;
 foreach ($total_question as $ind) {
-    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : ''; 
+    $question_description = isset($ind['questionDescription']) ? $ind['questionDescription'] : '';
     if($ind['question_type'] == 22){
         $myquestion = json_decode($question_description);
         $question = $myquestion->question_setting_description;
@@ -586,8 +585,8 @@ foreach ($total_question as $ind) {
   $(document).ready(function (){
     $("input[name='answer']").focus();
   });
-  
-  
+
+
 //    $('#answer_matching').click(function () {
   $("#answer_form").on('submit', function (e) {
     e.preventDefault();
@@ -600,7 +599,7 @@ foreach ($total_question as $ind) {
      success: function (results) {
       if (results == 6) {
        window.location.href = 'Preview/show_tutorial_result/'+$("#module_id").val();
-     }    
+     }
      if (results == 5) {
        window.location.href = 'module_preview/'+$("#module_id").val()+'/'+$('#next_question').val();
      }
@@ -618,11 +617,11 @@ foreach ($total_question as $ind) {
 
       $("#next_qustion_link").attr("href", question_order_link);
       $('#ss_info_sucesss').modal('show');
-      
+
     } else if(results == 3) {
-     $('#ss_info_worng').modal('show');      
+     $('#ss_info_worng').modal('show');
    }
- }  
+ }
 });
 
   });
@@ -648,9 +647,9 @@ foreach ($total_question as $ind) {
   function showAudio(){
     $("audio").show();
   }
-  
-  
-  
+
+
+
 </script>
 
 <script>
@@ -664,12 +663,12 @@ foreach ($total_question as $ind) {
     remaining_time = remaining_time - 1;
 
     var v_hours = Math.floor(remaining_time / 3600);
-    var remain_seconds = remaining_time - v_hours * 3600;       
+    var remain_seconds = remaining_time - v_hours * 3600;
     var v_minutes = Math.floor(remain_seconds / 60);
     var v_seconds = remain_seconds - v_minutes * 60;
 
     if (remaining_time > 0) {
-      h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;            
+      h1.textContent = v_hours + " : "  + v_minutes + " : " + v_seconds + "  " ;
     } else {
       var form = $("#answer_form");
       $.ajax({
@@ -687,37 +686,37 @@ foreach ($total_question as $ind) {
           if (results == 1) {
             $('#times_up_message').modal('show');
             $('#question_reload').click(function () {
-              location.reload(); 
+              location.reload();
             });
           } else if(results == 3) {
             $('#times_up_message').modal('show');
             $('#question_reload').click(function () {
-              location.reload(); 
+              location.reload();
             });
           }
-          
+
         }
       });
       h1.textContent = "EXPIRED";
     }
   }
-  
+
   function takeDecesionForQuestion() {
 
     var exact_time = $('#exact_time').val();
-    
+
     var now = $('#now').val();
     var opt = $('#optionalTime').val();
-    
-    
+
+
     var countDownDate =  parseInt (now) + parseInt($('#optionalTime').val());
-    
-    var distance = countDownDate - now;  
+
+    var distance = countDownDate - now;
     var hours = Math.floor( distance/3600 );
     //        alert(distance)
     var x = distance % 3600;
 
-    var minutes = Math.floor(x/60); 
+    var minutes = Math.floor(x/60);
 
     var seconds = distance % 60;
 
@@ -732,7 +731,7 @@ foreach ($total_question as $ind) {
 
     if(opt > total) {
       remaining_time = total;
-    } else {    
+    } else {
       remaining_time = parseInt(end_depend_optional) - parseInt(now);
     }
 
@@ -754,7 +753,7 @@ foreach ($total_question as $ind) {
     var data= "{videoURL:'"+videoUrl+"',containment:'self',startAt:0,mute:false,autoPlay:false,loop:false,opacity:.8, ratio:'auto'}"
     $('#P1').attr('data-property', data);
     //var videoId = getYtId(url);
-    
+
     $( "#ytPlayer" ).dialog({
       minWidth: 600,
       title: videoTitle,

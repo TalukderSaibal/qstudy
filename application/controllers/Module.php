@@ -1201,6 +1201,9 @@ public function renderReorderModule($modules = [])
         $data['order']              = $this->uri->segment('3');
         $_SESSION['q_order']        = $this->uri->segment('3');
         $_SESSION['q_order_module'] = $this->uri->segment('2');
+        // echo '<pre>';
+        // print_r($_SESSION['q_order_module']);
+        // die();
 
         $data['user_info'] = $this->tutor_model->userInfo($this->session->userdata('user_id'));
         $data['userType']  = $data['user_info'][0]['user_type'];
@@ -1229,6 +1232,7 @@ public function renderReorderModule($modules = [])
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
         $data['quesOrder']  = $question_order_id;
 
+        // echo '<pre>';
         // print_r($data['total_question']);die();
 
         //if question not found
@@ -1237,12 +1241,18 @@ public function renderReorderModule($modules = [])
             redirect('get_tutor_tutorial_module/'.$modle_id.'/'.$question_order_id);
         }
 
+        // echo $data['question_info_s'][0]['questionType'];
+        // die();
+
         if (isset($data['question_info_s'][0])) {
             $quesInfo = json_decode($data['question_info_s'][0]['questionName']);
 
             if ($data['question_info_s'][0]['questionType'] == 1) {
                 $_SESSION['q_order_2'] = $this->uri->segment('3');
                 $data['maincontent']   = $this->load->view('module/preview/preview_general', $data, true);
+                // echo '<pre>';
+                // print_r($data['maincontent']);
+                // die();
 
             } elseif ($data['question_info_s'][0]['questionType'] == 2) {
                 $_SESSION['q_order_2'] = $this->uri->segment('3');
@@ -1528,6 +1538,9 @@ public function renderReorderModule($modules = [])
                 $data['glossary_answers']   = json_decode($data['question_info_s'][0]['answer'], true);
 
                 $data['maincontent'] = $this->load->view('module/preview/preview_glossary', $data, true);
+            }elseif ($data['question_info_s'][0]['questionType'] == 24){
+                $_SESSION['q_order_2'] = $this->uri->segment('3');
+                $data['maincontent']   = $this->load->view('module/preview/preview_demo', $data, true);
             }
         } else {
             $data['maincontent']     = $this->load->view('module/preview/moduleWithoutQues', $data, true);

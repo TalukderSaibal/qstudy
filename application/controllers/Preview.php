@@ -505,10 +505,36 @@ class Preview extends CI_Controller
 
     public function answer_matching()
     {
-        $question_id = $this->input->post('question_id');
-        $module_id = $this->input->post('module_id');
+        $checkQuestion = $this->input->post('checkQuestion');
+
+        $questionId  = $this->input->post('question_id');
+        $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $questionId);
+        $answer      = json_decode($answer_info[0]['demoquestions']);
+
+        $a = '';
+        foreach($checkQuestion as $question){
+            $question = $question;
+            if($answer[$question]->correct == 1){
+                $answer[$question]->text;
+            }else{
+                $a = 1;
+                $a = $a;
+            }
+        }
+
+        if($a == 1){
+            echo 3;
+        }elseif($a == ''){
+            echo 2;
+        }
+
+        die();
+
+
+        $question_id       = $this->input->post('question_id');
+        $module_id         = $this->input->post('module_id');
         $question_order_id = $this->input->post('current_order');
-        $text = $this->input->post('answer');
+        $text              = $this->input->post('answer');
 
         $find = array('&nbsp;', '\n', '\t', '\r');
         $repleace = array('', '', '', '');
@@ -517,7 +543,9 @@ class Preview extends CI_Controller
         $text = trim($text);
 
         $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
+
         $question_marks = $answer_info[0]['questionMarks'];
+
 
         $text_1 = $answer_info[0]['answer'];
         $find = array('&nbsp;', '\n', '\t', '\r');
@@ -525,6 +553,10 @@ class Preview extends CI_Controller
         $text_1 = strip_tags($text_1);
         $text_1 = str_replace($find, $repleace, $text_1);
         $text_1 = trim($text_1);
+
+        // echo '<pre>';
+        // print_r($text_1);
+        // die();
 
         $this->take_decesion($question_marks, $question_id, $module_id, $question_order_id, $text, $text_1);
     }
@@ -3567,6 +3599,7 @@ class Preview extends CI_Controller
        echo json_encode($get_idea[0]);
 
     }
+
     public function question_answer_matching_comprehension()
     {
         $answer = strtolower($this->input->post('answer'));
