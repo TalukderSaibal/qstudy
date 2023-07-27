@@ -3610,13 +3610,19 @@ public function renderReorderModule($modules = [])
         $data['video_help_serial'] = 25;
 
         $user_id = $this->session->userdata('user_id');
+        // echo $user_id;
+        // die();
         $data['user_info'] = $this->tutor_model->userInfo($user_id);
+
         $conditions = [
             'user_id' => $user_id,
             'country' => isset($_GET['country']) ? $_GET['country'] : '',
         ];
+
         $conditions = array_filter($conditions);
+
         //$data['all_module'] = $this->Admin_model->search('tbl_module', $conditions);
+
         $data['all_module'] = $this->Admin_model->getModule('tbl_module', $conditions);
 
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
@@ -3634,11 +3640,14 @@ public function renderReorderModule($modules = [])
         // echo "<pre>";print_r($data['all_course']);die();
 
         $data['allsubjects']  = $this->ModuleModel->getAllSubjects($user_id);
+
         $data['allchapters']  = $this->ModuleModel->getAllChapters($user_id);
+
 
         $country_id = $this->session->userdata('selCountry');
 
         $data['courses'] = json_encode($this->ModuleModel->getAllCourse($country_id));
+
         // echo "<pre>";print_r($data);die();
         /*=============================================================================
                                     pagination code
@@ -3676,9 +3685,17 @@ public function renderReorderModule($modules = [])
 		$this->pagination->initialize($config);
 
 		$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+
         // echo $page;die();
+
+        // echo '<pre>';
+        // print_r($data['all_module_questions']);
+        // die();
+
 		$data["links"] = $this->pagination->create_links();
+
         $data['all_module_questions'] = $this->ModuleModel->getTblNewModule($config["per_page"], $page);
+
 
         foreach($data['all_module_questions'] as $key => $value){
             $data['all_module_questions'][$key]['country_name'] = $this->ModuleModel->getCountryName($value['country']);
@@ -5175,15 +5192,16 @@ public function renderReorderModule($modules = [])
     }
 
     public function searchModuleByOptions(){
-        $module_id = $this->input->post('module_id');
-        $country_id = $this->session->userdata('selCountry');
-        $user_id = $this->session->userdata('user_id');
-        $module_name = $this->input->post('module_name');
+
+        $module_id    = $this->input->post('module_id');
+        $country_id   = $this->session->userdata('selCountry');
+        $user_id      = $this->session->userdata('user_id');
+        $module_name  = $this->input->post('module_name');
         $studentGrade = $this->input->post('studentGrade');
-        $module_type = $this->input->post('module_type');
-        $course_id = $this->input->post('course_id');
-        $start_index = $this->input->post('page_index');
-        $start = $start_index*10;
+        $module_type  = $this->input->post('module_type');
+        $course_id    = $this->input->post('course_id');
+        $start_index  = $this->input->post('page_index');
+        $start        = $start_index*10;
 
         $this->session->set_userdata('search_student_grade', $studentGrade);
         $this->session->set_userdata('search_module_type', $module_type);
@@ -5197,58 +5215,66 @@ public function renderReorderModule($modules = [])
         $this->db->join('tbl_chapter', 'tbl_chapter.id=tbl_module.chapter', 'left');
         $this->db->where('tbl_module.country',$country_id);
         $this->db->where('tbl_module.user_id',$user_id);
+
         if(!empty($studentGrade)){
             $this->db->where('studentGrade', $studentGrade);
         }
+
         if(!empty($module_id)){
             $this->db->where('moduleType', $module_id);
         }
+
         if(!empty($course_id)){
             $this->db->where('course_id', $course_id);
         }
+
         if(!empty($module_name)){
             $this->db->like('moduleName', $module_name,'both',false);
         }
-        $query_new = $this->db->get();
+
+        $query_new  = $this->db->get();
         $all_module = $query_new->result_array();
+
         //echo "<pre>";print_r($all_module);die();
 
 
         $this->load->library('pagination');
-        $config = array();
-		$config["base_url"] = base_url() . "details-module";
+
+		$config               = array();
+		$config["base_url"]   = base_url() . "details-module";
 		$config["total_rows"] = $all_module[0]['total_module'];
 
 		$config["per_page"] = 10;
-		// $config["uri_segment"] = 2;
-        $config["use_page_numbers"] = true;
-        $config["cur_page"] = $start_index+1;
 
-		$config['full_tag_open'] = '<ul class="module_pg pagination">';
+		// $config["uri_segment"] = 2;
+
+        $config["use_page_numbers"] = true;
+        $config["cur_page"]         = $start_index+1;
+
+        $config['full_tag_open']  = '<ul class="module_pg pagination">';
         $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = 'First';
+        $config['first_link']     = 'First';
+
         // $config['last_link'] = 'Last';
-        $config['first_tag_open'] = '<li class="page-item"><span class="page-link">';
+
+        $config['first_tag_open']  = '<li class="page-item"><span class="page-link">';
         $config['first_tag_close'] = '</span></li>';
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
-        $config['prev_tag_close'] = '</span></li>';
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
-        $config['next_tag_close'] = '</span></li>';
-        $config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
-        $config['last_tag_close'] = '</span></li>';
-        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
-        $config['num_tag_close'] = '</span></li>';
+        $config['prev_link']       = '&laquo';
+        $config['prev_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['prev_tag_close']  = '</span></li>';
+        $config['next_link']       = '&raquo';
+        $config['next_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['next_tag_close']  = '</span></li>';
+        $config['last_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['last_tag_close']  = '</span></li>';
+        $config['cur_tag_open']    = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close']   = '</a></li>';
+        $config['num_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']   = '</span></li>';
+
 		$this->pagination->initialize($config);
 
 		$data["links"] = $this->pagination->create_links();
-
-
-
-
 
         $this->db->select('*,tbl_module.id as id,tbl_subject.subject_name as subject_name');
         $this->db->from('tbl_module');
@@ -5261,22 +5287,28 @@ public function renderReorderModule($modules = [])
         if(!empty($studentGrade)){
             $this->db->where('studentGrade', $studentGrade);
         }
+
         if(!empty($module_id)){
             $this->db->where('moduleType', $module_id);
         }
+
         if(!empty($course_id)){
             $this->db->where('course_id', $course_id);
         }
+
         if(!empty($module_name)){
             $this->db->like('moduleName', $module_name,'both',false);
         }
+
         $this->db->order_by('moduleType','asc');
         $this->db->order_by('studentGrade','asc');
         $this->db->order_by('course_id','asc');
         $this->db->order_by('serial','asc');
         $this->db->limit(10, $start);
+
         $query_new = $this->db->get();
-        $modules = $query_new->result_array();
+        $modules   = $query_new->result_array();
+
         // echo "<pre>"; print_r($modules);die();
         //echo $this->db->last_query();
 

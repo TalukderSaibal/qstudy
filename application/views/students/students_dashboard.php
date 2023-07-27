@@ -1,17 +1,23 @@
 <?php
-// echo "<pre>";print_r($user_info);die();
-$parent_detail = getParentIDPaymetStatus($user_info[0]['parent_id']);
 
-if ($parent_detail[0]['subscription_type'] == "direct_deposite") {
-    if ($parent_detail[0]['direct_deposite'] == 0) {
+// echo $user_info[0]['suspension_status'];
+// die();
+
+?>
+<?php
+    // echo "<pre>";print_r($user_info);die();
+    $parent_detail = getParentIDPaymetStatus($user_info[0]['parent_id']);
+
+    if ($parent_detail[0]['subscription_type'] == "direct_deposite") {
+        if ($parent_detail[0]['direct_deposite'] == 0) {
+            $parent_direct_deposite = 1;
+        }
+    }
+
+    if ($checkDirectDepositCourseStatus > 0 && $checkRegisterCourses == 0) {
+        $checkDirectDepositCourseStatus = 1;
         $parent_direct_deposite = 1;
     }
-}
-
-if ($checkDirectDepositCourseStatus > 0 && $checkRegisterCourses == 0) {
-    $checkDirectDepositCourseStatus = 1;
-    $parent_direct_deposite = 1;
-}
 
 ?>
 
@@ -303,8 +309,6 @@ foreach ($getIdeaInfos as $ideaInfo) {
                     <a href="<?=base_url("/") . "module/corporate/tutor_list/1"?>">
                         <span style="color: red;"> <p style="text-align: center; text-decoration: underline; color: red; " > <b>Corporate Homework</b> </p> <p style="color: red; text-align: center;"><b>(Tutorial)</b>  </p>  </span>
                     </a>
-
-
                 </div>
             </div>
 
@@ -725,18 +729,18 @@ $end_subscription = $user_info[0]['end_subscription'];
 
                 <!-- shvou -->
                 <?php
-if ($user_info[0]['subscription_type'] == "trial") {
-        $createAt = $user_info[0]['created'];
-        $this->load->helper('commonmethods_helper');
-        $days = getTrailDate($createAt, $this->db);
-    }
-    if (isset($days)): ?>
-                    <?php if ($days < 1): ?>
-                        <li class="presonal2"><a href="#">
-                            Active Subcription
-                        </li>
-                    <?php endif?>
-                <?php endif?>
+        if ($user_info[0]['subscription_type'] == "trial") {
+            $createAt = $user_info[0]['created'];
+            $this->load->helper('commonmethods_helper');
+            $days = getTrailDate($createAt, $this->db);
+        }
+        if (isset($days)): ?>
+            <?php if ($days < 1): ?>
+                <li class="presonal2"><a href="#">
+                    Active Subcription
+                </li>
+            <?php endif?>
+        <?php endif?>
 
         <?php endif?>
 
@@ -797,13 +801,13 @@ if ($user_info[0]['subscription_type'] == "trial") {
 
     <!-- added AS  -->
     <?php
-$end_subscription = $user_info[0]['end_subscription'];
-    if (isset($end_subscription)) {
-        $d1 = date('Y-m-d', strtotime($end_subscription));
-        $d2 = date('Y-m-d');
-        $diff = strtotime($d1) - strtotime($d2);
-        $r_days = floor($diff / (60 * 60 * 24));
-    }
+        $end_subscription = $user_info[0]['end_subscription'];
+        if (isset($end_subscription)) {
+            $d1 = date('Y-m-d', strtotime($end_subscription));
+            $d2 = date('Y-m-d');
+            $diff = strtotime($d1) - strtotime($d2);
+            $r_days = floor($diff / (60 * 60 * 24));
+        }
     ?>
 
 

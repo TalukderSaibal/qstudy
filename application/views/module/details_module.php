@@ -80,7 +80,7 @@
 
 
 <?php
- //  echo "<pre>";print_r($all_course);
+  // echo "<pre>";print_r($all_course);die();
 ?>
 
 <!-- <div class="container top100"> -->
@@ -1025,7 +1025,9 @@
 
 
     var origModName = $(this).closest('tr').find('#modName a').html();
-    console.log(origModName);
+
+    // console.log(origModName);
+
     $('#origModId').val(origModId);
     $("#studentGrade").val(origModStGrade);
 
@@ -1126,11 +1128,11 @@
   //module search
   function moduleSearch() {
     var moduleName = $('#moduleName').val();
-    var country = $('#moduleCountry :selected').val();
-    var grade = $('#moduleGrade :selected').val();
-    var type = $('#moduleType :selected').val();
-    var subject = $('#moduleSubject :selected').val();
-    var chapter = $('#moduleChapter :selected').val();
+    var country    = $('#moduleCountry :selected').val();
+    var grade      = $('#moduleGrade :selected').val();
+    var type       = $('#moduleType :selected').val();
+    var subject    = $('#moduleSubject :selected').val();
+    var chapter    = $('#moduleChapter :selected').val();
     var course = $('#moduleCourse :selected').val();
     $.ajax({
       'url': 'module/search',
@@ -1294,23 +1296,23 @@
   function moduleSearchAll() {
     // $('#moduleName').val('')
     var moduleName = '';
-    var country = '';
-    var grade = $('#moduleGrade :selected').val();
-    var type = '';
-    var subject = '';
-    var chapter = '';
-    var course = '';
+    var country    = '';
+    var grade      = $('#moduleGrade :selected').val();
+    var type       = '';
+    var subject    = '';
+    var chapter    = '';
+    var course     = '';
     $.ajax({
       'url': 'module/search',
       'method': 'POST',
       'data': {
-        'moduleName': moduleName,
-        'country': country,
+        'moduleName'  : moduleName,
+        'country'     : country,
         'studentGrade': grade,
-        'moduleType': type,
-        'subject': subject,
-        'chapter': chapter,
-        'course_id': course,
+        'moduleType'  : type,
+        'subject'     : subject,
+        'chapter'     : chapter,
+        'course_id'   : course,
       },
       // beforeSend: function() {
       //   $.LoadingOverlay("show");
@@ -1321,9 +1323,9 @@
         //   $.LoadingOverlay("hide");
 
         $('.table').dataTable({
-          searching: false,
+          searching   : false,
           lengthChange: false,
-          select: false,
+          select      : false,
           "aaSorting": []
         });
       }

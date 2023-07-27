@@ -287,6 +287,9 @@ class Student extends CI_Controller
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
 
         $data['maincontent'] = $this->load->view('students/students_dashboard', $data, true);
+        // echo '<pre>';
+        // print_r($data);
+        // die();
         $this->load->view('master_dashboard', $data);
     }
 
