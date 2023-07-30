@@ -1,9 +1,8 @@
 <?php
-
-// echo $user_info[0]['suspension_status'];
-// die();
-
+    // echo $user_info[0]['suspension_status'];
+    // die();
 ?>
+
 <?php
     // echo "<pre>";print_r($user_info);die();
     $parent_detail = getParentIDPaymetStatus($user_info[0]['parent_id']);
@@ -118,9 +117,11 @@
             </a>
         </li>
 
-        <li class="presonal2" style="padding: 10px"><a href="">
-            <h5>Course</h5>
-            <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40" ></a>
+        <li class="presonal2" style="padding: 10px">
+            <a href="">
+                <h5>Course</h5>
+                <img src="<?=base_url('/assets/images/36_Course.jpg')?>"  height="40">
+            </a>
         </li>
 
         <li class="presonal2" style="padding: 10px"><a href="">

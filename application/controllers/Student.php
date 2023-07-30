@@ -4063,20 +4063,21 @@ class Student extends CI_Controller
     public function all_tutors_by_type($tutor_id, $module_type,$is_practice=0)
     {
         // echo $is_practice."hello";die();
-        //echo date('Y-m-d');die();
+        // echo date('Y-m-d');die();
+
         $_SESSION['show_tutorial_result'] = 0;
-        $data['tutor_id'] = $tutor_id;
-        $data['module_type'] = $module_type;
-        $session_module_info = $this->session->userdata('data');
+        $data['tutor_id']                 = $tutor_id;
+        $data['module_type']              = $module_type;
+        $session_module_info              = $this->session->userdata('data');
 
-        /*if ($session_module_info) {
-            $tutorial_ans_info = $this->Student_model->getTutorialAnsInfo('tbl_temp_tutorial_mod_ques', $session_module_info[1]['module_id'], $this->session->userdata('user_id'));
-        }
+        // if ($session_module_info) {
+        //     $tutorial_ans_info = $this->Student_model->getTutorialAnsInfo('tbl_temp_tutorial_mod_ques', $session_module_info[1]['module_id'], $this->session->userdata('user_id'));
+        // }
 
-        if (isset($tutorial_ans_info) && !empty($tutorial_ans_info)) {*/
-        //wrong answers by student on tutorial section
+        // if (isset($tutorial_ans_info) && !empty($tutorial_ans_info)) {
+        // // wrong answers by student on tutorial section
         // $this->Student_model->deleteInfo('tbl_temp_tutorial_mod_ques', 'st_id', $this->session->userdata('user_id'));
-        //}
+        // }
 
         $this->session->unset_userdata('data');
         $this->session->unset_userdata('obtained_marks');
@@ -4085,39 +4086,61 @@ class Student extends CI_Controller
 
 
         $data['moduleType'] = $module_type;
-        $data['tutorInfo'] = $this->Student_model->getInfo('tbl_useraccount', 'id', $tutor_id);
-
+        $data['tutorInfo']  = $this->Student_model->getInfo('tbl_useraccount', 'id', $tutor_id);
 
         //If not match with today date
         //$this->delete_st_error_ans(date('Y-m-d'));
 
-
         $data['user_info'] = $this->Student_model->userInfo($this->loggedUserId);
+
+        // echo '<pre>';
+        // print_r($data['tutorInfo']);
+        // die();
+
         if ($module_type == 2 && $data['tutorInfo'][0]['user_type'] == 7) {
-            $get_all_course = $this->Student_model->studentCourses($this->loggedUserId);
+
+            $get_all_course                    = $this->Student_model->studentCourses($this->loggedUserId);
             $course_match_with_subject_key_val = array();
+
             foreach ($get_all_course as $course) {
-                $course['subject_id'] = $course['course_id'];
-                $course['subject_name'] = $course['courseName'];
+                $course['subject_id']                = $course['course_id'];
+                $course['subject_name']              = $course['courseName'];
                 $course_match_with_subject_key_val[] = $course;
             }
+
         } else {
             if ($data['tutorInfo'][0]['user_type'] == 7) {
-                //            $data['studentSubjects'] = $this->Student_model->studentSubjects($this->loggedUserId);
-                //$subject_with_course = $this->Student_model->studentSubjects($this->loggedUserId);
+
+                $data['studentSubjects'] = $this->Student_model->studentSubjects($this->loggedUserId);
+
+                $subject_with_course = $this->Student_model->studentSubjects($this->loggedUserId);
+
+                // echo '<pre>';
+                // print_r($subject_with_course);
+                // die();
 
                 $registered_courses = $this->Student_model->registeredCourse($this->session->userdata('user_id'));
-                //echo "<pre>";print_r($registered_courses);die();
+
+                // echo "<pre>";print_r($registered_courses);die();
+
                 $studentSubjects = array();
                 $studentChapters = array();
+
                 if (count($registered_courses) > 0) {
                     $oreder_s = 0;
+
                     // echo "<pre>";print_r($registered_courses);die();
+
                     foreach ($registered_courses as $sub) {
 
-                        $assign_course = $this->Student_model->getInfo('tbl_assign_subject', 'course_id', $sub['id']);
+                        $assign_course        = $this->Student_model->getInfo('tbl_assign_subject', 'course_id', $sub['id']);
                         $subject_id_by_course = $this->Student_model->getSubjectDetailsBySubject($sub['id'],$module_type);
                         $chapter_id_by_course = $this->Student_model->getChapterDetailsByChapter($sub['id'],$module_type);
+
+                        // echo '<pre>';
+                        // print_r($chapter_id_by_course);
+                        // die();
+
                         if (!empty($subject_id_by_course)) {
                             $subjectId = json_decode($assign_course[0]['subject_id']);
 
@@ -4126,13 +4149,14 @@ class Student extends CI_Controller
                                 $sb =  $this->Student_model->getInfo('tbl_subject', 'subject_id', $value);
 
                                 if (!empty($sb)) {
-                                    $studentSubjects[$oreder_s]['subject_id'] = $sb[0]['subject_id'];
+                                    $studentSubjects[$oreder_s]['subject_id']   = $sb[0]['subject_id'];
                                     $studentSubjects[$oreder_s]['subject_name'] = $sb[0]['subject_name'];
-                                    $studentSubjects[$oreder_s]['created_by'] = $sb[0]['created_by'];
+                                    $studentSubjects[$oreder_s]['created_by']   = $sb[0]['created_by'];
                                 }
                                 $oreder_s++;
                             }
                         }
+
                         if (!empty($chapter_id_by_course)) {
 
                             foreach ($chapter_id_by_course as $key => $value) {
@@ -4149,6 +4173,7 @@ class Student extends CI_Controller
                         }
                     }
                 }
+
                 $subject_with_course = $studentSubjects;
                 $chapter_with_course = $studentChapters;
             }
@@ -4164,8 +4189,11 @@ class Student extends CI_Controller
                 // $data['studentSubjects'] = array_values(array_column($students_all_subject, null, 'subject_id'));
                 $subject_with_course = $this->Student_model->getInfo('tbl_subject', 'created_by', $tutor_id);
             }
-             $data['studentSubjects'] = $subject_with_course;
-             $data['studentChapters'] = $chapter_with_course;
+
+
+            $data['studentSubjects'] = $subject_with_course;
+            $data['studentChapters'] = $chapter_with_course;
+
             //$students_all_subject = array();
 
             //foreach ($subject_with_course as $subject_course) {
@@ -4212,12 +4240,15 @@ class Student extends CI_Controller
             }
 
             // shukriti new start == get all subject id
-               // echo "<pre>";print_r($data['registered_courses']);die();
-               $all_course_id = array();
-               if(!empty($data['registered_courses'])){
+            // echo "<pre>";print_r($data['registered_courses']);die();
+
+            $all_course_id = array();
+
+            if(!empty($data['registered_courses'])){
                 foreach($data['registered_courses'] as $course){
                     $all_course_id[] = $course['id'];
                 }
+
                 //echo "<pre>";print_r($all_course_id);die();
                 $subject_id_by_course = $this->Student_model->getAllSubjectByCourse($all_course_id,$module_type);
                 // echo $this->db->last_query(); die();
@@ -4227,8 +4258,10 @@ class Student extends CI_Controller
                 }else{
                     $sb = null;
                 }
+
                 // echo "<pre>";print_r($sb);die();
-               }
+            }
+
             // shukriti  end
 
             //if (isset($sb) && $sb != '') {
@@ -4247,6 +4280,8 @@ class Student extends CI_Controller
                 $_SESSION['prevUrl'] = $_SERVER['HTTP_REFERER'];
             }
         }
+
+
         if(empty($data['first_course_id'])){
             $data['first_course_id']=0;
         }
@@ -4256,21 +4291,24 @@ class Student extends CI_Controller
 
         $this->session->set_userdata('is_practice', $is_practice);
 
-        $assignModuleByTutor = array();
-        $assignModuleByTutor = $this->ModuleModel->studentHomework($tutor_id, $module_type);
-        $data['assignModuleByTutorSubjectID'] = $assignModuleByTutor;
+        $assignModuleByTutor                  = array();
+        $assignModuleByTutor                  = $this->ModuleModel->studentHomework($tutor_id, $module_type);
 
-        $data['has_back_button'] = 'student';
-        $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
-        $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
-        $data['header'] = $this->load->view('dashboard_template/header', $data, true);
-        $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
-        $data['maincontent'] = $this->load->view('students/module/all_module_list', $data, true);
+        $data['assignModuleByTutorSubjectID'] = $assignModuleByTutor;
+        $data['has_back_button']              = 'student';
+        $data['page_title']                   = '.:: Q-Study :: Tutor yourself...';
+        $data['headerlink']                   = $this->load->view('dashboard_template/headerlink', $data, true);
+        $data['header']                       = $this->load->view('dashboard_template/header', $data, true);
+        $data['footerlink']                   = $this->load->view('dashboard_template/footerlink', $data, true);
+        // echo '<pre>';
+        // print_r($data);
+        // die();
+        $data['maincontent']                  = $this->load->view('students/module/all_module_list', $data, true);
 
         $this->load->view('master_dashboard', $data);
     }
-    public function studentsModuleByQStudyNew()
-    {
+
+    public function studentsModuleByQStudyNew(){
         // echo 11; die();
 
         $data['user_info'] = $this->Student_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
@@ -8157,17 +8195,19 @@ class Student extends CI_Controller
 
     public function organization()
     {
+        // echo 12;die();
+
         if ($this->session->userdata('userType') == 6) {
-            $data['video_help'] = $this->FaqModel->videoSerialize(15, 'video_helps');
+            $data['video_help']        = $this->FaqModel->videoSerialize(15, 'video_helps');
             $data['video_help_serial'] = 15;
         }
 
         $_SESSION['prevUrl'] = base_url('/') . 'student';
-        $data['types'] = $this->Student_model->get_organizing('tbl_enrollment', $this->session->userdata('user_id'));
+        $data['types']       = $this->Student_model->get_organizing('tbl_enrollment', $this->session->userdata('user_id'));
 
         $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
-        $data['header'] = $this->load->view('dashboard_template/header', $data, true);
+        $data['header']     = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
 
         $data['maincontent'] = $this->load->view('students/organize_type', $data, true);
@@ -8177,10 +8217,12 @@ class Student extends CI_Controller
     public function studyType($id)
     {
         $data['user_info'] = $this->Student_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
+
         if ($id == 1) {
             $data['video_help'] = $this->FaqModel->videoSerialize(16, 'video_helps');
             $data['video_help_serial'] = 16;
         }
+
         if ($id == 2) {
             $data['video_help'] = $this->FaqModel->videoSerialize(17, 'video_helps');
             $data['video_help_serial'] = 17;

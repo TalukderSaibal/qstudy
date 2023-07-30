@@ -447,66 +447,64 @@ class ModuleModel extends CI_Model
         return $query->result_array();
     }
 
-    public function allModuleForAssign($id , $tyoe)
-    {
+    public function allModuleForAssign($id , $tyoe){
 
-      $this->db->from('tbl_module');
-      $this->db->join('tbl_subject', 'tbl_subject.subject_id = tbl_module.subject');
-      $this->db->join('tbl_chapter', 'tbl_module.chapter = tbl_chapter.id');
+        $this->db->from('tbl_module');
+        $this->db->join('tbl_subject', 'tbl_subject.subject_id = tbl_module.subject');
+        $this->db->join('tbl_chapter', 'tbl_module.chapter = tbl_chapter.id');
 
-      $this->db->select('tbl_module.id , tbl_module.moduleName , tbl_module.moduleType , tbl_module.trackerName , tbl_module.individualName , tbl_module.exam_date , tbl_subject.subject_name , tbl_module.subject , tbl_chapter.chapterName , tbl_module.moduleName');
+        $this->db->select('tbl_module.id , tbl_module.moduleName , tbl_module.moduleType , tbl_module.trackerName , tbl_module.individualName , tbl_module.exam_date , tbl_subject.subject_name , tbl_module.subject , tbl_chapter.chapterName , tbl_module.moduleName');
 
-      if ($tyoe == "course_id") {
+        if ($tyoe == "course_id") {
         $this->db->where('tbl_module.course_id', $id);
-      }
+        }
 
-      if ($tyoe == "module_id") {
+        if ($tyoe == "module_id") {
         $this->db->where('tbl_module.id', $id);
-      }
+        }
 
-      $query = $this->db->get();
-      return $query->result_array();
-
-    }
-
-    public function studentHomework($id , $module_type)
-    {
-
-      $this->db->from('student_homeworks');
-      $this->db->group_by("assign_subject");
-      $this->db->where('tutor_id', $id);
-      $this->db->where('student_id', $this->session->userdata('user_id'));
-      $this->db->where('module_type', $module_type);
-      $this->db->where('status', 1);
-
-      $query = $this->db->get();
-      return $query->result_array();
+        $query = $this->db->get();
+        return $query->result_array();
 
     }
 
-    public function studentAssignedModule($st_id , $tutor_id)
-    {
+    public function studentHomework($id , $module_type){
+        $this->db->query('SET sql_mode=(SELECT REPLACE(@@sql_mode, "ONLY_FULL_GROUP_BY", ""));');
+        $this->db->from('student_homeworks');
+        $this->db->group_by("assign_subject");
+        $this->db->where('tutor_id', $id);
+        $this->db->where('student_id', $this->session->userdata('user_id'));
+        $this->db->where('module_type', $module_type);
+        $this->db->where('status', 1);
 
-      $this->db->from('student_homeworks');
-      $this->db->where('tutor_id', $tutor_id);
-      $this->db->where('student_id', $st_id);
-      $this->db->where('status', 1);
+        $query = $this->db->get();
 
-      $query = $this->db->get();
-      return $query->result_array();
+        $data = $query->result_array();
+
+        return $data;
+    }
+
+    public function studentAssignedModule($st_id , $tutor_id){
+
+        $this->db->from('student_homeworks');
+        $this->db->where('tutor_id', $tutor_id);
+        $this->db->where('student_id', $st_id);
+        $this->db->where('status', 1);
+
+        $query = $this->db->get();
+        return $query->result_array();
 
     }
 
-    public function studentAssignedModuleforUpdate($st_id , $tutor_id , $module_id)
-    {
+    public function studentAssignedModuleforUpdate($st_id , $tutor_id , $module_id){
 
-      $this->db->from('student_homeworks');
-      $this->db->where('tutor_id', $tutor_id);
-      $this->db->where('student_id', $st_id);
-      $this->db->where('assign_module', $module_id);
+        $this->db->from('student_homeworks');
+        $this->db->where('tutor_id', $tutor_id);
+        $this->db->where('student_id', $st_id);
+        $this->db->where('assign_module', $module_id);
 
-      $query = $this->db->get();
-      return $query->result_array();
+        $query = $this->db->get();
+        return $query->result_array();
 
     }
 
