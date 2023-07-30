@@ -1,19 +1,26 @@
 <?php
+
+  // echo '<pre>';
+  // print_r($user_info);
+  // die();
 // <!-- shukriti -->
   $tbl_setting = $this->db->where('setting_key','days')->get('tbl_setting')->row();
-  $duration = $tbl_setting->setting_value;
+
+  $duration    = $tbl_setting->setting_value;
+
   if (isset($user_info[0]['subscription_type']) && $user_info[0]['subscription_type'] == 'trial') {
     $trail_start_date = date('Y-m-d',$user_info[0]['created']);
-    $trail_end_date  = date('Y-m-d', strtotime('+'.$duration.' days', strtotime($trail_start_date)));
-    $today = date('Y-m-d');
-    $trail_days = $trail_end_date - $trail_start_date;
-    $diff = abs(strtotime($trail_end_date) - strtotime($today));
-    $years = floor($diff / (365*60*60*24));
-    $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-    $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+    $trail_end_date   = date('Y-m-d', strtotime('+'.$duration.' days', strtotime($trail_start_date)));
+    $today            = date('Y-m-d');
+    $trail_days       = $trail_end_date - $trail_start_date;
+    $diff             = abs(strtotime($trail_end_date) - strtotime($today));
+    $years            = floor($diff / (365*60*60*24));
+    $months           = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+    $days             = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
   }
 
   $usertype = $user_info[0]['user_type'];
+
   if ($usertype == 1) {
     $user_type_status = 'Parent';
   }else if($usertype == 2){
@@ -29,8 +36,10 @@
   }else if($usertype == 7){
     $user_type_status = 'Q-study';
   }
- // echo "<pre>";
- // print_r($user_info[0]);die();
+
+  // echo "<pre>";
+  // print_r($user_info[0]);die();
+
 ?>
 <!-- shvou -->
 <style>
@@ -60,54 +69,54 @@
 
     .direct_debit_2{
         background: #337ab7;
-        color: #fff; 
+        color: #fff;
         height: 76px;
-        margin-left: 2px;       
+        margin-left: 2px;
     }
 
     .direct_debit_2 p{
-        color: #fff;       
+        color: #fff;
     }
     .direct_debit_3{
         background: #337ab7;
-        color: #fff; 
+        color: #fff;
         height: 76px;
-        margin-left: 2px;  
-        padding-top: 25px;     
+        margin-left: 2px;
+        padding-top: 25px;
     }
     .direct_deposit_3{
         background: #b3a2c7;
-        color: #fff; 
+        color: #fff;
         height: 76px;
-        margin-left: 2px;  
-        padding-top: 25px;     
+        margin-left: 2px;
+        padding-top: 25px;
     }
 
     .no_direct_debit .direct_debit_1{
         background: #d99694;
-        color: #fff; 
+        color: #fff;
         height: 76px;
         padding-top: 25px;
     }
     .no_direct_debit .direct_debit_2{
         background: #d99694;
-        color: #fff; 
+        color: #fff;
         height: 76px;
-        margin-left: 2px; 
+        margin-left: 2px;
     }
     .no_direct_debit .direct_debit_3{
         background: #d99694;
-        color: #fff; 
+        color: #fff;
         height: 76px;
-        margin-left: 2px; 
+        margin-left: 2px;
         padding-top: 25px;
     }
     .direct_deposits .direct_debit_2{
         background: #b3a2c7;
-        color: #fff; 
+        color: #fff;
         height: 76px;
-        margin-left: 2px;   
-        padding-top: 25px;    
+        margin-left: 2px;
+        padding-top: 25px;
     }
 
     .hover_set .tooltiptext {
@@ -191,7 +200,7 @@
         text-align:left;
         min-height:325px;
         padding-bottom:14px;
-        
+
     }
     .without_image_course_name{
         font-family: century-gothic, sans-serif;
@@ -233,7 +242,7 @@
         <div class="panel panel-default">
           <div class="panel-heading" role="tab" id="headingOne">
             <h4 class="panel-title text-center">
-              <a role="button" data-toggle="collapse" data-parent="#task_accordion" href="#collapseOnetask" aria-expanded="true" aria-controls="collapseOne"> 
+              <a role="button" data-toggle="collapse" data-parent="#task_accordion" href="#collapseOnetask" aria-expanded="true" aria-controls="collapseOne">
                 <strong><span style="font-size : 18px; color:white;">  Edit User </span></strong>
               </a>
             </h4>
@@ -241,21 +250,21 @@
           <input type="hidden" name="userdelId" id="accToDel" value="<?php echo $userId; ?>">
           <form autocomplete="off" action="edit_user/<?php echo $userId; ?>" method="POST">
             <div class="row panel-body">
-              <div class="DirectDeposite"> 
+              <div class="DirectDeposite">
               </div>
               <div class="row">
                 <div class="col-sm-6 text-right">
                     <!--
                   <?php if ($user_info[0]['subscription_type'] =="direct_deposite" ) {   ?>
-                        <label style="color: red;"> <u>Direct Deposite </u></label> 
+                        <label style="color: red;"> <u>Direct Deposite </u></label>
                         <input type="hidden" name="subscription_type" value="direct_deposite">
                   <?php }  ?>
                   -->
                   <?php if ($checkDirectDepositCourseStatus > 0) {   ?>
-                        <label style="color: red;"> <u>Direct Deposite </u></label> 
+                        <label style="color: red;"> <u>Direct Deposite </u></label>
                         <input type="hidden" name="subscription_type" value="direct_deposite">
                   <?php }  ?>
-                  
+
                 </div>
                 <div class="col-sm-12 row">
                   <div class="col-md-7 text-right">
@@ -267,18 +276,18 @@
                       <?php else : ?>
                         <a  style="color:red; display: inline;" href="<?php echo base_url('Admin/unsuspendUser/').$row['id']; ?>"><i style="padding:0px 2px 0px 2px" data-toggle="tooltip" title="unsuspend" class="fa fa-play-circle-o"></i></a>
                       <?php endif; ?>
-                  
+
                       <span class="updTrialPeriod1" data-toggle="modal" data-target="#updTrialPeriod" id="updTrialPeriod1">
                           <i style="padding-right:2px" data-toggle="tooltip" title="Extend Trial Period" class="fa fa-wrench" ></i>
                       </span>
-                      
+
                       <span class="updPackage" data-toggle="modal" data-target="#updPackageModal" id="updPackage">
                           <i style="padding-right:2px" data-toggle="tooltip" title="Add Packages" class="fa fa-archive" ></i>
                       </span>
-                      
+
                       <span class="delAcc" data-toggle="modal" data-target="#delAccModal" id="delAcc">
                           <i style="padding-right:2px;" data-toggle="tooltip" title="Delete User" class="fa fa-times" ></i>
-                      </span> 
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-5 text-right">
@@ -293,13 +302,13 @@
             </div>
             <div class="row panel-body">
               <!-- shvou -->
-              
+
               <div class="row <?=((isset($days)))?"col-md-8":"col-md-7";?>" style="padding:0px 5px 0px 5px;">
                 <div class="<?=(isset($days))?"col-sm-4":"col-sm-5"?>">Subscription Type:</div>
 
                 <?php if ($user_info[0]['user_type']==6) : ?>
 
-                  <?php  
+                  <?php
                   $parent_detail = getParentIDPaymetStatus($parent[0]['parent_id']);
 
                   if ($parent_detail[0]['subscription_type'] =="direct_deposite") {
@@ -333,49 +342,50 @@
                     </label>
                     <label class="radio-inline">
                       <input class="radio_button" type="radio" name="subscription_type" id="inlineRadio3" value="guest"  required <?php echo $uSubType=='guest'? 'checked':' '; ?>> Guest
-                    </label> 
+                    </label>
                     <!-- shvou -->
                 <?php }  ?>
-                
+
               </div>
             <!-- shvou -->
-            <?php 
+            <?php
             $tbl_setting = $this->db->where('setting_key','days')->get('tbl_setting')->row();
             $duration = $tbl_setting->setting_value;
             if (isset($duration)): ?>
-              <label class="radio-inline trail_period" <?= ($user_info[0]['subscription_type'] == "trial")? "": "style='display: none'";?>> 
+              <label class="radio-inline trail_period" <?= ($user_info[0]['subscription_type'] == "trial")? "": "style='display: none'";?>>
                 <p> Days <strong style="padding: 2px 7px;border-radius:20%;border: 1px solid #ae9ebd;"><?=$duration;?></strong></p>
               </label>
             <?php endif ?>
 
-            <?php 
+            <?php
               $end_subs  = $user_info[0]['end_subscription'];
               if (isset($end_subs)) {
-                   $d1 = date('Y-m-d',strtotime($end_subs));
-                   $d2 = date('Y-m-d');
-                   $diff = strtotime($d1) - strtotime($d2);
-                   $days = floor($diff/(60*60*24));
+                $d1 = date('Y-m-d',strtotime($end_subs));
+                $d2 = date('Y-m-d');
+                $diff = strtotime($d1) - strtotime($d2);
+                $days = floor($diff/(60*60*24));
               }
+
             if ($user_info[0]['subscription_type'] == "guest"){ ?>
 
-              
-                <label class="radio-inline days_unlimited" style="margin: 0;padding: 0" <?= ($user_info[0]['subscription_type'] == "guest")? "": "style='display: none'";?> > 
-                
+
+                <label class="radio-inline days_unlimited" style="margin: 0;padding: 0" <?= ($user_info[0]['subscription_type'] == "guest")? "": "style='display: none'";?> >
+
                     <p> Days <input type="number" name="guest_days" min="1" id="guest_days" style="width: 46px;border: 1px solid #aeacbd;border-radius: 4px;"  value="<?= (isset($days))?$days :""; ?>"></p>
                 </label>
-                <label class="radio-inline days_unlimited" style="margin: 0;padding: 0" <?= ($user_info[0]['subscription_type'] == "guest")? "": "style='display: none'";?>> 
+                <label class="radio-inline days_unlimited" style="margin: 0;padding: 0" <?= ($user_info[0]['subscription_type'] == "guest")? "": "style='display: none'";?>>
                     <p> Unlimited <input class="form-check-input" type="checkbox" name="unlimited" value="1" id="unlimited" <?= ($user_info[0]['unlimited'] == 0)?";":"checked"; ?> ></p>
                 </label>
             <?php }else{ ?>
-              <label class="radio-inline days_unlimited"  <?= ($user_info[0]['subscription_type'] == "signup")? "style='margin: 0;padding: 0;'": "style='margin: 0;padding: 0;display: none'";?>  > 
+              <label class="radio-inline days_unlimited"  <?= ($user_info[0]['subscription_type'] == "signup")? "style='margin: 0;padding: 0;'": "style='margin: 0;padding: 0;display: none'";?>  >
                     <p> Days <input type="number" name="guest_days" id="guest_days" style="width: 46px;border: 1px solid #aeacbd;border-radius: 4px;"  value="<?= (isset($days))?$days :""; ?>" ></p>
                 </label>
 
-                <label class="radio-inline days_unlimited" style="margin: 0;padding: 0;display: none"> 
+                <label class="radio-inline days_unlimited" style="margin: 0;padding: 0;display: none">
                     <p> Unlimited <input class="form-check-input" type="checkbox" name="unlimited" value="1" id="unlimited" ></p>
                 </label>
             <?php } ?>
-            </div>   
+            </div>
 
             <div class="row panel-body">
               <div class="row" style="padding:0px 5px 0px 5px;">
@@ -413,7 +423,7 @@
                       <input type="text" class="form-control" id="ref_link" name="SCT_link" value="<?php echo $user_info[0]['SCT_link']?>">
                     </div>
                   </div>
-                  
+
                   <!-- <div class="form-group row">
                     <?php if ($user_info[0]['user_type']==1) : ?>
                       <label for="" class="col-sm-4 col-form-label">Student Info:</lavel>
@@ -436,7 +446,7 @@
                         <select id="userType" class="form-control" name="user_type" required readonly>
                           <option selected>Choose...</option>
                           <?php foreach ($user_type as $userType) : ?>
-                            <option value="<?php echo $userType['id'] ?>" 
+                            <option value="<?php echo $userType['id'] ?>"
                               <?php if($user_info[0]['user_type'] == $userType['id']){echo 'selected';}?>>
                               <?php echo $userType['userType'] ?>
                             </option>
@@ -494,16 +504,16 @@
                       </select>
                     </div>
                   </div>
-                   <?php 
+                   <?php
                       $id = $user_info[0]['id'];
                       $NumberOfStudent = $this->db->where('parent_id',$id)->get('tbl_useraccount')->result_array();
-                      
+
                     if (isset($NumberOfStudent) && count($NumberOfStudent) > 0 && $user_info[0]['user_type']==1): ?>
-                        
+
                       <div class="form-group row">
                         <label for="" class="col-sm-4 col-form-label">Student Limit:</label>
                         <div class="col-sm-8">
-                          <?= count($NumberOfStudent);?> 
+                          <?= count($NumberOfStudent);?>
                         </div>
                       </div>
 
@@ -512,12 +522,12 @@
                           <label for="" class="col-sm-4 col-form-label">Name: </label>
                           <div class="col-sm-8">
                             <a href="edit_user/<?php echo $value['id'];?>"> <?= $value['name'];?> </a>
-                           
+
                           </div>
                         </div>
                       <?php endforeach ?> -->
                    <?php endif ?>
-                  
+
                   <?php if($user_info[0]['user_type']==2 || $user_info[0]['user_type']==6): ?>
                     <div class="form-group row">
                       <label for="" class="col-sm-4 col-form-label">Grade</label>
@@ -610,7 +620,7 @@
                    <div class="form-group row">
                     <label for="" class="col-sm-6 col-form-label text-right">Extend Trial Period</label>
                     <div class="col-sm-6">
-                      <input class="form-check-input" type="checkbox" name="trial_end_date" value="1" 
+                      <input class="form-check-input" type="checkbox" name="trial_end_date" value="1"
                       <?php if($user_info[0]['trial_end_date']){echo 'checked';}?> id="isExtendTrialPeriod">
                     </div>
                   </div>
@@ -644,17 +654,17 @@
                        <input class="form-check-input" type="checkbox" name="recommended_tutor" value="1" id="recommended_tutor">
                      </div>
                    </div>
-                    
+
                     <?php if ( $user_info[0]['user_type'] == 3  ) {   ?>
                         <div class="form-group row">
                           <label for="" class="col-sm-8 col-form-label"><a data-toggle="modal" data-target="#account_details_modal"><u>Bank Account Details
                           </u><span style="color:red"> <?= (isset($account_detail)?'(Active)':'') ?> </span> </a></label>
                           <div class="col-sm-2">
-                             
+
                           </div>
                        </div>
                      <?php }  ?>
-                   
+
                    <table class="table table-bordered">
                     <tbody>
                       <tr>
@@ -686,7 +696,7 @@
                         </td>
                         <td>
                           <?php if ( ($user_info[0]['user_type'] == 1 || $user_info[0]['user_type'] == 2 || $user_info[0]['user_type'] == 3 || $user_info[0]['user_type'] == 5 || $user_info[0]['user_type'] == 6  )  &&  ($checkDirectDepositCourse > 0) && ($checkDirectDepositCourseStatus != 0)) {   ?>
-                            
+
                             <a><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                           <?php } ?>
                         </td>
@@ -702,7 +712,7 @@
                         <td>
                             Direct Deposit(resourse)
                         </td>
-                        
+
                         <td>
                           <?php if (($deposit_resources_status == 0)) {   ?>
                             <a><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
@@ -758,7 +768,7 @@
                           <?php } ?>
                         </td>
                         <td>
-                            
+
                           <?php if ($tutorpendingComissions == 0 && $tutorpaidComissions != 0) {   ?>
                                 <input type="checkbox" name="tutorCommisionPaid" value="1" checked>
                           <?php }else{ ?>
@@ -823,7 +833,7 @@
                           <?php } ?>
                         </td>
                         <td>
-                            
+
                           <?php if (($messages_users[0]['status'] == 'seen')) {   ?>
                             <input type="checkbox" name="checkUserMessage" value="1" checked>
                           <?php }else{ ?>
@@ -864,9 +874,9 @@
                           <?php endforeach; ?>
                         </div>
                         <?php endif ; ?>
-                        
+
                         <?php if ($user_info[0]['user_type'] == 6) : ?>
-                            
+
                         <div class="form-group row">
                           <label for="" class="col-sm-2 col-form-label">Parent Info:</label>
                           <div class="col-sm-2">
@@ -875,10 +885,10 @@
                         </div>
                         <?php endif ; ?>
 
-                        <?php 
+                        <?php
                           $id = $user_info[0]['id'];
                           $NumberOfTutor = $this->db->where('parent_id',$id)->get('tbl_useraccount')->result_array();
-                            
+
                           if (isset($NumberOfTutor) && count($NumberOfTutor) > 0 && $user_info[0]['user_type'] == 5): ?>
                           <div class="form-group row">
                             <label for="" class="col-sm-2 col-form-label">Teacher Info:</label>
@@ -890,10 +900,10 @@
                           </div>
                           <?php endif ?>
 
-                        <?php 
+                        <?php
                           $id = $user_info[0]['id'];
                           $NumberOfTutor = $this->db->where('parent_id',$id)->limit(4,0)->get('tbl_useraccount')->result_array();
-                            
+
                          if (isset($NumberOfTutor) && count($NumberOfTutor) > 0 && $user_info[0]['user_type'] == 4): ?>
                          <div class="form-group row">
                             <label for="" class="col-sm-2 col-form-label">Teacher Info:</label>
@@ -911,7 +921,7 @@
                         <?php endif ?>
 
                       <div class="form-group row">
-                        <?php 
+                        <?php
                           $parent_id = $user_info[0]['parent_id'];
                           $corporate = $this->db->where('id',$parent_id)->get('tbl_useraccount')->row();
                           if (isset($corporate) && $user_info[0]['user_type'] == 3): ?>
@@ -922,7 +932,7 @@
                         <?php endif ?>
                       </div>
                       <div class="form-group row">
-                        <?php 
+                        <?php
                           $id = $user_info[0]['id'];
                           $students = $this->db->where('parent_id',$id)->get('tbl_useraccount')->result_array();
                           if (isset($students) && $user_info[0]['user_type'] == 1): ?>
@@ -935,10 +945,10 @@
                         <?php endif ?>
                       </div>
                     </div>
-                    
+
                   </div>
                 </div>
-                
+
               </div>
             </div>
           </form>
@@ -950,7 +960,7 @@
     </div>
 
   </div>
-  
+
   <div class="row">
     <div class="col-md-3">
     </div>
@@ -959,29 +969,29 @@
                       <!-- <ul id="course_ul">
                         <?//php echo isset($courses)?$courses:''; ?>
                       </ul> -->
-                      <?php 
+                      <?php
                         $all_courses = $courses['course_info'];
                         $register_course = $courses['register_course'];
                         //echo "<pre>";print_r($register_course);die();
                       ?>
                       <div class="row">
-                      <?php 
-                        
+                      <?php
+
                         $i=1;
                         $j=1;
                         $k=2;
                         $l=3;
                         foreach($all_courses as $course_info){ ?>
-                        
-                           <?php if($i==1){?> 
+
+                           <?php if($i==1){?>
                             <div class="col-md-4" style="margin-top: 15px;">
                             <div style="position:relative;">
                                <input type="checkbox" name="course[]" id="course_<?php echo $i; ?>" class="course_checkbox" data-id="<?=$i;?>" value="<?php echo $course_info['id'] ?>" data="<?php echo $course_info['courseCost'] ?>" <?php if(in_array($course_info['id'],$register_course)){echo "checked";} ?>>
 
                               <label for="course_<?php echo $i; ?>" style="display: block;">
-                                <div for="course_<?php echo $i; ?>" class="course_one_serial selected_course selected_course<?=$i;?>" data-id="<?=$i;?>"> 
+                                <div for="course_<?php echo $i; ?>" class="course_one_serial selected_course selected_course<?=$i;?>" data-id="<?=$i;?>">
 
-                                
+
                                 <div class="row">
                                 <div class="col-md-6" style="padding-right:0px;padding-left:8px;">
                                 <?php $course_name = preg_split('#<p([^>])*>#',$course_info['courseName']);
@@ -1014,7 +1024,7 @@
                                 </div>
                                </label>
                             </div>
-                            
+
                             </div>
                            <?php }elseif($i==4){?>
                             <div class="col-md-4" style="margin-top: 15px;">
@@ -1022,7 +1032,7 @@
                                     <input type="checkbox" name="course[]" id="course_<?php echo $i; ?>" class="course_checkbox"  data-id="<?=$i;?>" value="<?php echo $course_info['id'] ?>" data="<?php echo $course_info['courseCost'] ?>" <?php if(in_array($course_info['id'],$register_course)){echo "checked";} ?>>
                                     <label for="course_<?php echo $i; ?>" style="display: block;">
                                         <div class="course_one_serial selected_course selected_course<?=$i;?>" data-id="<?=$i;?>">
-                                           
+
                                             <div class="row">
                                             <div class="col-md-12" style="padding-right:0px;padding-left:8px;">
                                             <?php $course_name = preg_split('#<p([^>])*>#',$course_info['courseName']);
@@ -1044,7 +1054,7 @@
                                                 <br>
                                                 <br>
                                                 <p class="gradeName<?=$i;?> grade_row" style="font-family: century-gothic, sans-serif;font-weight:bold;font-size:14px;text-align: left;color:#d63832;"><?php echo $grade?></p>
-                                                
+
                                             </div>
                                             </div>
                                             <div class="row">
@@ -1067,7 +1077,7 @@
                                     <input type="checkbox" name="course[]" id="course_<?php echo $i; ?>" class="course_checkbox"  data-id="<?=$i;?>" value="<?php echo $course_info['id'] ?>" data="<?php echo $course_info['courseCost'] ?>" <?php if(in_array($course_info['id'],$register_course)){echo "checked";} ?>>
                                     <label for="course_<?php echo $i; ?>" style="display: block;">
                                         <div class="course_one_serial selected_course selected_course<?=$i;?>" data-id="<?=$i;?>">
-                                            
+
                                             <?php $course_name = preg_split('#<p([^>])*>#',$course_info['courseName']);
                                             //echo "<pre>";print_r(array_filter($course_name));die();
                                             $course_name = array_filter($course_name);
@@ -1088,11 +1098,11 @@
                                                     <p class="gradeName<?=$i;?> grade_row" style="font-family: century-gothic, sans-serif;font-weight:bold;font-size:14px;text-align: center;color:#d63832;"><?php echo $grade?></p>
                                                 </div>
                                                 <div class="col-md-8" style="padding-right:0px;padding-left:8px;">
-                                                    
+
                                                     <div style="text-align: center;">
                                                         <img src="assets/course_image/<?=$course_info['image_name']?>" class="course_image_show_<?=$i?>" style="">
-                                                    </div>    
-                                                    
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <br> <br>
@@ -1102,23 +1112,23 @@
                                                 </div>
                                                 <div class="col-md-9" style="min-height:50px;">
                                                     <div style="position: absolute; bottom:0px;">
-                                                        
+
                                                         <p class="courseName<?=$i;?>" style="font-family: century-gothic, sans-serif;font-weight:bold;font-size:16px;text-align: center;"><?php echo "Tutor Assisted Program";?></p>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </label>
                                 </div>
-                                
+
                             </div>
                            <?php }?>
-                        
-                        
+
+
                       <?php $i++;}?>
 
-                      <?php 
+                      <?php
                       $i=1;
                       foreach($all_courses as $course_info){ ?>
                         <?php if($i==2){ ?>
@@ -1130,8 +1140,8 @@
                                     <div for="course_<?php echo $i; ?>" class="course_two_serial selected_course selected_course<?=$i;?>" data-id="<?=$i;?>">
                                         <div class="course_without_image_box course_without_image_box<?=$i?>" style="min-height: 245px;background-color: #c3eaf1;   display: flex;align-items: center;flex-wrap: wrap;padding: 10px;    justify-content: center;">
 
-                                        
-                                        
+
+
                                         <div style="font-family: century-gothic, sans-serif;font-weight:bold;font-size:16px;">
                                             <?php $course_name = preg_split('#<p([^>])*>#',$course_info['courseName']);
                                             // echo "<pre>";print_r($course_name);die();
@@ -1157,7 +1167,7 @@
                                     </div>
                                 </label>
                             </div>
-                            
+
                             </div>
 
                         <?php }else if($i==3){?>
@@ -1167,11 +1177,11 @@
 
                                     <label for="course_<?php echo $i; ?>" style="display: block;">
                                         <div for="course_<?php echo $i; ?>" class="course_two_serial selected_course selected_course<?=$i;?>" data-id="<?=$i;?>">
-                                            
+
                                             <div class="course_without_image_box course_without_image_box<?=$i?>" style="min-height: 245px;background-color: #fbe5d6;   display: flex;align-items: center;flex-wrap: wrap;padding: 10px;    justify-content: center;">
 
-                                            
-                                            
+
+
 
                                                 <div style="font-family: century-gothic, sans-serif;font-weight:bold;font-size:16px;display: table-cell;vertical-align: middle;">
                                                     <?php $course_name = preg_split('#<p([^>])*>#',$course_info['courseName']);
@@ -1207,9 +1217,9 @@
                                     <label for="course_<?php echo $i; ?>" style="display: block;">
                                         <div class="course_two_serial selected_course selected_course<?=$i;?>">
                                             <div class="course_without_image_box course_without_image_box<?=$i?>" style="min-height: 245px;background-color: #e2f0d9;   display: flex;align-items: center;flex-wrap: wrap;padding: 10px;justify-content: center;">
-                                            
 
-                                           
+
+
 
                                                 <div style="font-family: century-gothic, sans-serif;font-weight:bold;font-size:16px;display: table-cell;vertical-align: middle;">
                                                 <?php $course_name = preg_split('#<p([^>])*>#',$course_info['courseName']);
@@ -1236,7 +1246,7 @@
                                         </div>
                                     </label>
                                 </div>
-                            
+
                             </div>
                         <?php }else if($i>6){?>
                             <div class="col-md-4" style="margin-top: 15px;">
@@ -1245,7 +1255,7 @@
                                     <label for="course_<?php echo $i; ?>" style="display: block;">
                                         <div class="course_two_serial selected_course selected_course<?=$i;?>">
                                             <div class="course_without_image_box course_without_image_box<?=$i?>" style="min-height:219px;background-color:#e2f0d9;border-top-right-radius: 10px;border-top-left-radius: 10px;width:100%;text-align: center;display:table;">
-                                            
+
 
                                                 <div style="font-family: century-gothic, sans-serif;font-weight:bold;font-size:16px;display: table-cell;vertical-align: middle;">
                                                 <?php $course_name = preg_split('#<p([^>])*>#',$course_info['courseName']);
@@ -1272,7 +1282,7 @@
                                         </div>
                                     </label>
                                 </div>
-                            
+
                             </div>
                         <?php }?>
 
@@ -1299,12 +1309,12 @@
         </div>
       <div class="modal-body">
 
-      <div class="row"> 
+      <div class="row">
         <div class="col-md-12 text-center">
           <p for="recipient-name" class="control-label ">Really want to delete this user?</p>
         </div>
-      </div> 
-    
+      </div>
+
       <div class="row">
         <div class="col-md-12 text-center">
           <button class="btn btn-success" data-dismiss='modal'>No</button>
@@ -1325,14 +1335,14 @@
           <h6 class="modal-title" id="exampleModalLabel">Tutor Commission Details</h6>
         </div>
         <div class="modal-body">
-          <div class="row"> 
+          <div class="row">
             <div class="col-md-6 text-center">
-                <b>Paid Commission: $<?= isset($tutorpaidComissions)?$tutorpaidComissions:0; ?></b> 
+                <b>Paid Commission: $<?= isset($tutorpaidComissions)?$tutorpaidComissions:0; ?></b>
             </div>
             <div class="col-md-6 text-center">
-                <b style="color:red">Pending Commission: $<?= isset($tutorpendingComissions)?$tutorpendingComissions:0; ?></b> 
+                <b style="color:red">Pending Commission: $<?= isset($tutorpendingComissions)?$tutorpendingComissions:0; ?></b>
             </div>
-          </div> 
+          </div>
           <br>
           <div class=" text-right">
             <button class="btn btn-success" data-dismiss='modal'>Close</button>
@@ -1353,12 +1363,12 @@
         </div>
         <div class="modal-body">
         <form id="sendMessageCompose">
-          <div class="row"> 
+          <div class="row">
             <div class="col-md-12 text-center">
                 <textarea class="form-control" aria-label="With textarea" rows="4" name="sendMessage" id="sendMessage"></textarea>
                 <input type="hidden" name="reciver_id" id="reciver_id" value="<?= $user_info[0]['id'] ?>">
             </div>
-          </div> 
+          </div>
           <br>
           <div class="">
             <button type="button" class="btn btn-default" id="sendMessageComposeId">Send</button>
@@ -1378,14 +1388,14 @@
           <h6 class="modal-title" id="exampleModalLabel">Student Prize Details</h6>
         </div>
         <div class="modal-body">
-          <div class="row"> 
+          <div class="row">
             <?php foreach ($student_prize_list as $key => $value): ?>
             <div class="col-md-6 text-center">
                <img src="<?= base_url()?>img/product/<?= $value['image'] ?>" style="">
                <label><?= $value['product_title'] ?> <b>(<?= $value['status'] ?>)</b></label>
             </div>
             <?php endforeach ?>
-          </div> 
+          </div>
           <br>
           <div class=" text-right">
             <button class="btn btn-success" data-dismiss='modal'>Close</button>
@@ -1442,21 +1452,21 @@
           <h6 class="modal-title" id="exampleModalLabel">Student Score</h6>
         </div>
         <div class="modal-body">
-          <div class="row"> 
+          <div class="row">
             <div class="col-md-12">
-                <b>Number of Test: <?= isset($studentScoreDetails[0]['total_row'])?$studentScoreDetails[0]['total_row']:0; ?></b> 
+                <b>Number of Test: <?= isset($studentScoreDetails[0]['total_row'])?$studentScoreDetails[0]['total_row']:0; ?></b>
             </div>
             <br>
             <br>
             <div class="col-md-12">
-                <b>Total Score: <?= isset($studentScoreDetails[0]['total_percentage'])?$studentScoreDetails[0]['total_percentage']:0; ?></b> 
+                <b>Total Score: <?= isset($studentScoreDetails[0]['total_percentage'])?$studentScoreDetails[0]['total_percentage']:0; ?></b>
             </div>
             <br>
             <br>
             <div class="col-md-12">
-                <b>Percentage: <?= isset($studentScoreDetails[0]['percentage'])?number_format($studentScoreDetails[0]['percentage']):0; ?>%</b> 
+                <b>Percentage: <?= isset($studentScoreDetails[0]['percentage'])?number_format($studentScoreDetails[0]['percentage']):0; ?>%</b>
             </div>
-          </div> 
+          </div>
           <br>
           <br>
           <div class=" text-right">
@@ -1485,12 +1495,12 @@
       separateDialCode:true,
     });
   });
-  
+
 
     //add/hide form fields based on user type selection
     $(document).on('change', '#userType', function(){
       var userType = this.value;
-      if(userType == 1) { 
+      if(userType == 1) {
         $('#numOfChild').css('display', 'block');
 
             //hide other types
@@ -1500,7 +1510,7 @@
           }else if(userType == 2 || userType == 6){
             $('#parent').css('display', 'block');
             $('#grade').css('display', 'block');
-            
+
             //hide other types
             $('#numOfChild').css('display', 'none');
             $('.childInfo').remove();
@@ -1555,37 +1565,37 @@
     //get courses on country change
     $(document).on('change', '#country', function(){
       var countryId = $(this).val();
-      var studentId = <?php echo $user_info[0]['id']; ?> 
+      var studentId = <?php echo $user_info[0]['id']; ?>
       $.ajax({
         url:'Admin/coursesByCountry/'+countryId+'/'+studentId,
         success: function(response){
-          $('#course_ul').html(response);          
+          $('#course_ul').html(response);
         }
       })
     })
 
     $( "#groupboard_id" ).change(function() {
 
-      var studentId = <?php echo $user_info[0]['id']; ?> 
+      var studentId = <?php echo $user_info[0]['id']; ?>
 
-      // <!-- Groupboard --> 
-       $.ajax({
+      // <!-- Groupboard -->
+      $.ajax({
         url:'Admin/check_groupboardSerial/'+this.value+'/'+studentId,
         success: function(response){
 
           if ( response == "This room is not available" || response == "No rooms"  ) {
-           
+
             $('#groupboard_id').val(0);
-            $('#groupboard_id_sl').html(response); 
+            $('#groupboard_id_sl').html(response);
           }else{
-            $('#groupboard_id_sl').html(response);  
-          }    
+            $('#groupboard_id_sl').html(response);
+          }
         }
       })
     });
 
 
-    // added AS 
+    // added AS
 
     $('.radio_button').change(function(){
       var value = $(this).val();
@@ -1648,11 +1658,11 @@
           }
       })
     })
-    
-    
+
+
       $('#sendMessageComposeId').on('click', function(){
         var textmessage  = $('#sendMessage').val();
-        var reciver_id   = $('#reciver_id').val(); 
+        var reciver_id   = $('#reciver_id').val();
         $.ajax({
           'url': 'Admin/sendMessageCompose',
           data: {textmessage:textmessage,reciver_id:reciver_id},
@@ -1663,18 +1673,18 @@
           }
       })
     })
-    
+
     function myFunction() {
       /* Get the text field */
       var copyText = document.getElementById("bank_details");
-    
+
       /* Select the text field */
       copyText.select();
       copyText.setSelectionRange(0, 99999); /* For mobile devices */
-    
+
       /* Copy the text inside the text field */
       document.execCommand("copy");
-    
+
       /* Alert the copied text */
       //alert("Copied the text: " + copyText.value);
     }

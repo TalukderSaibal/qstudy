@@ -462,25 +462,30 @@ $route['save_theme'] = 'admin/save_theme';
 $route['all_area'] = 'admin/all_area';
 $route['contact-mail'] = 'admin/contact_mail';
 $route['contact-info'] = 'admin/contact_info';
+
 //User Info
 $route['user_list'] = 'admin/user_list/$1/$2/$3';
 $route['user_add'] = 'Admin/userAdd';
 $route['edit_user/(:any)'] = 'Admin/edit_user/$1';
 $route['tutor_create_50_vocabulary'] = 'admin/tutor_create_50_vocabulary';
 $route['tutor_with_10_students'] = 'admin/tutor_with_10_students';
+
 //Country Info
 $route['country_list'] = 'admin/country_list';
 $route['save_country'] = 'admin/save_country';
 $route['update_country'] = 'admin/update_country';
 $route['delete_country/(:any)'] = 'admin/delete_country/$1';
+
 //Country Wise Course
 $route['country_wise'] = 'admin/country_wise';
 $route['course_schedule/(:any)'] = 'admin/course_schedule/$1';
 $route['save_course_schedule'] = 'admin/save_course_schedule';
 $route['save_trial_course_schedule'] = 'admin/save_trial_course_schedule';
 $route['delete_course'] = 'admin/delete_course';
+
 //find tutor
 $route['trial_period'] = 'admin/trial_period';
+
 //faqs
 $route['faq/add'] = 'Faq/addFaq';
 $route['faq/all'] = 'Faq/allFaq';

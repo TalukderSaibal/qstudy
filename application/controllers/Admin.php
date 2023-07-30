@@ -168,6 +168,7 @@ class Admin extends CI_Controller
     {
         // echo 11; die();
         //$this->db->where('subscription_type','guest')->where('end_subscription',null)->update('tbl_useraccount',(['unlimited'=>1]));
+
         if ($_GET['name'] != null || $_GET['user_type'] != null || $_GET['country_id'] != null) {
 
             $data['total_registered'] = $this->Admin_model->total_registered_search($_GET['name'], $_GET['user_type'], $_GET['country_id']);
@@ -176,6 +177,7 @@ class Admin extends CI_Controller
             $data['total_registered'] = $this->Admin_model->total_registered();
             $data['today_registered'] = $this->Admin_model->today_registered();
         }
+
         $data['tutor_with_10_student'] = $this->Admin_model->tutor_with_10_student();
 
 
@@ -235,16 +237,21 @@ class Admin extends CI_Controller
 
         $data['tutor_with_50_vocabulary'] = $this->Admin_model->tutor_with_50_vocabulary();
         date_default_timezone_set('Australia/Canberra');
+
         $date = date('Y-m-d');
         $data['get_todays_data'] = $this->Admin_model->get_todays_data($date);
 
         $data['user_type'] = $this->Admin_model->getAllInfo('tbl_usertype');
         $data['all_country'] = $this->Admin_model->getAllInfo('tbl_country');
 
-        $data['user_info'] = $this->Admin_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
-        $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
-        $data['page'] = 'User List';
+        $data['user_info']    = $this->Admin_model->getInfo('tbl_useraccount', 'id', $this->session->userdata('user_id'));
+        $data['page_title']   = '.:: Q-Study :: Tutor yourself...';
+        $data['page']         = 'User List';
         $data['page_section'] = 'User';
+
+        // echo '<pre>';
+        // print_r($data['user_info']);
+        // die();
 
         $groupboard_assigner = $this->Admin_model->groupboard_req();
 
@@ -262,9 +269,9 @@ class Admin extends CI_Controller
         }
 
 
-        $data['groupboard_require'] = $groupboard_require;
+        $data['groupboard_require']  = $groupboard_require;
         $data['groupboard_assigner'] = isset($groupboard_assigner_s) ? $groupboard_assigner_s : [];
-        $data['groupboard_taker'] = isset($groupboard_taker_s) ? $groupboard_taker_s : [];
+        $data['groupboard_taker']    = isset($groupboard_taker_s) ? $groupboard_taker_s : [];
 
 
 
@@ -273,10 +280,12 @@ class Admin extends CI_Controller
         foreach ($signup_users as $key => $value) {
             $this->db->where('id', $value['id'])->update('tbl_useraccount', ['subscription_status' => 1]);
         }
-        //echo "<pre>";print_r($data);die();
+
+        // echo "<pre>";print_r($data);die();
+
         $data['headerlink'] = $this->load->view('dashboard_template/headerlink', $data, true);
-        $data['leftnav'] = $this->load->view('dashboard_template/leftnav', $data, true);
-        $data['header'] = $this->load->view('dashboard_template/header', $data, true);
+        $data['leftnav']    = $this->load->view('dashboard_template/leftnav', $data, true);
+        $data['header']     = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink'] = $this->load->view('dashboard_template/footerlink', $data, true);
 
         $data['maincontent'] = $this->load->view('admin/user/user_list', $data, true);
@@ -537,22 +546,26 @@ class Admin extends CI_Controller
 
     public function edit_user($user_id)
     {
-        $post = $this->input->post();
+        $post  = $this->input->post();
         $clean = $this->security->xss_clean($post);
+
+
+
         if (!$clean) {
             $data['userId'] = $user_id;
 
             $data['student_prize_list'] = $this->Admin_model->getInfoPrizeWinerUserByID($user_id, $limit, $offset);
 
 
-            $tbl_setting = $this->db->where('setting_key', 'days')->get('tbl_setting')->row();
-            $duration = $tbl_setting->setting_value;
-            $date = date('Y-m-d');
-            $d1  = date('Y-m-d', strtotime('-' . $duration . ' days', strtotime($date)));
-            $trialEndDate = strtotime($d1);
+            $tbl_setting            = $this->db->where('setting_key', 'days')->get('tbl_setting')->row();
+            $duration               = $tbl_setting->setting_value;
+            $date                   = date('Y-m-d');
+            $d1                     = date('Y-m-d', strtotime('-' . $duration . ' days', strtotime($date)));
+            $trialEndDate           = strtotime($d1);
             $data['activeTrilUser'] = $this->Admin_model->getInfoTrialActiveUserAdmin('tbl_useraccount', 'subscription_type', 'trial', $user_id, $trialEndDate);
 
-            //echo "<pre>";print_r($activeTrilUser);die;
+            // echo "<pre>";print_r($activeTrilUser);die;
+
             $data['user_type'] = $this->Admin_model->getAllInfo('tbl_usertype');
 
             $data['all_country'] = $this->Admin_model->getAllInfo('tbl_country');
@@ -561,17 +574,24 @@ class Admin extends CI_Controller
 
             $data['user_info'] = $this->Admin_model->getInfo('tbl_useraccount', 'id', $user_id);
 
+            // echo '<pre>';
+            // print_r($data['user_info']);
+            // die();
+
             if ($data['user_info'][0]['user_type'] == 1) { //parent
-                $conditions = ['parent_id' => $user_id];
+                $conditions       = ['parent_id' => $user_id];
                 $data['allChild'] = $this->Admin_model->search('tbl_useraccount', $conditions);
             } elseif ($data['user_info'][0]['user_type'] == 6) { //child
-                $conditions = ['id' => $user_id];
-                $data['parent'] = $this->Admin_model->search('tbl_useraccount', $conditions);
+                $conditions           = ['id' => $user_id];
+                $data['parent']       = $this->Admin_model->search('tbl_useraccount', $conditions);
                 $data['tutorRefLink'] = $this->Admin_model->getTutorRefLink($user_id);
             }
+
+
             // echo "<pre>";print_r($data['tutorRefLink']);die();
 
             $checkCommission = $this->db->where('tutorId', $user_id)->where('status', 0)->get('tbl_tutor_commisions')->result_array();
+
             if ($data['user_info'][0]['user_type'] == 3) {
                 $data['tutorCommision'] = count($checkCommission);
             }
@@ -586,12 +606,12 @@ class Admin extends CI_Controller
                 $data['account_detail'] = $this->db->where('tutor_id', $user_id)->get('tbl_tutor_account_details')->row();
             }
 
-
-
             $vocabularyCommission = $this->QuestionModel->vocabularyCommission($user_id);
             if (isset($vocabularyCommission)) {
+
                 $total_approved = $vocabularyCommission->total_approved;
-                $total_paid = $vocabularyCommission->total_paid + VOCABULARY_PAYMENT;
+                $total_paid     = $vocabularyCommission->total_paid + VOCABULARY_PAYMENT;
+
                 if ($total_approved > $total_paid) {
                     $data['vocabularyCommission'] = 1;
                 } else {
@@ -604,6 +624,7 @@ class Admin extends CI_Controller
             if ($checkStudentPercentage) {
                 $totalRow = $checkStudentPercentage[0]['total_row'];
                 $percentage = number_format($checkStudentPercentage[0]['percentage']);
+
                 if ($totalRow >= 2 && $percentage >= 90) {
                     $data['studentScore'] = 1;
                     $data['studentScoreDetails'] = $this->Admin_model->checkStudentPercentage('daily_modules', 'user_id', $user_id);;
@@ -648,9 +669,8 @@ class Admin extends CI_Controller
 
             $data['deposit_resources_status'] = 3;
             if (isset($tbl_qs_payments)) {
-
-                $end_date = $tbl_qs_payments->PaymentEndDate;
-                $payment_status = $tbl_qs_payments->payment_status;
+                $end_date            = $tbl_qs_payments->PaymentEndDate;
+                $payment_status      = $tbl_qs_payments->payment_status;
                 $data['paymentType'] = $tbl_qs_payments->paymentType;
 
                 $d1 = date('Y-m-d', $end_date);
@@ -673,15 +693,15 @@ class Admin extends CI_Controller
 
 
             //check direct deposit courses
-            $checkDirectDepositCourse = $this->Admin_model->getDirectDepositCourse($user_id);
-            $checkDirectDepositPendingCourse = $this->Admin_model->getDirectDepositPendingCourse($user_id);
-            $data['checkDirectDepositCourse'] = $checkDirectDepositCourse;
+            $checkDirectDepositCourse               = $this->Admin_model->getDirectDepositCourse($user_id);
+            $checkDirectDepositPendingCourse        = $this->Admin_model->getDirectDepositPendingCourse($user_id);
+            $data['checkDirectDepositCourse']       = $checkDirectDepositCourse;
             $data['checkDirectDepositCourseStatus'] = $checkDirectDepositPendingCourse;
 
 
             $data['checkUnavailableProduct'] = $this->db->where('user_id', $user_id)->where('status', 'unavailable')->get('prize_won_users')->row();
 
-            //echo "<pre>";print_r( $data['checkUnavailableProduct']);die();
+            // echo "<pre>";print_r( $data['checkUnavailableProduct']);die();
 
             $data['parents'] = $this->Admin_model->getInfo('tbl_useraccount', 'user_type', 1);
             $data['page_title'] = '.:: Q-Study :: Tutor yourself...';
@@ -696,14 +716,14 @@ class Admin extends CI_Controller
             $data['maincontent'] = $this->load->view('admin/user/user_edit', $data, true);
             $this->load->view('master_dashboard', $data);
         } else {
+            $chk_email =  $this->Admin_model->checkEmail($clean['user_email'],$user_id);
 
-           $chk_email =  $this->Admin_model->checkEmail($clean['user_email'],$user_id);
-           if($chk_email==1){
-            $this->session->set_flashdata('error_msg', 'Email already exists another User');
-              redirect('edit_user/' . $user_id);
-           }else{
-
+            if($chk_email==1){
+                $this->session->set_flashdata('error_msg', 'Email already exists another User');
+                redirect('edit_user/' . $user_id);
+            }else{
             $prize_unavailable = $this->input->post('student_prize_unavailable');
+
             if (isset($prize_unavailable)) {
                 $won_product_details = $this->db->where('user_id', $user_id)->where('status', 'pending')->get('prize_won_users')->row();
                 if (isset($won_product_details)) {
@@ -967,7 +987,7 @@ class Admin extends CI_Controller
             }
 
             redirect('edit_user/' . $user_id);
-          }
+            }
         }
     }
 

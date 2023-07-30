@@ -1,41 +1,44 @@
 <style>
-.table-bordered>thead>tr>th{
- border: 1px solid #000 !important; 
-}
-.dataTables_filter{
-  margin-bottom: 5px;
-}
+  .table-bordered>thead>tr>th{
+    border: 1px solid #000 !important;
+  }
+  .dataTables_filter{
+    margin-bottom: 5px;
+  }
 </style>
 
+<?php
+  // echo "<pre>";
+  // print_r($total_registered);
+  // die();
+?>
 
 <table id ='myTable' class="table table-bordered">
-   <thead>
+  <thead>
     <tr>
       <th>Country Name</th>
       <th>User Type</th>
       <th>User Name</th>
       <th>User Email</th>
       <th style="width: 95px;">Action</th>
-  </tr>
-</thead>
-<?php
- // echo "<pre>";
- // print_r($total_registered);die();
-?>
+    </tr>
+  </thead>
 
-<tbody>
+
+
+  <tbody>
 
     <?php foreach ($total_registered as $row) {?>
 
-      <?php 
+      <?php
 
-       // Groupboard 
-      $color = '';
+       // Groupboard
+        $color = '';
 
-      $color = in_array($row['id'], $groupboard_assigner)  ? "red":"";
-      $color = in_array($row['id'], $groupboard_taker)  ? "black":$color;
+        $color = in_array($row['id'], $groupboard_assigner)  ? "red":"";
+        $color = in_array($row['id'], $groupboard_taker)  ? "black":$color;
 
-       ?>
+      ?>
 
         <tr id="<?php echo $row['id']; ?>">
             <td><a><?php echo $row['countryName'];?></a></td>
@@ -48,25 +51,29 @@
                 </p>
                 <?php
                   $end_subscription = $row['end_subscription'];
+
                   if (isset($end_subscription)) {
-                     $d1 = date('Y-m-d',strtotime($end_subscription));
-                     $d2 = date('Y-m-d');
-                     $diff = strtotime($d1) - strtotime($d2);
-                     $days = floor($diff/(60*60*24));
+                      $d1 = date('Y-m-d',strtotime($end_subscription));
+                      $d2 = date('Y-m-d');
+                      $diff = strtotime($d1) - strtotime($d2);
+                      $days = floor($diff/(60*60*24));
                   }
+
                   if (isset($days) && $days < 0 && $row['user_type'] == 3): ?>
                   <p style="color:blue;font-weight: bold;"><u><a href="<?= base_url()?>all-groupboard">Available</a></u></p>
                 <?php endif ?>
 
               </td>
             <?php  }else{ ?>
-              <td>
-				  <?php echo $row['userType'];?>  <?= ($row['userType'] == "Tutor" && $row['parent_id'] != null )? "(School)<br><p style='color:black;font-weight:bold'>(Whiteboard)</p>":""; ?>
-				  <?= ($row['userType'] == "Tutor" && $row['subscription_type'] == "trial" )? "<br><p style='color:red;font-weight:bold'>(Whiteboard)</p>":""; ?>
-			  </td>
+
+            <td>
+              <?php echo $row['userType'];?>  <?= ($row['userType'] == "Tutor" && $row['parent_id'] != null )? "(School)<br><p style='color:black;font-weight:bold'>(Whiteboard)</p>":""; ?>
+              <?= ($row['userType'] == "Tutor" && $row['subscription_type'] == "trial" )? "<br><p style='color:red;font-weight:bold'>(Whiteboard)</p>":""; ?>
+            </td>
+
             <?php  } ?>
 
-            
+
             <td id="userName">
                 <a href="edit_user/<?php echo $row['id'];?>">
                   <!--  Groupboard  -->
@@ -79,14 +86,14 @@
                   <?php  } ?>
                 </a>
 
-                <?php  
+                <?php
                   if ($row['subscription_type']  ==  "guest") {
                     echo "<span style='color:#cccc29;text-decoration: underline;'>Guest</span> <span  style='color:#cccc29;' > ".date("F j, Y" , $row['created'] )." </span>";
                   }
 
                   if ($row['subscription_type']  ==  "trial") {
 
-                   $trail_period = trailPeriod();
+                    $trail_period = trailPeriod();
                     $Date =  date("Y-m-d");
                     $x = date('Y-m-d', $row['created'] );
                     $y = strtotime($x. ' + '.$trail_period[0]['setting_value'].' days');
@@ -97,13 +104,13 @@
                       echo "<span style='color:#d0d0d0;text-decoration: underline;'>Trial </span> <span  style='color:#d0d0d0;' > ".date("F j, Y" , $row['created'] )." </span> ";
                     }
 
-                    
+
                   }
 
                   if ($row['subscription_type']  ==  "direct_deposite" && $row['direct_deposite'] == 0 ) {
                     echo "<span style='color:#e43a52;text-decoration: underline;'>Direct Deposit</span> <span  style='color:#e43a52;' > ".date("F j, Y" , $row['created'] )." </span> ";
 
-                     if ($row['end_subscription']) {
+                    if ($row['end_subscription']) {
                       echo "<span style='color:#d67b7b;text-decoration: underline;'>END:</span> <span  style='color:#e43a3a;' > ".date("F j, Y" , strtotime($row['end_subscription'])  )." </span>";
                     }
                   }
@@ -139,6 +146,8 @@
                   }
                 ?>
             </td>
+
+
             <td ><?php echo $row['user_email']; ?></td>
             <input type="hidden" id="usersTrialEnd" value="<?php echo strlen($row['trial_end_date'])? date('d-M-Y', strtotime($row['trial_end_date'])) : ''; ?>">
             <td>
@@ -147,15 +156,15 @@
                 <?php else : ?>
                         <a  style="color:red; display: inline;" href="<?php echo base_url('Admin/unsuspendUser/').$row['id']; ?>"><i style="padding:0px 2px 0px 2px" data-toggle="tooltip" title="unsuspend" class="fa fa-play-circle-o"></i></a>
                 <?php endif; ?>
-                
+
                     <span class="updTrialPeriod1" data-toggle="modal" data-target="#updTrialPeriod" id="updTrialPeriod1">
                         <i style="padding-right:2px" data-toggle="tooltip" title="Extend Trial Period" class="fa fa-wrench" ></i>
                     </span>
-                    
+
                     <span class="updPackage" data-toggle="modal" data-target="#updPackageModal" id="updPackage">
                         <i style="padding-right:2px" data-toggle="tooltip" title="Add Packages" class="fa fa-archive" ></i>
                     </span>
-                    
+
                     <span class="delAcc" data-toggle="modal" data-target="#delAccModal" id="delAcc">
                         <i style="padding-right:2px;" data-toggle="tooltip" title="Delete User" class="fa fa-times" ></i>
                     </span>
@@ -242,11 +251,11 @@
       </div>
       <div class="modal-body">
 
-          <div class="row"> 
+          <div class="row">
             <div class="col-md-12 text-center">
               <p for="recipient-name" class="control-label ">Really want to delete this user?</p>
           </div>
-      </div> 
+      </div>
 
       <div class="row">
         <div class="col-md-12 text-center">
@@ -312,7 +321,7 @@
             method: 'POST',
             data:{'userId': userId},
             success: function(data){
-                $('#notTakenCourses').html(data);    
+                $('#notTakenCourses').html(data);
             }
         })
     });
@@ -333,7 +342,7 @@
     });
 
 
-     //data table on user list    
+     //data table on user list
      $(document).ready( function () {
       $('#myTable').DataTable();
     });
