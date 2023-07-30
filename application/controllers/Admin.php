@@ -549,8 +549,6 @@ class Admin extends CI_Controller
         $post  = $this->input->post();
         $clean = $this->security->xss_clean($post);
 
-
-
         if (!$clean) {
             $data['userId'] = $user_id;
 
