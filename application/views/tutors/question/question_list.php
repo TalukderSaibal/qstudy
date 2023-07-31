@@ -60,7 +60,9 @@
   }
 </style>
 
-
+<?php
+// echo 12235235;die;
+?>
 
 <div class="row">
   <?//php if($_SESSION['userType']== 7 ){?>
@@ -280,13 +282,13 @@
 
                         foreach ($val as $key2 => $val3) {  ?>
 
-                         <?php if ($a == $val3["question_type"] ) { ?>
+                        <?php if ($a == $val3["question_type"] ) { ?>
 
                             <div class="add_duplicated_<?php echo $val3["question_type"]; echo "_"; echo $b; ?>" ></div>
 
                             <li class="abc" <?php if ($b >5) { ?> style="display: none; <?php } ?>" style="background-color:#E3AB16;" datas-id="<?=$a ?>_<?=$val3['id']?>" id="q1_<?=$b?>_<?=$key['id']?>">
                               <a href="question_edit/<?=$a?>/<?=$val3['id']?>" style="position: relative;">Q<?=($val3["order"]+1); ?> <span style="left:0; color: red;position: absolute;top:-27px; font-size: 12px; width: 100%;"><?php echo $b; ?></span></a>
-                             </li>
+                            </li>
                             </li>
                           <?php $b++;
                           }
@@ -297,7 +299,7 @@
                       }
                     }
 
-                     ?>
+                    ?>
 
                 <li class="ss_q_u_d" <?php if ($i < 6) {
                     ?>style="display: none;"<?php }?> >
