@@ -133,6 +133,7 @@
                 <label for="email">Country</label>
                 <input type="text" class="form-control" readonly="" value="<?php echo $user_info[0]['countryName']; ?>">
               </div>
+
               <div class="form-group">
                 <label for="sbjct">Subject</label>
                 <select class="form-control" id="subjects">
@@ -142,6 +143,7 @@
                   <?php } ?>
                 </select>
               </div>
+
               <div class="form-group">
                 <label for="chpter">Chapter</label>
                 <select class="form-control" name="chapter" id="subject_chapter">
