@@ -1,6 +1,6 @@
 <style>
   .slick-prev:before, .slick-next:before {
-    color: #337ab7 !important;   
+    color: #337ab7 !important;
   }
 
    #mySlickCourse{
@@ -37,7 +37,7 @@
   {
       text-align: right;
   }
-  @media only screen and (min-width: 768px) and (max-width: 1199px){ 
+  @media only screen and (min-width: 768px) and (max-width: 1199px){
     .form-inline .form-control {
       width:110px;
       font-size: 13px;
@@ -51,11 +51,11 @@
    @media only screen and (min-width: 768px) and (max-width: 991px){
     .mySlickSubject .slick-list{
       overflow:inherit;
-    } 
+    }
   .mySlickSubject .slick-list .slick-slide{
         display: inline-block;
     width: auto !important;
-  }   
+  }
   }
 
   .ss_qstudy_list_mid_right{
@@ -71,13 +71,17 @@
       border: 1px solid #e5e8ec;
       background-color: #132c54;
   }
-.ss_qstudy_list_mid_right .profise_techer_two {
-      height: 60px;
-      width: 60px;
-      overflow: hidden;
-      display: inline-block;
-  }
+  .ss_qstudy_list_mid_right .profise_techer_two {
+        height: 60px;
+        width: 60px;
+        overflow: hidden;
+        display: inline-block;
+    }
 </style>
+
+<?php
+  // echo 12;die;
+?>
 
 <?php $qstudyEveryday = ($tutorInfo[0]['user_type']==7 && $moduleType==2) ? 1:0 ?>
 <div class="container">
@@ -115,18 +119,18 @@
             <?php } else { ?>
            <script>
             $(document).ready(function(){
-              getTutorials();    
+              getTutorials();
             })
           </script>
-            <?php } ?> 
+            <?php } ?>
       </div>
       <div class="ss_qstudy_list_mid">
         <div class="row">
             <?php if (($tutorInfo[0]['id'] == 2 && $moduleType == 1) || ($tutorInfo[0]['id'] == 2 && $moduleType == 2)){?>
-                
+
          <div class="col-sm-2 col-lg-1 ss_qstudy_list_mid_right">
 
-   
+
                 <div class="profise_techer_two">
                     <?php if (!empty($tutorInfo[0]['image'])) : ?>
                         <img src="<?php echo 'assets/uploads/'.$tutorInfo[0]['image']; ?>">
@@ -144,7 +148,7 @@
                         <?php } ?>
                     </div>
                 </div>
-           
+
 
 <!--            --><?php //if ($moduleType==1 || ($qstudyEveryday)) : ?>
                 <div class="row">
@@ -153,7 +157,7 @@
                     <div class="col-md-10 slickSubject" >
                         <?php if (isset($first_course_subjects)){?>
                           <?php if ($tutor_id == 2 && $module_type == 2) { ?>
-                            
+
                             <?php }else{ ?>
 
                               <span class="badge badge-pill badge-primary" courseId="<?= $first_course_id?>" id="subjectNameQ" subjectId="all" style="width: 197px;;margin:5px 5px 5px 5px; cursor: pointer;">All</span>
@@ -182,7 +186,7 @@
           </div>
           <div class="col-sm-4 ss_qstudy_list_mid_right">
 
-              
+
             <?php if ($tutorInfo[0]['id'] == 2){?>
                 <?php if (!$qstudyEveryday) : ?>
                   <div class="profise_techer">
@@ -190,7 +194,7 @@
                   </div>
                 <?php endif; ?>
             <?php }?>
-              
+
 
 
             <div class="profise_techer">
@@ -246,7 +250,7 @@
                     <th>Tracker Name</th>
                     <th>Individual Name</th>
                     <?php if ($tutor_id == 2 && $module_type == 2) { ?>
-                    
+
                     <?php  }else{ ?>
                       <th>Subject</th>
                       <th>Chapter</th>
@@ -296,9 +300,9 @@
       url: 'Student/studentsModuleByQStudy',
       method: 'POST',
       data: {
-        chapterId: chapterId, 
-        subjectId: subjectId, 
-        tutorId: tutorId, 
+        chapterId: chapterId,
+        subjectId: subjectId,
+        tutorId: tutorId,
         moduleType: moduleType
       },
       success: function(data) {
@@ -318,7 +322,7 @@
       url: 'Student/studentsModuleByQStudy',
       method: 'POST',
       data: {
-        tutorId:tutorId, 
+        tutorId:tutorId,
         moduleType:moduleType
       },
       success: function(data){
@@ -378,8 +382,8 @@
     method: 'POST',
     data: {
       //chapterId:chapterId,
-      subjectId : subjectId, 
-      tutorId : tutorId, 
+      subjectId : subjectId,
+      tutorId : tutorId,
       moduleType : moduleType
     },
     success: function(data){
@@ -387,7 +391,7 @@
     }
   })
 })
- 
+
 
  $(document).ready(function(){
   $('.mySlick').slick({
@@ -473,7 +477,7 @@ $(document).ready(function(){
         var moduleType = <?php echo $moduleType; ?>;
         if(moduleType == 2 && courseId == 8){
           $(".slickSubject").html('');
-          return; 
+          return;
         }
         $.ajax({
             type: 'POST',
@@ -506,7 +510,7 @@ $(document).ready(function(){
 all_module_first_course();
   function all_module_first_course()
   {
-   
+
     var subjectId = 'all';
     var tutorId  = <?php echo $tutorInfo[0]['id']; ?>;
     var moduleType = <?php echo $moduleType; ?>;
@@ -585,7 +589,7 @@ all_module_first_course();
       url: 'Student/studentsModuleByQStudy',
       method: 'POST',
       data: {
-        tutorId:tutorId, 
+        tutorId:tutorId,
         moduleType:moduleType,
         repetition:repetition
       },
@@ -621,7 +625,7 @@ all_module_first_course();
       type: 'POST',
       url: 'student/get_permission',
       data: {
-        module_id : module_id , 
+        module_id : module_id ,
         assignModule : "yes",
         id : id,
       },
@@ -652,8 +656,8 @@ all_module_first_course();
     url: 'Student/homeworkModule',
     method: 'POST',
     data: {
-      subjectId : subjectId, 
-      tutorId : tutorId, 
+      subjectId : subjectId,
+      tutorId : tutorId,
       moduleType : moduleType
     },
     success: function(data){

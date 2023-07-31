@@ -7177,6 +7177,8 @@ class Tutor extends CI_Controller
     {
 
         // echo $is_practice."hello";die();
+
+
         $_SESSION['show_tutorial_result'] = 0;
         $data['tutor_id'] = $tutor_id;
         $data['module_type'] = $module_type;

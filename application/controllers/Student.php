@@ -4116,7 +4116,7 @@ class Student extends CI_Controller
                 $subject_with_course = $this->Student_model->studentSubjects($this->loggedUserId);
 
                 // echo '<pre>';
-                // print_r($subject_with_course);
+                // print_r($data['studentSubjects']);
                 // die();
 
                 $registered_courses = $this->Student_model->registeredCourse($this->session->userdata('user_id'));
@@ -4249,7 +4249,7 @@ class Student extends CI_Controller
                     $all_course_id[] = $course['id'];
                 }
 
-                //echo "<pre>";print_r($all_course_id);die();
+                // echo "<pre>";print_r($all_course_id);die();
                 $subject_id_by_course = $this->Student_model->getAllSubjectByCourse($all_course_id,$module_type);
                 // echo $this->db->last_query(); die();
 
@@ -4265,13 +4265,16 @@ class Student extends CI_Controller
             // shukriti  end
 
             //if (isset($sb) && $sb != '') {
+
                 $data['first_course_subjects'] = $sb;
-                $data['first_course_id'] = $first_course;
+                $data['first_course_id']       = $first_course;
+
                 //$data['studentSubjects'] = $sb;
             //}
         }
 
         if (!empty($_SERVER['HTTP_REFERER'])) {
+
             if (strpos($_SERVER['HTTP_REFERER'], "/show_tutorial_result/") || strpos($_SERVER['HTTP_REFERER'], "/get_tutor_tutorial_module/")) {
                 if (!empty($_SESSION['prevUrl_after_student_finish_buton'])) {
                     $_SESSION['prevUrl'] = $_SESSION['prevUrl_after_student_finish_buton'];
@@ -4279,6 +4282,7 @@ class Student extends CI_Controller
             } else {
                 $_SESSION['prevUrl'] = $_SERVER['HTTP_REFERER'];
             }
+
         }
 
 
@@ -4294,15 +4298,13 @@ class Student extends CI_Controller
         $assignModuleByTutor                  = array();
         $assignModuleByTutor                  = $this->ModuleModel->studentHomework($tutor_id, $module_type);
 
+
         $data['assignModuleByTutorSubjectID'] = $assignModuleByTutor;
         $data['has_back_button']              = 'student';
         $data['page_title']                   = '.:: Q-Study :: Tutor yourself...';
         $data['headerlink']                   = $this->load->view('dashboard_template/headerlink', $data, true);
         $data['header']                       = $this->load->view('dashboard_template/header', $data, true);
         $data['footerlink']                   = $this->load->view('dashboard_template/footerlink', $data, true);
-        // echo '<pre>';
-        // print_r($data);
-        // die();
         $data['maincontent']                  = $this->load->view('students/module/all_module_list', $data, true);
 
         $this->load->view('master_dashboard', $data);

@@ -106,12 +106,10 @@
 </style>
 
 <?php
+
 // echo '<pre>';
 // print_r($studentSubjects);
 
-// foreach($user_info as $user){
-//   echo $user['payment_status']. '<br>';
-// }
 // die();
 
 ?>
@@ -124,6 +122,7 @@
     <div class="col-sm-11">
       <div class="ss_qstudy_list">
         <div class="ss_qstudy_list_top">
+
           <?php if ($moduleType == 1) { ?>
             <form class="form-inline" action="/action_page.php">
               <?php if ($moduleType == 1 || $moduleType == 2) { ?>
@@ -155,6 +154,7 @@
               </div>
               <button type="button" class="btn btn-default" id="moduleSearchBtn">Search</button>
             </form>
+
           <?php } else { ?>
             <script>
               $(document).ready(function() {
