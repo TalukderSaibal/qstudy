@@ -29,8 +29,8 @@
     text-align: center;
     line-height: 42px;
     font-size: 12px;
-}
-<?php  }else{ ?>
+  }
+  <?php  }else{ ?>
     .ss_question_menu li a {
       color: #fff;
       text-decoration: none;
@@ -40,25 +40,27 @@
       line-height: 42px;
       font-size: 12px;
   }
- <?php } ?>
- .question-list-header{
+  <?php } ?>
+  .question-list-header{
     color: #888;
     text-decoration: underline;
     margin-right: 20px;
   font-size: 18px;
- }
+  }
 
- .ss_q_list_top span{
-     display: inline-block;
- }
- .ss_q_list_top input{
-     display: inline-block;
-     width:53%;
- }
- #search_vocubulary_word{
-     display: inline-block;
- }
+  .ss_q_list_top span{
+      display: inline-block;
+  }
+  .ss_q_list_top input{
+      display: inline-block;
+      width:53%;
+  }
+  #search_vocubulary_word{
+      display: inline-block;
+  }
 </style>
+
+
 
 <div class="row">
   <?//php if($_SESSION['userType']== 7 ){?>

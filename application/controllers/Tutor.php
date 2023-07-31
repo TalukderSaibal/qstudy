@@ -772,12 +772,12 @@ class Tutor extends CI_Controller
                     $subject      = isset($sSub) ? $sSub : (isset($pSub) ? $pSub : '');
                     $chapter      = isset($sChap) ? $sChap : (isset($pChap) ? $pChap : '');
                     $studentgrade = isset($sGrade) ? $sGrade : (isset($pGrade) ? $pGrade : '');
-                    $country      = $country;                                                    //isset($sCountry) ? $sCountry : (isset($pCountry) ? $pCountry : '');
+                    $country      = $country;
                 } else {
                     $subject      = isset($post['subject']) ? $post['subject'] : '';
                     $chapter      = isset($post['chapter']) ? $post['chapter'] : '';
                     $studentgrade = isset($post['grade']) ? $post['grade'] : '';
-                    $country = $country; //isset($post['country']) ? $post['country'] : '';
+                    $country      = $country;
                 }
 
                 $conditions = [
@@ -1159,7 +1159,7 @@ class Tutor extends CI_Controller
     public function save_question_data()
     {
         $post = $this->input->post();
-        // echo "<pre>"; print_r($_POST); die();
+        echo "<pre>"; print_r($_POST); die();
 
         $clean          = $this->security->xss_clean($post);
         $clean['media'] = isset($_FILES) ? $_FILES : [];
@@ -1801,13 +1801,15 @@ class Tutor extends CI_Controller
                         if (!empty($image_ques_body)) {
                             $this->db->select('*');
                             $this->db->from('idea_info');
+
                             $this->db->like('image_title', 'Image', 'after');
-                            $query = $this->db->get();
-                            $results = $query->result_array();
-                            $image_count = count($results);
-                            $image_count = $image_count + 1;
+
+                            $query                    = $this->db->get();
+                            $results                  = $query->result_array();
+                            $image_count              = count($results);
+                            $image_count              = $image_count + 1;
                             $data_idea['image_title'] = 'Image ' . $image_count;
-                            $data_idea['image_no'] = $image_count;
+                            $data_idea['image_no']    = $image_count;
                         }
 
                         $idea_id = $this->tutor_model->ideainsertId('idea_info', $data_idea);
@@ -1817,6 +1819,7 @@ class Tutor extends CI_Controller
 
                         $idea_description = $post['idea_details'];
                         $idea_description = $this->tutor_model->get_question_new_ideas($this->session->userdata('user_id'));
+
                         //echo "<pre>";print_r($idea_description);die();
 
                         foreach ($idea_description as $key => $value) {
@@ -1927,16 +1930,17 @@ class Tutor extends CI_Controller
                 $data['first_atmp_text']  = $this->input->post('first_atmp_text');
                 $data['second_atmp_text'] = $this->input->post('second_atmp_text');
                 $data['three_atmp_text']  = $this->input->post('three_atmp_text');
-                $data['question_id']  = $questionId;
+                $data['question_id']      = $questionId;
 
-                $first_input_value  = $this->input->post('1st_input_value');
-                $second_input_value  = $this->input->post('2nd_input_value');
-                $three_input_value  = $this->input->post('3rd_input_value');
+                $first_input_value       = $this->input->post('1st_input_value');
+                $second_input_value      = $this->input->post('2nd_input_value');
+                $three_input_value       = $this->input->post('3rd_input_value');
                 $data['1st_input_value'] = json_encode($first_input_value);
                 $data['2nd_input_value'] = json_encode($second_input_value);
                 $data['3rd_input_value'] = json_encode($three_input_value);
                 $attemptId = $this->tutor_model->insertId('tbl_question_attempt', $data);
             }
+
             if ($_POST['questionType'] == 4) {
 
                 if (isset($img_multipleChoose)) {
@@ -1945,6 +1949,7 @@ class Tutor extends CI_Controller
                     }
                 }
             }
+
             echo json_encode($chkValidation);
         }
     }

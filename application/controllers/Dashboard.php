@@ -71,18 +71,19 @@ class Dashboard extends CI_Controller
         $this->load->view('master_dashboard', $data);
     }
 
-    public function view_course()
-    {
-        if ($this->session->userdata('userType') == 3 ||
-                $this->session->userdata('userType') == 4 ||
-                $this->session->userdata('userType') == 5 ) { //tutor, School, Corporation
+    public function view_course(){
+        if ($this->session->userdata('userType') == 3 || $this->session->userdata('userType') == 4 || $this->session->userdata('userType') == 5 ) { //tutor, School, Corporation
             redirect('tutor/view_course');
         }
+
         if ($this->session->userdata('userType') == 2) { //upper level student
             redirect('student/view_course');
-        }if ($this->session->userdata('userType') == 6) { //student
+        }
+
+        if ($this->session->userdata('userType') == 6) { //student
             redirect('student/view_course');
         }
+
         if ($this->session->userdata('userType') == 7) { //qstudy
             redirect('qstudy/view_course');
         }
