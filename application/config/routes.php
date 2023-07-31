@@ -434,6 +434,7 @@ $route['view_edit_idea'] = 'Tutor/view_edit_idea';
 $route['get_tutor_tutorial_module/(:any)/(:any)']='Student/get_tutor_tutorial_module/$1/$2';
 
 $route['st_answer_matching']='Student/st_answer_matching';
+$route['st_answer_matching_demo']='Student/st_answer_matching_demo';
 $route['st_answer_matching_vocabolary']='Student/st_answer_matching_vocabolary';
 $route['st_answer_matching_true_false']='Student/st_answer_matching_true_false';
 $route['st_answer_matching_multiple_choice']='Student/st_answer_matching_multiple_choice';

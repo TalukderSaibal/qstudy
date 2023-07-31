@@ -780,7 +780,6 @@ class Student extends CI_Controller
     // added by sobuj
     private function openModuleByTutorialBased($modle_id, $question_order_id)
     {
-
         $start_exam_time_new = time();
         $this->session->set_userdata('start_exam_time_new', $start_exam_time_new);
         $data['order'] = $this->uri->segment('3');
@@ -883,10 +882,16 @@ class Student extends CI_Controller
         }
 
 
-        // echo $data['question_info_s'][0]['question_type'];die();
+        // echo '<pre>'; print_r($data);die();
+
         if ($data['question_info_s'][0]['question_type'] == 1) {
             $_SESSION['q_order_2'] = $this->uri->segment('3');
             $data['maincontent'] = $this->load->view('students/question_module_type_tutorial/ans_general', $data, true);
+        } elseif($data['question_info_s'][0]['question_type'] == 24){
+
+            $_SESSION['q_order_2'] = $this->uri->segment('3');
+            $data['maincontent'] = $this->load->view('students/question_module_type_tutorial/ans_demo', $data, true);
+
         } elseif ($data['question_info_s'][0]['question_type'] == 2) {
 
             $_SESSION['q_order_2'] = $this->uri->segment('3');
@@ -1245,6 +1250,7 @@ class Student extends CI_Controller
     public function get_tutor_tutorial_module($modle_id, $question_order_id, $is_every_study = 0)
     {
         // echo "<pre>";print_r($_SESSION);die();
+
         $select = '*';
         $table = 'tbl_module';
 
@@ -1272,25 +1278,33 @@ class Student extends CI_Controller
 
         $data['user_info'] = $this->Student_model->userInfo($this->session->userdata('user_id'));
         $module_type = $this->tutor_model->get_all_where($select, $table, $columnName, $columnValue);
+
+        // echo '<pre>';print_r($module_type);die();
+
         // Get Student Ans From tbl_student_answer
         $flag = 0;
         $get_student_ans_info = $this->Student_model->getTutorialAnsInfo('tbl_student_answer', $modle_id, $this->session->userdata('user_id'));
-        // echo '<pre>';print_r($module_type[0]['moduleType']);die();
+
+        // echo '<pre>';print_r($get_student_ans_info);die();
+
         if ($module_type[0]['moduleType'] != 2) {
             if ($get_student_ans_info) {
                 $flag = 1;
             }
         }
-        //echo "<pre>";print_r($module_type);die();
+
+        // echo "<pre>";print_r($module_type);die();
+
         if ($module_type[0]['moduleType'] == 2) {
             $repition_days = json_decode($module_type[0]['repetition_days']);
-            function fix($n)
-            {
+
+            function fix($n){
                 if ($n) {
                     $val = (explode('_', $n));
                     return $val[1];
                 }
             }
+
             $b = array();
             if ($repition_days) {
                 $b = array_map("fix", $repition_days);
@@ -1327,21 +1341,22 @@ class Student extends CI_Controller
                 foreach (json_decode($tbl_module_ans[0]['st_ans']) as $key => $value) {
                     $the_first_start_time_new = time() - $this->session->userdata('start_exam_time_new');
                     $ind_ans = array(
-                        'question_order_id' => $value->question_order_id,
-                        'module_type' => $value->module_type,
-                        'module_id' => $value->module_id,
-                        'question_id' => $value->question_id,
-                        'link' => $value->link,
-                        'student_ans' => $value->student_ans,
-                        'workout' => $value->workout,
-                        'student_taken_time' => $the_first_start_time_new,
+                        'question_order_id'      => $value->question_order_id,
+                        'module_type'            => $value->module_type,
+                        'module_id'              => $value->module_id,
+                        'question_id'            => $value->question_id,
+                        'link'                   => $value->link,
+                        'student_ans'            => $value->student_ans,
+                        'workout'                => $value->workout,
+                        'student_taken_time'     => $the_first_start_time_new,
                         'student_question_marks' => $value->student_question_marks,
-                        'student_marks' => $value->student_marks,
-                        'ans_is_right' => $value->ans_is_right
+                        'student_marks'          => $value->student_marks,
+                        'ans_is_right'           => $value->ans_is_right
                     );
 
                     $data[$key] = $ind_ans;
                 }
+
                 $this->session->set_userdata('data', $data);
                 $this->session->set_userdata('obtained_marks', $tbl_module_ans[0]['obtained_marks']);
                 $this->session->set_userdata('total_marks', $tbl_module_ans[0]['total_marks']);
@@ -1787,40 +1802,46 @@ class Student extends CI_Controller
         $this->Student_model->update_tmp_module_tbl('tbl_temp_tutorial_mod_ques_two', 'module_id', $question_info_ai[0]['module_id'], 'st_id', $this->session->userdata('user_id'), $datass);
     }
 
-    private function take_decesion_1($question_marks, $question_id, $module_id, $question_order_id, $ans_is_right, $answer_info = null, $next_step_patten_two = null)
-    {
+    private function take_decesion_1($question_marks, $question_id, $module_id, $question_order_id, $ans_is_right, $answer_info = null, $next_step_patten_two = null){
 
         // echo $ans_is_right;die();
         // $this->session->unset_userdata('data');
         //****** Get Temp table data for Tutorial Module Type ******
+
         $question_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
 
 
-        $question_info_type = '';
-        $question_info_type = $question_info[0]['questionType'];
+        $question_info_type    = '';
+        $question_info_type    = $question_info[0]['questionType'];
         $question_info_pattern = '';
         $question_info_pattern = json_decode($question_info[0]['questionName']);
+
+        // echo '<pre>';
+        // print_r($question_info);
+        // die();
 
         if (isset($question_info_pattern->pattern_type)) {
             $question_info_pattern = $question_info_pattern->pattern_type;
         }
-        $user_id = $this->session->userdata('user_id');
+
+        $user_id           = $this->session->userdata('user_id');
         $tutorial_ans_info = $this->Student_model->getTutorialAnsInfo('tbl_temp_tutorial_mod_ques', $module_id, $user_id);
-        $obtained_marks = $this->session->userdata('obtained_marks');
-        $total_marks = $this->session->userdata('total_marks');
-        $ans_array = $this->session->userdata('data');
+        $obtained_marks    = $this->session->userdata('obtained_marks');
+        $total_marks       = $this->session->userdata('total_marks');
+        $ans_array         = $this->session->userdata('data');
 
 
         $flag = 0;
 
 
         if (!is_array($ans_array)) {
-            $ans_array = array();
+            $ans_array      = array();
             $obtained_marks = 0;
-            $total_marks = 0;
-            $flag = 0;
+            $total_marks    = 0;
+            $flag           = 0;
         } else {
             $question_idd = '';
+
             if (isset($ans_array[$question_order_id]['question_id'])) {
                 $question_idd = $ans_array[$question_order_id]['question_id'];
             }
@@ -3274,33 +3295,77 @@ class Student extends CI_Controller
         return 6;
     }
 
+    public function st_answer_matching_demo(){
+
+        $question_id = $this->input->post('question_id');
+        $module_id   = $this->input->post('module_id');
+
+        $checkQuestion = $this->input->post('checkQuestion');
+        $questionId    = $this->input->post('question_id');
+        $answer_info    = $this->Preview_model->getInfo('tbl_question', 'id', $questionId);
+        $answer        = json_decode($answer_info[0]['demoquestions']);
+
+        $question_marks    = $answer_info[0]['questionMarks'];
+        $question_order_id = $this->input->post('current_order');
+
+
+        $a = '';
+        $b = '';
+
+        foreach($checkQuestion as $question){
+            $question = $question;
+            if($answer[$question]->correct == 1){
+                $answer[$question]->text;
+            }else{
+                $a = 1;
+                $a = $a;
+            }
+        }
+
+        if($a == 1){
+            $ans_is_right = 'wrong';
+        }else{
+            $ans_is_right = 'correct';
+        }
+
+        if ($_POST['module_type'] == 1) {
+            $this->take_decesion_1($question_marks, $question_id, $module_id, $question_order_id, $ans_is_right);
+        } else {
+            $this->take_decesion_2($question_marks, $question_id, $module_id, $question_order_id, $ans_is_right);
+        }
+    }
+
     public function st_answer_matching()
     {
+
         $question_id = $this->input->post('question_id');
-        $module_id = $this->input->post('module_id');
+        $module_id   = $this->input->post('module_id');
+
         //$question_order_id = $_POST['check_order_id'] - 1;
+
         $question_order_id = $this->input->post('current_order');
-        $text = $this->input->post('answer');
-        //
-        $find = array('&nbsp;', '\n', '\t', '\r');
+        $text              = $this->input->post('answer');
+
+
+        $find     = array('&nbsp;', '\n', '\t', '\r');
         $repleace = array('', '', '', '');
-        $text = strip_tags($text);
-        $text = str_replace($find, $repleace, $text);
-        $text = trim($text);
+        $text     = strip_tags($text);
+        $text     = str_replace($find, $repleace, $text);
+        $text     = trim($text);
 
         $answer_info = $this->Preview_model->getInfo('tbl_question', 'id', $question_id);
 
-
         $question_marks = $answer_info[0]['questionMarks'];
 
-        $text_1 = $answer_info[0]['answer'];
-        $find = array('&nbsp;', '\n', '\t', '\r');
+        $text_1   = $answer_info[0]['answer'];
+        $find     = array('&nbsp;', '\n', '\t', '\r');
         $repleace = array('', '', '', '');
-        $text_1 = strip_tags($text_1);
-        $text_1 = str_replace($find, $repleace, $text_1);
-        $text_1 = trim($text_1);
+        $text_1   = strip_tags($text_1);
+        $text_1   = str_replace($find, $repleace, $text_1);
+        $text_1   = trim($text_1);
 
         $ans_is_right = 'correct';
+
         if ($text != $text_1) {
             $ans_is_right = 'wrong';
         }
@@ -5233,19 +5298,18 @@ class Student extends CI_Controller
         echo base_url() . $file;
     }
 
-    public function show_tutorial_result($module)
-    {
+    public function show_tutorial_result($module){
         $this->session->unset_userdata('correct_answer');
         $this->session->unset_userdata('memorize_pattern_three_student_answer');
         $this->session->unset_userdata('memorization_three_qus_part_answer');
         $this->session->unset_userdata('question_setup_answer_order');
 
         $_SESSION['show_tutorial_result'] = 1;
-        $records = $_SESSION;
-        $question_id = array_column($records['data'], 'question_id');
-        $questions =  $this->Student_model->where_in($question_id, 'tbl_question', 'questionType');
-        $questionType = array_column($questions, 'questionType');
-        $diff_result = array_diff($questionType, [12]);
+        $records                          = $_SESSION;
+        $question_id                      = array_column($records['data'], 'question_id');
+        $questions                        = $this->Student_model->where_in($question_id, 'tbl_question', 'questionType');
+        $questionType                     = array_column($questions, 'questionType');
+        $diff_result                      = array_diff($questionType, [12]);
 
         if (count($diff_result) == 0) {
             $_SESSION['all_workout_quiz_q'] = 1;
@@ -5307,20 +5371,22 @@ class Student extends CI_Controller
                 // foreach($all_time as $for_time){
                 //     $time_taken= $time_taken+$for_time[student_taken_time];
                 // }
-                $new_times = $this->session->userdata('exact_time');
-                $now_timw = time();
-                $time_taken = $now_timw - $new_times;
-                $std_ans = json_encode($this->session->userdata('data'));
-                $obtained_marks = $this->session->userdata('obtained_marks');
-                $total_marks = $this->session->userdata('total_marks');
+
+                $new_times          = $this->session->userdata('exact_time');
+                $now_timw           = time();
+                $time_taken         = $now_timw - $new_times;
+                $std_ans            = json_encode($this->session->userdata('data'));
+                $obtained_marks     = $this->session->userdata('obtained_marks');
+                $total_marks        = $this->session->userdata('total_marks');
                 $student_taken_time = time() - $this->session->userdata('exam_start');
-                $all_time = $_SESSION['data'];
+                $all_time           = $_SESSION['data'];
 
                 $time_taken = 0;
                 foreach ($all_time as $for_time) {
                     // echo $for_time[student_taken_time]."<br>";
                    // $time_taken = $time_taken + $for_time[student_taken_time];
                 }
+
                 $the_new_total_taken_time=time()-$this->session->userdata('start_exam_time_new');
 
                 $the_new_total_ans_time=$this->session->userdata('take_ans_time_new');
@@ -5332,17 +5398,18 @@ class Student extends CI_Controller
                 if(is_infinite($get_percentage)){
                     $get_percentage =0;
                 }
+
                 // echo $obtained_marks;die();
 
                 $p_data['timeTaken'] = $the_new_total_taken_time;
-                //$p_data['timeTaken'] = $student_taken_time;
-                $p_data['answerTime'] = $the_new_total_ans_time;
+                  //$p_data['timeTaken'] = $student_taken_time;
+                $p_data['answerTime']   = $the_new_total_ans_time;
                 $p_data['originalMark'] = $total_marks;
-                $p_data['studentMark'] = $obtained_marks;
-                $p_data['student_id'] = $user_id;
-                $p_data['module'] = $module;
-                $p_data['percentage'] = $get_percentage;
-                $p_data['moduletype'] = 1;
+                $p_data['studentMark']  = $obtained_marks;
+                $p_data['student_id']   = $user_id;
+                $p_data['module']       = $module;
+                $p_data['percentage']   = $get_percentage;
+                $p_data['moduletype']   = 1;
 
                 // echo "<pre>";print_r($p_data);die();
                 $tbl_studentprogress_id = $this->Student_model->insertId('tbl_studentprogress', $p_data);
@@ -5506,9 +5573,8 @@ class Student extends CI_Controller
         echo $row;
     }
 
-    public function get_permission()
-    {
-        // print_r($_SERVER);
+    public function get_permission(){
+        // print_r($_SERVER);die;
         $check_url =  $_SERVER['HTTP_REFERER'];
         $word = "all_tutors_by_type";
 

@@ -297,7 +297,10 @@
         <h5 class="text-center" style="color:red;"><?php echo  isset($_SESSION['message_name']) ? $_SESSION['message_name'] : ''; ?></h5>
         <div class="ss_qstudy_list_bottom tab-pane active" id="all_list" role="tabpanel">
           <div class="table-responsive">
+
+
             <table class="table table-bordered">
+
               <thead>
                 <tr>
                   <th>Module Name</th>
